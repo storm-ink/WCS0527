@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace WcsConsoleApplication
 {
     internal class Program
     {
-        private static string AssemblySearchDirectory;
+        private static string[] AssemblySearchDirectories = new string[0];
         private static string ValidationConfigurationPath;
         private static int _assemblyResolverRegistered;
         private static readonly ManualResetEvent ShutdownEvent = new ManualResetEvent(false);
@@ -157,7 +158,7 @@ namespace WcsConsoleApplication
 
         private static void ConfigureAssemblyResolution(string baseDirectory)
         {
-            AssemblySearchDirectory = baseDirectory;
+            AssemblySearchDirectories = GetAssemblySearchDirectories(baseDirectory);
             AppDomain.CurrentDomain.SetData("WCS_CONFIG_BASE_DIRECTORY", baseDirectory);
             TryPreloadAssembly("ZHQXC.dll");
             if (Interlocked.Exchange(ref _assemblyResolverRegistered, 1) == 1)
@@ -239,23 +240,26 @@ namespace WcsConsoleApplication
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            if (string.IsNullOrWhiteSpace(AssemblySearchDirectory))
+            if (AssemblySearchDirectories == null || AssemblySearchDirectories.Length == 0)
             {
                 return null;
             }
 
             string assemblyName = new AssemblyName(args.Name).Name;
-            string[] candidateFiles = new[]
+            foreach (string searchDirectory in AssemblySearchDirectories)
             {
-                Path.Combine(AssemblySearchDirectory, assemblyName + ".dll"),
-                Path.Combine(AssemblySearchDirectory, assemblyName + ".exe")
-            };
-
-            foreach (string candidateFile in candidateFiles)
-            {
-                if (File.Exists(candidateFile))
+                string[] candidateFiles = new[]
                 {
-                    return Assembly.LoadFrom(candidateFile);
+                    Path.Combine(searchDirectory, assemblyName + ".dll"),
+                    Path.Combine(searchDirectory, assemblyName + ".exe")
+                };
+
+                foreach (string candidateFile in candidateFiles)
+                {
+                    if (File.Exists(candidateFile))
+                    {
+                        return Assembly.LoadFrom(candidateFile);
+                    }
                 }
             }
 
@@ -264,24 +268,49 @@ namespace WcsConsoleApplication
 
         private static void TryPreloadAssembly(string fileName)
         {
-            if (string.IsNullOrWhiteSpace(AssemblySearchDirectory))
+            if (AssemblySearchDirectories == null || AssemblySearchDirectories.Length == 0)
             {
                 return;
             }
 
-            string assemblyPath = Path.Combine(AssemblySearchDirectory, fileName);
-            if (!File.Exists(assemblyPath))
+            foreach (string searchDirectory in AssemblySearchDirectories)
             {
-                return;
+                string assemblyPath = Path.Combine(searchDirectory, fileName);
+                if (!File.Exists(assemblyPath))
+                {
+                    continue;
+                }
+
+                try
+                {
+                    Assembly.LoadFrom(assemblyPath);
+                    return;
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        private static string[] GetAssemblySearchDirectories(string baseDirectory)
+        {
+            if (string.IsNullOrWhiteSpace(baseDirectory))
+            {
+                return new string[0];
             }
 
-            try
+            string[] candidateDirectories = new[]
             {
-                Assembly.LoadFrom(assemblyPath);
-            }
-            catch
-            {
-            }
+                baseDirectory,
+                Path.Combine(baseDirectory, "bin"),
+                Path.Combine(baseDirectory, "bin", "Debug"),
+                Path.Combine(baseDirectory, "bin", "Release")
+            };
+
+            return candidateDirectories
+                .Where(Directory.Exists)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
         }
 
         private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
