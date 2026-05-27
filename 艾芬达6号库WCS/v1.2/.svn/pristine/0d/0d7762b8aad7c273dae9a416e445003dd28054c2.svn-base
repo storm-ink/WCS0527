@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    /// <summary>
+    /// 表示继承此接口的类是一个报警容器
+    /// </summary>
+    public interface IWarningContainer
+    {
+        /// <summary>
+        /// 获取当前所有正在发生的报警
+        /// </summary>
+        /// <returns></returns>
+        Warning[] GetWarings();
+    }
+}

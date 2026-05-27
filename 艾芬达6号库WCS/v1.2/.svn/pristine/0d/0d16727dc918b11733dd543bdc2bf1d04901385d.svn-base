@@ -1,0 +1,21 @@
+﻿
+using System;
+using System.Runtime.InteropServices;
+
+namespace Gensong
+{
+    /// <summary>API</summary>
+    public class API
+    {
+        /// <summary></summary>
+        [DllImport("kernel32.dll ")]
+        public static extern int Beep(int dwFreq, int dwDuration);
+
+        /// <summary></summary>
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+        /// <summary></summary>
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+    }
+}

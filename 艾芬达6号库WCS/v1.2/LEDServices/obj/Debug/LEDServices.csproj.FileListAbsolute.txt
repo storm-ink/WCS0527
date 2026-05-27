@@ -1,0 +1,37 @@
+E:\svn\Wcs2\Wcs\branches\005\LEDServices\bin\Debug\LEDServices.dll.config
+E:\svn\Wcs2\Wcs\branches\005\LEDServices\bin\Debug\LEDServices.dll
+E:\svn\Wcs2\Wcs\branches\005\LEDServices\bin\Debug\LEDServices.pdb
+E:\svn\Wcs2\Wcs\branches\005\LEDServices\bin\Debug\NLog.dll
+E:\svn\Wcs2\Wcs\branches\005\LEDServices\bin\Debug\NLog.xml
+E:\svn\Wcs2\Wcs\branches\005\LEDServices\obj\Debug\LEDServices.dll
+E:\svn\Wcs2\Wcs\branches\005\LEDServices\obj\Debug\LEDServices.pdb
+E:\svn\Wcs2\Wcs\branches\005\LEDServices\obj\Debug\LEDServices.csprojResolveAssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\bin\Debug\LEDServices.dll.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\bin\Debug\LEDServices.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\bin\Debug\LEDServices.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\obj\Debug\LEDServices.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\obj\Debug\LEDServices.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\obj\Debug\LEDServices.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\LEDServices\obj\Debug\LEDServices.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\bin\Debug\LEDServices.dll.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\bin\Debug\LEDServices.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\bin\Debug\LEDServices.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\obj\Debug\LEDServices.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\obj\Debug\LEDServices.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\obj\Debug\LEDServices.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\obj\Debug\LEDServices.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\LEDServices\obj\Debug\LEDServices.csproj.AssemblyReference.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\bin\Debug\LEDServices.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\bin\Debug\LEDServices.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\bin\Debug\LEDServices.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\bin\Debug\NLog.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\bin\Debug\NLog.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\obj\Debug\LEDServices.csproj.AssemblyReference.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\obj\Debug\LEDServices.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\obj\Debug\LEDServices.csproj.CopyComplete
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\obj\Debug\LEDServices.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\LEDServices\obj\Debug\LEDServices.pdb

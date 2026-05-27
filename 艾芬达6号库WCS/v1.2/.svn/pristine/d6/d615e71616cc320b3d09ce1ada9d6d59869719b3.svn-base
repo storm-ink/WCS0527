@@ -1,0 +1,147 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Net;
+using System.ComponentModel;
+
+namespace Gensong
+{
+    public partial class Crane
+    {
+        /// <summary>
+        /// 在堆垛机位置发生变化后引发。
+        /// </summary>
+        public event EventHandler PositionChanged;
+
+        /// <summary>
+        /// 在堆垛机客户端连入后引发。
+        /// </summary>
+        public event EventHandler ClientConnected;
+
+        /// <summary>
+        /// 在堆垛机客户端断开后引发。
+        /// </summary>
+        public event EventHandler ClientDisconnected;
+
+        /// <summary>
+        /// 在发生堆垛机事件后引发。参见 CraneEvent 枚举。
+        /// </summary>
+        public event EventHandler CraneEventOccurred;
+
+        /// <summary>
+        /// 在堆垛机完成动作后引发。
+        /// </summary>
+        public event EventHandler ActionCompleted;
+
+        /// <summary>
+        /// 在堆垛机开始执行动作前引发。
+        /// </summary>
+        public event EventHandler ActionStarting;
+
+        /// <summary>
+        /// 在堆垛机当前动作被打断后引发。
+        /// </summary>
+        public event EventHandler ActionBroken;
+
+        /// <summary>
+        /// 在堆垛机状态发生改变后引发。
+        /// </summary>
+        public event EventHandler StateChanged;
+
+        /// <summary>
+        /// 在处理请求报文时引发。订阅方可以通过将 e.Handled 设为 true 来覆盖堆垛机自身的处理过程。
+        /// </summary>
+        public event EventHandler<ProcessingRequestTelexEventArgs> ProcessingRequestTelex;
+
+
+        protected virtual void OnClientConnected(EventArgs e)
+        {
+            if (this.ClientConnected != null)
+            {
+                this.ClientConnected(this, e);
+            }
+        }
+        protected virtual void OnClientDisconnected(EventArgs e)
+        {
+            if (this.ClientDisconnected != null)
+            {
+                this.ClientDisconnected(this, e);
+            }
+        }
+        protected virtual void OnPositionChanged(EventArgs e)
+        {
+            if (PositionChanged != null)
+            {
+                PositionChanged(this, e);
+            }
+        }
+        protected virtual void OnCraneEventOccurred(EventArgs e)
+        {
+            if (this.CraneEventOccurred != null)
+            {
+                this.CraneEventOccurred(this, e);
+            }
+        }
+        protected virtual void OnActionCompleted(EventArgs e)
+        {
+            if (this.ActionCompleted != null)
+            {
+                this.ActionCompleted(this, e);
+            }
+        }
+
+        protected virtual void OnActionStarting(EventArgs e)
+        {
+            if (this.ActionStarting != null)
+            {
+                this.ActionStarting(this, e);
+            }
+        }
+
+        protected virtual void OnActionBroken(EventArgs e)
+        {
+            if (this.ActionBroken != null)
+            {
+                this.ActionBroken(this, e);
+            }
+        }
+
+        protected virtual void OnStateChanged(EventArgs e)
+        {
+            if (this.StateChanged != null)
+            {
+                this.StateChanged(this, e);
+            }
+        }
+
+        protected virtual void OnProcessingRequestTelex(ProcessingRequestTelexEventArgs e)
+        {
+            if (this.ProcessingRequestTelex != null)
+            {
+                this.ProcessingRequestTelex(this, e);
+            }
+        }
+
+    }
+
+
+
+
+
+    public class ProcessingRequestTelexEventArgs : EventArgs
+    {
+        public ProcessingRequestTelexEventArgs(RequestTelex telex)
+        {
+            this.Handled = false;
+            this.Telex = telex;
+        }
+        public Boolean Handled { get; set; }
+        public RequestTelex Telex { get; private set; }
+    }
+
+
+}

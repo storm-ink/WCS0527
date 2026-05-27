@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace Gensong
+{
+    public class CraneFork
+    {
+        public CraneFork(Crane crane)
+        {
+            this.Crane = crane;
+            this.HPosition = ECraneLR.E1;
+        }
+
+
+        public Crane Crane { get; private set; }
+        public ECraneLR _HPosition;
+        public ECraneTL _VPosition;
+
+        /// <summary>
+        /// 货叉左右位。
+        /// </summary>
+        public ECraneLR HPosition
+        {
+            get
+            {
+                return _HPosition;
+            }
+            set
+            {
+                if (_HPosition != value)
+                {
+                    _HPosition = value;
+                    OnHPositionChanged(EventArgs.Empty);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 货叉高低位。
+        /// </summary>
+        public ECraneTL VPosition
+        {
+            get
+            {
+                return _VPosition;
+            }
+            set
+            {
+                if (_VPosition != value)
+                {
+                    _VPosition = value;
+                    OnVPositionChanged(EventArgs.Empty);
+                }
+            }
+        }
+
+
+        public event EventHandler HPositionChanged;
+        public event EventHandler VPositionChanged;
+
+        protected virtual void OnHPositionChanged(EventArgs e)
+        {
+            if (HPositionChanged != null)
+            {
+                HPositionChanged(this, e);
+            }
+        }
+
+        protected virtual void OnVPositionChanged(EventArgs e)
+        {
+            if (VPositionChanged != null)
+            {
+                VPositionChanged(this, e);
+            }
+        }
+
+    }
+
+}

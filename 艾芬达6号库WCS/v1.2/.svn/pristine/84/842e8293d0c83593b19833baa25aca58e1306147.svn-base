@@ -1,0 +1,204 @@
+﻿@using Spiral;
+@using NHibernate.Linq;
+@{
+    ViewBag.Title = "Summary";
+}
+
+<script type="text/javascript">
+    function loadDetails(data, renderId,title) {
+        var chart = new iChart.Bar2D({
+            render: renderId,
+            background_color: '#ffffff',
+            data: data,
+            title:{
+                text:" ",
+                color:"#f5f5f5",
+                fontsize:24,
+                font:"Verdana",
+                textAlign:"left",
+                height:0,
+                offsetx:0,
+                offsety:0
+            },
+            subtitle: title,
+            footnote: '',
+            width: 500,
+            height: 500,
+            coordinate: {
+                width: 350,
+                height: 400,
+                scale: [{
+                    position: 'bottom',
+                    start_scale: 0,
+                    end_scale: 50,
+                    scale_space: 300
+                }]
+            },
+            sub_option: {
+                border: {
+                    enable: false
+                },
+                label: { color: '#000000' }
+            },
+            offsetx: 50,
+            shadow: true,
+            shadow_color: '#ffffff',
+            shadow_blur: 1,
+            shadow_offsety: 1,
+            shadow_offsetx: 1,
+            border: {
+                color: "#404c5d",
+                width: 0
+            },
+            legend: { enable: false }
+        });
+        chart.draw();
+    }
+
+    function loadNoDetails(id,name){
+        $('#'+id).append($('<h2></h2>').text(name+'暂无故障数据').css('padding-bottom','20px'));
+    }
+</script>
+<style type="text/css">
+    table {
+        margin-top: 0px;
+    }
+</style>
+<div class="easyui-accordion">
+@*    <div title="设备当前状态" data-options="iconCls:'icon-ok',collapsed:false,collapsible:false" style="overflow:auto;padding:10px;">
+        以图形形式展示当前各设备的状态
+    </div>*@
+            <div title="@DateTime.Now.ToString("yyyy年MM月dd日")故障统计" data-options="iconCls:'icon-help',collapsed:false,collapsible:false" style="padding:10px;">
+                
+    @{
+        NhRepositoryContext context = this.Context.GetNhRepositoryContext();
+        var names = context.Session.Query<Client.SingleForkCrane.StatusDiagnosisData>()
+            .GroupBy(x => x.Name).Select(x => x.Key)
+            .OrderBy(x => x)
+            .ToList();
+
+        var q = context.Session.Query<Warning>()
+            .Where(x => x.DeviceType == "单货位堆垛机")
+            .Where(x => x.EndTime != null);
+
+        q = q.Where(x => x.StartTime >= DateTime.Now.Date);
+        q = q.Where(x => x.StartTime < DateTime.Now.AddDays(1).Date);
+
+
+             var q1 = q.ToList();
+
+            var totals = q1.Count;
+            foreach (var name in names)
+            {
+                List<object> list = new List<object>();
+                var grouping=q1.Where(x=>x.Name==name);
+                foreach (var item in grouping.GroupBy(x => (String.IsNullOrWhiteSpace(x.AlarmName) ? x.ErrorCode.ToString() : x.AlarmName)))
+                {
+                    list.Add(new
+                    {
+                        name = item.Key,
+                        value = item.Count(),
+                        color = Client.App.Helper.GetRandomColor(),
+                        totals = item.Count(),
+                    });
+                }
+                    <div id="@(name +"WarningCount")" style="width:500px;float:left;background-color:#efefef;margin-right:5px;text-align:center;"></div>
+                    <script type="text/javascript" defer="defer">
+                        @if(list.Count==0){
+                        <text>loadNoDetails('@(name +"WarningCount")','@name');</text>    
+                        }else{
+                        <text>loadDetails(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(list)),'@(name +"WarningCount")','@name');</text>
+                        }
+                    </script>
+                }
+
+            }
+            </div>
+    <div title="@DateTime.Now.ToString("yyyy年MM月")统计数据表" data-options="iconCls:'icon-help',collapsed:false,collapsible:false" style="padding:10px;">
+            @{
+                var monthStartTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var monthEndTime = monthStartTime.AddMonths(1);
+
+                var q2 = context.Session.Query<Client.SingleForkCrane.ChangeOfState>()
+                .Where(x => x.IsRunning
+                    && x.EndTime != null
+                    && x.StartTime >= monthStartTime
+                    && x.StartTime < monthEndTime)
+                    .ToList();
+
+                var q3 = context.Session.Query<Warning>()
+            .Where(x => x.DeviceType == "单货位堆垛机")
+                .Where(x => x.ErrorCode!=0
+                    && x.EndTime!=null
+                    && x.StartTime >= monthStartTime
+                    && x.StartTime < monthEndTime)
+                    .ToList();
+            }
+        
+        <div style="width:315px;float:left;">
+        <table class="easyui-datagrid" title="时长统计" style="width:315px;float:left;margin-left:10px;" data-options="rownumbers:true">
+        <thead>
+            <tr>
+                <th data-options="field:'itemid',width:80">设备名称</th>
+                <th data-options="field:'itemid_1',width:100,align:'center'">总运行时长</th>
+                <th data-options="field:'itemid_2',width:100,align:'center'">总故障时长</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var name in names)
+           {
+               var 运行时间 = q2.Where(x => x.Name == name).Sum(x => x.TotalMilliseconds);
+               var 报警时间 = q3.Where(x => x.Name == name).Sum(x => x.TotalMilliseconds);
+               <tr>
+                   <td>@name</td>
+                   <td>@TimeSpan.FromMilliseconds(运行时间)</td>
+                   <td>@TimeSpan.FromMilliseconds(报警时间)</td>
+               </tr>
+           }
+        </tbody>
+    </table>
+        </div>
+
+        @{
+            var q4 = context.Session.Query<Client.SingleForkCrane.ChangeOfState>()
+                .Where(x => x.IsRunning
+                    && x.EndTime != null
+                    && x.StartTime >= monthStartTime
+                    && x.StartTime < monthEndTime)
+                    .ToList();
+
+            var q5 = context.Session.Query<Warning>()
+            .Where(x => x.DeviceType == "单货位堆垛机")
+                .Where(x => x.ErrorCode!=0
+                    && x.EndTime!=null
+                    && x.StartTime >= monthStartTime
+                    && x.StartTime < monthEndTime)
+                    .ToList();
+            }
+            <div style="width:415px;float:left;margin-left:10px;">
+                <table class="easyui-datagrid" title="时长统计" data-options="rownumbers:true">
+                <thead>
+                    <tr>
+                        <th data-options="field:'itemid',width:80">设备名称</th>
+                        <th data-options="field:'itemid_1',width:100,align:'center'">正常动作次数</th>
+                        <th data-options="field:'itemid_2',width:100,align:'center'">故障（报警）次数</th>
+                        <th data-options="field:'itemid_3',width:100,align:'center'">故障率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach (var name in names)
+                   {
+                       var v1 = q4.Where(x => x.Name == name).Count();
+                       var v2 = q5.Where(x => x.Name == name).Count();
+                       <tr>
+                           <td>@name</td>
+                           <td>@v1</td>
+                           <td>@v2</td>
+                           <td>@((v2+v1)!=0?(v2/Convert.ToDecimal((v2+v1))).ToString("0.0000%"):"-")</td>
+                       </tr>
+                   }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

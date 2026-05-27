@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+    @Html.ActionLink("创建数据库表", "ExportSchema", "Setup")
+    @Html.ActionLink("生成货架", "CreateRacks", "Setup")
+    @Html.ActionLink("导入操作", "ImportOperations", "Setup")
+    @Html.ActionLink("生成测试物料", "GenerateMaterials", "Setup")
+
+
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

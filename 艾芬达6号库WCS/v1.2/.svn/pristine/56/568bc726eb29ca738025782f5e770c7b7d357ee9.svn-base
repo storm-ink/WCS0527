@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App
+{
+    public partial class frmBmpToBase64 : Form
+    {
+        public frmBmpToBase64()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "PNG图片(*.png)|*.png|位图文件(*.bmp)|*.bmp|图标(*.ico)|*.ico";
+                if (ofd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                {
+                    return;
+                }
+
+                using (System.IO.FileStream fs = new System.IO.FileStream(ofd.FileName, System.IO.FileMode.Open))
+                {
+                    byte[] bytes = new byte[fs.Length];
+                    fs.Read(bytes, 0, bytes.Length);
+
+                    textBox1.Text = ofd.FileName;
+                    textBox2.Text = Convert.ToBase64String(bytes);
+                }
+            }
+        }
+
+        //Bitmap Base64StringToBitmap(this string base64String)
+        //{
+        //    Bitmap bmpReturn = null;
+
+        //    byte[] byteBuffer = Convert.FromBase64String(base64String);
+        //    MemoryStream memoryStream = new MemoryStream(byteBuffer);
+
+        //    memoryStream.Position = 0;
+
+        //    bmpReturn = (Bitmap)Bitmap.FromStream(memoryStream);
+
+        //    memoryStream.Close();
+        //    memoryStream = null;
+        //    byteBuffer = null;
+
+        //    return bmpReturn;
+        //}
+    }
+}

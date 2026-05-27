@@ -1,0 +1,147 @@
+﻿
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using Gensong.CRN;
+
+namespace Gensong
+{
+    [DesignTimeVisible(false)]
+    public partial class ucCrane : UserControl
+    {
+        public ucCrane(string sCraneName)
+        {
+            InitializeComponent();
+
+            lblState.ForeColor = lblEvent.ForeColor = lblCol.ForeColor = lblRow.ForeColor =
+            lblTaskId.ForeColor = lblAlarmCode.ForeColor = Color.Yellow;
+
+            this.Crane = new Crane(sCraneName);
+        }
+
+        private void ucCrane_Load(object sender, EventArgs e)
+        {
+            EmptyInfo();
+
+            crn.EResponseTelex += new EventHandler<ResponseEvent>(EventResponseTelex);
+            crn.EClosed += new EventHandler(EventClosed);
+
+            //this.ParentForm.FormClosed += (a, b) => {
+            //    if (crn != null) {
+            //        crn.EResponseTelex -= new EventHandler<ResponseEvent>(EventResponseTelex);
+            //        crn.EClosed -= new EventHandler(EventClosed);
+            //        crn.Close();
+            //    }
+            //};
+        }
+
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+            Globle.CheckLock(crn, (Button)sender);
+        }
+        private void btnManual_Click(object sender, EventArgs e)
+        {
+            if (EManualClick != null) EManualClick(this, EventArgs.Empty);
+        }
+        private void btnAlarm_Click(object sender, EventArgs e)
+        {
+            if (EAlarmClick != null) EAlarmClick(this, EventArgs.Empty);
+        }
+
+        public void EventClosed(object sender, EventArgs e)
+        {
+            Action a = () => {
+                if (pbxOnline.AccessibleDescription != "Unline")
+                {
+                    pbxError.Image = ResPic.Resources.Unline;
+                    pbxError.AccessibleDescription = "Unline";
+                    pbxOnline.Image = ResPic.Resources.Unline; EmptyInfo();
+                    pbxOnline.AccessibleDescription = "Unline";
+                }
+            }; this.Invoke(a);
+        }
+        private void EventResponseTelex(object sender, ResponseEvent e)
+        {
+            if (e == null || e.Telex == null) return;
+
+            Action a = () =>
+            {
+                LA la = (LA)e.Telex;
+                if (la != null)
+                {
+                    if (lblCol.Text != la.Position.UCol) lblCol.Text = la.Position.UCol;
+                    if (lblRow.Text != la.Position.URow) lblRow.Text = la.Position.URow;
+                    if (lblTaskId.Text != la.TaskId) lblTaskId.Text = la.TaskId;
+
+                    if (la.CraneWorkModeKeyInfo == null || la.CraneWorkModeKeyInfo.IsManual)
+                        lblState.Text = "手动";
+                    else
+                        lblState.Text = Util.PDescription(la.State);
+
+                    lblEvent.Text = Util.PDescription(la.Event);
+
+                    if (pbxError.AccessibleDescription != la.ErrorCode)
+                    {
+                        if (la.ErrorCode != "0000")
+                        {
+                            pbxError.Image = ResPic.Resources.Alarm; 
+                            lblAlarmCode.Text = string.Format("{0} {1}", la.ErrorCode, la.ErrorInfo);
+                        }
+                        else
+                        {
+                            pbxError.Image = ResPic.Resources.Unline;
+                            lblAlarmCode.Text = string.Empty;
+                        }
+
+                        pbxError.AccessibleDescription = la.ErrorCode;
+                    }
+
+                    if (la.LockUser != Globle.HostName)
+                    {
+                        btnLock.Text = "锁定"; btnLock.ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        btnLock.Text = "解锁"; btnLock.ForeColor = Color.DeepPink;
+                    }
+
+                    if (pbxOnline.AccessibleDescription != "Online")
+                    {
+                        pbxOnline.Image = ResPic.Resources.Online;
+                        pbxOnline.AccessibleDescription = "Online";
+                    }
+                }
+            }; this.Invoke(a);
+        }
+
+        private void EmptyInfo()
+        {
+            lblState.Text = lblEvent.Text = lblCol.Text = lblRow.Text = lblTaskId.Text = lblAlarmCode.Text = string.Empty;
+            btnLock.Text = "锁定"; btnLock.ForeColor = Color.White;
+        }
+        public bool ShowDetail
+        {
+            set
+            {
+                this.gbxCrane.Width = value ? 758 : 218;
+            }
+        }
+
+        private Crane crn = null;
+        public Crane Crane
+        {
+            get { return crn; }
+            set
+            {
+                crn = value; if (crn == null) return;
+                lblCraneName.Text = crn.CName;
+
+                EventResponseTelex(this, new ResponseEvent(crn.LA));
+            }
+        }        
+        
+        public event EventHandler EManualClick;
+        public event EventHandler EAlarmClick;
+    }
+}

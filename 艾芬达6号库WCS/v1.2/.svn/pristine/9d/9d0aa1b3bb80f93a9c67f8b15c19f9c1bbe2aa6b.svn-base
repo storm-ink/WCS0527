@@ -1,0 +1,46 @@
+﻿@using (Ajax.BeginForm("Index_list", null, new AjaxOptions { UpdateTargetId = "list", LoadingElementId = "loading_img", OnBegin = "onListLoadBegin", OnFailure = "onListLoadFailure", OnSuccess = "onListLoadSuccess", OnComplete = "onListLoadComplete" }, new { id = "spec_form", target="_blank" }))
+ {
+
+<label>设备名：<input name="NameToMatch" style="width:60px;" /></label>
+<label>任务号：<input name="TaskIdToMatch" style="width:60px;" /></label>
+<label>报警码：<input name="ErrorCode" style="width:40px;" /></label>
+<label><select name="HasErrorCode">
+    <option value=""></option>
+    <option value="True">非0</option>
+    <option value="False">0</option>
+   </select></label>
+<label>报警名称：<input name="ErrorNameToMatch" style="width:80px;" /></label>
+<label>时间从 <input name="DateMin" style="width:100px;" id="DateMin" value="@DateTime.Now.ToString("yyyy-MM-dd")" /></label>
+<label>到</label>
+<label><input name="DateMax" style="width:100px;" id="DateMax" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" /></label>
+
+<label>每页
+<select name="pageSize">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15" selected="selected">15</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+</select> 
+</label> 
+    <label>报警:<select name="IsWarn" id="IsWarn">
+     <option value=""></option>
+     <option value="True">报警</option>
+     <option value="False">正常</option>
+          </select></label>
+ <label>排序:<select name="Array" id="Array">
+     <option value="升序">升序</option>
+     <option value="降序" selected="selected">降序</option>
+          </select></label>
+
+<input type="hidden" name="mode" value="@Request["mode"]" />
+<input type="submit" value="查询" />
+
+<input type="reset" value="重置" />
+<input type="hidden" id="pageIndex" name="pageIndex" value="1" />
+   <img style="display:none;width:16px" id="loading_img" src="@Url.Content("~/Content/loading.gif")" alt="loading" />
+ }
+ </div>
+<div id="list">
+</div>

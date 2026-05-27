@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "实时监控";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>设计器</title>
+    <script src="~/Scripts/Design/userData.js"></script>
+    <script type="text/javascript">
+        USERDATA.set('isDesign', false);
+    </script>
+    <script src="~/Scripts/Design/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/Design/kinetic-v5.1.0.min.js"></script>
+    <script src="~/Scripts/Design/jsCrane.js"></script>
+    <script src="~/Scripts/Design/jsTBCrane.js"></script>
+    <script src="~/Scripts/Design/jsImage.js"></script>
+    <script src="~/Scripts/Design/jsShuttle.js"></script>
+    <script src="~/Scripts/Design/JSConveyorLocation.js"></script>
+    <script src="~/Scripts/Design/JSConveyorDataAdapter.js"></script>
+    <script src="~/Scripts/Design/JSCraneDataAdapter.js"></script>
+    <script src="~/Scripts/Design/jsShuttleDataAdapter.js"></script>
+    <script defer="defer" src="~/Scripts/Design/editor.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/Design/dialog.js"></script>
+    <link href="~/Scripts/Design/dialog.css" rel="stylesheet" />
+    <script src="~/Scripts/qtip2/jquery.qtip.min.js"></script>
+    <link href="~/Scripts/qtip2/jquery.qtip.min.css" rel="stylesheet" />
+    <link href="Scripts/Design/crane.css" rel="stylesheet" />
+    <script src="~/Scripts/Design/MessageCenter.js"></script>
+    
+<script type="text/javascript">
+    window._messageCenter = new MessageCenter('/home/speek');
+    $(document).ready(function () {
+        loadStage('@Request["name"]');
+    });
+
+    var tm = setInterval(updateMsg,1000);
+    function updateMsg() {
+        $('.mc li').remove();
+        var mc = $('.mc');
+
+        for (var i = 0; i < window._messageCenter.messages.length; i++) {
+            mc.append($('<li>' + window._messageCenter.messages[i].text+'</li>'));
+        }
+    }
+    </script>
+    </head>
+<body>
+<style>
+    *, html {
+        font-size:12px;
+    }
+    #stage {
+    text-align:center;
+    line-height:100%;
+    }
+    .qtip {
+        max-width:none;
+        min-width:250px;
+    }
+
+    .mc {
+        color:red; 
+        opacity:1;
+        position: absolute;  
+        background-color:#eeeeee; 
+        border-radius: 15px;
+        top:0;
+        right:10px;
+        font-weight:bold;
+    }
+
+        .mc li {
+            list-style-type:decimal;
+            line-height:1.8;
+        }
+</style>
+
+<div id="stage"></div>
+
+<ul class="mc">
+    
+</ul>
+</body>
+</html>

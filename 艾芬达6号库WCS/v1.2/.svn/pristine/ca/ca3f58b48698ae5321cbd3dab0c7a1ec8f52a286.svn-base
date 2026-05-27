@@ -1,0 +1,101 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Net;
+using System.Text;
+using Wcs.DefaultImpls.Conveyor;
+using Wcs.DefaultImpls.Crane;
+using Wcs.Framework;
+
+namespace $rootnamespace$
+{
+    [Description("堆垛机")]
+    public sealed class WithRemoteControllerCraneDevice:CraneDevice
+    {
+        public WithRemoteControllerCraneDevice(string name, int no, int receiveTimeout, int connectTimeout, int sendTimeout, IPEndPoint ipEndPoint, IPEndPoint bindEndPoint, IDataReceiver dataReceiver, string[] laneways, String conveyorDeviceName)
+            : base(name, no, receiveTimeout, connectTimeout, sendTimeout, ipEndPoint,bindEndPoint, dataReceiver, laneways)
+        {
+            this.ConveyorDeviceName = conveyorDeviceName;
+        }
+
+        public String ConveyorDeviceName { get; private set; }
+
+        public ConveyorDevice GetConveyorDevice()
+        {
+            return DeviceConverter.ToDevice<ConveyorDevice>(ConveyorDeviceName);
+        }
+
+        public override bool IsIdle
+        {
+            get
+            {
+                if (!base.IsIdle)
+                {
+                    return false;
+                }
+
+                ConveyorDevice conveyorDevice = this.GetConveyorDevice();
+                var status = conveyorDevice.ReadStatus<WithRemoteControllerCraneDeviceNetTransferObject>();
+                if (status == null || status.Length == 0)
+                {
+                    return false;
+                }
+
+                var state = status.SingleOrDefault(x => x.DeviceNo == this.No);
+
+                if (state == null)
+                {
+                    return false;
+                }
+
+                if (state.IsEmergency || state.IsManual)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public override string[] Warnings
+        {
+            get
+            {
+                List<String> result = new List<string>();
+                if (base.Warnings != null)
+                {
+                    result.AddRange(base.Warnings);
+                }
+
+                ConveyorDevice conveyorDevice = this.GetConveyorDevice();
+                var status = conveyorDevice.ReadStatus<WithRemoteControllerCraneDeviceNetTransferObject>();
+                if (status == null || status.Length == 0)
+                {
+                    result.Add("远程控制盒状态未同步");
+                    return result.ToArray();
+                }
+
+                var state = status.SingleOrDefault(x => x.DeviceNo == this.No);
+
+                if (state == null)
+                {
+                    result.Add("远程控制盒状态未配置");
+                    return result.ToArray();
+                }
+
+                if (state.IsEmergency)
+                {
+                    result.Add("远程控制盒急停被按下");
+                }
+
+                if (state.IsManual)
+                {
+                    result.Add("远程控制盒已切换至手动模式");
+                }
+
+                return result.ToArray();
+            }
+        }
+    }
+}

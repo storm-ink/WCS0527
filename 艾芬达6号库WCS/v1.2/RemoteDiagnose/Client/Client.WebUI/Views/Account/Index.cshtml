@@ -1,0 +1,29 @@
+﻿@model Client.User
+
+@{
+    ViewBag.Title = "我的登录";
+}
+
+<h2>我的登录</h2>
+
+<p>   
+您已登录为 @this.Context.User.Identity.Name。
+</p>
+
+
+ @if (Model != null)
+	{
+        <p>
+     您的角色是 @(String.Join(",", Model.Roles.Select(x => x.RoleName))) 。</p>
+		 
+	}
+else
+ {
+    <p>您的用户已被删除，请退出后重新登录。</p>
+ }
+ <p>
+   <a href="/Account/ChangePassword" style="text-decoration:underline;color:Red;">更改密码</a>
+ 
+   <a href="/Account/Logout" style="text-decoration:underline;color:Red;">退出登录</a>
+
+</p>

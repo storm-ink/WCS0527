@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Client" namespace="Client">
+  <subclass name="User" extends="Spiral.Base.UserBase, Spiral.Base" batch-size="50" discriminator-value="User">
+
+  </subclass>
+</hibernate-mapping>

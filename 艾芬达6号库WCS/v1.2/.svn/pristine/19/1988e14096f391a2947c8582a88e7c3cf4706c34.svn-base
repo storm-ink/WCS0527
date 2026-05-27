@@ -1,0 +1,64 @@
+﻿
+using System;
+using System.Runtime.Serialization;
+
+namespace Gensong
+{
+    /// <summary>站点位置</summary>
+    [Serializable]
+    [DataContract]
+    public struct Position : IEquatable<Position>
+    {
+        public Position(int iCol, int iRow)
+        {
+            this.iCol = iCol;
+            this.iRow = iRow;
+        }
+
+        private int iCol, iRow;
+
+        [DataMember]
+        public int Col
+        {
+            get
+            {
+                return iCol;
+            }
+            set
+            {
+                iCol = value;
+            }
+        }
+        [DataMember]
+        public int Row
+        {
+            get
+            {
+                return iRow;
+            }
+            set
+            {
+                iRow = value;
+            }
+        }
+
+        public bool Equals(Position p)
+        {
+            return p.Col == this.Col && p.Row == this.Row;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is Position == false) return false;
+
+            return this.Equals((Position)obj);
+        }
+        public override int GetHashCode()
+        {
+            return iCol.GetHashCode() ^ iRow.GetHashCode();
+        }
+        public override string ToString()
+        {
+            return String.Format("({0}, {1})", this.Col, this.Row);
+        }
+    }
+}

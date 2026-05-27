@@ -1,0 +1,104 @@
+﻿namespace Wcs.Client.App.Elements.Forms
+{
+    partial class frmResumeChooseCurrentLocation
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.btnCacnel = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.tbxCurrentLocationUserCode = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // btnCacnel
+            // 
+            this.btnCacnel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCacnel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCacnel.Location = new System.Drawing.Point(207, 74);
+            this.btnCacnel.Name = "btnCacnel";
+            this.btnCacnel.Size = new System.Drawing.Size(75, 23);
+            this.btnCacnel.TabIndex = 13;
+            this.btnCacnel.Text = "取消(&C)";
+            this.btnCacnel.UseVisualStyleBackColor = true;
+            this.btnCacnel.Click += new System.EventHandler(this.btnCacnel_Click);
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOK.Location = new System.Drawing.Point(126, 74);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 12;
+            this.btnOK.Text = "确定(&O)";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // tbxCurrentLocationUserCode
+            // 
+            this.tbxCurrentLocationUserCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbxCurrentLocationUserCode.Location = new System.Drawing.Point(133, 26);
+            this.tbxCurrentLocationUserCode.Name = "tbxCurrentLocationUserCode";
+            this.tbxCurrentLocationUserCode.Size = new System.Drawing.Size(149, 21);
+            this.tbxCurrentLocationUserCode.TabIndex = 23;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.Location = new System.Drawing.Point(15, 30);
+            this.label5.Name = "label5";
+            this.label5.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.label5.Size = new System.Drawing.Size(127, 12);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "货位号（用户编码）";
+            // 
+            // frmResumeChooseCurrentLocation
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(294, 111);
+            this.ControlBox = false;
+            this.Controls.Add(this.tbxCurrentLocationUserCode);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.btnCacnel);
+            this.Controls.Add(this.btnOK);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "frmResumeChooseCurrentLocation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "请输入当前货位所在位置";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button btnCacnel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.TextBox tbxCurrentLocationUserCode;
+        private System.Windows.Forms.Label label5;
+    }
+}

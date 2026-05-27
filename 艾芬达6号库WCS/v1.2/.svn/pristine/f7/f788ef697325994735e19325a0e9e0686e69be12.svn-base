@@ -1,0 +1,283 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.Interfaces.Task;
+
+namespace Wcs.Client.App.Elements.Forms
+{
+    public partial class frmShuttleUI : Form
+    {
+        Shuttle m_Shuttle;
+        String m_CarName;
+
+
+        public frmShuttleUI(Shuttle shuttle,String carName) 
+        {
+            m_Shuttle = shuttle;
+            m_CarName = carName;
+            InitializeComponent();
+
+            lblName.Text = carName;
+            timer1_Tick(null, EventArgs.Empty);
+        }
+
+        String CHTSFilePath
+        {
+            get
+            {
+                return System.IO.Path.Combine(System.IO.Path.GetDirectoryName(new Uri(this.GetType().Assembly.CodeBase).AbsolutePath), "CHTS.exe");
+            }
+        }
+
+        void setStatus()
+        {
+            var status = m_Shuttle.GetStatus(m_CarName);
+            if (status == null)
+            {
+                lblTaskId.Text = "-";
+                lblState.Text = "未连接";
+                lblFromStation.Text = "-";
+                lblEndStation.Text = "-";
+                lblEvent.Text = "-";
+                lblPosition.Text = "-";
+                lblAtStation.Text = "-";
+                lblTaskMode.Text = "-";
+                lblCurrentStation.Text = "-";
+                lblECode.Text = "-";
+                lblEName.Text = "";
+                return;
+            }
+
+            lblTaskId.Text = status.TaskId;
+            lblState.Text = status.State.ToString();
+
+            lblFromStation.Text = status.FromStation.ToString();
+            lblEndStation.Text = status.ToStation.ToString();
+            switch (status.Event)
+            {
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.Initialized:
+                    lblEvent.Text = "初始化";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.TaskedAndNotRunning:
+
+                    lblEvent.Text = "接到任务未运行";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.Running:
+                    lblEvent.Text = "行走运行";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.ArrivedStartStation:
+                    lblEvent.Text = "到达起始站";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.ArrivedEndStation:
+                    lblEvent.Text = "到达目的站";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.ClearedTheWay:
+                    lblEvent.Text = "执行让道任务";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.AutomaticTaskCompletion:
+                    lblEvent.Text = "自动完成";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.TaskCompletionByManual:
+                    lblEvent.Text = "手动完成";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.交接货超时:
+                    lblEvent.Text = "交接货超时";
+                    break;
+                default:
+                    lblEvent.Text = status.Event.ToString();
+                    break;
+            }
+            lblPosition.Text = status.Position.ToString();
+            lblAtStation.Text = status.AtStation ? "是" : "否";
+            switch (status.TaskMode)
+            {
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.Initialized:
+
+                    lblTaskMode.Text = "无任务类型";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.AutomaticTask:
+                    lblTaskMode.Text = "全自动任务";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.Picking:
+                    lblTaskMode.Text = "取货";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.Putting:
+                    lblTaskMode.Text = "放货";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.WalkWithGoods:
+
+                    lblTaskMode.Text = "有货行走";
+                    break;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.Walk:
+                    lblTaskMode.Text = "无货行走";
+                    break;
+                default:
+                    lblTaskMode.Text = status.TaskMode.ToString();
+                    break;
+            }
+            lblCurrentStation.Text = status.CurrentStation.ToString();
+            lblECode.Text = status.ErrorCode.ToString();
+            lblEName.Text = status.ErrorName;
+        }
+
+
+        void setTaskInfo()
+        {
+            var status = m_Shuttle.GetStatus(m_CarName);
+            if (status == null || status.TaskId.All(x=>x=='0'))
+            {
+                gbTaskInfo.Visible = false;
+                return;
+            }
+
+            Int32 equipementTaskId;
+            if (!Int32.TryParse(status.TaskId, out equipementTaskId))
+            {
+                gbTaskInfo.Visible = false;
+                return;
+            }
+
+            Task task = m_Shuttle.Editor.TaskDataSource.GetTaskByEquipmentTaskId(equipementTaskId);
+
+            if (task == null)
+            {
+                gbTaskInfo.Visible = false;
+            }
+            else
+            {
+                lblTaskCode.Text = task.TaskCode;
+                switch (task.BizType)
+                {
+                    case TaskBizType.Normal:
+                        lblBizType.Text = "普通业务";
+                        break;
+                    case TaskBizType.Counting:
+                        lblBizType.Text = "盘点";
+                        break;
+                    default:
+                        lblBizType.Text = task.TaskType.ToString();
+                        break;
+                }
+                lblContainerCodes.Text = String.Join(",", task.ContainerCodes);
+                lblCreatedAt.Text = task.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
+                lblEndLocation.Text = task.EndLocation.ToString();
+                switch (task.Source)
+                {
+                    case TaskSource.Unknow:
+                        lblSource.Text = "未知";
+                        break;
+                    case TaskSource.Wms:
+                        lblSource.Text = task.Source.ToString();
+                        break;
+                    case TaskSource.Wcs:
+                        lblSource.Text = task.Source.ToString();
+                        break;
+                    default:
+                        lblSource.Text = task.Source.ToString();
+                        break;
+                }
+                lblStartLocation.Text = task.StartLocation.ToString();
+                lblTaskType.Text = String.IsNullOrWhiteSpace(task.TaskType) ? "<空>" : task.TaskType;
+
+                if (task.Status != TaskStatus.Cancelled && task.Status != TaskStatus.Completed && task.Status != TaskStatus.Suspend && task.Status != TaskStatus.Error)
+                {
+                    lblSuspendTask.Visible = false;
+                }
+                else
+                {
+                    lblSuspendTask.Visible = true;
+                }
+
+                gbTaskInfo.Visible=true;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (this.IsDisposed || this.Disposing)
+            {
+                timer1.Stop();
+                return;
+            }
+
+            try
+            {
+                setStatus();
+                setTaskInfo();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        private void btnReturn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+       
+
+        private void lblSuspendTask_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var status = m_Shuttle.GetStatus(m_CarName);
+            if (status == null || status.TaskId.All(x => x == '0'))
+            {
+                gbTaskInfo.Visible = false;
+                return;
+            }
+
+            Int32 equipementTaskId;
+            if (!Int32.TryParse(status.TaskId, out equipementTaskId))
+            {
+                gbTaskInfo.Visible = false;
+                return;
+            }
+
+            var task = m_Shuttle.Editor.TaskDataSource.GetTaskByEquipmentTaskId(equipementTaskId);
+            if (task == null)
+            {
+                gbTaskInfo.Visible = false;
+                return;
+            }
+
+            if (MessageBox.Show(String.Format("确定要暂停任务 {0} 吗？", task.TaskCode)) != System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                m_Shuttle.Editor.TaskDataSource.SuspendTask(task.TaskCode);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void frmConveyorLocationUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void gbTaskInfo_VisibleChanged(object sender, EventArgs e)
+        {
+            if (gbTaskInfo.Visible)
+            {
+                this.Height = 302;
+            }
+            else
+            {
+                this.Height = 188;
+            }
+        }
+
+
+    }
+}

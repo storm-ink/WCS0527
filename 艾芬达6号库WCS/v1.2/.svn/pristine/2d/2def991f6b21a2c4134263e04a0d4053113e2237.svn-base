@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wcs.Client.Services</name>
+    </assembly>
+    <members>
+        <member name="T:Wcs.Client.Services.ContextPropagationBehaviorElement">
+            <summary>
+            用于收集客户端信息的终节点行为扩展对象
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Services.WcsServiceContext">
+            <summary>
+            服务上下文
+            主要用于采集客户端消息中夹带的用户名、密码等内容
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Services.WcsServiceOperationContext">
+            <summary>
+            服务调用上下文
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Services.WcsServiceOperationContext.IsUnknowOperation">
+            <summary>
+            指示本操作是否属于未知方法
+            </summary>
+        </member>
+    </members>
+</doc>

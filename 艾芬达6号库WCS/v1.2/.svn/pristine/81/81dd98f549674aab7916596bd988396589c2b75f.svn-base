@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CraneService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CraneService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.Crane" />
+  <xs:complexType name="ArrayOfCraneInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CraneInfo" nillable="true" type="tns:CraneInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCraneInfo" nillable="true" type="tns:ArrayOfCraneInfo" />
+  <xs:complexType name="CraneInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MaxColumn" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxLevel" type="xs:int" />
+      <xs:element minOccurs="0" name="MinColumn" type="xs:int" />
+      <xs:element minOccurs="0" name="MinLevel" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CraneInfo" nillable="true" type="tns:CraneInfo" />
+  <xs:complexType name="LA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AtStation" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ErrorCode" type="xs:int" />
+      <xs:element minOccurs="0" name="ErrorDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorSolution" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.Crane" minOccurs="0" name="Event" type="q1:CraneEvent" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.Crane" minOccurs="0" name="ForkHorizontalPosition" type="q2:ForkHorizontalPosition" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.Crane" minOccurs="0" name="ForkVerticalPosition" type="q3:ForkVerticalPosition" />
+      <xs:element minOccurs="0" name="LockerIp" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LockerUser" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.Crane" minOccurs="0" name="State" type="q4:CraneStatus" />
+      <xs:element minOccurs="0" name="TaskId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserColumn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserLevel" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LA" nillable="true" type="tns:LA" />
+</xs:schema>

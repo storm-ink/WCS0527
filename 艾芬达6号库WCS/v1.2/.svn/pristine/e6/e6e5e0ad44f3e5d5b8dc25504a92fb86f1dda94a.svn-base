@@ -1,0 +1,8 @@
+::更新nuget包到服务器
+echo "开始生成 nupkg 包..."
+::nuget pack "%projectDir%\%projectFileName%" -Symbols
+nuget pack "%cd%\WithRemoteControllerCraneDevice.nuspec"
+nuget push "WithRemoteControllerCraneDevice.2.1.0.4.nupkg" -s http://www.gensong-nuget.com:8011/
+echo "推送成功。"
+pause
+::nuget push 

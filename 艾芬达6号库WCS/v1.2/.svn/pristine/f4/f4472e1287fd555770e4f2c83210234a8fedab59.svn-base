@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+
+namespace Wcs.Framework.Devices
+{
+    public abstract class NetTransferObject
+    {
+        public class _different
+        {
+            public Type valueType { get; set; }
+            public String propertyName { get; set; }
+            public object oldValue { get; set; }
+            public object newValue { get; set; }
+        }
+
+        public abstract object this[string name] { set; }
+
+        public virtual List<NetTransferObject._different> Compare(object newObj)
+        {
+            if(newObj==null)
+            {
+                throw new ArgumentNullException("obj");
+            }
+            if(newObj.GetType()!=this.GetType())
+            {
+                throw new ArgumentNullException(String.Format("{0} 无法和 {1} 对比",newObj.GetType(),this.GetType()));
+            }
+
+            NetTransferObject newNetTransferObject = (NetTransferObject)newObj;
+
+            List<NetTransferObject._different> result = new List<_different>();
+            PropertyInfo[] propertyInfos = this.GetType().GetProperties();
+            foreach (var property in propertyInfos)
+            {
+                //不处理索引器
+                if (property.GetIndexParameters().Length > 0)
+                {
+                    continue;
+                }
+
+                object oldValue = property.GetValue(this, null);
+                PropertyInfo newObjectProperty = newObj.GetType().GetProperty(property.Name);
+                object newValue = newObjectProperty.GetValue(newObj, null);
+                if (!object.Equals(oldValue,newValue))
+                {
+                    result.Add(new _different
+                    {
+                        newValue = newValue,
+                        oldValue=oldValue,
+                        propertyName =property.Name,
+                        valueType = property.PropertyType
+                    });
+                }
+            }
+
+            return result;
+        }
+    }
+}

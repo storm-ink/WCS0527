@@ -1,0 +1,19 @@
+﻿using Gensong;
+using Lutai;
+using Lutai.RailGuidedVehicle;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WindowsFormsApplication1
+{
+    public sealed class HP : RequestTelex
+    {
+        public HP(String telex):base(telex)
+        {
+            this.Head = telex.Substring(0, 2);
+        }
+    }
+}

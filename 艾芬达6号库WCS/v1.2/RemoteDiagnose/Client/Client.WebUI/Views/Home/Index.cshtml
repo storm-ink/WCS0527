@@ -1,0 +1,157 @@
+﻿  @{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>故障统计</title>
+	
+	<script type="text/javascript" src="/scripts/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="/scripts/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/scripts/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script src="/Scripts/datagrid-detailview.js"></script>
+    <link rel="stylesheet" type="text/css" href="/scripts/easyui/themes/default/easyui.css" />
+	<link rel="stylesheet" type="text/css" href="/scripts/easyui/themes/icon.css" />
+    <style type="text/css">
+    *{font-size: 12px;}
+    a,a:link,a:visited{font-size:12px;color:Black; text-decoration:none;}
+    </style>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',split:false,title:''" style="padding:0px;margin:0px;overflow:hidden;height:86px;background-color:#E0ECFF;background-image:url(/content/he_bg.jpg)">
+    <img src="/content/logo.jpg" border="0" alt="" />
+    </div>
+	<div data-options="region:'west',split:true,title:'功能导航'" style="width:200px;padding:10px;">
+        <ul class="easyui-tree">
+        <li class="icon-base" data-options="state:'closed'">
+            <span>日志</span>
+            <ul>
+                <li class="icon-gears">@Html.ActionLink("Wcs日志", "Index", "WcsLogs", null,new { target = "workspace" })</li>
+            </ul>
+        </li>
+
+        <li class="icon-base">
+            <span>报警数据</span>
+            <ul>
+                <li class="icon-gears"><a href="/Warnings/Datas/Index" target="workspace">原始数据</a></li>
+                <li class="icon-gears">
+                    <span>报表</span>
+                    <ul>
+                        <li class="icon-gears"><a href="/Warnings/Reports/WarningReports" target="workspace">按类型统计</a></li>
+                        <li class="icon-gears"><a href="/Warnings/Reports/WarningReports_CountByDevice" target="workspace">按设备统计</a></li>
+                        <li class="icon-gears"><a href="/Warnings/Reports/WarningReports_CountByMonthAndWarning" target="workspace">月走势图-按类型统计</a></li>
+                        <li class="icon-gears"><a href="/Warnings/Reports/WarningReports_CountByMonthAndDeviceName" target="workspace">月走势图-按设备名称统计</a></li>
+                        <li class="icon-gears"><a href="/Warnings/Reports/FailureRate" target="workspace">故障率</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="icon-base">
+            <span>单货位堆垛机</span>
+            <ul>
+                @*<li class="icon-gears"><a href="/SingleForkCrane/DiagnosisData/Summary" target="workspace">概要信息</a></li>*@
+                <li class="icon-gears"><a href="/SingleForkCrane/DiagnosisData" target="workspace">原始数据</a></li>
+                <li class="icon-gears"><a href="/SingleForkCrane/ChangeOfStates" target="workspace">状态分析数据</a></li>
+                
+                @*<li class="icon-gears"><a href="/SingleForkCrane/Diagnose" target="workspace">远程诊断</a></li>*@
+            </ul>
+        </li>
+        <li class="icon-base" data-options="state:'closed'">
+            <span>穿梭车</span>
+            <ul>
+                @*<li class="icon-gears"><a href="/RailGuidedVehicle/DiagnosisData/Summary" target="workspace">概要信息</a></li>*@
+                <li class="icon-gears"><a href="/RailGuidedVehicle/DiagnosisData" target="workspace">原始数据</a></li>
+                <li class="icon-gears"><a href="/RailGuidedVehicle/ChangeOfStates" target="workspace">状态分析数据</a></li>
+                @*<li class="icon-gears"><a href="/RailGuidedVehicle/Diagnose" target="workspace">远程诊断</a></li>*@
+            </ul>
+        </li>
+
+        <!--<li class="icon-base" data-options="state:'closed'">
+            <span>输送线</span>
+            <ul>
+                <li class="icon-gears"><a href="/Conveyor/Summary" target="workspace">概要信息</a></li>
+                <li class="icon-gears">
+                    <span>报警数据</span>
+                    <ul>
+                        <li class="icon-gears"><a href="/Conveyor/Alarm" target="workspace">原始数据</a></li>
+                        <li class="icon-gears"><a href="/Conveyor/Alarm/AlarmWarning" target="workspace">报警数据</a></li>
+                        @*<li class="icon-gears"><a href="/Conveyor/Alarm/RefreshWarning" target="workspace">手动刷新故障分析数据</a></li>*@
+                    </ul>
+                </li>
+                <li class="icon-gears">
+                    <span>外形检测</span>
+                    <ul>
+                        <li class="icon-gears"><a href="/Conveyor/AppearanceInspection" target="workspace">原始数据</a></li>
+                        <li class="icon-gears"><a href="/Conveyor/AppearanceInspection/Report" target="workspace">报表</a></li>
+                    </ul>
+                </li>
+                <li class="icon-gears">
+                    <span>货位状态</span>
+                    <ul>
+                        <li class="icon-gears"><a href="/Conveyor/Location" target="workspace">原始数据</a></li>
+                        <li class="icon-gears"><a href="/Conveyor/Location/LocationChangeOfState" target="workspace">状态变化</a></li>
+                        @*<li class="icon-gears"><a href="/Conveyor/Location/RefreshChangeOfState" target="workspace">手动刷新状态变化</a></li>*@
+                    </ul>
+                </li>
+                <li class="icon-gears">
+                    <span>其它数据</span>
+                    <ul>
+                        <li class="icon-gears"><a href="/Conveyor/LocationTask" target="workspace">货位任务</a></li>
+                        <li class="icon-gears"><a href="/Conveyor/Occupy" target="workspace">光电信号</a></li>
+                        <li class="icon-gears"><a href="/Conveyor/Task" target="workspace">任务列表</a></li>
+                        <li class="icon-gears"><a href="/Conveyor/HoldSignal" target="workspace">占位信号</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li class="icon-base" data-options="state:'closed'">
+            <span>运行视图</span>
+            <ul>
+                   <li class="icon-gears"><a href="/Monitor" target="workspace">实时监控</a></li>
+                   <li class="icon-gears"><a href="/Monitor/Playback" target="workspace">数据回放</a></li>
+                   <li class="icon-gears"><a href="/Monitor/Editor" target="workspace">实时监控设计器</a></li>
+            </ul>
+        </li>-->
+        <li data-options="state:'closed'">
+            <span>系统</span>
+                                
+            <ul>
+                <li>@Html.ActionLink("工作进程","Workers","Home", null,new { target = "workspace" })</li>
+                <li>@Html.ActionLink("用户", "Index", "Users", null,new { target = "workspace" })</li>
+                <li>@Html.ActionLink("角色", "Index", "Roles", null,new { target = "workspace" })</li>
+                <li>@Html.ActionLink("权限","Index","Operations", null,new { target = "workspace" })</li>
+                @*<li>@Html.ActionLink("日志", "Index", "Logs", null, new { @class = "external", target = "workspace" })</li>*@
+            </ul>
+        </li>
+        <li class="icon-base">
+            <span>我的登录</span>
+            <ul>
+                <li class="icon-gears"><a href="/Account" target="workspace" onclick="openTab('我的登录',this.href);return false;">我的登录</a></li>
+                @* <li class="icon-gears"><a href="/LogViewer" onclick="openTab('日志',this.href);return false;">日志</a></li>*@
+            </ul>
+        </li>
+
+        </ul>
+    </div>
+	<div data-options="region:'center',title:'工作区'" style="padding:5px;">
+         <iframe id="workspace" name="workspace" scrolling="yes" frameborder="0" height="500" width="100%" frameborder="0" onload="setIframeSize"></iframe>  
+    </div>
+</body>
+</html>
+<script type="text/javascript" language="javascript"> 
+function setIframeSize() {
+    var ifm = document.getElementById("workspace");
+    var subWeb = document.frames ? document.frames["workspace"].document : ifm.contentDocument;
+    if(ifm != null && subWeb != null) { 
+        ifm.height = subWeb.body.scrollHeight; 
+    } 
+}
+
+setInterval(function () {
+    var ifm = $('#workspace');
+    var h = $(ifm).parent().height();
+    $(ifm).height(h-5);
+},500);
+</script> 

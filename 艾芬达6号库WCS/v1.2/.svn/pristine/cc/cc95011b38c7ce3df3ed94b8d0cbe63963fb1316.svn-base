@@ -1,0 +1,158 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Net;
+using System.ComponentModel;
+
+namespace Gensong
+{
+    public partial class Crane
+    {
+        private void ProcessRequestTelex(RequestTelex receivedTelex)
+        {
+            if (Logger.ShouldLog(receivedTelex))
+            {
+                Logger.Info("处理报文：{0}。", receivedTelex.Text);
+            }
+
+            try
+            {
+                {
+                    ProcessingRequestTelexEventArgs e = new ProcessingRequestTelexEventArgs(receivedTelex);
+                    OnProcessingRequestTelex(e);
+                    if (e.Handled)
+                    {
+                        Logger.Debug("ProcessingRequestTelex 事件处理程序覆盖了堆垛机的报文处理过程。");
+                        return;
+                    }
+                }
+
+                switch (receivedTelex.Head)
+                {
+                    case "HA": ProcessHA((HA)receivedTelex); return;
+                    case "HB": ProcessHB((HB)receivedTelex); return;
+                    case "HP": ProcessHP(); return;
+                    case "HE": ProcessHE(); return;
+                    case "HC": ProcessHC(); return;
+                    default: break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+        }
+
+        private void ProcessHA(HA ha)
+        {
+            LA la = new LA(
+                this.State
+                , this.Position
+                , this.Fork.HPosition
+                , this.Fork.VPosition
+                , true
+                , this.LastErrorCode
+                , this.LastEvent
+                , this.CurrentTaskNo
+                );
+            if (Logger.ShouldLog(la))
+            {
+                Logger.Info("回复：{0}。", la.Text);
+            }
+            Client.SendResponseTelex(la);
+        }
+        private void ProcessHB(HB hb)
+        {
+            if (this.HasIncompletedAction)
+            {
+                Logger.Warning("当前有未完成的任务。正在执行的任务：{0}，堆垛机当前位置：{1}，hb 报文任务号：{2}", this.CurrentTaskNo, this.Position, hb.TaskId);
+                this.Client.SendResponseTelex(new LB(ETaskState.E03, hb.TaskId));
+                return;
+            }
+
+            switch (hb.HBCommand)
+            {
+                case HBCommand.E00:
+                    {
+                        //if (this.Position.Equals(hb.Position1))
+                        //{
+                        //    String msg = String.Format("堆垛机位置 {0} 与报文起点位置 {1} 不一致。", this.Position, hb.Position1);
+                        //    this.Client.SendResponseTelex(new LB(ReceiveTaskState.Error, hb.taskNo));
+                        //    throw new InvalidOperationException(msg);
+                        //}
+                        this.CurrentTaskNo = hb.TaskId;
+                        LB lb = new LB(ETaskState.E01, this.CurrentTaskNo);
+                        this.Client.SendResponseTelex(lb);
+                        this.MoveTo(hb.Position2);
+                    }
+                    break;
+                case HBCommand.E01:
+                    {
+                        //if (this.IsLoaded)
+                        //{
+                        //    this.Client.SendResponseTelex(new LB(ETaskState.E02, hb.TaskId));
+                        //    String msg = String.Format("堆垛机上有货。");
+                        //    throw new InvalidOperationException(msg);
+                        //}
+                        this.CurrentTaskNo = hb.TaskId;
+                        LB lb = new LB(ETaskState.E01, this.CurrentTaskNo);
+                        this.Client.SendResponseTelex(lb);
+                        this.Load(hb.LALeftRight2);
+                    }
+                    break;
+                case HBCommand.E02:
+                    {
+                        //if (this.IsLoaded == false)
+                        //{
+                        //    this.Client.SendResponseTelex(new LB(ETaskState.E02, hb.TaskId));
+                        //    String msg = String.Format("堆垛机上无货。");
+                        //    throw new InvalidOperationException(msg);
+                        //}
+                        this.CurrentTaskNo = hb.TaskId;
+                        LB lb = new LB(ETaskState.E01, this.CurrentTaskNo);
+                        this.Client.SendResponseTelex(lb);
+                        this.Unload(hb.LALeftRight2);
+                    }
+                    break;
+                case HBCommand.E11:
+                    {
+                        this.CurrentTaskNo = hb.TaskId;
+                        LB lb = new LB(ETaskState.E01, this.CurrentTaskNo);
+                        this.Client.SendResponseTelex(lb);
+                        this.ExecuteTask(hb.Position1, hb.LALeftRight1, hb.Position2, hb.LALeftRight2);
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void ProcessHP()
+        {
+            if (this.HasIncompletedAction)
+            {
+                Logger.Warning("当前有未完成的任务。正在执行的任务：{0}，堆垛机当前位置：{1}", this.CurrentTaskNo, this.Position);
+                return;
+            }
+            this.CurrentTaskNo = "GOT00001";
+            this.MoveToOrigin();
+        }
+        private void ProcessHE()
+        {
+            this.LastErrorCode = "1071";
+            this.BreakCurrentAction();
+        }
+        private void ProcessHC()
+        {
+            if (this.LastErrorCode != "0000")
+            {
+                this.LastErrorCode = "0000";
+                OnStateChanged(EventArgs.Empty);
+            }
+        }
+    }
+}

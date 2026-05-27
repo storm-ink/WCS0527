@@ -1,0 +1,523 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("输送机")]
+    [Serializable]
+    public class ConveyorLocation : Element, System.Runtime.Serialization.ISerializable
+    {
+        Boolean initializing = false;
+        public ConveyorLocation(Editor editor)
+            : base(editor)
+         {
+             initializing = true;
+             Init();
+             initializing = false;
+         }
+
+        public override void UpdateEditor(Editor editor)
+        {
+            base.UpdateEditor(editor);
+
+            if (!editor.IsDesign)
+            {
+                this.MouseClick += ConveyorLocation_MouseClick;
+            }
+        }
+
+        void Init()
+        {
+            if (this.Size.Width == 0 || this.Size.Height == 0)
+            {
+                this.Size = new SizeF(60, 35);
+            }
+            this.Font = new Font("Arial", 12, GraphicsUnit.Pixel);
+            this.Color = Color.Black;
+            this.ShowPosNo = true;
+            this.ShowFlowDirection = true;
+            this.FrameBorderSize = 2f;
+            this.DrawDirection = ConveyorLocationDrawDirection.Horizontal;
+            this.FlowDirection = ConveyorLocationFlowDirection.Left;
+
+            this.BoxWidthScale = 0.5f;
+            this.BoxHeightScale = 0.6f;
+        }
+
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+
+            info.AddValue("FlowDirection", this.FlowDirection);
+            info.AddValue("DrawDirection", this.DrawDirection);
+            info.AddValue("BoxHeightScale", this.BoxHeightScale);
+            info.AddValue("BoxWidthScale", this.BoxWidthScale);
+            info.AddValue("Color", this.Color);
+            info.AddValue("Font", this.Font);
+            info.AddValue("FrameBorderSize", this.FrameBorderSize);
+            info.AddValue("PosNo", this.PosNo);
+            info.AddValue("ShowFlowDirection", this.ShowFlowDirection);
+            info.AddValue("ShowPosNo", this.ShowPosNo);
+            info.AddValue("ShowContainerCode", this.ShowContainerCode);
+            info.AddValue("ContainerCodeLength", this.ContainerCodeLength);
+
+            base.GetObjectData(info, context);
+        }
+
+        public ConveyorLocation(SerializationInfo info, StreamingContext context)
+            :base(info,context)
+        {
+            initializing = true;
+            Init();
+
+            this.FlowDirection = (ConveyorLocationFlowDirection)info.GetValue("FlowDirection", typeof(ConveyorLocationFlowDirection));
+            this.DrawDirection = (ConveyorLocationDrawDirection)info.GetValue("DrawDirection", typeof(ConveyorLocationDrawDirection));
+            this.BoxHeightScale = (float)info.GetValue("BoxHeightScale", typeof(float));
+            this.BoxWidthScale = (float)info.GetValue("BoxWidthScale", typeof(float));
+            this.Color = (Color)info.GetValue("Color", typeof(Color));
+            this.Font = (Font)info.GetValue("Font", typeof(Font));
+            this.FrameBorderSize = (float)info.GetValue("FrameBorderSize", typeof(float));
+            this.PosNo = (Int32)info.GetValue("PosNo", typeof(Int32));
+            this.ShowFlowDirection = (Boolean)info.GetValue("ShowFlowDirection", typeof(Boolean));
+            this.ShowPosNo = info.GetValueOrDefault<Boolean>("ShowPosNo", true);
+            this.ShowContainerCode = info.GetValueOrDefault<Boolean>("ShowContainerCode", true);
+            this.ContainerCodeLength = info.GetValueOrDefault<Int32>("ContainerCodeLength", 3);
+            initializing = false;
+        }
+
+        Forms.frmConveyorLocationUI frm=null;
+        void ConveyorLocation_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (frm == null || frm.Disposing || frm.IsDisposed)
+            {
+                frm = new Forms.frmConveyorLocationUI(this);
+
+                frm.Show(Container.FindForm());
+            }
+        }
+
+        [CategoryAttribute("布局"), Description("货物盒子相对于位置高度的缩放比例")]
+        public float BoxHeightScale { get; set; }
+
+        [CategoryAttribute("布局"), Description("货物盒子相对于位置宽度的缩放比例")]
+        public float BoxWidthScale { get; set; }
+
+        [CategoryAttribute("外观"), Description("文字颜色")]
+        public Color Color { get; set; }
+
+        ConveyorLocationDrawDirection m_DrawDirection;
+        [CategoryAttribute("布局"), Description("绘制方向")]
+        public ConveyorLocationDrawDirection DrawDirection
+        {
+            get
+            {
+                return m_DrawDirection;
+            }
+            set
+            {
+                if (m_DrawDirection != value && !initializing)
+                {
+                    this.Size = new SizeF(this.Size.Height, this.Size.Width);
+                }
+                m_DrawDirection = value;
+            }
+        }
+        [CategoryAttribute("布局"), Description("输送方向")]
+        public ConveyorLocationFlowDirection FlowDirection { get; set; }
+        [CategoryAttribute("外观"), Description("字体")]
+        public Font Font { get; set; }
+        [CategoryAttribute("布局"), Description("主框架边框大小")]
+        public float FrameBorderSize { get; set; }
+
+        [CategoryAttribute("外观"), Description("货位编号")]
+        public Int32 PosNo { get; set; }
+
+        [CategoryAttribute("外观"), Description("是否显示输送方向")]
+        public Boolean ShowFlowDirection { get; set; }
+
+        [CategoryAttribute("外观"), Description("是否显示货位号")]
+        public Boolean ShowPosNo { get; set; }
+        [CategoryAttribute("外观"), Description("是否显示托盘号（TUID）")]
+        public Boolean ShowContainerCode { get; set; }
+
+        [CategoryAttribute("外观"), Description("显示的托盘号位数（TUID）"),DefaultValue(3)]
+        public Int32 ContainerCodeLength { get; set; }
+        public override void Draw(Graphics graphics)
+        {
+
+            if (!Visible)
+            {
+                return;
+            }
+
+            base.Draw(graphics);
+
+            DrawFrame(graphics);
+
+            DrawFlowDirection(graphics);
+            
+            DrawBox(graphics);
+
+            DrawPosNo(graphics);
+
+        }
+        
+        protected override void Fill(Graphics graphics)
+        {
+            //if (DrawDirection == ConveyorLocationDrawDirection.Horizontal)
+            //{
+            //    graphics.FillRectangle(new SolidBrush(GetFillColor()), Rectangle.X + FrameBorderSize * 2, Rectangle.Y, Rectangle.Width - FrameBorderSize * 4, Rectangle.Height - FrameBorderSize);
+            //}
+            //else
+            //{
+            //    graphics.FillRectangle(new SolidBrush(GetFillColor()), Rectangle.X, Rectangle.Y + FrameBorderSize * 2, Rectangle.Width, Rectangle.Height - FrameBorderSize * 4);
+            //}
+
+            graphics.FillRectangle(new SolidBrush(GetFillColor()), this.Rectangle);
+        }
+
+        void DrawBox(Graphics graphics)
+        {
+            if (this.LocationTask == null || this.LocationTask.TaskNo == 0)
+            {
+
+                if (HoldSignal != null && HoldSignal.HandShake == Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObjectHandShake.New)
+                {
+                    graphics.FillEllipse(Brushes.Red, this.Rectangle.Left + this.Rectangle.Width / 2 - 5, Rectangle.Top + this.Rectangle.Height / 2 - 5, 10, 10);
+                }
+
+                return;
+            }
+
+            var width = this.Size.Width * BoxWidthScale;
+            var height = this.Size.Height * BoxHeightScale;
+            PointF p1;
+            if (DrawDirection == ConveyorLocationDrawDirection.Vertical)
+            {
+                p1 = new PointF(AbsoluteTransform.X(this.Left + this.Size.Width / 2 - width / 2), AbsoluteTransform.Y(this.Top + this.Size.Height / 2f - height / 2f));
+            }
+            else
+            {
+                p1 = new PointF(AbsoluteTransform.X(this.Left + this.Size.Width / 2 - width / 2), AbsoluteTransform.Y(this.Top + this.Size.Height / 2f - height / 2f - 2));
+            }
+
+            var rect = new RectangleF(p1, new SizeF(AbsoluteTransform.W(this.Size.Width * BoxWidthScale), AbsoluteTransform.H(this.Size.Height * BoxHeightScale)));
+            graphics.FillRectangle(Brushes.Peru, rect);
+
+
+            if (HoldSignal != null && HoldSignal.HandShake == Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObjectHandShake.New)
+            {
+                graphics.FillEllipse(Brushes.Red, this.Rectangle.Left + this.Rectangle.Width / 2 - 5, Rectangle.Top + this.Rectangle.Height / 2 - 5, 10, 10);
+            }
+
+            if (this.ShowContainerCode)
+            {
+                using (Brush brush = new SolidBrush(Color.Red))
+                {
+                    using (StringFormat sf = new StringFormat(StringFormatFlags.NoWrap))
+                    {
+                        sf.Alignment = StringAlignment.Center;
+                        sf.LineAlignment = StringAlignment.Near;
+                        var tuid = this.LocationTask.TUID.ToString();
+                        if (tuid.Length < ContainerCodeLength)
+                        {
+                            tuid = tuid.PadLeft(ContainerCodeLength, '0');
+                        }
+
+                        if(tuid.Length> ContainerCodeLength)
+                        {
+                            tuid = tuid.Substring(tuid.Length - ContainerCodeLength);
+                        }
+
+                        graphics.DrawString(tuid, this.Font, brush, this.Rectangle, sf);
+                    }
+                }
+            }
+        }
+
+        void DrawDrawPolygon(Graphics graphics, ConveyorLocationFlowDirection direction)
+        {
+            List<PointF> points = new List<PointF>();
+            var size = 13;
+            PointF firstPoint;
+            if (DrawDirection == ConveyorLocationDrawDirection.Vertical)
+            {
+                switch (direction)
+                {
+                    case ConveyorLocationFlowDirection.Left:
+                        firstPoint = new PointF(AbsoluteTransform.X(this.Left + 6), AbsoluteTransform.Y(this.Top + this.Size.Height / 2));
+                        points.Add(firstPoint);
+                        points.Add(new PointF(firstPoint.X + size / 2, firstPoint.Y - size / 2));
+                        points.Add(new PointF(firstPoint.X + size / 2, firstPoint.Y + size / 2));
+                        break;
+                    case ConveyorLocationFlowDirection.Right:
+                        firstPoint = new PointF(AbsoluteTransform.X(this.Left + this.Size.Width - 6), AbsoluteTransform.Y(this.Top + this.Size.Height / 2));
+                        points.Add(firstPoint);
+                        points.Add(new PointF(firstPoint.X - size / 2, firstPoint.Y - size / 2));
+                        points.Add(new PointF(firstPoint.X - size / 2, firstPoint.Y + size / 2));
+                        break;
+                    case ConveyorLocationFlowDirection.Top:
+                        firstPoint = new PointF(AbsoluteTransform.X(this.Left + this.Size.Width / 2), AbsoluteTransform.Y(this.Top + 6));
+                        points.Add(firstPoint);
+                        points.Add(new PointF(firstPoint.X - size / 2, firstPoint.Y + size / 2));
+                        points.Add(new PointF(firstPoint.X + size / 2, firstPoint.Y + size / 2));
+                        break;
+                    case ConveyorLocationFlowDirection.Bottom:
+
+                        firstPoint = new PointF(AbsoluteTransform.X(this.Left + this.Size.Width / 2), AbsoluteTransform.Y(this.Top + this.Size.Height - 6));
+                        points.Add(firstPoint);
+                        points.Add(new PointF(firstPoint.X - size / 2, firstPoint.Y - size / 2));
+                        points.Add(new PointF(firstPoint.X + size / 2, firstPoint.Y - size / 2));
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            else
+            {
+                switch (direction)
+                {
+                    case ConveyorLocationFlowDirection.Left:
+                        firstPoint = new PointF(AbsoluteTransform.X(this.Left + 6), AbsoluteTransform.Y(this.Top + this.Size.Height / 2 - 2));
+                        points.Add(firstPoint);
+                        points.Add(new PointF(firstPoint.X + size / 2, firstPoint.Y - size / 2));
+                        points.Add(new PointF(firstPoint.X + size / 2, firstPoint.Y + size / 2));
+                        break;
+                    case ConveyorLocationFlowDirection.Right:
+                        firstPoint = new PointF(AbsoluteTransform.X(this.Left + this.Size.Width - 6), AbsoluteTransform.Y(this.Top + this.Size.Height / 2 - 2));
+                        points.Add(firstPoint);
+                        points.Add(new PointF(firstPoint.X - size / 2, firstPoint.Y - size / 2));
+                        points.Add(new PointF(firstPoint.X - size / 2, firstPoint.Y + size / 2));
+                        break;
+                    case ConveyorLocationFlowDirection.Top:
+                        firstPoint = new PointF(AbsoluteTransform.X(this.Left + this.Size.Width / 2), AbsoluteTransform.Y(this.Top + 6));
+                        points.Add(firstPoint);
+                        points.Add(new PointF(firstPoint.X - size / 2, firstPoint.Y + size / 2));
+                        points.Add(new PointF(firstPoint.X + size / 2, firstPoint.Y + size / 2));
+                        break;
+                    case ConveyorLocationFlowDirection.Bottom:
+
+                        firstPoint = new PointF(AbsoluteTransform.X(this.Left + this.Size.Width / 2), AbsoluteTransform.Y(this.Top + this.Size.Height - 6));
+                        points.Add(firstPoint);
+                        points.Add(new PointF(firstPoint.X - size / 2, firstPoint.Y - size / 2));
+                        points.Add(new PointF(firstPoint.X + size / 2, firstPoint.Y - size / 2));
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            using (Pen pen = new Pen(new SolidBrush(Color.Black), 1))
+            {
+                graphics.DrawPolygon(pen, points.ToArray());
+                graphics.FillPolygon(pen.Brush, points.ToArray());
+            }
+            points = null;
+        }
+
+        void DrawFlowDirection(Graphics graphics)
+        {
+            if (!ShowFlowDirection)
+            {
+                return;
+            }
+
+            var oldSmoothingMode = graphics.SmoothingMode;
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            switch (FlowDirection)
+            {
+                case ConveyorLocationFlowDirection.Left:
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Left);
+                    break;
+                case ConveyorLocationFlowDirection.Right:
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Right);
+                    break;
+                case ConveyorLocationFlowDirection.Top:
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Top);
+                    break;
+                case ConveyorLocationFlowDirection.Bottom:
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Bottom);
+                    break;
+                case ConveyorLocationFlowDirection.LeftRight:
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Left);
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Right);
+                    break;
+                case ConveyorLocationFlowDirection.TopBottom:
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Top);
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Bottom);
+                    break;
+                case ConveyorLocationFlowDirection.All:
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Left);
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Right);
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Top);
+                    DrawDrawPolygon(graphics, ConveyorLocationFlowDirection.Bottom);
+                    break;
+                default:
+                    break;
+            }
+            graphics.SmoothingMode = oldSmoothingMode;
+        }
+
+        /// <summary>
+        /// 画4条杠杠
+        /// </summary>
+        /// <param name="graphics"></param>
+        void DrawFrame(Graphics graphics)
+        {
+            using (Pen pen = new Pen(Brushes.Black, FrameBorderSize))
+            {
+
+                if (DrawDirection == ConveyorLocationDrawDirection.Horizontal)
+                {
+                    //上下
+                    graphics.DrawLine(pen,
+                        AbsoluteTransform.X(this.Left + 0),
+                        AbsoluteTransform.Y(this.Top + 0),
+                        AbsoluteTransform.X(this.Left + Size.Width),
+                        AbsoluteTransform.Y(this.Top + 0));
+                    graphics.DrawLine(pen,
+                        AbsoluteTransform.X(this.Left + 0),
+                        AbsoluteTransform.Y(this.Top + Size.Height - pen.Width),
+                        AbsoluteTransform.X(this.Left + Size.Width),
+                        AbsoluteTransform.Y(this.Top + Size.Height - pen.Width));
+
+                    //左右
+                    graphics.DrawLine(pen,
+                        AbsoluteTransform.X(this.Left + 1 + pen.Width),
+                        AbsoluteTransform.Y(this.Top),
+                        AbsoluteTransform.X(this.Left + 1 + pen.Width),
+                        AbsoluteTransform.Y(this.Top + Size.Height - pen.Width));
+                    graphics.DrawLine(pen,
+                        AbsoluteTransform.X(this.Left + Size.Width - 1 - pen.Width),
+                        AbsoluteTransform.Y(this.Top),
+                        AbsoluteTransform.X(this.Left + Size.Width - 1 - pen.Width),
+                        AbsoluteTransform.Y(this.Top + Size.Height - pen.Width));
+                }
+                else
+                {
+                    //左右
+                    graphics.DrawLine(pen,
+                        AbsoluteTransform.X(this.Left + 0),
+                        AbsoluteTransform.Y(this.Top),
+                        AbsoluteTransform.X(this.Left + 0),
+                        AbsoluteTransform.Y(this.Top + this.Size.Height));
+                    graphics.DrawLine(pen,
+                        AbsoluteTransform.X(this.Left + this.Size.Width),
+                        AbsoluteTransform.Y(this.Top),
+                        AbsoluteTransform.X(this.Left + this.Size.Width),
+                        AbsoluteTransform.Y(this.Top+this.Size.Height));
+
+                    //上下
+                    graphics.DrawLine(pen,
+                        AbsoluteTransform.X(this.Left + 0),
+                        AbsoluteTransform.Y(this.Top+1+pen.Width),
+                        AbsoluteTransform.X(this.Left + this.Size.Width),
+                        AbsoluteTransform.Y(this.Top + 1 + pen.Width));
+                    graphics.DrawLine(pen,
+                        AbsoluteTransform.X(this.Left + 0),
+                        AbsoluteTransform.Y(this.Top +this.Size.Height- 1 - pen.Width),
+                        AbsoluteTransform.X(this.Left + this.Size.Width),
+                        AbsoluteTransform.Y(this.Top + this.Size.Height - 1 - pen.Width));
+                }
+            }
+        }
+
+        void DrawPosNo(Graphics graphics)
+        {
+            if(!ShowPosNo)
+            {
+                return;
+            }
+
+            using (StringFormat sf = new StringFormat())
+            {
+                if (this.ShowContainerCode 
+                    && this.LocationTask != null 
+                    && this.LocationTask.TaskNo != 0)
+                {
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Far;
+                }
+                else
+                {
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Center;
+                }
+                graphics.DrawString(this.PosNo.ToString(), Font, new SolidBrush(Color), this.Rectangle, sf);
+            }
+        }
+        
+        Color GetFillColor()
+        {
+            if (this.Status == null)
+            {
+                return Color.Gray;
+            }
+            switch (this.Status.Status)
+            {
+                case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Initialize:
+                case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Stopped:
+                    return Color.Gray;
+                case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Warning:
+                    return Color.Red;
+                case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Offline:
+                    return Color.Gray;
+                case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Manual:
+                    return Color.DarkGray;
+                case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Running:
+                    return Color.SpringGreen;
+                default:
+                    return Color.Gray;
+            }
+        }
+
+        /// <summary>
+        /// 数据源
+        /// </summary>
+        [BrowsableAttribute(false)]
+        public ConveyorDataSource DataSource { get; set; }
+
+        [BrowsableAttribute(false)]
+        public Wcs.Client.Interfaces.Conveyor.AlarmNetTransferObject Alarm { get; set; }
+        [BrowsableAttribute(false)]
+        public Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject HoldSignal { get; set; }
+        [BrowsableAttribute(false)]
+        public Wcs.Client.Interfaces.Conveyor.LocationNetTransferObject Status { get; set; }
+        [BrowsableAttribute(false)]
+        public Wcs.Client.Interfaces.Conveyor.LocationTaskNetTransferObject LocationTask { get; set; }
+        [BrowsableAttribute(false)] 
+        public Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject Occupy { get; set; }
+
+        public override Element Clone()
+        {
+            var c = new ConveyorLocation(this.Editor);
+
+            CloneProperties(c);
+
+            c.BoxHeightScale = this.BoxHeightScale;
+            c.BoxWidthScale = this.BoxWidthScale;
+            c.Color = this.Color;
+            c.DrawDirection = this.DrawDirection;
+            c.FlowDirection = this.FlowDirection;
+            c.Font = this.Font;
+            c.FrameBorderSize = this.FrameBorderSize;
+            c.PosNo = this.PosNo;
+            c.ShowFlowDirection = this.ShowFlowDirection;
+            c.ShowPosNo = this.ShowPosNo;
+            c.ShowContainerCode = this.ShowContainerCode;
+
+            return c;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("货位#{0}", this.PosNo);
+        }
+    }
+}

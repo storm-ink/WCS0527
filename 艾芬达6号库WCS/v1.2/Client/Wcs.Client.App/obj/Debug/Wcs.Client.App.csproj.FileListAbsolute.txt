@@ -1,0 +1,56 @@
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\install.ps1
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Wcs.nuspec
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Wcs.Client.App.exe.config
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Wcs.Client.App.exe
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Wcs.Client.App.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\NLog.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Wcs.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\NHibernate.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Iesi.Collections.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Wcs.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Wcs.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\NLog.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\NHibernate.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\bin\Debug\Iesi.Collections.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csprojResolveAssemblyReference.cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.frmMain.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.Properties.Resources.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.frmLogin.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csproj.GenerateResource.Cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.exe
+E:\SVNGS\Wcs2\Wcs\branches\004\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.pdb
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\install.ps1
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Wcs.nuspec
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Wcs.Client.App.exe.config
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Wcs.Client.App.exe
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Wcs.Client.App.pdb
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\NLog.dll
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Wcs.dll
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\NHibernate.dll
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Iesi.Collections.dll
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Wcs.pdb
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Wcs.xml
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\NLog.xml
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\NHibernate.xml
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\bin\Debug\Iesi.Collections.xml
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csprojResolveAssemblyReference.cache
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.frmMain.resources
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.Properties.Resources.resources
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.frmLogin.resources
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csproj.GenerateResource.Cache
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.exe
+E:\svn\Wcs2\Wcs\branches\005\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.frmMain.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.Properties.Resources.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.frmLogin.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csproj.AssemblyReference.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.frmMain.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.Properties.Resources.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.frmLogin.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csproj.GenerateResource.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Client\Wcs.Client.App\obj\Debug\Wcs.Client.App.csproj.CoreCompileInputs.cache

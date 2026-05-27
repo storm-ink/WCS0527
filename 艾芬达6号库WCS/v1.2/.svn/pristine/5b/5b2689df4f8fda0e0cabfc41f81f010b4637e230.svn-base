@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6C1DEEE4-9839-4502-9BE1-179AFEAF28DB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Wcs.Client.App</RootNamespace>
+    <AssemblyName>Wcs.Client.App</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ico32512.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Newtonsoft.Json.6.0.7\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Elements\AbsoluteTransform.cs" />
+    <Compile Include="Elements\AlarmNetTransferObjectExtentions.cs" />
+    <Compile Include="Elements\AlignType.cs" />
+    <Compile Include="Elements\Area.cs" />
+    <Compile Include="Elements\AreaSelector.cs" />
+    <Compile Include="Elements\BroadcastVoice.cs" />
+    <Compile Include="Elements\DrawCarTools.cs" />
+    <Compile Include="Elements\EditorSettings.cs" />
+    <Compile Include="Elements\ForkDeep.cs" />
+    <Compile Include="Elements\Forms\frmConveyorLocationUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\Forms\frmConveyorLocationUI.Designer.cs">
+      <DependentUpon>frmConveyorLocationUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\Forms\frmTwoForksCraneUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\Forms\frmTwoForksCraneUI.Designer.cs">
+      <DependentUpon>frmTwoForksCraneUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\Forms\frmCraneUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\Forms\frmCraneUI.Designer.cs">
+      <DependentUpon>frmCraneUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\Forms\frmResumeChooseCurrentLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\Forms\frmResumeChooseCurrentLocation.designer.cs">
+      <DependentUpon>frmResumeChooseCurrentLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\Forms\frmSetObjectToCompleted.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\Forms\frmSetObjectToCompleted.designer.cs">
+      <DependentUpon>frmSetObjectToCompleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\Forms\frmShuttleUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\Forms\frmShuttleUI.Designer.cs">
+      <DependentUpon>frmShuttleUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\Forms\frmTasks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\Forms\frmTasks.Designer.cs">
+      <DependentUpon>frmTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\Forms\frmTaskViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\Forms\frmTaskViewer.designer.cs">
+      <DependentUpon>frmTaskViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\IElementContainer.cs" />
+    <Compile Include="Elements\IWarningContainer.cs" />
+    <Compile Include="Elements\Label.cs" />
+    <Compile Include="Elements\PathScaler.cs" />
+    <Compile Include="Elements\Shuttle.cs" />
+    <Compile Include="Elements\ShuttleCar.cs" />
+    <Compile Include="Elements\ShuttleStation.cs" />
+    <Compile Include="Elements\TwoForksCraneDataSource.cs" />
+    <Compile Include="Elements\UIEditor\ShuttleStationEditor.cs" />
+    <Compile Include="Elements\SingleForkCraneDataSource.cs" />
+    <Compile Include="Elements\UIEditor\BindMappingEditor.cs" />
+    <Compile Include="Elements\ConveyorLocation.cs" />
+    <Compile Include="Elements\ConveyorLocationColors.cs" />
+    <Compile Include="Elements\ConveyorLocationDrawDirection.cs" />
+    <Compile Include="Elements\ConveyorLocationFlowDirection.cs" />
+    <Compile Include="Elements\Crane.cs" />
+    <Compile Include="Elements\CraneDrawDirection.cs" />
+    <Compile Include="Elements\Editor.cs" />
+    <Compile Include="Elements\Element.cs" />
+    <Compile Include="Elements\MouseMode.cs" />
+    <Compile Include="Elements\RectTracker.cs" />
+    <Compile Include="Elements\RelativeTransform.cs" />
+    <Compile Include="Elements\ResizeBorder.cs" />
+    <Compile Include="Elements\Transform.cs" />
+    <Compile Include="Elements\UIEditor\BindMappingEditorUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\UIEditor\BindMappingEditorUI.Designer.cs">
+      <DependentUpon>BindMappingEditorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\UIEditor\frmCarsEditorUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\UIEditor\frmCarsEditorUI.Designer.cs">
+      <DependentUpon>frmCarsEditorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\UIEditor\ServiceEndPointConfigurationNameEditor.cs" />
+    <Compile Include="Elements\ConveyorDataSource.cs" />
+    <Compile Include="Elements\TaskDataSource.cs" />
+    <Compile Include="Elements\UIEditor\PathScalerEditor.cs" />
+    <Compile Include="Elements\ShuttleDrawDirection.cs" />
+    <Compile Include="Elements\UIEditor\frmPathScalerEditorUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\UIEditor\frmPathScalerEditorUI.Designer.cs">
+      <DependentUpon>frmPathScalerEditorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\UIEditor\CarsEditor.cs" />
+    <Compile Include="Elements\UIEditor\frmShuttleStationEditorUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elements\UIEditor\frmShuttleStationEditorUI.Designer.cs">
+      <DependentUpon>frmShuttleStationEditorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\UIEditor\ShuttleStationPosNoEditor.cs" />
+    <Compile Include="Elements\UIEditor\ElementContainerEditor.cs" />
+    <Compile Include="Elements\SinglePlantformRailGuidedVehicleDataSource.cs" />
+    <Compile Include="Elements\UIEditor\InstalledVoicesEditor.cs" />
+    <Compile Include="Elements\Warning.cs" />
+    <Compile Include="Elements\TwoForksCrane.cs" />
+    <Compile Include="EnumExtentions.cs" />
+    <Compile Include="frmBmpToBase64.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBmpToBase64.Designer.cs">
+      <DependentUpon>frmBmpToBase64.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditor.Designer.cs">
+      <DependentUpon>frmEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLanucher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLanucher.Designer.cs">
+      <DependentUpon>frmLanucher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProperty.Designer.cs">
+      <DependentUpon>frmProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTools.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTools.Designer.cs">
+      <DependentUpon>frmTools.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="SerializationInfoExtends.cs" />
+    <Compile Include="WcfClient.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleForkCraneServiceClient.cs" />
+    <Compile Include="ConveyorServiceClient.cs" />
+    <Compile Include="TaskServiceClient.cs" />
+    <Compile Include="SinglePlantformRailGuidedVehicleServiceClient.cs" />
+    <Compile Include="TwoForkCraneServiceClient.cs" />
+    <EmbeddedResource Include="Elements\Forms\frmConveyorLocationUI.resx">
+      <DependentUpon>frmConveyorLocationUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\Forms\frmTwoForksCraneUI.resx">
+      <DependentUpon>frmTwoForksCraneUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\Forms\frmCraneUI.resx">
+      <DependentUpon>frmCraneUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\Forms\frmResumeChooseCurrentLocation.resx">
+      <DependentUpon>frmResumeChooseCurrentLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\Forms\frmSetObjectToCompleted.resx">
+      <DependentUpon>frmSetObjectToCompleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\Forms\frmShuttleUI.resx">
+      <DependentUpon>frmShuttleUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\Forms\frmTasks.resx">
+      <DependentUpon>frmTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\Forms\frmTaskViewer.resx">
+      <DependentUpon>frmTaskViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\UIEditor\BindMappingEditorUI.resx">
+      <DependentUpon>BindMappingEditorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\UIEditor\frmCarsEditorUI.resx">
+      <DependentUpon>frmCarsEditorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\UIEditor\frmPathScalerEditorUI.resx">
+      <DependentUpon>frmPathScalerEditorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\UIEditor\frmShuttleStationEditorUI.resx">
+      <DependentUpon>frmShuttleStationEditorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBmpToBase64.resx">
+      <DependentUpon>frmBmpToBase64.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEditor.resx">
+      <DependentUpon>frmEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLanucher.resx">
+      <DependentUpon>frmLanucher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProperty.resx">
+      <DependentUpon>frmProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTools.resx">
+      <DependentUpon>frmTools.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Wcs.Client.Interfaces.SingleForkCrane.CraneInfo.datasource" />
+    <None Include="Properties\DataSources\Wcs.Client.Interfaces.SingleForkCrane.LA.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wcs.Client\Wcs.Client.csproj">
+      <Project>{50bfcdd0-07df-475c-9bcb-d82f65bf8a51}</Project>
+      <Name>Wcs.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\online.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ico32512.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

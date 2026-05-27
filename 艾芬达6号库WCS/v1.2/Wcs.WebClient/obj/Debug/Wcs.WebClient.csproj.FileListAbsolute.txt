@@ -1,0 +1,219 @@
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\Wcs.WebClient.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\Wcs.WebClient.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\Antlr3.Runtime.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\EntityFramework.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\Microsoft.Web.Infrastructure.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\Newtonsoft.Json.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Net.Http.Formatting.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Http.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Http.WebHost.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Mvc.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Optimization.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Providers.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Razor.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.WebPages.Deployment.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.WebPages.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.WebPages.Razor.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\WebGrease.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\EntityFramework.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\Newtonsoft.Json.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Net.Http.Formatting.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Http.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Http.WebHost.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Mvc.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.Razor.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.WebPages.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.WebPages.Deployment.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\System.Web.WebPages.Razor.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\EntityFramework.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Net.Http.Formatting.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.Http.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.Mvc.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.Optimization.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.Providers.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.Razor.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\obj\Debug\Wcs.WebClient.csprojResolveAssemblyReference.cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\obj\Debug\Wcs.WebClient.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Wcs.WebClient\obj\Debug\Wcs.WebClient.pdb
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\Wcs.WebClient.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\Wcs.WebClient.pdb
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\Antlr3.Runtime.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\EntityFramework.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\Microsoft.Web.Infrastructure.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\Newtonsoft.Json.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Net.Http.Formatting.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Http.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Http.WebHost.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Mvc.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Optimization.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Providers.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Razor.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.WebPages.Deployment.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.WebPages.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.WebPages.Razor.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\WebGrease.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\EntityFramework.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\Newtonsoft.Json.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Net.Http.Formatting.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Http.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Http.WebHost.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Mvc.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.Razor.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.WebPages.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.WebPages.Deployment.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\System.Web.WebPages.Razor.xml
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\EntityFramework.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Net.Http.Formatting.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.Http.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.Mvc.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.Optimization.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.Providers.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.Razor.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\obj\Debug\Wcs.WebClient.csprojResolveAssemblyReference.cache
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\obj\Debug\Wcs.WebClient.dll
+E:\svn\Wcs2\Wcs\branches\005\Wcs.WebClient\obj\Debug\Wcs.WebClient.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\Wcs.WebClient.dll.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\Wcs.WebClient.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\Wcs.WebClient.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\Antlr3.Runtime.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\EntityFramework.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\Microsoft.Web.Infrastructure.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\Newtonsoft.Json.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Net.Http.Formatting.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Http.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Http.WebHost.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Mvc.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Optimization.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Providers.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Razor.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.WebPages.Deployment.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.WebPages.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.WebPages.Razor.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\WebGrease.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\EntityFramework.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\Newtonsoft.Json.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Net.Http.Formatting.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Http.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Http.WebHost.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Mvc.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.Razor.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.WebPages.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.WebPages.Deployment.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\System.Web.WebPages.Razor.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\EntityFramework.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Net.Http.Formatting.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.Http.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.Mvc.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.Optimization.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.Providers.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.Razor.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\Wcs.WebClient.dll.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\Wcs.WebClient.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\Wcs.WebClient.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\Antlr3.Runtime.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\EntityFramework.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\Microsoft.Web.Infrastructure.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\Newtonsoft.Json.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Net.Http.Formatting.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Http.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Http.WebHost.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Mvc.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Optimization.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Providers.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Razor.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.WebPages.Deployment.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.WebPages.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.WebPages.Razor.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\WebGrease.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\EntityFramework.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\Newtonsoft.Json.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Net.Http.Formatting.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Http.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Http.WebHost.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Mvc.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.Razor.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.WebPages.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.WebPages.Deployment.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\System.Web.WebPages.Razor.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\EntityFramework.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Net.Http.Formatting.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.Http.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.Mvc.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.Optimization.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.Providers.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.Razor.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\obj\Debug\Wcs.WebClient.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Wcs.WebClient\obj\Debug\Wcs.WebClient.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\Wcs.WebClient.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\Wcs.WebClient.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\Wcs.WebClient.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\Antlr3.Runtime.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\EntityFramework.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\Microsoft.Web.Infrastructure.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\Newtonsoft.Json.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Net.Http.Formatting.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Http.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Http.WebHost.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Mvc.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Optimization.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Providers.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Razor.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.WebPages.Deployment.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.WebPages.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.WebPages.Razor.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\WebGrease.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\EntityFramework.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\Newtonsoft.Json.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Net.Http.Formatting.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Http.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Http.WebHost.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Mvc.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.Razor.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.WebPages.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.WebPages.Deployment.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\System.Web.WebPages.Razor.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\EntityFramework.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Net.Http.Formatting.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.Http.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.Mvc.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.Optimization.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.Providers.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.Razor.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.AssemblyReference.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.csproj.CopyComplete
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Wcs.WebClient\obj\Debug\Wcs.WebClient.pdb

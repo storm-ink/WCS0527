@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>WithRemoteControllerCraneDevice</id>
+    <version>2.1.0.4</version>
+    <title>带远程控制盒的堆垛机设备</title>
+    <authors>合肥井松自动化科技有限公司</authors>
+    <owners>合肥井松自动化科技有限公司</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>一相支持在以输送线PLC为媒介，在设备外围安装有控制盒的堆垛机设备</description>
+	<dependencies>
+      <dependency id="Wcs.DefaultImpls" version="2.1.0.21908" />
+    </dependencies>
+  </metadata>
+</package>

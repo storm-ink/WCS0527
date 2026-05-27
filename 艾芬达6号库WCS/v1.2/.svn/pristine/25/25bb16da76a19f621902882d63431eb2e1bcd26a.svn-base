@@ -1,0 +1,41 @@
+﻿using DevExpress.XtraBars;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs;
+using Wcs.Framework;
+
+namespace 输送线模拟程序
+{
+    [WcsPluginInfo(typeof(ConveyorSimulatorPlugin), "ConveyorSimulatorPlugin", "Sineva", "2022年6月", "仅供相关开发人员使用", false, "工具箱", "测试工具", 3, 1, 1)]
+    public class ConveyorSimulatorPlugin : Wcs.WcsPlugin
+    {
+        public override bool Initialization(WcsContext context)
+        {
+            var barButtonItem = new BarButtonItem();
+            barButtonItem.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            barButtonItem.Caption = "输送线测试";
+            barButtonItem.Id = 1;
+            barButtonItem.Name = $"barBtn_{this.GetType().Name.ToLower()}";
+            barButtonItem.ItemClick += tsmiConveyorSimulatorPlugin_Click;
+            this.barButtonItems = new BarButtonItem[] { barButtonItem };
+
+            return base.Initialization(context);
+        }
+        [Wcs.Security.WcsPermission(System.Security.Permissions.SecurityAction.Demand, OperationName = "工具箱\\测试工具\\输送线测试")]
+        void tsmiConveyorSimulatorPlugin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(typeof(ConveyorSimulatorPlugin).Assembly.Location);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+}

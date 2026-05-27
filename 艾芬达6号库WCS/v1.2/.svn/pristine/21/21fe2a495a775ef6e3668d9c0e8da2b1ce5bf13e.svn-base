@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Net.Sockets;
+
+namespace 输送线模拟程序.TcpServer
+{
+
+    [Serializable]
+    public class ClientAcceptedEventArgs : EventArgs
+    {
+        public ClientAcceptedEventArgs(TcpClient tcpClient)
+        {
+            this.TcpClient = tcpClient;
+        }
+
+        public TcpClient TcpClient { get; private set; }
+    }
+}

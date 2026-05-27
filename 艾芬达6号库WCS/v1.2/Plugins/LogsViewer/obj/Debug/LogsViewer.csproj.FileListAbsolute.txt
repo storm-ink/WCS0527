@@ -1,0 +1,186 @@
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\Wcs.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\Wcs.XML
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\LogsViewer.nuspec
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\install.ps1
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.exe.config
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.exe
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\Iesi.Collections.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\NHibernate.Caches.SysCache2.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\NHibernate.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\NLog.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\Wcs.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\Iesi.Collections.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\NHibernate.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\bin\Debug\NLog.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmArchive.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmErrors.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmMain.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmReceivedDatas.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.GenerateResource.Cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.exe
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.pdb
+E:\svn\Wcs2\Wcs\branches\005\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.exe
+E:\svn\Wcs2\Wcs\branches\005\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\LogsViewer.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\Wcs.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\Wcs.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\install.ps1
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.exe.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\NHibernate.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\Wcs.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\NHibernate.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmArchive.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmErrors.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmMain.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmReceivedDatas.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Wcs.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Wcs.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\install.ps1
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\LogsViewer.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.exe.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\NHibernate.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Wcs.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\NHibernate.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmArchive.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmErrors.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmMain.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmReceivedDatas.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\install.ps1
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Wcs.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Wcs.XML
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\LogsViewer.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.exe.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.exe
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Plugins.LogsViewer.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\NHibernate.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\NLog.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Wcs.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\NHibernate.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\NLog.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.AssemblyReference.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmArchive.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmErrors.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmMain.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\Wcs.App.Plugins.LogsViewer.frmReceivedDatas.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.GenerateResource.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\LogsViewer.csproj.CopyComplete
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.exe
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\obj\Debug\Plugins.LogsViewer.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\LogsViewer\bin\Debug\Wcs.dll.config

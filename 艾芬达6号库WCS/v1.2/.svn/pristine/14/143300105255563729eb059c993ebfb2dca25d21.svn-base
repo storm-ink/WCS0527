@@ -1,0 +1,244 @@
+﻿
+using System;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using Gensong.CRN;
+using ST = System.Timers;
+using Gensong.ServiceCrane;
+
+namespace Gensong
+{
+    [DesignTimeVisible(false)]
+    public partial class ucTest : UserControl
+    {
+        public ucTest()
+        {
+            InitializeComponent();
+
+            lblCol.ForeColor = lblRow.ForeColor = lblTaskId.ForeColor = lblForkTL.ForeColor = lblForkLR.ForeColor = lblAlarmCode.ForeColor =
+            lblSet.ForeColor = lblTaskInfo.ForeColor = lblItem.ForeColor = lblErrorInfo.ForeColor = Color.Yellow;
+
+            EmptyInfo();
+        }
+
+        private void EmptyInfo()
+        {
+            lblCol.Text = lblRow.Text = lblTaskId.Text = lblForkLR.Text = lblForkTL.Text = lblAlarmCode.Text =
+                lblTaskInfo.Text = lblItem.Text = lblErrorInfo.Text = string.Empty;
+        }
+        private void EventResponseTelex(object sender, ResponseEvent e)
+        {
+            if (e.Telex is LA)
+            {
+                LA la = (LA)e.Telex;
+
+                Action a = () =>
+                {
+                    lblCol.Text = la.Position.UCol; lblRow.Text = la.Position.URow;
+
+                    lblTaskId.Text = la.TaskId;
+
+                    lblForkTL.Text = Util.PDescription(la.ForkTL);
+                    lblForkLR.Text = Util.PDescription(la.ForkLR);
+
+                    if (la.ErrorCode != "0000")
+                    {
+                        lblAlarmCode.Text = la.ErrorCode;
+                        lblErrorInfo.Text = Alarm.ReadErrorInfo(la.ErrorCode);
+
+                        Test.Get(crn.CName).TestStop(); Test.Get(crn.CName).eTaskType = ETaskType.Null; lblItem.Text = "报警";
+                    }
+                    else
+                    {
+                        lblAlarmCode.Text = lblErrorInfo.Text = string.Empty;
+                    }
+
+                    lblTaskInfo.Text = Test.Get(crn.CName).sTaskInfo;
+                };
+
+                this.Invoke(a);
+            }
+        }
+
+        private Crane crn; SShelf shf = null;
+        public Crane Crane
+        {
+            set
+            {
+                if (crn != null)
+                {
+                    crn.EResponseTelex -= new EventHandler<ResponseEvent>(EventResponseTelex);
+                }
+                if (value == null) return; EmptyInfo(); shf = Globle.GetSShelf(value.CName);
+
+                crn = value; EventResponseTelex(null, new ResponseEvent(crn.LA));
+                crn.EResponseTelex += new EventHandler<ResponseEvent>(EventResponseTelex);
+
+                EventResponseTelex(this, new ResponseEvent(crn.LA));
+            }
+        }
+
+        // 测试
+        private void btnLCR_Click(object sender, EventArgs e)
+        {
+            if (crn == null) return;
+
+            if (sender == btnCol)
+                btnCol.Text = frmInput.Show(btnCol.Text,
+                    this.ParentForm.Left + 348, this.ParentForm.Top + 260, shf.MaxC, shf.MinC);
+            else if (sender == btnRow)
+                btnRow.Text = frmInput.Show(btnRow.Text,
+                    this.ParentForm.Left + 348, this.ParentForm.Top + 260, shf.MaxR, shf.MinR);
+            else if (sender == btnLine)
+                btnLine.Text = frmInput.Show(btnRow.Text,
+                    this.ParentForm.Left + 348, this.ParentForm.Top + 260, shf.MaxL, shf.MinL);
+        }
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!crn.Connected) { frmMsgbox.Show("无法连接堆垛机, 不能进行操作..."); return; }
+                if (Globle.CheckLock(crn, true)) return;
+                if (Globle.CheckCraneOK(crn) == false) return;
+
+                string sInfo;
+                using (CraneClient MCS = new CraneClient())
+                {
+                    sInfo = MCS.SendMove(crn.CName, new Position(btnCol.Text, btnRow.Text));
+                }
+                if (sInfo != null) frmMsgbox.Show(sInfo);
+            }
+            catch (Exception ex)
+            {
+                frmMsgbox.Show(ex.Message);
+            }
+        }
+
+        private void btnLR_Click(object sender, EventArgs e)
+        {
+            if (Test.Get(crn.CName).eTaskType == ETaskType.Null || Test.Get(crn.CName).eTaskType == ETaskType.Finish)
+            {
+                switch (btnLR.Text)
+                {
+                    case "左右": btnLR.Text = "左排"; Test.Get(crn.CName).eLR = ELR.L; break;
+                    case "左排": btnLR.Text = "右排"; Test.Get(crn.CName).eLR = ELR.R; break;
+                    case "右排": btnLR.Text = "左右"; Test.Get(crn.CName).eLR = ELR.B; break;
+                }
+                lblSet.Text = string.Format("{0} {1}", btnLR.Text, btnCR.Text);
+            }
+            else
+            {
+                frmMsgbox.Show("有测试任务, 终止后才能设置");
+            }
+        }
+        private void btnCR_Click(object sender, EventArgs e)
+        {
+            if (Test.Get(crn.CName).eTaskType == ETaskType.Null || Test.Get(crn.CName).eTaskType == ETaskType.Finish)
+            {
+                switch (btnCR.Text)
+                {
+                    case "列层": btnCR.Text = "层列"; Test.Get(crn.CName).eCR = ECR.RC; break;
+                    case "层列": btnCR.Text = "列层"; Test.Get(crn.CName).eCR = ECR.CR; break;
+                }
+                lblSet.Text = string.Format("{0} {1}", btnLR.Text, btnCR.Text);
+            }
+            else
+            {
+                frmMsgbox.Show("有测试任务, 终止后才能设置");
+            }
+        }
+
+        private void btnAllCol_Click(object sender, EventArgs e)
+        {
+            //if (crn.eTaskType == ETaskType.Null || crn.eTaskType == ETaskType.Finish)
+            //{
+            //    if (!CheckOK || !shf.CheckCraneState(crn.LA)) return;
+
+            //    crn.eTaskType = ETaskType.AllCol; lblItem.Text = "整列";
+            //    crn.TestStart(btnLine.Text, btnCol.Text, btnRow.Text);
+            //}
+            //else
+            //{
+            //    frmMsgbox.Show("有测试任务, 终止后才能运行");
+            //}
+        }
+        private void btnAllRow_Click(object sender, EventArgs e)
+        {
+            //if (crn.eTaskType == ETaskType.Null || crn.eTaskType == ETaskType.Finish)
+            //{
+            //    if (!CheckOK || !shf.CheckCraneState(crn.LA)) return;
+
+            //    crn.eTaskType = ETaskType.AllRow; lblItem.Text = "整层";
+            //    crn.TestStart(btnLine.Text, btnCol.Text, btnRow.Text);
+            //}
+            //else
+            //{
+            //    frmMsgbox.Show("有测试任务, 终止后才能运行");
+            //}
+        }
+        private void btnRoute_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnForeach_Click(object sender, EventArgs e)
+        {
+            //if (crn.eTaskType == ETaskType.Null || crn.eTaskType == ETaskType.Finish)
+            //{
+            //    if (!CheckOK || !shf.CheckCraneState(crn.LA)) return;
+
+            //    crn.eTaskType = ETaskType.Foreach; lblItem.Text = "遍历";
+            //    crn.TestStart(btnLine.Text, btnCol.Text, btnRow.Text);
+            //}
+            //else
+            //{
+            //    frmMsgbox.Show("有测试任务, 终止后才能运行");
+            //}
+        }
+        private void btnRandom_Click(object sender, EventArgs e)
+        {
+            if (Test.Get(crn.CName).eTaskType == ETaskType.Null || Test.Get(crn.CName).eTaskType == ETaskType.Finish)
+            {
+                if (!crn.Connected) { frmMsgbox.Show("无法连接堆垛机, 不能进行操作..."); return; }
+                if (Globle.CheckLock(crn, true)) return;
+                if (Globle.CheckCraneOK(crn) == false) return;
+
+                Test.Get(crn.CName).eTaskType = ETaskType.Random; lblItem.Text = "随机";
+                Test.Get(crn.CName).TestStart(btnLine.Text, btnCol.Text, btnRow.Text);
+            }
+            else
+            {
+                frmMsgbox.Show("有测试任务, 终止后才能运行");
+            }
+        }
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            Test.Get(crn.CName).TestStop(); Test.Get(crn.CName).eTaskType = ETaskType.Null; lblItem.Text = "终止";
+        }
+
+        private bool CheckOK
+        {
+            get
+            {
+                if (crn == null) return false;
+
+                if (!crn.Enabled)
+                {
+                    frmMsgbox.Show("设备不可用, 无法下发任务..."); return false;
+                }
+                if (!crn.Connected)
+                {
+                    frmMsgbox.Show("设备通信中断, 无法下发任务..."); return false;
+                }
+                if (crn.LA == null)
+                {
+                    frmMsgbox.Show("无法获取设备状态, 不能下发任务..."); return false;
+                }
+
+                return true;
+            }
+        }
+
+    }
+}

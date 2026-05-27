@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Spiral.Utils</name>
+    </assembly>
+    <members>
+        <member name="T:Spiral.Utils.Pair`2">
+            <summary>
+            表示一对值
+            </summary>
+        </member>
+        <member name="P:Spiral.Utils.Pair`2.First">
+            <summary>
+            值对中的第一个
+            </summary>
+        </member>
+        <member name="P:Spiral.Utils.Pair`2.Second">
+            <summary>
+            值对中的第二个
+            </summary>
+        </member>
+        <member name="T:Spiral.Utils.HashUtil">
+            <summary>
+            摘自 msdn
+            </summary>
+        </member>
+        <member name="M:Spiral.Utils.HashUtil.GetMd5Hash(System.String)">
+            <summary>
+            使用 md5 算法获取输入字符串的 hash 值
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.HashUtil.VerifyMd5Hash(System.String,System.String)">
+            <summary>
+            使用 md5 算法验证输入字符串的 hash 值
+            </summary>
+            <param name="input">要验证的字符串。</param>
+            <param name="hash">用来比较的 hash。</param>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.Utils.QuantityConversionRatio">
+            <summary>
+            数量转换比率。值语义。此类由两个单位不同，但含义等价的数量构成，这两个数量用属性 A 和 B 来表示。
+            例如，一个物料的单位转换比率是一箱六瓶，另一个物料的单位转换比率是一箱四瓶。
+            </summary>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.#ctor">
+            <summary>
+            初始化此类的新实例，protected 重载供 nhibernate 使用。
+            </summary>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.#ctor(System.Decimal,System.String,System.Decimal,System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="numberA">数量 A 的数字部分</param>
+            <param name="unitA">数量 A 的单位部分</param>
+            <param name="numberB">数量 B 的数字部分</param>
+            <param name="unitB">数量 B 的单位部分</param>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.#ctor(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="a">数量 A。</param>
+            <param name="b">数量 B。</param>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.Convert(Spiral.Utils.Quantity,System.String)">
+            <summary>
+            将数量从一个单位转换成另一个单位
+            </summary>
+            <param name="value">要转换的数量。</param>
+            <param name="toUnit">要转换到的单位。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.Convert(System.Decimal,System.String,System.String)">
+            <summary>
+            将数量从一个单位转换成另一个单位
+            </summary>
+            <param name="fromNumber">要转换的数量的数字部分。</param>
+            <param name="fromUnit">要转换的数量的单位部分。</param>
+            <param name="toUnit">要转换到的单位。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.CanConvert(System.String,System.String)">
+            <summary>
+            判断此实例是否能对两个单位进行转换
+            </summary>
+            <param name="fromUnit"></param>
+            <param name="toUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.ToString">
+            <summary>
+            返回描述此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.Equals(System.Object)">
+            <summary>
+            确定指定的 System.Object 是否等于当前的 System.Object。
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.Equals(Spiral.Utils.QuantityConversionRatio)">
+            <summary>
+            实现 IEquatable 接口。
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.QuantityConversionRatio.GetHashCode">
+            <summary>
+            重写 GetHashCode。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Spiral.Utils.QuantityConversionRatio.A">
+            <summary>
+            数量 A
+            </summary>
+        </member>
+        <member name="P:Spiral.Utils.QuantityConversionRatio.B">
+            <summary>
+            数量 B
+            </summary>
+        </member>
+        <member name="T:Spiral.Utils.StringUtil">
+            <summary>
+            字符串使用工具类。
+            </summary>
+        </member>
+        <member name="M:Spiral.Utils.StringUtil.NullSafeContains(System.String,System.String,System.Boolean)">
+            <summary>
+            判断 str 是否包含 value。
+            </summary>
+            <param name="str"></param>
+            <param name="value"></param>
+            <param name="ignoreCase">是否忽略大小写</param>
+            <returns>如果 a 包含 value，则返回 true，否则返回 false。如果 a 或 value 中的任何一个为 null，则为 false</returns>
+        </member>
+        <member name="M:Spiral.Utils.StringUtil.WhiteSpaceToNull(System.String)">
+            <summary>
+            非空白字符串去掉首尾的空白。空白字符串转换成 null
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.StringUtil.WrapForDbLike(System.String)">
+            <summary>
+            使用 % 符号包装 str，以便用于数据库的 like 操作。对于空白字符串，返回 null。
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.StringUtil.DictionaryToString(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            将字典转换成文本
+            </summary>
+            <param name="dict"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.StringUtil.DictionaryToString(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            将字典转换成文本
+            </summary>
+            <param name="dict"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.Utils.Quantity">
+            <summary>
+            数量，值语义。数量由两部分构成：数目和单位
+            </summary>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.#ctor(System.Decimal,System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="number"></param>
+            <param name="unit"></param>
+        </member>
+        <member name="F:Spiral.Utils.Quantity.Zero">
+            <summary>
+            表示一个数量是 0
+            </summary>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.Add(Spiral.Utils.Quantity)">
+            <summary>
+            在此实例上加上另一个单位相同的数量
+            </summary>
+            <param name="value"></param>
+            <exception cref="T:System.InvalidOperationException">单位不同，不能相加</exception>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.Subtract(Spiral.Utils.Quantity)">
+            <summary>
+            在此实例上减去另一个单位相同的数量
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.GetOpposite">
+            <summary>
+            获取此实例的“相反数”
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.ToString">
+            <summary>
+            重写 ToString
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.IsGreaterThan(Spiral.Utils.Quantity)">
+            <summary>
+            此实例是否大于另一实例
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.IsLessThan(Spiral.Utils.Quantity)">
+            <summary>
+            此实例是否小于另一实例
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.Equals(Spiral.Utils.Quantity)">
+            <summary>
+            此实例是否等于另一个数量，实现 IEquatable 接口的方法
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.Equals(System.Object)">
+            <summary>
+            此实例是否等于另一个对象
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.GetHashCode">
+            <summary>
+            重写 GetHashCode
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.op_GreaterThan(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            返回一个值，指示 a 是否大于 b。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.op_LessThan(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            返回一个值，指示 a 是否小于 b。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.op_Equality(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            返回一个值，指示 a 是等于 b。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.op_Inequality(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            返回一个值，指示 a 是否不等于 b。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.op_GreaterThanOrEqual(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            返回一个值，指示 a 是否大于或等于 b。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.op_LessThanOrEqual(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            返回一个值，指示 a 是否小于或等于 b。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.op_Subtraction(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            返回从 a 减去 b 的结果。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Utils.Quantity.op_Addition(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            返回从 a 加上 b 的结果。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Spiral.Utils.Quantity.Number">
+            <summary>
+            数目
+            </summary>
+        </member>
+        <member name="P:Spiral.Utils.Quantity.Unit">
+            <summary>
+            单位编码
+            </summary>
+        </member>
+        <member name="T:Spiral.Utils.RandomUtil">
+            <summary>
+            随机数工具，提一个全局的 Random 类实例
+            </summary>
+        </member>
+        <member name="F:Spiral.Utils.RandomUtil.Random">
+            <summary>
+            用默认构造函数实例化的 Random 实例
+            </summary>
+        </member>
+        <member name="T:Spiral.ISpecification">
+            <summary>
+            规格接口。约定：规格是值对象。
+            </summary>
+        </member>
+        <member name="M:Spiral.ISpecification.GetTranslatorTypeName">
+            <summary>
+            获取此规格的翻译程序的程序集限定类名。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.ISpecification.Trim">
+            <summary>
+            将此实例进行修剪，以便适用于查询。例如，将空白字符串换成 null。
+            </summary>
+        </member>
+    </members>
+</doc>

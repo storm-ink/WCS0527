@@ -1,0 +1,831 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements
+{
+    public delegate void ItemAddedEventHandler(Editor editor, Element item);
+
+    public delegate void ItemRemovedEventHandler(Editor editor, Element item);
+
+    public delegate void SelectedEventHandler(Editor editor, Element[] selectedItems);
+    [Serializable]
+    public class Editor
+    {
+        EditorSettings _defaultEditorSettings;
+        String _fileName;
+        List<Element> _items;
+        ContextMenu _menu;
+
+        ContextMenu m_RunningTimeMenu;
+        List<Element> copiedItems = new List<Element>();
+        bool isDragEditor = false;
+        bool isDragElements = false;
+        Boolean m_IsDesign;
+
+        float m_WidthScale = 1f, m_HeightScale = 1f;
+
+        Rectangle ReversibleFrameRectangle;
+        Point startPoint;
+
+        public Editor(Control container)
+        {
+            this.WidthScale = 1f;
+            this.HeightScale = 1f;
+            LastClickedPoint = default(PointF);
+            this.Container = container;
+            this.Container.MouseMove += Container_MouseMove;
+            this.Container.MouseDown += Container_MouseDown;
+            this.Container.MouseUp += Container_MouseUp;
+            this.Container.KeyDown += Container_KeyDown;
+            this.Container.MouseWheel += Container_MouseWheel;
+            this.IsDesign = true;
+
+            _items = new List<Element>();
+
+            CreateMenus();
+
+
+            _defaultEditorSettings = new EditorSettings(this);
+            _defaultEditorSettings.Sizeable = true;
+            _defaultEditorSettings.Moveable = true;
+
+
+            //this.TaskDataSource = new Elements.TaskDataSource(this);
+
+            // AddItem(this.TaskDataSource);
+        }
+
+        public event ItemAddedEventHandler ItemAdded;
+
+        public event ItemRemovedEventHandler ItemRemoved;
+
+        public event SelectedEventHandler Selected;
+
+        public Control Container { get; private set; }
+
+        /// <summary>
+        /// 高度绽放比例
+        /// </summary>
+        public float HeightScale
+        {
+            get
+            {
+                return m_HeightScale;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new InvalidOperationException("高度绽放比例必须大于0");
+                }
+                m_HeightScale = value;
+                Draw();
+            }
+        }
+
+        public Boolean IsDesign
+        {
+            get
+            {
+                return m_IsDesign;
+            }
+            set
+            {
+                m_IsDesign = value;
+                if (m_IsDesign == false)
+                {
+                    Container.ContextMenu = null;
+                }
+                else
+                {
+                    Container.ContextMenu = _menu;
+                }
+            }
+        }
+
+        public Element[] Items
+        {
+            get
+            {
+                return _items.ToArray();
+            }
+        }
+
+        public PointF LastClickedPoint { get; private set; }
+
+        /// <summary>
+        /// 当前画布绘制的原点（0,0)位置
+        /// </summary>
+        public PointF OriginPoint { get; set; }
+
+        public Element[] SelectedItems
+        {
+            get
+            {
+                return _items.Where(x => x.Focused && x.Visible).ToArray();
+            }
+        }
+
+        public TaskDataSource TaskDataSource
+        {
+            get
+            {
+                return (TaskDataSource)this.Items.FirstOrDefault(x => x is TaskDataSource);
+            }
+        }
+
+        /// <summary>
+        /// 宽度绽放比例 
+        /// </summary>
+        public float WidthScale
+        {
+            get
+            {
+                return m_WidthScale;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new InvalidOperationException("宽度绽放比例必须大于0");
+                }
+                m_WidthScale = value;
+
+                Draw();
+            }
+        }
+
+        EditorSettings Settings
+        {
+            get
+            {
+                EditorSettings es;
+                es=(EditorSettings)_items.FirstOrDefault(x => x is EditorSettings);
+                if(es==null)
+                {
+                    return _defaultEditorSettings;
+                }else{
+                    return es;
+                }
+            }
+        }
+        public void AddItem(Element item)
+        {
+            if (item is EditorSettings && _items.Any(x => x is EditorSettings))
+            {
+                throw new InvalidOperationException("画面设置对象只能添加一个");
+            }
+
+            _items.Add(item);
+
+            this.Draw();
+
+            FireItemAddedEvent(item);
+        }
+
+        public void Align(AlignType align)
+        {
+            var items = this.SelectedItems.ToArray();
+            switch (align)
+            {
+                case AlignType.Left:
+                    var left = items.First().Left;
+                    foreach (var item in items)
+                    {
+                        item.Left = left;
+                    }
+                    break;
+                case AlignType.Top:
+                    var top = items.First().Top;
+                    foreach (var item in items)
+                    {
+                        item.Top = top;
+                    }
+                    break;
+                case AlignType.LinkLeft:
+                    {
+                        items = items.OrderBy(x => x.Left).ToArray();
+                        for (int i = 1; i < items.Length; i++)
+                        {
+                            items[i].Left = items[i - 1].Left + items[i - 1].Size.Width;
+                            items[i].Top = items[i - 1].Top;
+                        }
+                    }
+                    break;
+                case AlignType.LinkTop:
+                    {
+                        items = items.OrderBy(x => x.Top).ToArray();
+                        for (int i = 1; i < items.Length; i++)
+                        {
+                            items[i].Top = items[i - 1].Top + items[i - 1].Size.Height;
+
+                            items[i].Left = items[i - 1].Left;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            Draw();
+        }
+
+        public void BringToFront(Element item)
+        {
+            if (item.Parent != null)
+            {
+                item.Index = item.Parent.Items.Max(x => (int?)x.Index).GetValueOrDefault(0) + 1;
+            }
+            else
+            {
+                item.Index = _items.Max(x => (int?)x.Index).GetValueOrDefault(0) + 1;
+            }
+        }
+
+        public void Draw()
+        {
+            if (Container == null || Container.ClientRectangle == null)
+            {
+                return;
+            }
+            if (Container.ClientRectangle.Width == 0 || Container.ClientRectangle.Height == 0)
+            {
+                return;
+            }
+
+            using (var bmp = new Bitmap(Container.ClientRectangle.Width, Container.ClientRectangle.Height))
+            {
+                using (var graphics = Graphics.FromImage(bmp))
+                {
+                    graphics.Clear(Color.White);
+
+                    foreach (var item in _items.OrderBy(x => x.Index))
+                    {
+                        item.Draw(graphics);
+                    }
+
+                    DrawReversibleFrame(graphics);
+
+                    DrawDebugInfo(graphics);
+                    using (var containerGraphics = Container.CreateGraphics())
+                    {
+                        containerGraphics.DrawImage(bmp, Container.ClientRectangle);
+                    }
+
+                }
+            }
+        }
+
+        public TElement Find<TElement>(Func<TElement, Boolean> match)
+            where TElement : Element
+        {
+            foreach (var item in this.Items)
+            {
+                var r = item.Find(match);
+                if (r != null)
+                {
+                    return (TElement)r;
+                }
+            }
+
+            return null;
+        }
+
+        public Element FindByName(String name)
+        {
+            foreach (var item in this.Items)
+            {
+                var r = item.FindItemByName(name);
+                if (r != null)
+                {
+                    return r;
+                }
+            }
+
+            return null;
+        }
+
+        public Element[] GetAllItems()
+        {
+            return this.Items.SelectMany(x => x.GetAllItems()).ToArray();
+        }
+
+        public void Load(String filePath)
+        {
+            System.Runtime.Serialization.Formatters.Soap.SoapFormatter bf = new System.Runtime.Serialization.Formatters.Soap.SoapFormatter();
+            using (System.IO.FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open))
+            {
+                _items = new List<Element>((Element[])bf.Deserialize(fs));
+            }
+            bf = null;
+
+            foreach (var item in this.GetAllItems())
+            {
+                item.UpdateEditor(this);
+            }
+
+            _fileName = filePath;
+
+            UpdateSettings();
+        }
+
+        void UpdateSettings()
+        {
+            var s=this.Settings;
+            if (s.WidthScale != default(float))
+            {
+                this.WidthScale = s.WidthScale;
+            }
+            else
+            {
+                this.WidthScale = this.Container.ClientRectangle.Width / this.Settings.StageSize.Width;
+            }
+
+            if (s.HeightScale != default(float))
+            {
+                this.HeightScale = s.HeightScale;
+            }
+            else
+            {
+                this.HeightScale = this.Container.ClientRectangle.Height / this.Settings.StageSize.Height;
+            }
+
+            this.OriginPoint = new PointF(s.OriginPointX, s.OriginPointY);
+            if (!IsDesign)
+            {
+                this.Container.ContextMenu = m_RunningTimeMenu;
+            }
+        }
+
+        public void RemoveItem(Element item)
+        {
+            _items.Remove(item);
+            item.Dispose();
+            Container.Cursor = Cursors.Default;
+
+
+            this.Draw();
+
+            FireItemRemovedEvent(item);
+        }
+
+        public void Save(String filePath)
+        {
+            System.Runtime.Serialization.Formatters.Soap.SoapFormatter bf = new System.Runtime.Serialization.Formatters.Soap.SoapFormatter();
+            using (System.IO.FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.OpenOrCreate))
+            {
+                bf.Serialize(fs, this.Items);
+                fs.Flush();
+            }
+            bf = null;
+        }
+
+        public void SendToBack(Element item)
+        {
+            if (item.Parent != null)
+            {
+                item.Index = item.Parent.Items.Max(x => (int?)x.Index).GetValueOrDefault(0) - 1;
+            }
+            else
+            {
+                item.Index = _items.Max(x => (int?)x.Index).GetValueOrDefault(0) - 1;
+            }
+        }
+
+        void Container_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Control && e.KeyCode == Keys.R)
+                {
+                    this.OriginPoint = new PointF(0, 0);
+                    this.WidthScale = 1f;
+                    this.HeightScale = 1f;
+                    return;
+                }
+
+                if (e.Control && e.KeyCode == Keys.C && this.SelectedItems.Length > 0)
+                {
+                    foreach (var item in SelectedItems)
+                    {
+                        copiedItems.Add(item.Clone());
+                    }
+                }
+
+                if (e.Control && e.KeyCode == Keys.V && copiedItems.Count > 0)
+                {
+                    var firstItem = copiedItems.First();
+                    var offsetX = LastClickedPoint.X - firstItem.Rectangle.Left;
+                    var offsetY = LastClickedPoint.Y - firstItem.Rectangle.Top;
+
+                    foreach (var item in copiedItems)
+                    {
+                        item.Left += offsetX;
+                        item.Top += offsetY;
+
+                        this.AddItem(item);
+                    }
+
+                    copiedItems = new List<Element>();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        void Container_MouseDown(object sender, MouseEventArgs e)
+        {
+            //if (!IsDesign)
+            //{
+            //    return;
+            //}
+
+            this.LastClickedPoint = new Point(e.X, e.Y);
+
+            startPoint = new Point(e.X, e.Y);
+            if (e.Button == MouseButtons.Left
+                && this.SelectedItems.Length == 0
+                && !_items.Any(x => x.Rectangle.Contains(startPoint))
+                )
+            {
+                //拖动画布
+                if ((Control.ModifierKeys & Keys.Control) == Keys.Control && Settings.Moveable)
+                {
+                    this.Container.Cursor = Cursors.NoMove2D;
+                    isDragElements = false;
+                    isDragEditor = true;
+                }
+                else
+                {
+                    if (IsDesign)
+                    {
+                        this.Container.Cursor = Cursors.Default;
+                        isDragElements = true;
+                        isDragEditor = false;
+                    }
+
+                }
+            }
+        }
+
+        void Container_MouseMove(object sender, MouseEventArgs e)
+        {
+            //if (!IsDesign)
+            //{
+            //    return;
+            //}
+
+            if (isDragElements && IsDesign)
+            {
+                int width = e.X - startPoint.X;
+                int height = e.Y - startPoint.Y;
+                ReversibleFrameRectangle = new Rectangle(startPoint.X, startPoint.Y, width, height);
+
+            }
+
+            if (isDragEditor && Settings.Moveable)
+            {
+                int width = e.X - startPoint.X;
+                int height = e.Y - startPoint.Y;
+                ReversibleFrameRectangle = new Rectangle(0, 0, 0, 0);
+                this.OriginPoint = new PointF(this.OriginPoint.X + width, this.OriginPoint.Y + height);
+                startPoint = new Point(e.X, e.Y);
+            }
+
+            Draw();
+        }
+
+        void Container_MouseUp(object sender, MouseEventArgs e)
+        {
+            Boolean selected = false;
+            if (isDragElements == true)
+            {
+                foreach (var item in _items)
+                {
+                    if (ReversibleFrameRectangle.Contains(new Rectangle(
+                        Convert.ToInt32(item.Rectangle.X),
+                        Convert.ToInt32(item.Rectangle.Y),
+                        Convert.ToInt32(item.Rectangle.Width),
+                        Convert.ToInt32(item.Rectangle.Height))))
+                    {
+                        item.Focused = true;
+                        selected = true;
+                    }
+                }
+                isDragElements = false;
+            }
+            else
+            {
+                if (_items.Any(x => x.Focused && x.TestHit(e.X, e.Y)))
+                {
+                    selected = true;
+                }
+            }
+
+            ReversibleFrameRectangle = new Rectangle(0, 0, 0, 0);
+            isDragEditor = false;
+
+            this.Container.Cursor = Cursors.Default;
+
+            if (selected)
+            {
+                FireSelectedEvent(_items.Where(x => x.Focused).ToArray());
+            }
+        }
+
+        void Container_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (!Settings.Sizeable)
+            {
+                return;
+            }
+
+            var scale = e.Delta / 10000f;
+            var newWidthScale = this.WidthScale + scale;
+            var newHeightScale = this.HeightScale + scale;
+            if (newWidthScale > 0)
+            {
+                this.WidthScale=newWidthScale;
+            }
+
+            if (newHeightScale > 0)
+            {
+                this.HeightScale=newHeightScale;
+            }
+        }
+        void CreateMenus()
+        {
+
+            m_RunningTimeMenu = new ContextMenu();
+            m_RunningTimeMenu.MenuItems.Add("退出", (sender, e) =>
+            {
+                Application.Exit();
+                Application.ExitThread();
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            });
+
+            if (!this.IsDesign)
+            {
+                return;
+            }
+
+            _menu = new ContextMenu();
+            this.Container.ContextMenu = _menu;
+            _menu.Popup += (object sender, EventArgs e) =>
+            {
+
+            };
+
+            _menu.MenuItems.Add("打开(&O)", (sender, e) =>
+            {
+                using (OpenFileDialog ofd = new OpenFileDialog())
+                {
+                    ofd.Filter = "运行视图文件(*.g)|*.g";
+                    if (ofd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    this.Load(ofd.FileName);
+                }
+            });
+
+            _menu.MenuItems.Add("保存(&S)", (sender, e) =>
+            {
+                if (String.IsNullOrWhiteSpace(_fileName))
+                {
+                    using (SaveFileDialog sfd = new SaveFileDialog())
+                    {
+                        sfd.Filter = "运行视图文件(*.g)|*.g";
+                        if (sfd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                        {
+                            return;
+                        }
+
+                        this.Save(sfd.FileName);
+                    }
+                }
+                else
+                {
+                    this.Save(_fileName);
+                }
+            });
+
+            _menu.MenuItems.Add("删除", (sender, e) =>
+            {
+                while (SelectedItems.Length > 0)
+                {
+                    RemoveItem(SelectedItems[0]);
+                }
+                Draw();
+            });
+
+
+            var clearItem = _menu.MenuItems.Add("选择副本");
+            clearItem.MenuItems.Add("输送线", (sender, e) =>
+            {
+                foreach (var item in this.SelectedItems.ToArray())
+                {
+                    item.Focused = false;
+                }
+
+                var q = this.Items.Where(x => x is ConveyorLocation)
+                    .Select(x => x as ConveyorLocation)
+                    .Where(x => x.PosNo != 0)
+                    .GroupBy(x => x.PosNo)
+                    .Where(x => x.Count() > 1);
+                foreach (var grouping in q)
+                {
+                    for (int i = 0; i < grouping.Count(); i++)
+                    {
+                        if (i == 0)
+                        {
+                            continue;
+                        }
+
+                        grouping.ElementAt(i).Focused = true;
+                    }
+                }
+
+                MessageBox.Show(string.Format("共选择了 {0} 个对象", this.SelectedItems.Length), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            });
+
+            clearItem.MenuItems.Add("堆垛机", (sender, e) =>
+            {
+                foreach (var item in this.SelectedItems.ToArray())
+                {
+                    item.Focused = false;
+                }
+
+                var q = this.Items.Where(x => x is Crane)
+                    .Select(x => x as Crane)
+                    .Where(x => !String.IsNullOrWhiteSpace(x.Name))
+                    .GroupBy(x => x.Name)
+                    .Where(x => x.Count() > 1);
+                foreach (var grouping in q)
+                {
+                    for (int i = 0; i < grouping.Count(); i++)
+                    {
+                        if (i == 0)
+                        {
+                            continue;
+                        }
+
+                        grouping.ElementAt(i).Focused = true;
+                    }
+                }
+
+                MessageBox.Show(string.Format("共选择了 {0} 个对象", this.SelectedItems.Length), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            });
+
+            var moveItem = _menu.MenuItems.Add("移动到");
+            moveItem.MenuItems.Add("取前面", (sender, e) =>
+            {
+                foreach (var item in SelectedItems)
+                {
+                    BringToFront(item);
+                }
+            });
+
+            moveItem.MenuItems.Add("最后面", (sender, e) =>
+            {
+                foreach (var item in SelectedItems)
+                {
+                    SendToBack(item);
+                }
+            });
+
+            var alignItem = _menu.MenuItems.Add("对齐");
+            alignItem.MenuItems.Add("左", (sender, e) =>
+            {
+                Align(AlignType.Left);
+            });
+
+            alignItem.MenuItems.Add("上", (sender, e) =>
+            {
+                Align(AlignType.Top);
+            });
+
+            alignItem.MenuItems.Add("左右相接", (sender, e) =>
+            {
+                Align(AlignType.LinkLeft);
+            });
+
+            alignItem.MenuItems.Add("上下相接", (sender, e) =>
+            {
+                Align(AlignType.LinkTop);
+            });
+
+            var resizeItem = _menu.MenuItems.Add("尺寸");
+            resizeItem.MenuItems.Add("宽相同", (sender, e) =>
+            {
+                var items = this.SelectedItems.ToArray();
+                if (items.Length == 0)
+                {
+                    return;
+                }
+                var width = items.First().Size.Width;
+                foreach (var item in items)
+                {
+                    item.Size = new SizeF(width, item.Size.Height);
+                }
+            });
+            resizeItem.MenuItems.Add("高相同", (sender, e) =>
+            {
+                var items = this.SelectedItems.ToArray();
+                if (items.Length == 0)
+                {
+                    return;
+                }
+                var height = items.First().Size.Height;
+                foreach (var item in items)
+                {
+                    item.Size = new SizeF(item.Size.Width, height);
+                }
+            });
+            resizeItem.MenuItems.Add("尺寸相同", (sender, e) =>
+            {
+                var items = this.SelectedItems.ToArray();
+                if (items.Length == 0)
+                {
+                    return;
+                }
+                var size = items.First().Size;
+                foreach (var item in items)
+                {
+                    item.Size = size;
+                }
+            });
+
+            _menu.MenuItems.Add("退出", (sender, e) =>
+            {
+                Application.Exit();
+                Application.ExitThread();
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            });
+        }
+
+        void DrawDebugInfo(Graphics graphics)
+        {
+            if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
+            {
+                graphics.DrawString(string.Format("画面大小： {0},{1},原点位置：{2},{3}，绽放比例：{4},{5}",
+                    this.Container.ClientRectangle.Width,
+                    this.Container.ClientRectangle.Height,
+                    this.OriginPoint.X, this.OriginPoint.Y,
+                    this.WidthScale, this.HeightScale),
+                    Control.DefaultFont, Brushes.Black, 0, 0);
+            }
+
+        }
+
+        void DrawReversibleFrame(Graphics graphics)
+        {
+            if (isDragElements)
+            {
+                var x1 = ReversibleFrameRectangle.X;
+                var y1 = ReversibleFrameRectangle.Y;
+                var width = ReversibleFrameRectangle.Width;
+                var height = ReversibleFrameRectangle.Height;
+
+                using (Pen pen = new Pen(Brushes.Black, 1))
+                {
+                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDot;
+                    graphics.DrawRectangle(pen, x1, y1, width, height);
+                }
+            }
+        }
+
+        void FireItemAddedEvent(Element item)
+        {
+            if (ItemAdded != null)
+            {
+                ItemAdded.Invoke(this, item);
+            }
+        }
+
+        void FireItemRemovedEvent(Element item)
+        {
+            if (ItemRemoved != null)
+            {
+                ItemRemoved.Invoke(this, item);
+            }
+        }
+
+        void FireSelectedEvent(Element[] selectedItems)
+        {
+            if (Selected != null)
+            {
+                Selected(this,selectedItems);
+            }
+        }
+    }
+}

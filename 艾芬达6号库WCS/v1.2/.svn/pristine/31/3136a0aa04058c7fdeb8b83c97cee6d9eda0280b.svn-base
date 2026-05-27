@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CraneService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/CraneService" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.Crane" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICraneService_LoadCraneInfos_InputMessage">
+    <wsdl:part name="parameters" element="tns:LoadCraneInfos" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_LoadCraneInfos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoadCraneInfosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_ReadStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadStatus" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_ReadStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_BackToTheOrigin_InputMessage">
+    <wsdl:part name="parameters" element="tns:BackToTheOrigin" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_BackToTheOrigin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BackToTheOriginResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_EmergencyStop_InputMessage">
+    <wsdl:part name="parameters" element="tns:EmergencyStop" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_EmergencyStop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EmergencyStopResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_CancelEmergencyStop_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelEmergencyStop" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_CancelEmergencyStop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelEmergencyStopResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Move_InputMessage">
+    <wsdl:part name="parameters" element="tns:Move" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Move_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MoveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Pick_InputMessage">
+    <wsdl:part name="parameters" element="tns:Pick" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Pick_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PickResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Putdown_InputMessage">
+    <wsdl:part name="parameters" element="tns:Putdown" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Putdown_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PutdownResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Lock_InputMessage">
+    <wsdl:part name="parameters" element="tns:Lock" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Lock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LockResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Unlock_InputMessage">
+    <wsdl:part name="parameters" element="tns:Unlock" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Unlock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnlockResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Up_InputMessage">
+    <wsdl:part name="parameters" element="tns:Up" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Up_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Down_InputMessage">
+    <wsdl:part name="parameters" element="tns:Down" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Down_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DownResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Forward_InputMessage">
+    <wsdl:part name="parameters" element="tns:Forward" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Forward_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForwardResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Back_InputMessage">
+    <wsdl:part name="parameters" element="tns:Back" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_Back_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BackResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_ResetWarn_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetWarn" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_ResetWarn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetWarnResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_MoveByForkDirection_InputMessage">
+    <wsdl:part name="parameters" element="tns:MoveByForkDirection" />
+  </wsdl:message>
+  <wsdl:message name="ICraneService_MoveByForkDirection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MoveByForkDirectionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICraneService">
+    <wsdl:operation name="LoadCraneInfos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/LoadCraneInfos" message="tns:ICraneService_LoadCraneInfos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/LoadCraneInfosResponse" message="tns:ICraneService_LoadCraneInfos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/ReadStatus" message="tns:ICraneService_ReadStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/ReadStatusResponse" message="tns:ICraneService_ReadStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BackToTheOrigin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/BackToTheOrigin" message="tns:ICraneService_BackToTheOrigin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/BackToTheOriginResponse" message="tns:ICraneService_BackToTheOrigin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EmergencyStop">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/EmergencyStop" message="tns:ICraneService_EmergencyStop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/EmergencyStopResponse" message="tns:ICraneService_EmergencyStop_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelEmergencyStop">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/CancelEmergencyStop" message="tns:ICraneService_CancelEmergencyStop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/CancelEmergencyStopResponse" message="tns:ICraneService_CancelEmergencyStop_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Move">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Move" message="tns:ICraneService_Move_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/MoveResponse" message="tns:ICraneService_Move_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Pick">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Pick" message="tns:ICraneService_Pick_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/PickResponse" message="tns:ICraneService_Pick_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Putdown">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Putdown" message="tns:ICraneService_Putdown_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/PutdownResponse" message="tns:ICraneService_Putdown_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Lock">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Lock" message="tns:ICraneService_Lock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/LockResponse" message="tns:ICraneService_Lock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Unlock">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Unlock" message="tns:ICraneService_Unlock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/UnlockResponse" message="tns:ICraneService_Unlock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Up">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Up" message="tns:ICraneService_Up_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/UpResponse" message="tns:ICraneService_Up_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Down">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Down" message="tns:ICraneService_Down_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/DownResponse" message="tns:ICraneService_Down_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Forward">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Forward" message="tns:ICraneService_Forward_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/ForwardResponse" message="tns:ICraneService_Forward_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Back">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/Back" message="tns:ICraneService_Back_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/BackResponse" message="tns:ICraneService_Back_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetWarn">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/ResetWarn" message="tns:ICraneService_ResetWarn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/ResetWarnResponse" message="tns:ICraneService_ResetWarn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MoveByForkDirection">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICraneService/MoveByForkDirection" message="tns:ICraneService_MoveByForkDirection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICraneService/MoveByForkDirectionResponse" message="tns:ICraneService_MoveByForkDirection_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICraneService" type="tns:ICraneService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LoadCraneInfos">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/LoadCraneInfos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadStatus">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/ReadStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackToTheOrigin">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/BackToTheOrigin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmergencyStop">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/EmergencyStop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelEmergencyStop">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/CancelEmergencyStop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Move">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Move" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Pick">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Pick" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Putdown">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Putdown" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Lock">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Lock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Unlock">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Unlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Up">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Up" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Down">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Down" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Forward">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Forward" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Back">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/Back" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetWarn">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/ResetWarn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MoveByForkDirection">
+      <soap:operation soapAction="http://tempuri.org/ICraneService/MoveByForkDirection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CraneService">
+    <wsdl:port name="BasicHttpBinding_ICraneService" binding="tns:BasicHttpBinding_ICraneService">
+      <soap:address location="http://localhost:9991/CraneService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

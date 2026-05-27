@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Wcs;
+using Wcs.DefaultImpls.Conveyor;
+using Wcs.Framework;
+using Wcs.Framework.Cfg;
+namespace UnitTestProject1
+{
+    [TestClass]
+    public class 任务测试
+    {
+        [TestMethod]
+        public void 创建任务输送线任务()
+        {
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            {
+
+                var startLocation = LocationConverter.ConvertibleCodeToLcation("1102@输送线1");
+                var endLocation = LocationConverter.ConvertibleCodeToLcation("01002003@C001");
+
+                Task task = new Task(Guid.NewGuid().ToString(),LocationConverter.ToLocationInfo(startLocation), LocationConverter.ToLocationInfo(endLocation));
+              
+                task.ContainerCodes.Add("托盘1");
+                task.ContainerCodes.Add("托盘2");
+
+                unitOfWork.session.Save(task);
+
+                unitOfWork.Commit();
+            }
+
+        }
+
+
+        [TestMethod]
+        public void 路径连通测试()
+        {
+            //var _adjacencies = new AdjacencyList<Route>();
+            //var routes = WcsConfiguration.Instance.RouteCollection.RouteElements.Select(x => x.Route);
+            ////添加顶点
+            //foreach (var route in routes)
+            //{
+            //    _adjacencies.AddVertex(route);
+            //}
+
+            ////添加有向边
+            //foreach (var route in routes)
+            //{
+            //    foreach (var adjoin in route.Adjoins)
+            //    {
+            //        if (!_adjacencies.DirectedEdgeIsContains(route, adjoin))
+            //        {
+            //            _adjacencies.AddDirectedEdge(route, adjoin);
+            //        }
+            //    }
+            //}
+
+            //_adjacencies.test();
+
+            var startLocation = LocationConverter.ConvertibleCodeToLcation("1101@输送线1");
+            var currentLocation = LocationConverter.ConvertibleCodeToLcation("1103@输送线1");
+            var endLocation = LocationConverter.ConvertibleCodeToLcation("01002003@C001");
+
+            var nets = PathHelper.FindNextPath(null, startLocation, endLocation, currentLocation, null, RouteType.Normal);
+            Assert.AreNotEqual(nets.Count, 0);
+        }
+
+        [TestMethod]
+        public void 创建堆垛机任务()
+        {
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            {
+                var startLocation = LocationConverter.ConvertibleCodeToLcation("1101@输送线1");
+                var endLocation = LocationConverter.ConvertibleCodeToLcation("01002003@C001");
+
+                Task task = new Task(Guid.NewGuid().ToString(), LocationConverter.ToLocationInfo(startLocation), LocationConverter.ToLocationInfo(endLocation));
+                task.ContainerCodes.Add("托盘1");
+                task.ContainerCodes.Add("托盘2");
+
+                unitOfWork.session.Save(task);
+
+                unitOfWork.Commit();
+            }
+        }
+    }
+}

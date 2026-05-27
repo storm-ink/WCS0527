@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <system.serviceModel>
+      <bindings>
+        <basicHttpBinding>
+          <binding maxBufferSize="2147483647" maxReceivedMessageSize="2147483647" maxBufferPoolSize="2147483647">
+            <readerQuotas maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxStringContentLength="2147483647" maxNameTableCharCount="2147483647" maxDepth="2147483647" />
+          </binding>
+        </basicHttpBinding>
+      </bindings>
+
+
+      <client>
+        <endpoint address="http://10.12.96.203:9000/SingleForkCraneService"
+            binding="basicHttpBinding"
+            contract="Wcs.Client.Interfaces.SingleForkCrane.ICraneService" name="SingleForkCraneService" />
+
+        <endpoint address="http://10.12.96.203:9000/ConveyorService"
+            binding="basicHttpBinding"
+            contract="Wcs.Client.Interfaces.Conveyor.IConveyorService" name="ConveyorService" />
+        
+        <endpoint address="http://10.12.96.203:9000/TaskService"
+            binding="basicHttpBinding"
+            contract="Wcs.Client.Interfaces.Task.ITaskService" name="TaskService" />
+
+        <endpoint address="http://10.12.96.203:9991/SinglePlantformRailGuidedVehicleService"
+            binding="basicHttpBinding"
+            contract="Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.ISinglePlantformRailGuidedVehicleService" 
+                  name="SinglePlantformRailGuidedVehicleService" />
+      </client>
+      
+      <behaviors>
+        <endpointBehaviors>
+          <behavior>
+            <contextPropagation />
+          </behavior>
+        </endpointBehaviors>
+      </behaviors>
+      <extensions>
+        <behaviorExtensions>
+          <add name="contextPropagation" type="Wcs.Client.ContextPropagationBehaviorElement, Wcs.Client" />
+        </behaviorExtensions>
+      </extensions>
+    </system.serviceModel>
+</configuration>

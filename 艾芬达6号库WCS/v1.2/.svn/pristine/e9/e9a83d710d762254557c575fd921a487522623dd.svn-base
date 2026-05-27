@@ -1,0 +1,26 @@
+﻿
+using System;
+using System.Runtime.Serialization;
+
+namespace Gensong
+{
+    /// <summary>紧急停机</summary>
+    [Serializable]
+    [DataContract]
+    public sealed class HE : RequestTelex
+    {
+        private HE()
+        {
+            this.Head = "HE";
+        }
+
+        private static HE he = new HE();
+        public static HE Instance
+        {
+            get
+            {
+                return he;
+            }
+        }
+    }
+}

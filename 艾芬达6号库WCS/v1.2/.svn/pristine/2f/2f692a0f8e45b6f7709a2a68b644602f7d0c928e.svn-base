@@ -1,0 +1,1510 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wcs.Client</name>
+    </assembly>
+    <members>
+        <member name="M:Wcs.Client.Interfaces.AbstractClientService.InternalCall``1(System.String,System.Object[])">
+            <summary>
+            调用已注册的方法
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+            <param name="name">已注册的方法名称（不区分大小写）</param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.AbstractClientService.Register(System.Object,System.String)">
+            <summary>
+            注册指定实例所属类型的方法到服务当中
+            </summary>
+            <param name="hostInstance">实例</param>
+            <param name="name">方法名称(不区分大小写)</param>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.AlarmNetTransferObject">
+            <summary>
+            报警状态.
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject">
+            <summary>
+            输送线占位信号
+            此信号通常是在容器到达或经过某些特定的输送线位置时，由电气控制生成。
+            一般用在入库时入库指令的生成上
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject.PosNo">
+            <summary>
+            获取或设置占位信号对应的货位号（信号源）
+            </summary>
+            <value>
+            货位对应的设备编码形式.即输送线位置对象 DeviceCode 值.
+            </value>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject.HandShake">
+            <summary>
+             获取或设置占位信号的握手变量值
+            </summary>
+            <value>
+            占位信号握手变量
+            </value>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject.AssignmentID">
+            <summary>
+            获取或设置占位信号对应的任务号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject.TU_ID">
+            <summary>
+            获取或设置占位信号对应的托盘号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject.TU_Type">
+            <summary>
+            获取或设置占位信号对应的托盘类型
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject.IO_Data">
+            <summary>
+            获取或设置占位信号对应的业务数据
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObjectHandShake">
+            <summary>
+            占位信号握手变量
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObjectHandShake.Empty">
+            <summary>
+            没有占位
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObjectHandShake.New">
+            <summary>
+            有占位
+            容器到达某特定位置后，电气程序生成该位置的占位信号，并通过设备通迅缓冲区反应到上位机
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObjectHandShake.ApplyToDelete">
+            <summary>
+            申请清除
+            在读到电气生成的占位信号后，需要由上位机发送此握手到设备通迅缓冲区。电气程序在读到该信号后删除当前点位信息
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObject">
+            <summary>
+            输送线货位状态对象.
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObject.PosNo">
+            <summary>
+            货位号.
+            </summary>
+            <value>
+            位置在设备中的编码形式.
+            </value>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObject.Status">
+            <summary>
+            状态.
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus">
+            <summary>
+            输送线位置状态
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Initialize">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Warning">
+            <summary>
+            报警
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Offline">
+            <summary>
+            离线
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Manual">
+            <summary>
+            手动
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Stopped">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Running">
+            <summary>
+            运行
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.LocationTaskNetTransferObject">
+            <summary>
+            货位当前任务
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject">
+            <summary>
+            输送线光电状态，该对象包含有物理光电设备的实时工作状态信息
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.PosNo">
+            <summary>
+            获取或设置占位信号对应的货位号（信号源）
+            </summary>
+            <value>
+            货位对应的设备编码形式.即输送线位置对象 DeviceCode 值.
+            </value>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.PhocllUseStatus">
+            <summary>
+            光电的使用状态，即此组使用了哪些光电
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.FroProPotocell">
+            <summary>
+            指示前保护光电是否被遮挡
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.FroPosPotocell">
+            <summary>
+            指示前到位光电是否被遮挡
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.FroSloPotocell">
+            <summary>
+            指示前减速光电是否被遮挡
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.AftProPotocell">
+            <summary>
+            指示后保护光电是否被遮挡
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.AftPosPotocell">
+            <summary>
+            指示后到位光电是否被遮挡
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.AftSloPotocell">
+            <summary>
+            指示后减速光电是否被遮挡
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.UpPotocell">
+            <summary>
+            指示后高位光电是否被遮挡
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject.DownPotocell">
+            <summary>
+            指示后低位光电是否被遮挡
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject">
+            <summary>
+            任务块
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.HandShake">
+            <summary>
+            握手协议（为0时说明为地址为空，可以使用）
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.AssignmentID">
+            <summary>
+            任务号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.TU_ID">
+            <summary>
+            托盘号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.TU_Type">
+            <summary>
+            托盘类型
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.IO_Data">
+            <summary>
+            业务数据
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.RotingNo">
+            <summary>
+            路径号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.StartMotorNo">
+            <summary>
+            起点位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.DestinationNo">
+            <summary>
+            终点位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.TaskStatus">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.ReadTask">
+            <summary>
+            PLC读取任务后会填一下这个任务号，现在没用上好像
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject.Spare">
+            <summary>
+            预留字段
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectHandShake">
+            <summary>
+            握手状态
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectHandShake.Empty">
+            <summary>
+            初始化时数据
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectHandShake.New">
+            <summary>
+            新任务
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectHandShake.ApplyForDelete">
+            <summary>
+            删除请求
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectHandShake.Readed">
+            <summary>
+            PLC已请求
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectHandShake.SecondConfirm">
+            <summary>
+            WCS 二次确认
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectHandShake.ApplyForClear">
+            <summary>
+            请求清空
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectStatus">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectStatus.Empty">
+            <summary>
+            初始化时数据
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectStatus.Finished">
+            <summary>
+            完成
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectStatus.Running">
+            <summary>
+            执行中
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectStatus.Waiting">
+            <summary>
+            等待执行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectStatus.Error">
+            <summary>
+            任务不能执行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Conveyor.TaskNetTransferObjectStatus.Other">
+            <summary>
+            其它 未完成（原因或状态定义）；
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent">
+            <summary>
+            穿梭车事件
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.Initialized">
+            <summary>无货无任务</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.TaskedAndNotRunning">
+            <summary>接到任务未运行</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.Running">
+            <summary>行走运行</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.ArrivedStartStation">
+            <summary>到达起始点</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.ArrivedEndStation">
+            <summary>到达目的地</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.ClearedTheWay">
+            <summary>执行让道任务</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.AutomaticTaskCompletion">
+            <summary>
+            自动任务完成
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.TaskCompletionByManual">
+            <summary>
+            手动报完成
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleEvent.交接货超时">
+            <summary>
+            交接货超时
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus">
+            <summary>
+            穿梭车状态
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.初始化">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.手动模式">
+            <summary>
+            手动模式
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.无货待命">
+            <summary>
+            无货待命
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货待命">
+            <summary>
+            有货待命
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.无货运行">
+            <summary>
+            无货运行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货运行">
+            <summary>
+            有货运行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.输送线运行">
+            <summary>
+            输送线运行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.停止">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.报警停机">
+            <summary>
+            报警停机
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货">
+            <summary>
+            有货
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode">
+            <summary>
+            任务模式
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.Initialized">
+            <summary>无任务类型</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.AutomaticTask">
+            <summary>表示HB任务
+            全自动任务
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.Picking">
+            <summary>取货任务</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.Putting">
+            <summary>放货任务</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.WalkWithGoods">
+            <summary>有货行走</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleMode.Walk">
+            <summary>无货行走</summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject">
+            <summary>
+             穿梭车状态报文 
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.AtStation">
+            <summary>
+            指示穿梭车当前是否在站点位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.ContainerCode">
+            <summary>
+            托盘条码
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.CurrentStation">
+            <summary>
+            当前站台号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.ErrorCode">
+            <summary>
+            错误码（默认为 0）
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.Event">
+            <summary>
+            穿梭车事件
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.FromStation">
+            <summary>
+            起点
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.Position">
+            <summary>
+            位置值
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.State">
+            <summary>
+            穿梭车状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.TaskId">
+            <summary>
+            当前任务号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.TaskMode">
+            <summary>
+            任务模式
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject.ToStation">
+            <summary>
+            目的的
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.EquipmentAction">
+            <summary>
+            表示一个具体的设备动作
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.ContainerCode">
+            <summary>
+            容器编码
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+            <value>
+            物理动作被创建的时间
+            </value>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.DeviceName">
+            <summary>
+            物理动作设备信息
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.EquipmentTaskId">
+            <summary>
+            设备任务号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.FinishedAt">
+            <summary>
+            结束时间
+            </summary>
+            <value>
+            接收到设备报的任务完成信号的时间.这个时间在极少数的情况下并不能体现真正的任务完成时间，比如在设备任务报完成期间程序被关闭。
+            </value>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.SentAt">
+            <summary>
+            发送时间.
+            </summary>
+            <value>
+            物理动作被成功发送给设备的时间.
+            </value>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.SequenceOrdering">
+            <summary>
+            此动作在序列中的排序位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.Status">
+            <summary>
+            动作当前状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentAction.Warnings">
+            <summary>
+            物理动作的报警信息
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.EquipmentActionStatus">
+            <summary>
+            设备动作状态
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.EquipmentActionStatus.New">
+            <summary>
+            新动作，等待执行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.EquipmentActionStatus.Executing">
+            <summary>
+            正在执行中
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.EquipmentActionStatus.Suspend">
+            <summary>
+            暂停中
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.EquipmentActionStatus.Error">
+            <summary>
+            执行中发生错误
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.EquipmentActionStatus.Cancelled">
+            <summary>
+            被取消
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.EquipmentActionStatus.Completed">
+            <summary>
+            已完成
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.EquipmentActionWarning">
+            <summary>
+            物理动作警告信息
+            </summary>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.EquipmentActionWarning.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentActionWarning.Code">
+            <summary>
+            警告码（错误码）
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentActionWarning.CreatedAt">
+            <summary>
+            发生时间
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentActionWarning.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentActionWarning.DeviceName">
+            <summary>
+            设备名称
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.EquipmentActionWarning.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.Archive(System.Int32)">
+            <summary>
+            归档
+            </summary>
+            <param name="taskId"></param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.GetTasks">
+            <summary>
+            获取所有任务
+            </summary>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.GetTask(System.String)">
+            <summary>
+            获取指定任务号的任务明细（包括子逻辑动作物理动作等）信息
+            </summary>
+            <param name="taskNo">任务号</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.GetTaskByEquipmentTaskId(System.Int32)">
+            <summary>
+            获取指定任务号的任务明细（包括子逻辑动作物理动作等）信息
+            </summary>
+            <param name="taskNo">任务号</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.SuspendTask(System.String)">
+            <summary>
+            暂停指定的任务
+            </summary>
+            <param name="taskNo">任务号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.CompleteTask(System.Int32)">
+            <summary>
+            完成指定的任务对象
+            </summary>
+            <param name="id">主键值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.CompleteMovenent(System.Int32)">
+            <summary>
+            完成指定的逻辑动作对象
+            </summary>
+            <param name="id">主键值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.CompleteAction(System.Int32)">
+            <summary>
+            完成指定的物理动作对象
+            </summary>
+            <param name="id">主键值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.CancelTask(System.String)">
+            <summary>
+            取消指定的任务
+            </summary>
+            <param name="taskNo">任务号</param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:Wcs.Client.Interfaces.Task.ITaskService.ResumeTask(System.String)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Wcs.Client.Interfaces.Task.ITaskService.ResumeTaskWithCurrentLocation(System.String,System.String)">
+            <summary>
+            继续执行指定的任务
+            </summary>
+            <param name="taskNo">任务号</param>
+            <param name="currentLocation">当前停靠位置</param>
+            <returns></returns>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent">
+            <summary>
+            堆垛机事件
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.Initialized">
+            <summary>已初始化</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.BeginRunning">
+            <summary>正在运行</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.BeginPickup">
+            <summary>正在取货</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.EndPickup">
+            <summary>取货完成</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.BeginPutin">
+            <summary>正在放货</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.EndPutin">
+            <summary>放货完成</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.Finished">
+            <summary>完成</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.EmergencyStop">
+            <summary>急停</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.CompletedWithError">
+            <summary>出错完成</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.BackToTheOrigin">
+            <summary>回原点</summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus">
+            <summary>
+            堆垛机状态
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Initialized">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.BackToTheOrigin">
+            <summary>
+            回原点
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.无货待命">
+            <summary>
+            无货待命
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.有货待命">
+            <summary>
+            有货待命
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.无货运行">
+            <summary>
+            无货运行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.有货运行">
+            <summary>
+            有货运行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Pickup">
+            <summary>
+            取货
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Putin">
+            <summary>
+            放货
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.AlarmAndShutdown">
+            <summary>
+            报警停机
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.ResetAlarm">
+            <summary>
+            报警复位
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.奇怪的状态">
+            <summary>
+            ???
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Disconnected">
+            <summary>
+            未连接
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.ManualMode">
+            <summary>
+            手动操作
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SingleForkCrane.ForkDirection">
+            <summary>
+            货叉方向<br />
+            指示堆垛机执行动作时伸叉的方向（相对于对堆机本身）
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkDirection.Left">
+            <summary>
+            左排
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkDirection.Right">
+            <summary>
+            右排
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkDirection.Left2">
+            <summary>
+            左排2(双伸位)
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkDirection.Right2">
+            <summary>
+            右排2(双伸位)
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition">
+            <summary>
+            位置水平方向的位置状态（左右位）
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Center">
+            <summary>中位</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Left">
+            <summary>左位</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.LeftLimit">
+            <summary>左极限</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Right">
+            <summary>右位</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.RightLimit">
+            <summary>右极限</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E6">
+            <summary>左（外）</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E7">
+            <summary>左（外）极限</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E8">
+            <summary>右（外）</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E9">
+            <summary>右（外）极限</summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.SingleForkCrane.ForkVerticalPosition">
+            <summary>
+            位置垂直方向的位置状态（高低位）
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkVerticalPosition.Middle">
+            <summary>中位</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkVerticalPosition.Top">
+            <summary>高位</summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.SingleForkCrane.ForkVerticalPosition.Bottom">
+            <summary>低位</summary>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.LoadCraneInfos">
+            <summary>
+            加载的有堆垛机信息，该信息中带有描述最大、小列层的数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.ReadStatus">
+            <summary>
+            读取所有堆垛机当前状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.BackToTheOrigin(System.String,System.String,System.String)">
+            <summary>
+            回原点
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.EmergencyStop(System.String)">
+            <summary>
+            急停
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.CancelEmergencyStop(System.String,System.String,System.String)">
+            <summary>
+            取消急停
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Move(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            移动
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userColumn">目的列位置(用户列)</param>
+            <param name="userLevel">目的层位置(用户层)</param>
+            <remarks>执行移动到指定位置的命令</remarks>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Pick(System.String,System.String,System.String,Wcs.Client.Interfaces.SingleForkCrane.ForkDirection)">
+            <summary>
+            取货
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="forkDirection">取货时货叉的运行方向</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Putdown(System.String,System.String,System.String,Wcs.Client.Interfaces.SingleForkCrane.ForkDirection)">
+            <summary>
+            放货
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="forkDirection">放货时货叉的运行方向</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Lock(System.String,System.String,System.String)">
+            <summary>
+            锁定
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Unlock(System.String,System.String,System.String)">
+            <summary>
+            解除锁定
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Up(System.String,System.String,System.String)">
+            <summary>
+            提升
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Down(System.String,System.String,System.String)">
+            <summary>
+            下降
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Forward(System.String,System.String,System.String)">
+            <summary>
+            前进
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.Back(System.String,System.String,System.String)">
+            <summary>
+            后退
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.SingleForkCrane.ICraneService.ResetWarn(System.String,System.String,System.String)">
+            <summary>
+            重置（复位）报警
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <returns></returns>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.State">
+            <summary>
+            堆垛机状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.UserColumn">
+            <summary>
+            当前所在列
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.UserLevel">
+            <summary>
+            当前所在层
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.ForkHorizontalPosition">
+            <summary>
+            货叉水平位置状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.ForkVerticalPosition">
+            <summary>
+            货叉上下位置状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.AtStation">
+            <summary>
+            指示堆垛机当前是否在站点位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.ErrorCode">
+            <summary>
+            错误码（默认为 0）
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.Event">
+            <summary>
+            堆垛机事件
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.SingleForkCrane.LA.TaskId">
+            <summary>
+            当前任务号
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.LocationInfo">
+            <summary>
+            位置描述信息
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LocationInfo.DeviceCode">
+            <summary>
+            位置设备可识别的编码
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LocationInfo.UserCode">
+            <summary>
+            位置用户可识别的编码
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LocationInfo.DeviceName">
+            <summary>
+            位置所属设备名称
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.LogicMovement">
+            <summary>
+            逻辑动作
+            表示一个任务的一个移动步骤，相当于原来的 子任务 概念
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.Ordering">
+            <summary>
+            逻辑动作在任务中的排序位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.DeviceName">
+            <summary>
+            所属设备名称
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.RouteId">
+            <summary>
+            路径号(有可能为 null，不是所有逻辑动作都有路径)
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.FinishedAt">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.EquipmentActions">
+            <summary>
+            该逻辑动作依次需要执行的物理动作
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.StartLocation">
+            <summary>
+            起点位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.EndLocation">
+            <summary>
+            终点位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.LogicMovement.Status">
+            <summary>
+            获取逻辑动作的状态
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.LogicMovementStatus">
+            <summary>
+            逻辑动作状态
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.LogicMovementStatus.New">
+            <summary>
+            新动作，等待执行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.LogicMovementStatus.Executing">
+            <summary>
+            正在执行中
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.LogicMovementStatus.Suspend">
+            <summary>
+            暂停中
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.LogicMovementStatus.Error">
+            <summary>
+            执行中发生错误
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.LogicMovementStatus.Cancelled">
+            <summary>
+            被取消
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.LogicMovementStatus.Completed">
+            <summary>
+            已完成
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.Task">
+            <summary>
+            Wcs 主任务，描述一个完整的作业
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.TaskCode">
+            <summary>
+            任务编号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.Source">
+            <summary>
+            任务来源
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.StartLocation">
+            <summary>
+            任务起始位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.EndLocation">
+            <summary>
+            终点位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.CurrentLocation">
+            <summary>
+            当前位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.Direction">
+            <summary>
+            任务方向
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.Status">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.BizType">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.TaskType">
+            <summary>
+            任务类型
+            <para>此属性的值来源于业务系统，在与业务系统交互时可能需要用到。</para>
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.FinishedAt">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.Description">
+            <summary>
+            备注信息
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.Priority">
+            <summary>
+            任务优先级（默认为 0），值越大，优先级越高。
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.Movements">
+            <summary>
+            已存在的动作
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.ContainerCodes">
+            <summary>
+            托盘号
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.Task.Task.AdditionalInfo">
+            <summary>
+            附加属性集合
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.TaskBizType">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskBizType.Normal">
+            <summary>
+            正常出入库
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskBizType.Counting">
+            <summary>
+            盘点业务
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.TaskDirection">
+            <summary>
+            任务方向
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskDirection.Unknow">
+            <summary>
+            不明确的
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskDirection.In">
+            <summary>
+            入库
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskDirection.Out">
+            <summary>
+            出库
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.TaskSource">
+            <summary>
+            任务来源
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskSource.Unknow">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskSource.Wms">
+            <summary>
+            由 Wms 创建
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskSource.Wcs">
+            <summary>
+            由 Wcs 创建
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskSource.Master">
+            <summary>
+            由 Master 创建
+            </summary>
+        </member>
+        <member name="T:Wcs.Client.Interfaces.Task.TaskStatus">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskStatus.New">
+            <summary>
+            新任务
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskStatus.Sent">
+            <summary>
+            已发送
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskStatus.Executing">
+            <summary>
+            正在运行
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskStatus.Suspend">
+            <summary>
+            暂停
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskStatus.Error">
+            <summary>
+            发生错误
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskStatus.Cancelled">
+            <summary>
+            被取消
+            </summary>
+        </member>
+        <member name="F:Wcs.Client.Interfaces.Task.TaskStatus.Completed">
+            <summary>
+            已完成
+            </summary>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.LoadCraneInfos">
+            <summary>
+            加载的有堆垛机信息，该信息中带有描述最大、小列层的数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.ReadStatus">
+            <summary>
+            读取所有堆垛机当前状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.BackToTheOrigin(System.String,System.String,System.String)">
+            <summary>
+            回原点
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.EmergencyStop(System.String)">
+            <summary>
+            急停
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.CancelEmergencyStop(System.String,System.String,System.String)">
+            <summary>
+            取消急停
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Move(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            移动
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userColumn">目的列位置(用户列)</param>
+            <param name="userLevel">目的层位置(用户层)</param>
+            <remarks>执行移动到指定位置的命令</remarks>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Pick(System.String,System.String,System.String,System.Nullable{Wcs.Client.Interfaces.SingleForkCrane.ForkDirection},System.Nullable{Wcs.Client.Interfaces.SingleForkCrane.ForkDirection})">
+            <summary>
+            取货
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="forkDirection">取货时货叉的运行方向</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Putdown(System.String,System.String,System.String,System.Nullable{Wcs.Client.Interfaces.SingleForkCrane.ForkDirection},System.Nullable{Wcs.Client.Interfaces.SingleForkCrane.ForkDirection})">
+            <summary>
+            放货
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="forkDirection">放货时货叉的运行方向</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Lock(System.String,System.String,System.String)">
+            <summary>
+            锁定
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Unlock(System.String,System.String,System.String)">
+            <summary>
+            解除锁定
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Up(System.String,System.String,System.String)">
+            <summary>
+            提升
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Down(System.String,System.String,System.String)">
+            <summary>
+            下降
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Forward(System.String,System.String,System.String)">
+            <summary>
+            前进
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.Back(System.String,System.String,System.String)">
+            <summary>
+            后退
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <param name="userName">执行锁定时使用的用户名（登记）</param>
+            <param name="ipAddress">执行锁定时使用的 ip 地址</param>
+        </member>
+        <member name="M:Wcs.Client.Interfaces.TwoForkCrane.ITwoForksCraneService.ResetWarn(System.String,System.String,System.String)">
+            <summary>
+            重置（复位）报警
+            </summary>
+            <param name="craneName">堆垛机名称</param>
+            <returns></returns>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.State">
+            <summary>
+            堆垛机状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.UserColumn">
+            <summary>
+            当前所在列
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.UserLevel">
+            <summary>
+            当前所在层
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.Fork1HorizontalPosition">
+            <summary>
+            货叉1水平位置状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.Fork2HorizontalPosition">
+            <summary>
+            货叉2水平位置状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.Fork1Status">
+            <summary>
+            货叉1状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.Fork2Status">
+            <summary>
+            货叉2状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.ForkVerticalPosition">
+            <summary>
+            货叉上下位置状态
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.AtStation">
+            <summary>
+            指示堆垛机当前是否在站点位置
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.ErrorCode">
+            <summary>
+            错误码（默认为 0）
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.Event">
+            <summary>
+            堆垛机事件
+            </summary>
+        </member>
+        <member name="P:Wcs.Client.Interfaces.TwoForkCrane.LA.TaskId">
+            <summary>
+            当前任务号
+            </summary>
+        </member>
+    </members>
+</doc>

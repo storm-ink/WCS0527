@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    /// <summary>
+    /// 相对位置转换器
+    /// 将传入的相对坐标转换为容器的相对位置
+    /// </summary>
+    public class RelativeTransform:Transform
+    {
+        public RelativeTransform(Element element):base(element)
+        {
+        }
+        public override float X(float x)
+        {
+            if (Element.Parent == null)
+            {
+                return x;
+            }
+            else
+            {
+                var p = Element.Parent;
+                float result =  x;
+                while (p != null)
+                {
+                    result -= p.Left;
+                    p = p.Parent;
+                }
+                return result;
+            }
+        }
+
+        public override float Y(float y)
+        {
+            if (Element.Parent == null)
+            {
+                return y;
+            }
+            else
+            {
+                var p = Element.Parent;
+                float result = y;
+                while (p != null)
+                {
+                    result -= p.Top;
+                    p = p.Parent;
+                }
+                return result;
+            }
+        }
+
+        public override float W(float w)
+        {
+            return w;
+        }
+
+        public override float H(float h)
+        {
+            return h;
+        }
+    }
+}

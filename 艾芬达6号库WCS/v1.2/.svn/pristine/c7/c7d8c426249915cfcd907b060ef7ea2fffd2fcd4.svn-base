@@ -1,0 +1,600 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.App.Elements.UIEditor;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("单货叉堆垛机数据源")]
+    [Serializable]
+    public class SingleForkCraneDataSource : Element, IWarningContainer
+    {
+        List<Crane> cranes = new List<Crane>();
+        Boolean _craneInfoIsLoaded;
+        Int32 m_Interval;
+        StringFormat sf;
+
+
+        Dictionary<string, Wcs.Client.Interfaces.SingleForkCrane.LA> statusCahces = new Dictionary<string, Wcs.Client.Interfaces.SingleForkCrane.LA>();
+        
+        public SingleForkCraneDataSource(Editor editor)
+            : base(editor)
+        {
+            Init();
+        }
+
+        public SingleForkCraneDataSource(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            Init();
+
+            this.ConfigurationName = (string)info.GetValue("ConfigurationName", typeof(string));
+            this.Interval = (Int32)info.GetValue("Interval", typeof(Int32));
+        }
+
+        [Description("终结点配置名称"), Category("行为"),
+        EditorAttribute(typeof(ServiceEndPointConfigurationNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public String ConfigurationName { get; set; }
+
+        public Int32 Interval
+        {
+            get
+            {
+                return m_Interval;
+            }
+            set
+            {
+                if (value < 500)
+                {
+                    throw new InvalidOperationException("激活间隔时间必须大于等于 500ms");
+                }
+                m_Interval = value;
+            }
+        }
+
+        public override Element Clone()
+        {
+            SingleForkCraneDataSource ds = new SingleForkCraneDataSource(this.Editor);
+
+            ds.ConfigurationName = this.ConfigurationName;
+            ds.Interval = this.Interval;
+
+            CloneProperties(ds);
+
+            return ds;
+        }
+
+        public override void Draw(System.Drawing.Graphics graphics)
+        {
+            if (Editor.IsDesign)
+            {
+                base.Draw(graphics);
+
+                graphics.DrawRectangles(Pens.Red, new RectangleF[] { this.Rectangle });
+                graphics.DrawString("单货叉堆垛机数据源", Control.DefaultFont, new SolidBrush(Color.Red), this.Rectangle, sf);
+            }
+        }
+
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            info.AddValue("Interval", this.Interval);
+            info.AddValue("ConfigurationName", this.ConfigurationName);
+
+            base.GetObjectData(info, context);
+        }
+
+        public Warning[] GetWarings()
+        {
+            List<Warning> result = new List<Warning>();
+            foreach (var item in cranes)
+            {
+                if (statusCahces==null || statusCahces.Count == 0)
+                {
+                    continue;
+                }
+
+                if (!statusCahces.ContainsKey(item.Name))
+                {
+                    result.Add(new Warning
+                    {
+                        DeviceName = item.Name,
+                        DeviceType = "堆垛机",
+                        Message = "未连接"
+                    });
+
+                    continue;
+                }
+
+                var status = statusCahces[item.Name];
+
+                if (status == null)
+                {
+                    Warning w = new Warning();
+                    w.DeviceType = "堆垛机";
+                    w.DeviceName = item.Name;
+                    w.Message = "未连接";
+                    result.Add(w);
+                }
+                else
+                {
+                    if (status.ErrorCode != 0 || status.State == Interfaces.SingleForkCrane.CraneStatus.AlarmAndShutdown)
+                    {
+                        Warning w = new Warning();
+                        w.DeviceType = "堆垛机";
+                        w.DeviceName = item.Name;
+                        if (String.IsNullOrWhiteSpace(status.ErrorName))
+                        {
+                            w.Message = "报警停机";
+                        }
+                        else
+                        {
+                            w.Message = status.ErrorName;
+                        }
+                        result.Add(w);
+                    }
+                }
+            }
+
+            return result.ToArray();
+        }
+
+        Crane FindCrane(String name)
+        {
+            Crane r = null;
+            if (cranes != null)
+            {
+                r = cranes.FirstOrDefault(x => String.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            }
+            if (r != null)
+            {
+                return r;
+            }
+            r = (Crane)Editor.FindByName(name);
+            if (r != null)
+            {
+                cranes.Add(r);
+            }
+
+            return r;
+        }
+
+        void Init()
+        {
+            this.Size = new System.Drawing.SizeF(50, 50);
+            sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+            Interval = 1000;
+
+            System.Threading.ThreadPool.QueueUserWorkItem((stat) =>
+            {
+                Proc();
+            });
+        }
+        void Proc()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(Interval);
+
+                if (Editor.IsDesign)
+                {
+                    continue;
+                }
+
+                if (String.IsNullOrWhiteSpace(this.ConfigurationName))
+                {
+                    continue;
+                }
+
+                SingleForkCraneServiceClient client=null;
+                try
+                {
+                    client = new SingleForkCraneServiceClient(this.ConfigurationName);
+                    client.Open();
+                    if (!_craneInfoIsLoaded)
+                    {
+                        var infos = client.LoadCraneInfos();
+                        foreach (var item in infos)
+                        {
+                            var crane = FindCrane(item.Name);
+                            if (crane != null)
+                            {
+                                crane.CraneInfo = item;
+                            }
+                        }
+                        _craneInfoIsLoaded = true;
+                    }
+
+                    var las = client.ReadStatus();
+                    statusCahces = las;
+                    foreach (var item in las)
+                    {
+                        var crane = FindCrane(item.Key);
+                        if (crane != null)
+                        {
+                            crane.LastStatus = item.Value;
+                            crane.DataSource = this;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+
+                    statusCahces = new Dictionary<string, Wcs.Client.Interfaces.SingleForkCrane.LA>();
+                    if (client != null)
+                    {
+                        client.Abort();
+                    }
+                }
+                finally
+                {
+                    if (client != null)
+                    {
+                        client.Close();
+                        client = null;
+                    }
+                }
+            }
+        }
+
+        #region ICraneService
+        public string[] AllOperations()
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.AllOperations();
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Back(string craneName, string userName, string ipAddress)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Back(craneName, userName, ipAddress);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void BackToTheOrigin(string craneName, string userName, string ipAddress)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.BackToTheOrigin(craneName, userName, ipAddress);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public object Call(string name, object[] args)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.Call(name, args);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void CancelEmergencyStop(string craneName, string userName, string ipAddress)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.CancelEmergencyStop(craneName, userName, ipAddress);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Down(string craneName, string userName, string ipAddress)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Down(craneName, userName, ipAddress);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void EmergencyStop(string craneName)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.EmergencyStop(craneName);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Forward(string craneName, string userName, string ipAddress)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Forward(craneName, userName, ipAddress);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public List<Wcs.Client.Interfaces.SingleForkCrane.CraneInfo> LoadCraneInfos()
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.LoadCraneInfos();
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Lock(string craneName, string userName, string ipAddress)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Lock(craneName, userName, ipAddress);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Move(string craneName, string userName, string ipAddress, int userColumn, int userLevel)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Move(craneName, userName, ipAddress, userColumn, userLevel);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Pick(string craneName, string userName, string ipAddress, Wcs.Client.Interfaces.SingleForkCrane.ForkDirection forkDirection)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Pick(craneName, userName, ipAddress, forkDirection);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Putdown(string craneName, string userName, string ipAddress, Wcs.Client.Interfaces.SingleForkCrane.ForkDirection forkDirection)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Putdown(craneName, userName, ipAddress, forkDirection);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public Dictionary<string, Wcs.Client.Interfaces.SingleForkCrane.LA> ReadStatus()
+        {
+            return statusCahces;
+        }
+        public void Unlock(string craneName, string userName, string ipAddress)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Unlock(craneName, userName, ipAddress);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Up(string craneName, string userName, string ipAddress)
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Up(craneName, userName, ipAddress);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+        #endregion
+
+
+        public override float WidthScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+
+        public override float HeightScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+    }
+}

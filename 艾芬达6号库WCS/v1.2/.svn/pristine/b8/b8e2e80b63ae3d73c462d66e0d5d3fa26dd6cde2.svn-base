@@ -1,0 +1,857 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("单货叉堆垛机")]
+    [Serializable]
+    public class Crane : Element
+    {
+        Forms.frmCraneUI frm = null;
+        Boolean initializing = false;
+
+        //取放货时应该闪烁
+        Brush lastChageStatusBrush = null;
+        DateTime? lastChangeStatusTime = null;
+        CraneDrawDirection m_DrawDirection;
+
+        public Crane(Editor editor)
+            : base(editor)
+        {
+            initializing = true;
+            Init();
+            initializing = false;
+        }
+
+        public Crane(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            initializing = true;
+            Init();
+
+            this.DrawDirection = (CraneDrawDirection)info.GetValue("DrawDirection", typeof(CraneDrawDirection));
+            this.Color = (Color)info.GetValue("Color", typeof(Color));
+            this.Columns = (Int32)info.GetValue("Columns", typeof(Int32));
+            this.Font = (Font)info.GetValue("Font", typeof(Font));
+            this.RackLocationSize = (SizeF)info.GetValue("RackLocationSize", typeof(SizeF));
+
+            try
+            {
+                this.RackOrderByDescending = (Boolean)info.GetValue("RackOrderByDescending", typeof(Boolean));
+            }
+            catch (System.Runtime.Serialization.SerializationException)
+            {
+                //兼容旧版本 RackOrderByDescending 不存在的情况
+            }
+
+            try
+            {
+                this.ForkDeep = (ForkDeep)info.GetValue("ForkDeep", typeof(ForkDeep));
+            }
+            catch (System.Runtime.Serialization.SerializationException)
+            {
+                this.ForkDeep = Elements.ForkDeep.单伸位;
+                //兼容旧版本 RackOrderByDescending 不存在的情况
+            }
+            initializing = false;
+        }
+
+        [CategoryAttribute("外观"), Description("文字颜色")]
+        public Color Color { get; set; }
+
+        [CategoryAttribute("外观"), Description("总列数")]
+        public Int32 Columns { get; set; }
+
+        [BrowsableAttribute(false)]
+        public Wcs.Client.Interfaces.SingleForkCrane.CraneInfo CraneInfo { get; set; }
+
+        [BrowsableAttribute(false)]
+        public Int32 CurrentColumn
+        {
+            get
+            {
+                if (LastStatus == null)
+                {
+                    return 0;
+                }
+
+                int currentColumn;
+                if (int.TryParse(LastStatus.UserColumn, out currentColumn))
+                {
+                    return currentColumn;
+                }
+
+                return 0;
+            }
+        }
+
+        [CategoryAttribute("外观"), Description("货叉深度")]
+        [DefaultValue(ForkDeep.单伸位)]
+        public ForkDeep ForkDeep { get; set; }
+
+        /// <summary>
+        /// 数据源
+        /// </summary>
+        [BrowsableAttribute(false)]
+        public SingleForkCraneDataSource DataSource { get; set; }
+
+        [CategoryAttribute("布局"), Description("绘制方向")]
+        public CraneDrawDirection DrawDirection
+        {
+            get
+            {
+                return m_DrawDirection;
+            }
+            set
+            {
+                if (
+                    ((m_DrawDirection == CraneDrawDirection.Left || m_DrawDirection == CraneDrawDirection.Right)
+                    && (value == CraneDrawDirection.Bottom || value == CraneDrawDirection.Top)
+                    )
+                    ||
+                    ((m_DrawDirection == CraneDrawDirection.Top || m_DrawDirection == CraneDrawDirection.Bottom)
+                    && (value == CraneDrawDirection.Left || value == CraneDrawDirection.Right)
+                    )
+                )
+                {
+                    this.Size = new SizeF(this.Size.Height, this.Size.Width);
+                }
+                m_DrawDirection = value;
+            }
+        }
+
+        //        return userColumn;
+        //    }
+        //}
+        [CategoryAttribute("外观"), Description("字体")]
+        public Font Font { get; set; }
+
+        [BrowsableAttribute(false)]
+        public Wcs.Client.Interfaces.SingleForkCrane.LA LastStatus { get; set; }
+
+        //        int userColumn;
+        //        int.TryParse(this.LastStatus.UserColumn,out userColumn);
+        [Category("外观"), Description("货格尺寸")]
+        public SizeF RackLocationSize { get; set; }
+
+        public override Element Clone()
+        {
+            var c = new Crane(Editor);
+
+            CloneProperties(c);
+
+            c.Columns = this.Columns;
+            c.Color = this.Color;
+            c.DrawDirection = this.DrawDirection;
+            c.Font = this.Font;
+            c.RackLocationSize = this.RackLocationSize;
+            c.RackOrderByDescending = this.RackOrderByDescending;
+
+            return c;
+        }
+
+        //[Description("当前所在列")]
+        //[BrowsableAttribute(false)]
+        //public Int32 CurrentColumn
+        //{
+        //    get
+        //    {
+        //        if (this.LastStatus == null)
+        //        {
+        //            return 0;
+        //        }
+        public override void Draw(Graphics graphics)
+        {
+
+            if (!Visible)
+            {
+                return;
+            }
+
+            base.Draw(graphics);
+            DrawRailway(graphics);
+            DrawPlatform(graphics);
+            DrawRackLocations(graphics);
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+
+            info.AddValue("DrawDirection", this.DrawDirection);
+            info.AddValue("Color", this.Color);
+            info.AddValue("Columns", this.Columns);
+            info.AddValue("Font", this.Font);
+            info.AddValue("ForkDeep", this.ForkDeep);
+            info.AddValue("RackLocationSize", this.RackLocationSize);
+            info.AddValue("RackOrderByDescending", this.RackOrderByDescending);
+
+            base.GetObjectData(info, context);
+        }
+
+        public override void UpdateEditor(Editor editor)
+        {
+            base.UpdateEditor(editor);
+
+            if (!editor.IsDesign)
+            {
+                this.MouseClick += Crane_MouseClick;
+            }
+        }
+
+        void Crane_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (frm == null || frm.Disposing || frm.IsDisposed)
+            {
+                frm = new Forms.frmCraneUI(this);
+
+                frm.Show(Container.FindForm());
+            }
+        }
+
+        void DrawBox(Graphics graphics, RectangleF bigBoxRect)
+        {
+            if (
+                this.LastStatus == null
+                || (this.LastStatus.State != Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.有货待命
+                && this.LastStatus.State != Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.有货运行)
+                )
+            {
+                return;
+            }
+            var width = bigBoxRect.Width * 0.5;
+            var height = bigBoxRect.Height * 0.5;
+
+            graphics.FillRectangle(Brushes.Black,
+                Convert.ToInt32(bigBoxRect.X + width / 2),
+                Convert.ToInt32(bigBoxRect.Top + height / 2),
+                Convert.ToInt32(width),
+                Convert.ToInt32(height));
+        }
+
+        void DrawPlatform(Graphics graphics)
+        {
+            switch (DrawDirection)
+            {
+                case CraneDrawDirection.Left:
+                    {
+                        var bigBoxSize = new SizeF(this.AbsoluteTransform.W(RackLocationSize.Width), this.Rectangle.Height - this.AbsoluteTransform.H(RackLocationSize.Height * 2 * Convert.ToInt32(this.ForkDeep)) - this.AbsoluteTransform.H(4 * 2));
+                        var smallBoxSize = new SizeF(bigBoxSize.Width + this.AbsoluteTransform.W(4 * 2), bigBoxSize.Height * 0.4f);
+                        var smallBoxRect = new RectangleF(
+                            this.Rectangle.Left + this.AbsoluteTransform.W(RackLocationSize.Width * (CurrentColumn - 1) - 4),
+                            this.Rectangle.Top + this.Rectangle.Height / 2 - smallBoxSize.Height / 2,
+                            smallBoxSize.Width,
+                            smallBoxSize.Height
+                            );
+                        var bigBoxRect = new RectangleF(
+                            this.Rectangle.Left + AbsoluteTransform.W(RackLocationSize.Width) * (CurrentColumn - 1),
+                            this.Rectangle.Top + this.Rectangle.Height / 2 - bigBoxSize.Height / 2,
+                            bigBoxSize.Width,
+                            bigBoxSize.Height
+                            );
+
+                        var statusBoxRect = new RectangleF(bigBoxRect.X + AbsoluteTransform.W(3), bigBoxRect.Y + AbsoluteTransform.W(3), AbsoluteTransform.W(5), AbsoluteTransform.H(5));
+
+                        using (var brush = new SolidBrush(Color.Gainsboro))
+                        {
+                            graphics.FillRectangle(brush, smallBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { smallBoxRect });
+
+                            graphics.FillRectangle(brush, bigBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { bigBoxRect });
+
+                            graphics.FillRectangle(getStatusBoxBrush(), statusBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { statusBoxRect });
+                        }
+
+                        DrawBox(graphics, bigBoxRect);
+                    }
+                    break;
+                case CraneDrawDirection.Right:
+                    {
+                        var width = this.AbsoluteTransform.W(RackLocationSize.Width * Columns);
+                        var bigBoxSize = new SizeF(this.AbsoluteTransform.W(RackLocationSize.Width), this.Rectangle.Height - this.AbsoluteTransform.H(RackLocationSize.Height * 2 * Convert.ToInt32(this.ForkDeep)) - this.AbsoluteTransform.H(4 * 2));
+                        var smallBoxSize = new SizeF(bigBoxSize.Width + this.AbsoluteTransform.W(4 * 2), bigBoxSize.Height * 0.4f);
+                        //var smallBoxRect = new RectangleF(
+                        //    this.Rectangle.Left + width - this.AbsoluteTransform.W(RackLocationSize.Width * CurrentColumn - 4),
+                        //    this.Rectangle.Top + this.Rectangle.Height / 2 - smallBoxSize.Height / 2,
+                        //    smallBoxSize.Width,
+                        //    smallBoxSize.Height
+                        //    );
+                        var bigBoxRect = new RectangleF(
+                            this.Rectangle.Left + width - AbsoluteTransform.W(RackLocationSize.Width * CurrentColumn),
+                            this.Rectangle.Top + this.Rectangle.Height / 2 - bigBoxSize.Height / 2,
+                            bigBoxSize.Width,
+                            bigBoxSize.Height
+                            );
+
+                        var smallBoxRect = new RectangleF(
+                          bigBoxRect.X + (bigBoxRect.Width - smallBoxSize.Width) / 2,
+                          bigBoxRect.Y + Math.Abs((bigBoxRect.Height - smallBoxSize.Height) / 2),
+                         smallBoxSize.Width,
+                         smallBoxSize.Height
+                         );
+
+                        var statusBoxRect = new RectangleF(bigBoxRect.X + bigBoxRect.Width - this.AbsoluteTransform.W(3) - this.AbsoluteTransform.W(5),
+                            bigBoxRect.Y + bigBoxRect.Height - this.AbsoluteTransform.H(3) - this.AbsoluteTransform.H(5),
+                            this.AbsoluteTransform.W(5), this.AbsoluteTransform.H(5));
+
+                        using (var brush = new SolidBrush(Color.Gainsboro))
+                        {
+                            graphics.FillRectangle(brush, smallBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { smallBoxRect });
+
+                            graphics.FillRectangle(brush, bigBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { bigBoxRect });
+
+                            graphics.FillRectangle(getStatusBoxBrush(), statusBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { statusBoxRect });
+                        }
+
+                        DrawBox(graphics, bigBoxRect);
+                    }
+                    break;
+                case CraneDrawDirection.Top:
+                    {
+                        var bigBoxSize = new SizeF(this.Rectangle.Width - this.AbsoluteTransform.W(RackLocationSize.Width) * 2 * Convert.ToInt32(this.ForkDeep) - this.AbsoluteTransform.W(4 * 2),
+                            this.AbsoluteTransform.H(RackLocationSize.Height));
+                        var smallBoxSize = new SizeF(bigBoxSize.Width * 0.4f, bigBoxSize.Height + 4 * 2);
+                        var smallBoxRect = new RectangleF(
+                            this.Rectangle.Left + this.Rectangle.Width / 2 - smallBoxSize.Width / 2,
+                            this.Rectangle.Top + this.AbsoluteTransform.H(RackLocationSize.Height * (CurrentColumn - 1)) - this.AbsoluteTransform.H(4),
+                            smallBoxSize.Width,
+                            smallBoxSize.Height
+                            );
+                        var bigBoxRect = new RectangleF(
+                            this.Rectangle.Left + this.Rectangle.Width / 2 - bigBoxSize.Width / 2,
+                            this.Rectangle.Top + this.AbsoluteTransform.H(RackLocationSize.Height * (CurrentColumn - 1)),
+                            bigBoxSize.Width,
+                            bigBoxSize.Height
+                            );
+
+                        var statusBoxRect = new RectangleF(bigBoxRect.X + this.AbsoluteTransform.W(3), bigBoxRect.Y + this.AbsoluteTransform.H(3), this.AbsoluteTransform.W(5), this.AbsoluteTransform.H(5));
+
+                        using (var brush = new SolidBrush(Color.Gainsboro))
+                        {
+                            graphics.FillRectangle(brush, smallBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { smallBoxRect });
+
+                            graphics.FillRectangle(brush, bigBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { bigBoxRect });
+
+                            graphics.FillRectangle(getStatusBoxBrush(), statusBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { statusBoxRect });
+                        }
+
+                        DrawBox(graphics, bigBoxRect);
+                    }
+                    break;
+                case CraneDrawDirection.Bottom:
+                    {
+                        var height = this.AbsoluteTransform.H(RackLocationSize.Height * Columns);
+                        var bigBoxSize = new SizeF(this.Rectangle.Width - this.AbsoluteTransform.W(RackLocationSize.Width * 2) * Convert.ToInt32(this.ForkDeep) - this.AbsoluteTransform.W(4 * 2), this.AbsoluteTransform.H(RackLocationSize.Height));
+                        var smallBoxSize = new SizeF(bigBoxSize.Width * 0.4f, bigBoxSize.Height + this.AbsoluteTransform.H(4 * 2));
+                        var smallBoxRect = new RectangleF(
+                            this.Rectangle.Left + this.Rectangle.Width / 2 - smallBoxSize.Width / 2,
+                            this.Rectangle.Top + height - this.AbsoluteTransform.H(RackLocationSize.Height) * CurrentColumn - this.AbsoluteTransform.H(4),
+                            smallBoxSize.Width,
+                            smallBoxSize.Height
+                            );
+                        var bigBoxRect = new RectangleF(
+                            this.Rectangle.Left + this.Rectangle.Width / 2 - bigBoxSize.Width / 2,
+                            this.Rectangle.Top + height - this.AbsoluteTransform.H(RackLocationSize.Height * CurrentColumn),
+                            bigBoxSize.Width,
+                            bigBoxSize.Height
+                            );
+
+                        var statusBoxRect = new RectangleF(bigBoxRect.X + this.AbsoluteTransform.W(3), bigBoxRect.Y + bigBoxRect.Height - this.AbsoluteTransform.W(3) - this.AbsoluteTransform.W(5),
+                            this.AbsoluteTransform.W(5), this.AbsoluteTransform.H(5));
+
+                        using (var brush = new SolidBrush(Color.Gainsboro))
+                        {
+                            graphics.FillRectangle(brush, smallBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { smallBoxRect });
+
+                            graphics.FillRectangle(brush, bigBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { bigBoxRect });
+
+                            graphics.FillRectangle(getStatusBoxBrush(), statusBoxRect);
+                            graphics.DrawRectangles(Pens.Black, new RectangleF[] { statusBoxRect });
+                        }
+
+                        DrawBox(graphics, bigBoxRect);
+                    }
+                    break;
+            }
+
+        }
+
+        Int32? 获取货叉伸叉方向()
+        {
+            if (this.LastStatus == null)
+            {
+                return null;
+            }
+
+            switch (this.LastStatus.ForkHorizontalPosition)
+            {
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Center:
+                    return null;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Left:
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.LeftLimit:
+                    return 1;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Right:
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.RightLimit:
+                    return 2;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E6:
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E7:
+                    return 3;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E8:
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E9:
+                    return 4;
+                default:
+                    return null;
+            }
+        }
+
+
+        void DrawRackLocations(Graphics graphics)
+        {
+            using (Pen pen = new Pen(Color.Fuchsia, 2))
+            {
+                using (StringFormat sf = new StringFormat())
+                {
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Center;
+                    switch (DrawDirection)
+                    {
+                        case CraneDrawDirection.Left:
+                        case CraneDrawDirection.Right:
+
+                            for (int i = 0; i < Columns; i++)
+                            {
+                                if (ForkDeep == Elements.ForkDeep.单伸位)
+                                {
+
+                                    Int32 currentRackLocation;
+
+                                    var x = this.Rectangle.Left + AbsoluteTransform.W(RackLocationSize.Width * i);
+                                    var y = this.Rectangle.Top;
+                                    var rect1 = new RectangleF(x, y, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+                                    var rect2 = new RectangleF(x, y + this.Rectangle.Height - AbsoluteTransform.H(RackLocationSize.Height), AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+
+                                    graphics.DrawRectangles(pen, new RectangleF[] { rect1, rect2 });
+                                    if (DrawDirection == CraneDrawDirection.Left)
+                                    {
+                                        currentRackLocation = i + 1;
+                                        if ((i + 1) % 5 == 0 || i == 0 || i == Columns - 1)
+                                        {
+                                            graphics.DrawString((i + 1).ToString(), Font, new SolidBrush(Color), rect1, sf);
+                                            graphics.DrawString((i + 1).ToString(), Font, new SolidBrush(Color), rect2, sf);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        currentRackLocation = (Columns - i);
+                                        if ((Columns - i) % 5 == 0 || i == 0 || i == Columns - 1)
+                                        {
+                                            graphics.DrawString((Columns - i).ToString(), Font, new SolidBrush(Color), rect1, sf);
+                                            graphics.DrawString((Columns - i).ToString(), Font, new SolidBrush(Color), rect2, sf);
+                                        }
+                                    }
+
+                                    if (currentRackLocation == CurrentColumn)
+                                    {
+                                        var brush = getRackLocationBrush();
+                                        if (brush == null)
+                                        {
+                                            continue;
+                                        }
+
+                                        var forkDirection = 获取货叉伸叉方向();
+                                        switch (forkDirection)
+                                        {
+                                            case 1:
+                                            case 3:
+                                                if (RackOrderByDescending == false)
+                                                {
+                                                    graphics.FillRectangle(brush, rect1);
+                                                }
+                                                else
+                                                {
+                                                    graphics.FillRectangle(brush, rect2);
+                                                }
+                                                break;
+                                            case 2:
+                                            case 4:
+                                                if (RackOrderByDescending == false)
+                                                {
+                                                    graphics.FillRectangle(brush, rect2);
+                                                }
+                                                else
+                                                {
+                                                    graphics.FillRectangle(brush, rect1);
+                                                }
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Int32 currentRackLocation;
+
+                                    var x = this.Rectangle.Left + AbsoluteTransform.W(RackLocationSize.Width * i);
+                                    var y = this.Rectangle.Top;
+                                    var rect1 = new RectangleF(x, y, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+                                    var rect2 = new RectangleF(x, y + AbsoluteTransform.H(RackLocationSize.Height), AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+
+                                    var rect3 = new RectangleF(x, y + this.Rectangle.Height - AbsoluteTransform.H(RackLocationSize.Height) * 2, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+                                    var rect4 = new RectangleF(x, y + this.Rectangle.Height - AbsoluteTransform.H(RackLocationSize.Height), AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+
+                                    graphics.DrawRectangles(pen, new RectangleF[] { rect1, rect2, rect3, rect4 });
+                                    if (DrawDirection == CraneDrawDirection.Left)
+                                    {
+                                        currentRackLocation = i + 1;
+                                        if ((i + 1) % 5 == 0 || i == 0 || i == Columns - 1)
+                                        {
+                                            graphics.DrawString((i + 1).ToString(), Font, new SolidBrush(Color), rect1, sf);
+                                            graphics.DrawString((i + 1).ToString(), Font, new SolidBrush(Color), rect4, sf);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        currentRackLocation = (Columns - i);
+                                        if ((Columns - i) % 5 == 0 || i == 0 || i == Columns - 1)
+                                        {
+                                            graphics.DrawString((Columns - i).ToString(), Font, new SolidBrush(Color), rect1, sf);
+                                            graphics.DrawString((Columns - i).ToString(), Font, new SolidBrush(Color), rect4, sf);
+                                        }
+                                    }
+
+                                    if (currentRackLocation == CurrentColumn)
+                                    {
+                                        var brush = getRackLocationBrush();
+                                        if (brush == null)
+                                        {
+                                            continue;
+                                        }
+
+                                        var forkDirection = 获取货叉伸叉方向();
+                                        switch (forkDirection)
+                                        {
+                                            case 1:
+                                                if (RackOrderByDescending == false)
+                                                {
+                                                    graphics.FillRectangle(brush, rect1);
+                                                }
+                                                else
+                                                {
+                                                    graphics.FillRectangle(brush, rect2);
+                                                }
+                                                break;
+                                            case 2:
+                                                if (RackOrderByDescending == false)
+                                                {
+                                                    graphics.FillRectangle(brush, rect2);
+                                                }
+                                                else
+                                                {
+                                                    graphics.FillRectangle(brush, rect4);
+                                                }
+                                                break;
+                                            case 3:
+                                                if (RackOrderByDescending == false)
+                                                {
+                                                    graphics.FillRectangle(brush, rect3);
+                                                }
+                                                else
+                                                {
+                                                    graphics.FillRectangle(brush, rect1);
+                                                }
+                                                break;
+                                            case 4:
+                                                if (RackOrderByDescending == false)
+                                                {
+                                                    graphics.FillRectangle(brush, rect4);
+                                                }
+                                                else
+                                                {
+                                                    graphics.FillRectangle(brush, rect2);
+                                                }
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        case CraneDrawDirection.Top:
+                        case CraneDrawDirection.Bottom:
+                            for (int i = 0; i < Columns; i++)
+                            {
+                                if (ForkDeep == Elements.ForkDeep.单伸位)
+                                {
+                                    Int32 currentRackLocation;
+
+                                    var x = this.Rectangle.Left;
+                                    var y = this.Rectangle.Top + AbsoluteTransform.H(RackLocationSize.Height * i);
+                                    var rect1 = new RectangleF(x, y, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+                                    var rect2 = new RectangleF(x + this.Rectangle.Width - AbsoluteTransform.W(RackLocationSize.Width), y, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+
+                                    graphics.DrawRectangles(pen, new RectangleF[] { rect1, rect2 });
+                                    if (DrawDirection == CraneDrawDirection.Top)
+                                    {
+                                        currentRackLocation = i + 1;
+                                        if ((i + 1) % 5 == 0 || i == 0 || i == Columns - 1)
+                                        {
+                                            graphics.DrawString((i + 1).ToString(), Font, new SolidBrush(Color), rect1, sf);
+                                            graphics.DrawString((i + 1).ToString(), Font, new SolidBrush(Color), rect2, sf);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        currentRackLocation = (Columns - i);
+                                        if ((Columns - i) % 5 == 0 || i == 0 || i == Columns - 1)
+                                        {
+                                            graphics.DrawString((Columns - i).ToString(), Font, new SolidBrush(Color), rect1, sf);
+                                            graphics.DrawString((Columns - i).ToString(), Font, new SolidBrush(Color), rect2, sf);
+                                        }
+                                    }
+
+                                    if (currentRackLocation == CurrentColumn)
+                                    {
+                                        var isLeft = isLeftOperation();
+                                        var brush = getRackLocationBrush();
+                                        if (isLeft == null || brush == null)
+                                        {
+                                            continue;
+                                        }
+
+                                        if (RackOrderByDescending == false)
+                                        {
+                                            graphics.FillRectangle(brush, rect2);
+                                        }
+                                        else
+                                        {
+                                            graphics.FillRectangle(brush, rect1);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Int32 currentRackLocation;
+
+                                    var x = this.Rectangle.Left;
+                                    var y = this.Rectangle.Top + AbsoluteTransform.H(RackLocationSize.Height * i);
+                                    var rect1 = new RectangleF(x, y, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+                                    var rect2 = new RectangleF(x + AbsoluteTransform.W(RackLocationSize.Width), y, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+
+                                    var rect3 = new RectangleF(x + this.Rectangle.Width - AbsoluteTransform.W(RackLocationSize.Width) * 2, y, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+                                    var rect4 = new RectangleF(x + this.Rectangle.Width - AbsoluteTransform.W(RackLocationSize.Width), y, AbsoluteTransform.W(RackLocationSize.Width), AbsoluteTransform.H(RackLocationSize.Height));
+
+                                    graphics.DrawRectangles(pen, new RectangleF[] { rect1, rect2, rect3, rect4 });
+                                    if (DrawDirection == CraneDrawDirection.Top)
+                                    {
+                                        currentRackLocation = i + 1;
+                                        if ((i + 1) % 5 == 0 || i == 0 || i == Columns - 1)
+                                        {
+                                            graphics.DrawString((i + 1).ToString(), Font, new SolidBrush(Color), rect1, sf);
+                                            graphics.DrawString((i + 1).ToString(), Font, new SolidBrush(Color), rect4, sf);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        currentRackLocation = (Columns - i);
+                                        if ((Columns - i) % 5 == 0 || i == 0 || i == Columns - 1)
+                                        {
+                                            graphics.DrawString((Columns - i).ToString(), Font, new SolidBrush(Color), rect1, sf);
+                                            graphics.DrawString((Columns - i).ToString(), Font, new SolidBrush(Color), rect4, sf);
+                                        }
+                                    }
+
+                                    if (currentRackLocation == CurrentColumn)
+                                    {
+                                        var isLeft = isLeftOperation();
+                                        var brush = getRackLocationBrush();
+                                        if (isLeft == null || brush == null)
+                                        {
+                                            continue;
+                                        }
+
+                                        if (RackOrderByDescending == false)
+                                        {
+                                            graphics.FillRectangle(brush, rect4);
+                                        }
+                                        else
+                                        {
+                                            graphics.FillRectangle(brush, rect1);
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                    }
+
+                }
+            }
+        }
+
+        void DrawRailway(Graphics graphics)
+        {
+            switch (DrawDirection)
+            {
+                case CraneDrawDirection.Left:
+                case CraneDrawDirection.Right:
+                    graphics.FillRectangle(new SolidBrush(SystemColors.Control), this.Rectangle.Left + 0, this.Rectangle.Top + this.Rectangle.Height / 2 - AbsoluteTransform.H(Pens.DimGray.Width), this.Rectangle.Width - AbsoluteTransform.W(Pens.DimGray.Width), AbsoluteTransform.H(3));
+                    graphics.DrawRectangle(Pens.DimGray, this.Rectangle.Left + 0, this.Rectangle.Top + this.Rectangle.Height / 2 - AbsoluteTransform.H(Pens.DimGray.Width), this.Rectangle.Width - AbsoluteTransform.W(Pens.DimGray.Width), AbsoluteTransform.H(3));
+                    break;
+                case CraneDrawDirection.Top:
+                case CraneDrawDirection.Bottom:
+                    graphics.FillRectangle(new SolidBrush(SystemColors.Control), this.Rectangle.Left + this.Rectangle.Width / 2, this.Rectangle.Top, AbsoluteTransform.W(3), this.Rectangle.Height);
+                    graphics.DrawRectangle(Pens.DimGray, this.Rectangle.Left + this.Rectangle.Width / 2, this.Rectangle.Top, AbsoluteTransform.W(3), this.Rectangle.Height);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Brush getStatusBoxBrush()
+        {
+            if (this.LastStatus == null)
+            {
+                return Brushes.Gray;
+            }
+
+            switch (this.LastStatus.State)
+            {
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Initialized:
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.无货待命:
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.有货待命:
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.ManualMode:
+                    return Brushes.Gainsboro;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.BackToTheOrigin:
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.无货运行:
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.有货运行:
+                    return Brushes.SpringGreen;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Pickup:
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Putin:
+                    if (lastChangeStatusTime == null)
+                    {
+                        lastChangeStatusTime = DateTime.Now;
+                    }
+                    if (lastChageStatusBrush == null)
+                    {
+                        lastChageStatusBrush = Brushes.Black;
+                    }
+                    if (lastChageStatusBrush != Brushes.SpringGreen && DateTime.Now.Subtract(lastChangeStatusTime.Value).TotalMilliseconds > 300)
+                    {
+                        lastChageStatusBrush = Brushes.SpringGreen;
+                        lastChangeStatusTime = DateTime.Now;
+                    }
+                    else if (lastChageStatusBrush != Brushes.Black && DateTime.Now.Subtract(lastChangeStatusTime.Value).TotalMilliseconds > 300)
+                    {
+                        lastChageStatusBrush = Brushes.Black;
+                        lastChangeStatusTime = DateTime.Now;
+                    }
+
+                    return lastChageStatusBrush;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.AlarmAndShutdown:
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.ResetAlarm:
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.奇怪的状态:
+                    return Brushes.Red;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Disconnected:
+                    return Brushes.Gray;
+                default:
+                    return Brushes.Gray;
+            }
+        }
+        /// <summary>
+        /// 在左右取放货的时候，获取填充色（如果需要填充的话，可返回null）
+        /// </summary>
+        /// <returns></returns>
+        Brush getRackLocationBrush()
+        {
+            if (this.LastStatus == null)
+            {
+                return null;
+            }
+
+            if ((this.LastStatus.State == Interfaces.SingleForkCrane.CraneStatus.Pickup
+                || this.LastStatus.State == Interfaces.SingleForkCrane.CraneStatus.Putin)
+                &&
+                (this.LastStatus.ForkHorizontalPosition != Interfaces.SingleForkCrane.ForkHorizontalPosition.Center)
+                )
+            {
+                return getStatusBoxBrush();
+            }
+
+            return null;
+        }
+
+        Boolean? isLeftOperation()
+        {
+            if (this.LastStatus == null)
+            {
+                return null;
+            }
+
+            if ((this.LastStatus.State == Interfaces.SingleForkCrane.CraneStatus.Pickup
+                || this.LastStatus.State == Interfaces.SingleForkCrane.CraneStatus.Putin)
+                &&
+                (
+                this.LastStatus.ForkHorizontalPosition == Interfaces.SingleForkCrane.ForkHorizontalPosition.E6
+                || this.LastStatus.ForkHorizontalPosition == Interfaces.SingleForkCrane.ForkHorizontalPosition.E7
+                || this.LastStatus.ForkHorizontalPosition == Interfaces.SingleForkCrane.ForkHorizontalPosition.Left
+                || this.LastStatus.ForkHorizontalPosition == Interfaces.SingleForkCrane.ForkHorizontalPosition.LeftLimit
+                )
+                )
+            {
+                return true;
+            }
+
+            if ((this.LastStatus.State == Interfaces.SingleForkCrane.CraneStatus.Pickup
+                || this.LastStatus.State == Interfaces.SingleForkCrane.CraneStatus.Putin)
+                &&
+                (
+                this.LastStatus.ForkHorizontalPosition == Interfaces.SingleForkCrane.ForkHorizontalPosition.E8
+                || this.LastStatus.ForkHorizontalPosition == Interfaces.SingleForkCrane.ForkHorizontalPosition.E9
+                || this.LastStatus.ForkHorizontalPosition == Interfaces.SingleForkCrane.ForkHorizontalPosition.Right
+                || this.LastStatus.ForkHorizontalPosition == Interfaces.SingleForkCrane.ForkHorizontalPosition.RightLimit
+                )
+                )
+            {
+                return false;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 指示货架的左右排是否是倒序排列
+        /// </summary>
+        [Category("外观"), Description("货架的左右排是否是倒序排列")]
+        public Boolean RackOrderByDescending { get; set; }
+
+        void Init()
+        {
+            this.RackLocationSize = new SizeF(30, 30);
+            this.Columns = 10;
+            if (this.Size.Width == 0 || this.Size.Height == 0)
+            {
+                this.Size = new SizeF(RackLocationSize.Width * Columns, this.RackLocationSize.Height * 3);
+            }
+            this.Color = Color.Fuchsia;
+            this.Font = new Font("Arial", 10, GraphicsUnit.Pixel);
+            this.ForkDeep = Elements.ForkDeep.单伸位;
+        }
+    }
+}

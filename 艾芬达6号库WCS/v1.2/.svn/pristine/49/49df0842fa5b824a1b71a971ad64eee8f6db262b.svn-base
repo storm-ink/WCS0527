@@ -1,0 +1,93 @@
+﻿
+using System;
+using System.Runtime.Serialization;
+
+namespace Gensong
+{
+    /// <summary>堆垛机位置差</summary>
+    [Serializable]
+    [DataContract]
+    public struct CranePositionDifference : IEquatable<CranePositionDifference>
+    {
+        Int32 _columnDifference;
+        Int32 _levelDifference;
+
+        public CranePositionDifference(Int32 columnDifference, Int32 levelDifference)
+        {
+            _columnDifference = columnDifference;
+            _levelDifference = levelDifference;
+        }
+
+        [DataMember]
+        public Int32 ColumnDifference
+        {
+            get
+            {
+                return _columnDifference;
+            }
+
+            set
+            {
+                _columnDifference = value;
+            }
+        }
+
+        [DataMember]
+        public Int32 LevelDifference
+        {
+            get
+            {
+                return _levelDifference;
+            }
+
+            set
+            {
+                _levelDifference = value;
+            }
+        }
+
+        public static readonly CranePositionDifference Zero = new CranePositionDifference();
+        public Boolean IsZero
+        {
+            get
+            {
+                return ColumnDifference == 0
+                    && LevelDifference == 0;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return _columnDifference.GetHashCode() ^ _levelDifference.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is CranePositionDifference == false)
+            {
+                return false;
+            }
+            return this.Equals((CranePositionDifference)obj);
+        }
+
+        public bool Equals(CranePositionDifference other)
+        {
+            return other.ColumnDifference == this.ColumnDifference
+                && other.LevelDifference == this.LevelDifference;
+        }
+
+        public static Boolean operator ==(CranePositionDifference a, CranePositionDifference b)
+        {
+            return a.Equals(b);
+        }
+        public static Boolean operator !=(CranePositionDifference a, CranePositionDifference b)
+        {
+            return !(a == b);
+        }
+
+        public override string ToString()
+        {
+            return String.Format("({0}, {1})", this.ColumnDifference, this.LevelDifference);
+        }
+    }
+}

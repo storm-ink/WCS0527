@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Wcs.DefaultImpls.Conveyor;
+using Wcs.Framework;
+using Wcs.Framework.Cfg;
+
+namespace UnitTestProject1
+{
+    [TestClass]
+    public class 设备测试
+    {
+        [TestMethod]
+        public void 设备事件测试()
+        {
+            WcsConfiguration wcsConfig = (WcsConfiguration)System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+            var devieConfig = wcsConfig.DeviceCollection;
+
+            ConveyorDevice conveyorDevice = (ConveyorDevice)devieConfig.ParticularDeviceCollection[0].DeviceElements[0].Device;
+
+            conveyorDevice.Disconnected += conveyorDevice_Disconnected1;
+            conveyorDevice.Disconnected += conveyorDevice_Disconnected2;
+            conveyorDevice.Connect();
+        }
+
+        void conveyorDevice_Disconnected1(Device device, DisconnectEventArgs args)
+        {
+            //device._logger.Info("conveyorDevice_Disconnected1");
+            args.Handled = false;
+        }
+        void conveyorDevice_Disconnected2(Device device, DisconnectEventArgs args)
+        {
+            //device._logger.Info("conveyorDevice_Disconnected2");
+            args.Handled = true;
+        }
+    }
+}

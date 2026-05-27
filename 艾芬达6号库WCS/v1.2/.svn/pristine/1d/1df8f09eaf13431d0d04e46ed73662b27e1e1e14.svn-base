@@ -1,0 +1,276 @@
+﻿@* 
+为 Index 页面生成 js 代码，用于支持 ajax 翻页，搜索，批量删除，返回时重现查询条件和分页索引
+要求：
+1，页面上只有一个搜索表单，其 id 为 spec_form，
+2，spec_form 中有一个 name="pageIndex" 的隐藏域
+3，使用 Index_List 呈现数据表格
+4，页面上只有一个分页控件，其 id 为 pager
+5，控制器为 ViewBag.ReturnInfoKey 赋值
+*@
+
+@ShowDebugInfo()
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        // 查询表单，提交按钮和重置按钮
+        $('#spec_form [type="submit"]').click(function () {
+            $('#spec_form [name="pageIndex"]').val(1);
+        });
+
+        $('#spec_form [type="reset"]').click(function () {
+            $('#spec_form')[0].reset();           
+            $('#spec_form [name="pageIndex"]').val(1);
+            $('#spec_form').submit();
+            return false;
+        });
+
+        $('#spec_form').submit(function () {
+            $('#spec_form').find(':submit').attr('disabled', 'disabled');
+        });
+
+        // 批量操作的复选框
+        $(document).on('click', '#check_all', function () {
+            if ($(this).attr('checked')) {
+                $('.batch:checkbox').attr('checked', 'checked');
+            } else {
+                $('.batch:checkbox').removeAttr('checked');
+            }
+        });
+
+
+        // ajax 翻页
+        $(document).on('click', '.pagination a', function () {
+            // 2 提交表单
+            // 3 将返回的 html 写回到 list div
+            var url = $(this).attr('href');
+            var regex = /pageindex=(\d+)/i;
+            var arr = url.match(regex);
+            var pageIndex = arr ? arr[1] : 1;
+            $('#spec_form [name="pageIndex"]').val(pageIndex);
+            $('#spec_form').submit();
+            return false;
+        });
+
+
+        // ajax 删除
+        $(document).on('click', 'a.delete', function () {
+            var linkClicked = $(this);
+
+//            if (confirm('您确定要删除?'))
+//            {
+//                ajaxDelete(linkClicked);
+//            }
+
+            confirmNoty('您确定要删除?',function()
+            {
+                ajaxDelete(linkClicked);
+            });
+            return false;
+
+        });
+
+
+        // 批量删除
+        $(document).on('click', '#batch_delete', function () {
+            var selected_ids = '',$this = $(this);
+            $("[name='ids']:checked").each(function () {
+                if (!selected_ids) {
+                    selected_ids = $(this).val();
+                } else {
+                    selected_ids += ',' + $(this).val();
+                }
+            });
+            
+            if (util.isEmpty(selected_ids)) {
+                infoNoty('请选择要删除的信息！');
+            }
+            else{
+//                art.dialog.confirm('您确定要将选中的都删除?', function () {
+//                    ajaxBatchDelete(selected_ids,$this)
+//                });
+                confirmNoty('您确定要将选中的都删除?',function(){
+                    ajaxBatchDelete(selected_ids,$this);
+                });
+            }
+            return false;
+
+        });
+
+        fillSpecForm();
+        
+        $('#spec_form').submit();
+
+    });
+
+    function ajaxDelete(linkClicked) {
+        // 1 删除
+        $.ajax({
+            type: "POST",
+            url: linkClicked.attr("href"),
+            dataType: "json",
+            success: function (data) {
+                if (data.success) {
+                    successNoty("删除成功");
+                    // 2 刷新列表
+                    $('#spec_form').submit();
+
+                } else {
+                    errorNoty(data.msg ? data.msg : "删除失败");
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                errorNoty("出现错误");
+            }
+
+        });
+    }
+
+    
+    // ajax 操作
+    $(document).on('click', 'a.op', function () {
+        var linkClicked = $(this);
+        var msg = linkClicked.attr("confirmMsg") ? linkClicked.attr("confirmMsg") : "'您确定要执行操作?'";
+
+        /*if (confirm(msg))
+        {
+            ajaxOp(linkClicked);
+        }*/
+
+        confirmNoty(msg,function()
+        {
+            ajaxOp(linkClicked);
+        });
+
+        return false;
+
+    });
+
+    function ajaxOp(linkClicked){
+        // 1 操作
+        $.ajax({
+            type: "POST",
+            url: linkClicked.attr("href"),
+            dataType: "json",
+            success: function (data) {
+                if (data.success) {
+                    successNoty("操作成功");
+                    // 2 刷新列表
+                    $('#spec_form').submit();
+
+                } else {
+                    errorNoty(data.msg ? data.msg : "操作失败");
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                errorNoty("出现错误");
+            }
+
+        });
+    }
+
+    function ajaxBatchDelete(selectedIds,linkClicked) {
+        // 1 删除
+        $.ajax({
+            type: "POST",
+            url: linkClicked.attr("href"),
+            data: { ids: selectedIds },
+            dataType: "json",
+            success: function (data) {
+                if (data.success) {
+                    successNoty("删除成功");
+                    // 2 刷新列表
+                    $('#spec_form').submit();
+                } else {
+                    errorNoty(data.msg ? data.msg : "删除失败");
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                errorNoty("删除失败");
+            }
+
+        });
+    }
+
+    function onListLoadFailure() {
+        $('#loading_img').hide();
+        $('#list').html('<div id="errorMsg">读取数据失败，请重试</div>');
+    }
+
+    function onListLoadBegin() {
+        $('#errorMsg').hide();
+    }
+
+    function onListLoadSuccess() {
+        if ($.fn.styleTable) {
+            $('div#list table').styleTable({
+                th_bgcolor: 'url(/scripts/easyui/images/blank.gif)',
+                th_color: '#0E2D5F',
+                th_border_color: '#ECF6FC',
+                tr_odd_bgcolor: '#ECF6FC',
+                tr_even_bgcolor: '#ffffff',
+                tr_border_color: '#ECF6FC',
+                tr_hover_bgcolor: '#BCD4EC'
+            });
+        }
+    }
+
+    function onListLoadComplete() {
+        setTimeout("$('#spec_form').find(':submit').removeAttr('disabled');", 200);
+    }
+
+    function fillSpecForm() {
+        @GenerateJsCodeForFillSpecForm("spec_form", ViewBag.ReturnInfoKey)
+    }
+</script>
+
+@helper GenerateJsCodeForFillSpecForm(string specFormId, string returnInfoKey)
+{
+    if (string.IsNullOrEmpty(ViewBag.ReturnInfoKey))
+    {
+        return;
+    }
+    
+    Spiral.Web.ReturnInfo returnInfo = new Spiral.Web.ReturnInfo(Session, returnInfoKey);
+    {
+        string str = string.Format("$('#{0} [name=\"pageIndex\"]').val('{1}');\n", specFormId, returnInfo.GetPageIndex());
+        @(new System.Web.Mvc.MvcHtmlString(str))
+        bool isReturned = false;
+        Boolean.TryParse(Request["isReturned"], out isReturned);
+        if (isReturned)
+        {
+            string str2 = string.Format("$('#{0} [name=\"pageSize\"]').val('{1}');\n", specFormId, returnInfo.GetPageSize());
+            @(new System.Web.Mvc.MvcHtmlString(str2))
+        }
+
+    }
+
+
+    object spec = returnInfo.GetConditions();
+    if (spec != null)
+    {
+        foreach (var prop in spec.GetType().GetProperties())
+        {
+            object v = prop.GetValue(spec, null);
+            if (v != null)
+            {
+                string jsStatement = string.Format("        $('#{0}').val('{1}');\n", prop.Name, Server.HtmlEncode(v.ToString()));
+                @(new System.Web.Mvc.MvcHtmlString(jsStatement))
+    
+            }
+        }
+    }
+}
+
+@helper ShowDebugInfo()
+    {
+        return;
+    if (string.IsNullOrEmpty(ViewBag.ReturnInfoKey))
+    {
+        <div style="font-size: 14px; color: Red; padding: 5px;">调试信息：ViewBag.ReturnInfoKey 为空，从添加页或编辑页返回列表页时，查询表单和分页索引将丢失。请在 Index 方法中为 ViewBag.ReturnInfoKey 赋值</div>
+    }
+}

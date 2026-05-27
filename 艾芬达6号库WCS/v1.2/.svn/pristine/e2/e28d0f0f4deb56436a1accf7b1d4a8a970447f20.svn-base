@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repositories>
+  <repository path="..\Client\Client.App\packages.config" />
+  <repository path="..\Client\Client.WebUI\packages.config" />
+  <repository path="..\Client\Client\packages.config" />
+  <repository path="..\Common\Matedata\packages.config" />
+  <repository path="..\Proxy\Proxy.App\packages.config" />
+  <repository path="..\Server\DeviceServer.Services\ConveyorDeviceService\ConveyorDeviceService\packages.config" />
+  <repository path="..\Server\DeviceServer.Services\SingleForkCraneDeviceService\packages.config" />
+  <repository path="..\Server\MatedataServer.App\packages.config" />
+  <repository path="..\Server\MatedataServer.Services\ConveyorService\packages.config" />
+  <repository path="..\Server\MatedataServer.Services\RailGuidedVehicleService\packages.config" />
+  <repository path="..\Server\MatedataServer.Services\SingleForkCraneService\packages.config" />
+  <repository path="..\Server\MatedataServer.Services\WcsLog\packages.config" />
+  <repository path="..\Server\MatedataServer\packages.config" />
+</repositories>

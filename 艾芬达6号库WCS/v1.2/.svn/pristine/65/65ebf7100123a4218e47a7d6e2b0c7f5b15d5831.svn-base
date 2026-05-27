@@ -1,0 +1,202 @@
+﻿using System.Runtime.InteropServices;
+using System;
+namespace Gensong
+{
+    partial class frmCHT
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCHT));
+            this.gbxBack = new System.Windows.Forms.GroupBox();
+            this.pnlInfo = new System.Windows.Forms.Panel();
+            this.ucManual = new Gensong.ucManual();
+            this.ucAlarm = new Gensong.ucAlarm();
+            this.ucNullTu = new Gensong.ucNullTu();
+            this.flpCrane = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlTitle = new System.Windows.Forms.Panel();
+            this.gbxTitle = new System.Windows.Forms.GroupBox();
+            this.pbxLogo = new System.Windows.Forms.PictureBox();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.gbxBack.SuspendLayout();
+            this.pnlInfo.SuspendLayout();
+            this.pnlTitle.SuspendLayout();
+            this.gbxTitle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // gbxBack
+            // 
+            this.gbxBack.Controls.Add(this.pnlInfo);
+            this.gbxBack.Controls.Add(this.flpCrane);
+            this.gbxBack.Controls.Add(this.pnlTitle);
+            this.gbxBack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxBack.Location = new System.Drawing.Point(6, 0);
+            this.gbxBack.Margin = new System.Windows.Forms.Padding(0);
+            this.gbxBack.Name = "gbxBack";
+            this.gbxBack.Padding = new System.Windows.Forms.Padding(12, 0, 12, 12);
+            this.gbxBack.Size = new System.Drawing.Size(788, 594);
+            this.gbxBack.TabIndex = 1;
+            this.gbxBack.TabStop = false;
+            // 
+            // pnlInfo
+            // 
+            this.pnlInfo.Controls.Add(this.ucManual);
+            this.pnlInfo.Controls.Add(this.ucAlarm);
+            this.pnlInfo.Controls.Add(this.ucNullTu);
+            this.pnlInfo.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlInfo.Location = new System.Drawing.Point(236, 87);
+            this.pnlInfo.Name = "pnlInfo";
+            this.pnlInfo.Padding = new System.Windows.Forms.Padding(8, 5, 3, 3);
+            this.pnlInfo.Size = new System.Drawing.Size(540, 495);
+            this.pnlInfo.TabIndex = 20;
+            this.pnlInfo.Tag = "540";
+            // 
+            // ucManual
+            // 
+            this.ucManual.Crane = null;
+            this.ucManual.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucManual.Location = new System.Drawing.Point(8, 5);
+            this.ucManual.MaximumSize = new System.Drawing.Size(529, 488);
+            this.ucManual.MinimumSize = new System.Drawing.Size(529, 488);
+            this.ucManual.Name = "ucManual";
+            this.ucManual.Size = new System.Drawing.Size(529, 488);
+            this.ucManual.TabIndex = 0;
+            this.ucManual.Visible = false;
+            // 
+            // ucAlarm
+            // 
+            this.ucAlarm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucAlarm.Location = new System.Drawing.Point(8, 5);
+            this.ucAlarm.MaximumSize = new System.Drawing.Size(529, 488);
+            this.ucAlarm.MinimumSize = new System.Drawing.Size(529, 488);
+            this.ucAlarm.Name = "ucAlarm";
+            this.ucAlarm.Size = new System.Drawing.Size(529, 488);
+            this.ucAlarm.TabIndex = 1;
+            this.ucAlarm.Visible = false;
+            // 
+            // ucNullTu
+            // 
+            this.ucNullTu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucNullTu.Location = new System.Drawing.Point(8, 5);
+            this.ucNullTu.MaximumSize = new System.Drawing.Size(529, 488);
+            this.ucNullTu.MinimumSize = new System.Drawing.Size(529, 488);
+            this.ucNullTu.Name = "ucNullTu";
+            this.ucNullTu.Size = new System.Drawing.Size(529, 488);
+            this.ucNullTu.TabIndex = 3;
+            // 
+            // flpCrane
+            // 
+            this.flpCrane.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpCrane.Location = new System.Drawing.Point(12, 87);
+            this.flpCrane.Margin = new System.Windows.Forms.Padding(0);
+            this.flpCrane.Name = "flpCrane";
+            this.flpCrane.Size = new System.Drawing.Size(764, 495);
+            this.flpCrane.TabIndex = 18;
+            // 
+            // pnlTitle
+            // 
+            this.pnlTitle.Controls.Add(this.gbxTitle);
+            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTitle.Location = new System.Drawing.Point(12, 14);
+            this.pnlTitle.Name = "pnlTitle";
+            this.pnlTitle.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.pnlTitle.Size = new System.Drawing.Size(764, 73);
+            this.pnlTitle.TabIndex = 19;
+            // 
+            // gbxTitle
+            // 
+            this.gbxTitle.Controls.Add(this.pbxLogo);
+            this.gbxTitle.Controls.Add(this.lblTitle);
+            this.gbxTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxTitle.Location = new System.Drawing.Point(3, 0);
+            this.gbxTitle.Name = "gbxTitle";
+            this.gbxTitle.Size = new System.Drawing.Size(758, 73);
+            this.gbxTitle.TabIndex = 18;
+            this.gbxTitle.TabStop = false;
+            // 
+            // pbxLogo
+            // 
+            this.pbxLogo.BackColor = System.Drawing.Color.White;
+            this.pbxLogo.Image = ((System.Drawing.Image)(resources.GetObject("pbxLogo.Image")));
+            this.pbxLogo.Location = new System.Drawing.Point(12, 25);
+            this.pbxLogo.Name = "pbxLogo";
+            this.pbxLogo.Size = new System.Drawing.Size(152, 29);
+            this.pbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbxLogo.TabIndex = 0;
+            this.pbxLogo.TabStop = false;
+            this.pbxLogo.Click += new System.EventHandler(this.pbxLogo_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Font = new System.Drawing.Font("幼圆", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTitle.Location = new System.Drawing.Point(233, 11);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(521, 58);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "合肥井松自动化科技有限公司  堆垛机监控";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // frmCHT
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.gbxBack);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(800, 600);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.Name = "frmCHT";
+            this.Padding = new System.Windows.Forms.Padding(6, 0, 6, 6);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "CHT 手持地操";
+            this.Load += new System.EventHandler(this.frmCHT_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCHT_FormClosing);
+            this.gbxBack.ResumeLayout(false);
+            this.pnlInfo.ResumeLayout(false);
+            this.pnlTitle.ResumeLayout(false);
+            this.gbxTitle.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox gbxBack;
+        private System.Windows.Forms.FlowLayoutPanel flpCrane;
+        private System.Windows.Forms.Panel pnlTitle;
+        private System.Windows.Forms.GroupBox gbxTitle;
+        private System.Windows.Forms.PictureBox pbxLogo;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel pnlInfo;
+        private ucManual ucManual;
+        private ucAlarm ucAlarm;
+        private ucNullTu ucNullTu;
+    }
+}

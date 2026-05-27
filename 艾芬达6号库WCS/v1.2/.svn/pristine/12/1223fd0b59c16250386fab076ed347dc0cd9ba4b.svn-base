@@ -1,0 +1,109 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using WindowsFormsApplication1;
+using Lutai;
+
+namespace Gensong
+{
+    /// <summary>
+    /// 表示放货动作。
+    /// </summary>
+    internal class PuttingAction : RgvAction
+    {
+        Queue<Action> _steps = new Queue<Action>();
+        public PuttingAction(RgvSimulation rgv, ChainAction chainAction, Int32 station, Boolean isChildActin)
+            : base(rgv, isChildActin)
+        {
+            if (chainAction != Lutai.ChainAction.LeftUnloading && chainAction != Lutai.ChainAction.RightUnloading)
+            {
+                throw new InvalidOperationException(string.Format("不支持的链条放货方向 {0}", chainAction));
+            }
+            if (!rgv.HasGoods)
+            {
+                throw new InvalidOperationException("穿梭车上无货");
+            }
+
+            if (station != rgv.CurrentStaion)
+            {
+                throw new InvalidOperationException(string.Format("穿梭车当前不在 {0} 站点", station));
+            }
+
+            if (!rgv.AtStation)
+            {
+                throw new InvalidOperationException(string.Format("穿梭车当前不在站点位置"));
+            }
+
+            ChainAction = chainAction;
+            Station = station;
+            this.Starting += new EventHandler(LoadCraneAction_Starting);
+            this.Completed += new EventHandler(LoadCraneAction_Completed);
+
+            _steps.Enqueue(new Action(() =>
+            {
+                rgv.Status = Lutai.RailGuidedVehicle.RailGuidedVehicleStatus.有货运行;
+                rgv.Event = Lutai.RailGuidedVehicle.RailGuidedVehicleEvent.Initialized;
+            }));
+            _steps.Enqueue(new Action(() =>
+            {
+                rgv.Status = Lutai.RailGuidedVehicle.RailGuidedVehicleStatus.无货运行;
+                rgv.Event = Lutai.RailGuidedVehicle.RailGuidedVehicleEvent.Initialized;
+            }));
+            _steps.Enqueue(new Action(() =>
+            {
+                rgv.HasGoods = false;
+                rgv.Status = Lutai.RailGuidedVehicle.RailGuidedVehicleStatus.无货待命;
+                rgv.Event = Lutai.RailGuidedVehicle.RailGuidedVehicleEvent.AutomaticTaskCompletion;
+            }));
+        }
+
+        public ChainAction ChainAction { get; private set; }
+
+        public Int32 Station { get; set; }
+        public override void ExecuteStep()
+        {
+            Logger.Debug("LoadCraneAction.ExecuteStep");
+
+            //if (this.WasBroken)
+            //{
+            //    throw new InvalidOperationException("取货动作已被打断。");
+            //}
+
+            if (_steps.Count == 0)
+            {
+                throw new InvalidOperationException("取货动作已在上一步完成。");
+            }
+
+            if (IsStarted == false)
+            {
+                OnStarting(EventArgs.Empty);
+                IsStarted = true;
+            }
+            Action step = _steps.Dequeue();
+            step();
+            if (_steps.Count == 0)
+            {
+                this.IsCompleted = true;
+                OnCompleted(EventArgs.Empty);
+            }
+
+        }
+
+        void LoadCraneAction_Completed(object sender, EventArgs e)
+        {
+            RGV.HasGoods = false;
+            RGV.Status = Lutai.RailGuidedVehicle.RailGuidedVehicleStatus.无货待命;
+            RGV.Event = Lutai.RailGuidedVehicle.RailGuidedVehicleEvent.AutomaticTaskCompletion;
+        }
+
+        void LoadCraneAction_Starting(object sender, EventArgs e)
+        {
+            RGV.Status = Lutai.RailGuidedVehicle.RailGuidedVehicleStatus.有货待命;
+            RGV.Event = Lutai.RailGuidedVehicle.RailGuidedVehicleEvent.Initialized;
+        }
+    }
+}

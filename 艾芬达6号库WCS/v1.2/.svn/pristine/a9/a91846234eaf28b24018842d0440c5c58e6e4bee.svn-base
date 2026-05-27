@@ -1,0 +1,20 @@
+﻿<div>
+    @using (Ajax.BeginForm("Index_List", null, new AjaxOptions { UpdateTargetId = "list", LoadingElementId = "loading_img", OnBegin = "onListLoadBegin", OnFailure = "onListLoadFailure", OnSuccess="onListLoadSuccess" }, new { id = "spec_form" }))
+    {
+       
+        <label>
+            名称：
+            @Html.TextBox("NameToMatch")
+        </label>
+        <input type="submit" value="查询" />
+        <input type="reset" value="重置" />
+        <input type="hidden" id="pageIndex" name="pageIndex" value="1" />
+    
+    }
+</div>
+<div id="list">
+</div>
+<img style="display:none; " id="loading_img" src="@Url.Content("~/Content/loading.gif")" alt="loading" />
+@Html.Partial("IndexJs")
+
+

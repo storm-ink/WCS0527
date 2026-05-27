@@ -1,0 +1,40 @@
+﻿/*
+ * ================================================
+ * 创建人：舒长兵
+ * 创建日期：2013/1/7
+ * 备注：
+ * 
+ * ================================================
+ */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel.Description;
+
+namespace Wcs.Client.Services
+{
+    public class ContextPropagationBehavior : IEndpointBehavior
+    {
+        public void AddBindingParameters(ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters) { }
+
+        public void ApplyDispatchBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.EndpointDispatcher endpointDispatcher)
+        {
+            foreach (var operation in endpointDispatcher.DispatchRuntime.Operations)
+            {
+                operation.CallContextInitializers.Add(new ContextReceiver());
+            }
+        }
+        public void Validate(ServiceEndpoint endpoint) { }
+
+        #region IEndpointBehavior 成员
+
+
+        public void ApplyClientBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.ClientRuntime clientRuntime)
+        {
+            //clientRuntime.CallbackDispatchRuntime.EndpointDispatcher;
+        }
+
+        #endregion
+    }
+}

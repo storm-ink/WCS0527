@@ -1,0 +1,118 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Net.Sockets;
+
+namespace 通讯测试
+{
+    public class PLCUtils
+    {
+        public static byte[] convertNumberToBytes(Type valueType, object value)
+        {
+            if (valueType == typeof(Int16))
+            {
+                return BitConverter.GetBytes(Convert.ToInt16(value));
+            }
+
+            if (valueType == typeof(Int32))
+            {
+                return BitConverter.GetBytes(Convert.ToInt32(value));
+            }
+
+            if (valueType == typeof(Int64))
+            {
+                return BitConverter.GetBytes(Convert.ToInt64(value));
+            }
+
+            if (valueType == typeof(UInt16))
+            {
+                return BitConverter.GetBytes(Convert.ToUInt16(value));
+            }
+
+            if (valueType == typeof(UInt32))
+            {
+                return BitConverter.GetBytes(Convert.ToUInt32(value));
+            }
+
+            if (valueType == typeof(UInt64))
+            {
+                return BitConverter.GetBytes(Convert.ToUInt64(value));
+            }
+
+            if (valueType == typeof(Boolean))
+            {
+                return BitConverter.GetBytes(Convert.ToBoolean(value));
+            }
+
+            if (valueType == typeof(Byte))
+            {
+                return new Byte[] { Convert.ToByte(value) };
+            }
+
+            throw new NotSupportedException(String.Format("不支持将 {0} 转换为 byte[]", valueType));
+        }
+    }
+
+    public class Datagram
+    {
+        const byte[] _startOf = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+        const byte[] _endOf = new byte[] { 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE };
+        public byte[] StartOf
+        {
+            get
+            {
+                return _startOf;
+            }
+        }
+
+        public UInt32 Id { get; set; }
+        public UInt32 Type{get;set;}
+        public UInt32 Size { get; set; }
+        public Byte[] Data { get; set; }
+        public UInt32 CheckCode { get; set; }
+
+        public byte[] EndOf
+        {
+            get
+            {
+                return _endOf;
+            }
+        }
+
+        public Int32 PackageSize
+        {
+            get
+            {
+                return 36 + (int)Size;
+            }
+        }
+
+        public Byte[] ConvertToBytes()
+        {
+            List<Byte> result = new List<byte>();
+            result.AddRange(this.StartOf);
+            result.AddRange(PLCUtils.convertNumberToBytes(typeof(UInt32),Id));
+            result.AddRange(PLCUtils.convertNumberToBytes(typeof(UInt32), Type));
+            result.AddRange(PLCUtils.convertNumberToBytes(typeof(UInt32), Data == null ? 0 : Data.Length));
+            result.AddRange(this.Data ?? new byte[] { });
+            result.AddRange(PLCUtils.convertNumberToBytes(typeof(UInt32), CheckCode));
+            result.AddRange(this.EndOf);
+            return result.ToArray();
+        }
+    }
+
+
+    public class xxxxxx
+    {
+        void xx()
+        {
+            TcpClient client = new TcpClient();
+            NetworkStream networkStream = client.GetStream();
+            Datagram yy=new Datagram();
+            networkStream.Write(yy.ConvertToBytes(), 0, yy.PackageSize);
+        }
+
+        
+    }
+}

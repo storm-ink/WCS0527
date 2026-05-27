@@ -1,0 +1,33 @@
+﻿
+using System;
+using System.Runtime.Serialization;
+using WindowsFormsApplication1;
+
+namespace Gensong
+{
+    /// <summary>发送报文</summary>
+    [Serializable]
+    public class RequestTelex
+    {
+        public String Head { get; set; }
+        public String Telex { get; private set; }
+        public RequestTelex(String telex)
+        {
+            Telex = telex;
+        }
+        public static RequestTelex Parse(string sTelex)
+        {
+            if (sTelex.Length < 2) return null;
+
+            switch (sTelex.Substring(0, 2))
+            {
+                case "HB": return new HB(sTelex);
+                case "HP": return new HP(sTelex);
+                case "HS": return new HS(sTelex);
+
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+    }
+}

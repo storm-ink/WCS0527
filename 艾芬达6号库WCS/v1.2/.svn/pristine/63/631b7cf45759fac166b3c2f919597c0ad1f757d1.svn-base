@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+
+namespace Wcs.Client.App
+{
+    public class ConveryorServiceClient : ClientBase<Wcs.Client.Interfaces.Conveyor.IConveyorService>, Wcs.Client.Interfaces.Conveyor.IConveyorService
+    {
+        public ConveryorServiceClient(String configurationName)
+            : base(configurationName)
+        {
+        }
+        public object Call(string name, object[] args)
+        {
+            return Channel.Call(name, args);
+        }
+
+
+        public string[] AllOperations()
+        {
+            return Channel.AllOperations();
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.AlarmNetTransferObject[] GetAlarms(string deviceName)
+        {
+            return Channel.GetAlarms(deviceName);
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject[] GetHoldSignals(string deviceName)
+        {
+            return Channel.GetHoldSignals(deviceName);
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.LocationNetTransferObject[] GetLocationStatus(string deviceName)
+        {
+            return Channel.GetLocationStatus(deviceName);
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.LocationTaskNetTransferObject[] GetLocationTasks(string deviceName)
+        {
+            return Channel.GetLocationTasks(deviceName);
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject[] GetOccupys(string deviceName)
+        {
+            return Channel.GetOccupys(deviceName);
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject[] GetTasks(string deviceName)
+        {
+            return Channel.GetTasks(deviceName);
+        }
+
+        public void ClearTask(string deviceName, int equipmentTaskId)
+        {
+            Channel.ClearTask(deviceName, equipmentTaskId);
+        }
+
+        public void DeleteTask(string deviceName, int equipmentTaskId)
+        {
+            Channel.DeleteTask(deviceName, equipmentTaskId);
+        }
+
+        public void DeleteLocationTask(string deviceName, int posNo, int equipmentTaskId)
+        {
+            Channel.DeleteLocationTask(deviceName, posNo,equipmentTaskId);
+        }
+    }
+}

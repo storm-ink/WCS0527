@@ -1,0 +1,114 @@
+2015-12-07 12:56:19.7779 Trace Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 开始读取配置…… 
+2015-12-07 12:56:19.7869 Warn Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 未找到 /wcs-configuration[0]/requestProcesses 节点，系统自动创建了一个空的节点取代 
+2015-12-07 12:56:19.7869 Trace Wcs.Framework.Cfg.SettingCollection Wcs.NLogExtentions.Log /wcs-configuration[0]/settings[0] 节点被重定向到了 settings.xml 文件 
+2015-12-07 12:56:19.7999 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[0] 节点被重定向到了 receiver1.xml 文件 
+2015-12-07 12:56:19.7999 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /receiver[0]/senderEncoding[0] 节点被重定向到了 db1.xml 文件 
+2015-12-07 12:56:19.7999 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /receiver[0]/receiverEncoding[0] 节点被重定向到了 db2.xml 文件 
+2015-12-07 12:56:19.7999 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[1]/senderEncoding[0] 节点被重定向到了 db1.xml 文件 
+2015-12-07 12:56:19.7999 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[1]/receiverEncoding[0] 节点被重定向到了 db2.xml 文件 
+2015-12-07 12:56:19.8329 Trace  Wcs.NLogExtentions.Log 准备初始化名称为 输送线1 的 Wcs.DefaultImpls.Conveyor.ConveyorDevice 对象 
+2015-12-07 12:56:19.8329 Debug ThreadExtentions Wcs.NLogExtentions.Log Thread（ManagedThreadId：7,Name:输送线1的事件派发器,ThreadState:Background） 被添加到线程列表。 
+2015-12-07 12:56:19.8329 Info 输送线1的事件派发器 Wcs.NLogExtentions.Log 事件派发器开始工作... 
+2015-12-07 12:56:19.8329 Trace 输送线1 Wcs.NLogExtentions.Log 开始加载锁设备信息... 
+2015-12-07 12:56:20.8340 Error Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 调用的目标发生了异常。 调用的目标发生了异常。 System.Reflection.TargetInvocationException TargetInvocationException System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.TypeInitializationException: “Wcs.NHUnitOfWork”的类型初始值设定项引发异常。 ---> System.Data.SqlClient.SqlException: 无法打开登录所请求的数据库 "wcs_v3"。登录失败。
+用户 'sa' 登录失败。
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   在 System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   在 System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   在 System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   在 System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   在 System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken)
+   在 System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   在 System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   在 System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   在 NHibernate.Tool.hbm2ddl.SuppliedConnectionProviderConnectionHelper.Prepare()
+   在 NHibernate.Tool.hbm2ddl.SchemaMetadataUpdater.GetReservedWords(Dialect dialect, IConnectionHelper connectionHelper)
+   在 NHibernate.Tool.hbm2ddl.SchemaMetadataUpdater.Update(ISessionFactory sessionFactory)
+   在 NHibernate.Impl.SessionFactoryImpl..ctor(Configuration cfg, IMapping mapping, Settings settings, EventListeners listeners)
+   在 NHibernate.Cfg.Configuration.BuildSessionFactory()
+   在 Wcs.NHUnitOfWork..cctor() 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs\NHUnitOfWork\NHUnitOfWork.cs:行号 20
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Wcs.NHUnitOfWork..ctor()
+   在 Wcs.Framework.Device..ctor(String name, Int32 no, Int32 receiveTimeout, Int32 connectTimeout) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\设备相关\Device.cs:行号 204
+   在 Wcs.Framework.TaskableDevice..ctor(String name, Int32 no, Int32 receiveTimeout, Int32 connectTimeout, Int32 sendTimeout, Boolean allowConcurrency) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\设备相关\TaskableDevice.cs:行号 106
+   在 Wcs.Framework.TcpProtocolTaskableDevice..ctor(String name, Int32 no, Int32 receiveTimeout, Int32 connectTimeout, Int32 sendTimeout, Boolean allowConcurrency, IPEndPoint ipEndPoint, IPEndPoint bindEndPoint, IDataReceiver dataReceiver) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\设备相关\TcpProtocolTaskableDevice.cs:行号 43
+   在 Wcs.DefaultImpls.Conveyor.ConveyorDevice..ctor(String name, Int32 no, IPEndPoint ipEndPoint, IPEndPoint bindEndPoint, Int32 receiveTimeout, Int32 connectTimeout, Int32 sendTimeout, Boolean allowConcurrency, IDataReceiver dataReceiver, Int32 allowTaskBlockSpace, ICompareResultHandler[] compareResultHandlers, IUsedConveyorTaskBlockIndexGetter[] usedConveyorTaskBlockIndexGetters) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.DefaultImpls\Conveyor\ConveyorDevice.cs:行号 118
+   在 Wcs.DefaultImpls.Conveyor.ConveyorElement.CreateDevice() 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.DefaultImpls\Conveyor\Configuration\ConveyorElement.cs:行号 127
+   在 Wcs.Framework.Cfg.DeviceElement.Deserialize() 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\DeviceElement.cs:行号 126
+   在 Wcs.Framework.Cfg.TaskableDeviceElement.Deserialize() 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\TaskableDeviceElement.cs:行号 50
+   在 Wcs.DefaultImpls.Conveyor.ConveyorElement.Deserialize() 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.DefaultImpls\Conveyor\Configuration\ConveyorElement.cs:行号 122
+   在 Wcs.Framework.Cfg.TcpProtocolTaskableDeviceElement..ctor(XmlNode node, WcsConfiguration configuration, Boolean deserialize) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\TcpProtocolTaskableDeviceElement.cs:行号 90
+   在 Wcs.DefaultImpls.Conveyor.ConveyorElement..ctor(XmlNode node, WcsConfiguration configuration) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.DefaultImpls\Conveyor\Configuration\ConveyorElement.cs:行号 112
+   在 Wcs.DefaultImpls.Conveyor.ConveyorCollection.CreateDeviceElement(XmlNode deviceNode) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.DefaultImpls\Conveyor\Configuration\ConveyorCollection.cs:行号 34
+   在 Wcs.Framework.Cfg.ParticularDeviceCollection.Deserialize() 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\ParticularDeviceCollection.cs:行号 66
+   在 Wcs.Framework.Cfg.ConfigurationElement..ctor(XmlNode node, WcsConfiguration configuration, Boolean deserialize) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\ConfigurationElement.cs:行号 53
+   在 Wcs.Framework.Cfg.ConfigurationElement..ctor(XmlNode node, WcsConfiguration configuration) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\ConfigurationElement.cs:行号 34
+   在 Wcs.Framework.Cfg.ParticularDeviceCollection..ctor(XmlNode node, WcsConfiguration configuration) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\ParticularDeviceCollection.cs:行号 51
+   在 Wcs.DefaultImpls.Conveyor.ConveyorCollection..ctor(XmlNode node, WcsConfiguration configuration) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.DefaultImpls\Conveyor\Configuration\ConveyorCollection.cs:行号 27
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   在 System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   在 System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   在 Wcs.ReflectionHelper.CreateInstance[T](String typeName, Object[] args) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs\ReflectionHelper.cs:行号 40
+   在 Wcs.Framework.Cfg.DeviceCollection.Deserialize() 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\DeviceCollection.cs:行号 43
+   在 Wcs.Framework.Cfg.ConfigurationElement..ctor(XmlNode node, WcsConfiguration configuration, Boolean deserialize) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\ConfigurationElement.cs:行号 53
+   在 Wcs.Framework.Cfg.ConfigurationElement..ctor(XmlNode node, WcsConfiguration configuration) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\ConfigurationElement.cs:行号 34
+   在 Wcs.Framework.Cfg.DeviceCollection..ctor(XmlNode node, WcsConfiguration configuration) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\DeviceCollection.cs:行号 28
+   在 Wcs.Framework.Cfg.WcsConfiguration..ctor(XmlNode section) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\WcsConfiguration.cs:行号 36 System.Object InvokeMethod(System.Object, System.Object[], System.Signature, Boolean)    在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   在 System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   在 System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   在 Wcs.ReflectionHelper.CreateInstance[T](String typeName, Object[] args) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs\ReflectionHelper.cs:行号 40
+   在 Wcs.Framework.Cfg.DeviceCollection.Deserialize() 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\DeviceCollection.cs:行号 43
+   在 Wcs.Framework.Cfg.ConfigurationElement..ctor(XmlNode node, WcsConfiguration configuration, Boolean deserialize) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\ConfigurationElement.cs:行号 53
+   在 Wcs.Framework.Cfg.ConfigurationElement..ctor(XmlNode node, WcsConfiguration configuration) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\ConfigurationElement.cs:行号 34
+   在 Wcs.Framework.Cfg.DeviceCollection..ctor(XmlNode node, WcsConfiguration configuration) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\Devices\DeviceCollection.cs:行号 28
+   在 Wcs.Framework.Cfg.WcsConfiguration..ctor(XmlNode section) 位置 e:\SVNGS\Wcs2\Wcs\branches\004\Wcs.Framework\Configuration\WcsConfiguration.cs:行号 36
+2016-06-14 23:17:39.4609 Trace Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 开始读取配置…… 
+2016-06-14 23:17:39.4609 Warn Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 未找到 /wcs-configuration[0]/requestProcesses 节点，系统自动创建了一个空的节点取代 
+2016-06-14 23:17:39.4609 Trace Wcs.Framework.Cfg.SettingCollection Wcs.NLogExtentions.Log /wcs-configuration[0]/settings[0] 节点被重定向到了 settings.xml 文件 
+2016-06-14 23:17:39.4909 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[0] 节点被重定向到了 receiver1.xml 文件 
+2016-06-14 23:17:39.4909 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /receiver[0]/senderEncoding[0] 节点被重定向到了 db1.xml 文件 
+2016-06-14 23:17:39.5109 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /receiver[0]/receiverEncoding[0] 节点被重定向到了 db2.xml 文件 
+2016-06-14 23:17:39.5209 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[1]/senderEncoding[0] 节点被重定向到了 db1.xml 文件 
+2016-06-14 23:17:39.5209 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[1]/receiverEncoding[0] 节点被重定向到了 db2.xml 文件 
+2016-06-15 16:27:06.9840 Trace Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 开始读取配置…… 
+2016-06-15 16:27:06.9840 Warn Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 未找到 /wcs-configuration[0]/requestProcesses 节点，系统自动创建了一个空的节点取代 
+2016-06-15 16:27:07.0308 Trace Wcs.Framework.Cfg.SettingCollection Wcs.NLogExtentions.Log /wcs-configuration[0]/settings[0] 节点被重定向到了 settings.xml 文件 
+2016-06-15 16:27:07.0464 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[0] 节点被重定向到了 receiver1.xml 文件 
+2016-06-15 16:27:07.0464 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /receiver[0]/senderEncoding[0] 节点被重定向到了 db1.xml 文件 
+2016-06-15 16:27:07.0776 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /receiver[0]/receiverEncoding[0] 节点被重定向到了 db2.xml 文件 
+2016-06-15 16:27:07.1088 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[1]/senderEncoding[0] 节点被重定向到了 db1.xml 文件 
+2016-06-15 16:27:07.1088 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[1]/receiverEncoding[0] 节点被重定向到了 db2.xml 文件 
+2016-06-15 16:27:07.3272 Trace  Wcs.NLogExtentions.Log 准备初始化名称为 输送线1 的 Wcs.DefaultImpls.Conveyor.ConveyorDevice 对象 
+2016-06-15 16:27:07.4208 Debug ThreadExtentions Wcs.NLogExtentions.Log Thread（ManagedThreadId：14,Name:输送线1的事件派发器,ThreadState:Background） 被添加到线程列表。 
+2016-06-15 16:27:07.4208 Trace 输送线1 Wcs.NLogExtentions.Log 开始加载锁设备信息... 
+2016-06-15 16:27:07.4208 Info 输送线1的事件派发器 Wcs.NLogExtentions.Log 事件派发器开始工作... 
+2019-09-25 14:12:21.1143 Trace Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 开始读取配置…… 
+2019-09-25 14:12:21.1303 Warn Wcs.Framework.Cfg.WcsConfiguration Wcs.NLogExtentions.Log 未找到 /wcs-configuration[0]/requestProcesses 节点，系统自动创建了一个空的节点取代 
+2019-09-25 14:12:21.1303 Trace Wcs.Framework.Cfg.SettingCollection Wcs.NLogExtentions.Log /wcs-configuration[0]/settings[0] 节点被重定向到了 settings.xml 文件 
+2019-09-25 14:12:21.1553 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[0] 节点被重定向到了 receiver1.xml 文件 
+2019-09-25 14:12:21.1553 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /receiver[0]/senderEncoding[0] 节点被重定向到了 db1.xml 文件 
+2019-09-25 14:12:21.1693 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /receiver[0]/receiverEncoding[0] 节点被重定向到了 db2.xml 文件 
+2019-09-25 14:12:21.1853 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[1]/senderEncoding[0] 节点被重定向到了 db1.xml 文件 
+2019-09-25 14:12:21.1853 Trace Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement Wcs.NLogExtentions.Log /wcs-configuration[0]/dataReceives[0]/receiver[1]/receiverEncoding[0] 节点被重定向到了 db2.xml 文件 
+2019-09-25 14:12:21.3243 Trace  Wcs.NLogExtentions.Log 准备初始化名称为 输送线1 的 Wcs.DefaultImpls.Conveyor.ConveyorDevice 对象 
+2019-09-25 14:12:21.3393 Debug ThreadExtentions Wcs.NLogExtentions.Log Thread（ManagedThreadId：3,Name:输送线1的事件派发器,ThreadState:Background） 被添加到线程列表。 
+2019-09-25 14:12:21.3393 Info 输送线1的事件派发器 Wcs.NLogExtentions.Log 事件派发器开始工作... 
+2019-09-25 14:12:21.3393 Trace 输送线1 Wcs.NLogExtentions.Log 开始加载锁设备信息... 

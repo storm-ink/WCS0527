@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    public class ConveyorLocationColors
+    {
+        static ConveyorLocationColors()
+        {
+            Running = Color.SpringGreen;
+            Stopped = SystemColors.ScrollBar;
+            Manual = Color.YellowGreen;
+            Warning = Color.Red;
+        }
+        public static Color Running { get; set; }
+        public static Color Stopped { get; set; }
+        public static Color Manual { get; set; }
+        public static Color Warning { get; set; }
+    }
+}

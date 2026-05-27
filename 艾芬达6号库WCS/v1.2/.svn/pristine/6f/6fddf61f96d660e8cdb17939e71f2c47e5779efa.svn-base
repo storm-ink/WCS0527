@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// 物理动作警告信息
+    /// </summary>
+    [DataContract]
+    public class EquipmentActionWarning
+    {
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
+        public EquipmentActionWarning() { }
+
+        /// <summary>
+        /// 警告码（错误码）
+        /// </summary>
+        [DataMember]
+        public String Code { get; set; }
+
+        /// <summary>
+        /// 发生时间
+        /// </summary>
+        [DataMember]
+        public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        [DataMember]
+        public String Description { get; set; }
+
+        /// <summary>
+        /// 设备名称
+        /// </summary>
+        [DataMember]
+        public String DeviceName { get; set; }
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        [DataMember]
+        public Int32 Id { get; set; }
+    }
+}

@@ -1,0 +1,466 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|d:\\\u674E\u8D85\\wcs_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\client\\monitorstartup_2d_monitor_mqtt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\client\\monitorstartup_2d_monitor_mqtt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F359C4CA-9622-4FB8-AB31-146E38C940DE}|CompressHelper\\CompressHelper.csproj|d:\\\u674E\u8D85\\wcs_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_q\u5F62\u4ED3\\compresshelper\\propretyindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F359C4CA-9622-4FB8-AB31-146E38C940DE}|CompressHelper\\CompressHelper.csproj|solutionrelative:compresshelper\\propretyindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F359C4CA-9622-4FB8-AB31-146E38C940DE}|CompressHelper\\CompressHelper.csproj|d:\\\u674E\u8D85\\wcs_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_q\u5F62\u4ED3\\compresshelper\\wcsmqttmsgserializehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F359C4CA-9622-4FB8-AB31-146E38C940DE}|CompressHelper\\CompressHelper.csproj|solutionrelative:compresshelper\\wcsmqttmsgserializehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F359C4CA-9622-4FB8-AB31-146E38C940DE}|CompressHelper\\CompressHelper.csproj|d:\\\u674E\u8D85\\wcs_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_q\u5F62\u4ED3\\compresshelper\\ziphelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F359C4CA-9622-4FB8-AB31-146E38C940DE}|CompressHelper\\CompressHelper.csproj|solutionrelative:compresshelper\\ziphelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|d:\\\u674E\u8D85\\wcs_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\client\\monitor_2dhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\client\\monitor_2dhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1023.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1023.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|d:\\\u674E\u8D85\\wcs_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_q\u5F62\u4ED3\\zhqxc\\wcs.app.exe.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\wcs.app.exe.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ZHQXC||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\webapi\\controller\\wcsforwmswebapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\webapi\\controller\\wcsforwmswebapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u4E13\u673A\\db2_\u4E13\u673A(a).xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u4E13\u673A\\db2_\u4E13\u673A(a).xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u8BBE\u5907\u76F8\u5173\\\u4E13\u673A\u8BBE\u5907\\\u547D\u4EE4\\executedepalletizingcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u8BBE\u5907\u76F8\u5173\\\u4E13\u673A\u8BBE\u5907\\\u547D\u4EE4\\executedepalletizingcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1023_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1023_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u5904\u7406\u7A0B\u5E8F\\wms\u9884\u4EFB\u52A1\u5B8C\u6210\u5904\u7406\u7A0B\u5E8F\\taskstatechangereportwmshand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u5904\u7406\u7A0B\u5E8F\\wms\u9884\u4EFB\u52A1\u5B8C\u6210\u5904\u7406\u7A0B\u5E8F\\taskstatechangereportwmshand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1028_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1028_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1024_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1024_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\alarmpool\\alarmrecordfrm\\historywarningrecordplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\alarmpool\\alarmrecordfrm\\historywarningrecordplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1021.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1021.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u5806\u579B\u673A\\c002.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u5806\u579B\u673A\\c002.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1028.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1028.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1027.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1027.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1026.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1026.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1025.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1025.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1024.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1024.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1025_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1025_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1026_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1026_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1027_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\autoclearholdsinglerequesttaskstartup_1027_warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|d:\\\u674E\u8D85\\wcs_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_q\u5F62\u4ED3\\zhqxc\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|6185191f-1008-4fb2-a715-3a4e4f27e610"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1023.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1023.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1023.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1023.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1023.cs",
+              "ViewState": "AgIAACwBAAAAAAAAAAAgwDEBAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T05:38:12.25Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1023_Warehouse.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1023_Warehouse.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1023_Warehouse.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1023_Warehouse.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1023_Warehouse.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAxwG8AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T05:38:12.978Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1021.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1021.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1021.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1021.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1021.cs",
+              "ViewState": "AgIAAOUAAAAAAAAAAAA8wOsAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T06:12:09.41Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PropretyIndex.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\CompressHelper\\PropretyIndex.cs",
+              "RelativeDocumentMoniker": "CompressHelper\\PropretyIndex.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\CompressHelper\\PropretyIndex.cs",
+              "RelativeToolTip": "CompressHelper\\PropretyIndex.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T03:57:25.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ZipHelper.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\CompressHelper\\ZipHelper.cs",
+              "RelativeDocumentMoniker": "CompressHelper\\ZipHelper.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\CompressHelper\\ZipHelper.cs",
+              "RelativeToolTip": "CompressHelper\\ZipHelper.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAA7wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T03:57:12.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Monitor_2DHelper.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\client\\Monitor_2DHelper.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\client\\Monitor_2DHelper.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\client\\Monitor_2DHelper.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\client\\Monitor_2DHelper.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAqwA8AAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T03:54:38.359Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MonitorStartUp_2D_Monitor_MQTT.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\client\\MonitorStartUp_2D_Monitor_MQTT.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\client\\MonitorStartUp_2D_Monitor_MQTT.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\client\\MonitorStartUp_2D_Monitor_MQTT.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\client\\MonitorStartUp_2D_Monitor_MQTT.cs",
+              "ViewState": "AgIAAMUAAAAAAAAAAIAxwM0AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T15:42:45.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Wcs.App.exe.config",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\Wcs.App.exe.config",
+              "RelativeDocumentMoniker": "ZHQXC\\Wcs.App.exe.config",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\Wcs.App.exe.config",
+              "RelativeToolTip": "ZHQXC\\Wcs.App.exe.config",
+              "ViewState": "AgIAADMBAAAAAAAAAAAAAPcAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-08-20T03:13:30.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WCSMqttMsgSerializeHelper.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\CompressHelper\\WCSMqttMsgSerializeHelper.cs",
+              "RelativeDocumentMoniker": "CompressHelper\\WCSMqttMsgSerializeHelper.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\CompressHelper\\WCSMqttMsgSerializeHelper.cs",
+              "RelativeToolTip": "CompressHelper\\WCSMqttMsgSerializeHelper.cs",
+              "ViewState": "AgIAAIcAAAAAAAAAAIAwwBYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T15:42:37.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "db2_\u4E13\u673A(A).xml",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u4E13\u673A\\db2_\u4E13\u673A(A).xml",
+              "RelativeDocumentMoniker": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u4E13\u673A\\db2_\u4E13\u673A(A).xml",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u4E13\u673A\\db2_\u4E13\u673A(A).xml",
+              "RelativeToolTip": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u4E13\u673A\\db2_\u4E13\u673A(A).xml",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAkwFIAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-06-24T06:25:35.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ExecuteDePalletizingCommand.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u8BBE\u5907\u76F8\u5173\\\u4E13\u673A\u8BBE\u5907\\\u547D\u4EE4\\ExecuteDePalletizingCommand.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u8BBE\u5907\u76F8\u5173\\\u4E13\u673A\u8BBE\u5907\\\u547D\u4EE4\\ExecuteDePalletizingCommand.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u8BBE\u5907\u76F8\u5173\\\u4E13\u673A\u8BBE\u5907\\\u547D\u4EE4\\ExecuteDePalletizingCommand.cs",
+              "RelativeToolTip": "ZHQXC\\\u8BBE\u5907\u76F8\u5173\\\u4E13\u673A\u8BBE\u5907\\\u547D\u4EE4\\ExecuteDePalletizingCommand.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAIA2wGAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T06:25:02.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "WCSForWMSWebApiController.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\WebAPI\\Controller\\WCSForWMSWebApiController.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\WebAPI\\Controller\\WCSForWMSWebApiController.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\WebAPI\\Controller\\WCSForWMSWebApiController.cs",
+              "RelativeToolTip": "ZHQXC\\WebAPI\\Controller\\WCSForWMSWebApiController.cs",
+              "ViewState": "AgIAAIMAAAAAAAAAAIA2wIsAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T06:17:54.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "HistoryWarningRecordPlugin.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\AlarmPool\\AlarmRecordFrm\\HistoryWarningRecordPlugin.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\AlarmPool\\AlarmRecordFrm\\HistoryWarningRecordPlugin.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\AlarmPool\\AlarmRecordFrm\\HistoryWarningRecordPlugin.cs",
+              "RelativeToolTip": "ZHQXC\\AlarmPool\\AlarmRecordFrm\\HistoryWarningRecordPlugin.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAqwAUAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T11:45:03.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "TaskStateChangeReportWMSHand.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u5904\u7406\u7A0B\u5E8F\\WMS\u9884\u4EFB\u52A1\u5B8C\u6210\u5904\u7406\u7A0B\u5E8F\\TaskStateChangeReportWMSHand.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u5904\u7406\u7A0B\u5E8F\\WMS\u9884\u4EFB\u52A1\u5B8C\u6210\u5904\u7406\u7A0B\u5E8F\\TaskStateChangeReportWMSHand.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u5904\u7406\u7A0B\u5E8F\\WMS\u9884\u4EFB\u52A1\u5B8C\u6210\u5904\u7406\u7A0B\u5E8F\\TaskStateChangeReportWMSHand.cs",
+              "RelativeToolTip": "ZHQXC\\\u5904\u7406\u7A0B\u5E8F\\WMS\u9884\u4EFB\u52A1\u5B8C\u6210\u5904\u7406\u7A0B\u5E8F\\TaskStateChangeReportWMSHand.cs",
+              "ViewState": "AgIAAHwAAAAAAAAAAAA8wEoAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T03:43:55.626Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "C002.xml",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u5806\u579B\u673A\\C002.xml",
+              "RelativeDocumentMoniker": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u5806\u579B\u673A\\C002.xml",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u5806\u579B\u673A\\C002.xml",
+              "RelativeToolTip": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u5806\u579B\u673A\\C002.xml",
+              "ViewState": "AgIAAD8AAAAAAAAAAADwv00AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-05-27T12:16:45.817Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1024.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1024.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1024.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1024.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1024.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAqwBsAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T08:00:48.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1024_Warehouse.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1024_Warehouse.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1024_Warehouse.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1024_Warehouse.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1024_Warehouse.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAwEkAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T07:48:41.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1028_Warehouse.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1028_Warehouse.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1028_Warehouse.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1028_Warehouse.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1028_Warehouse.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAwEUAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T00:44:25.067Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1028.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1028.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1028.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1028.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1028.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAywCMAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T00:44:16.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1027_Warehouse.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1027_Warehouse.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1027_Warehouse.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1027_Warehouse.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1027_Warehouse.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAABAwEUAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T00:44:04.491Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1027.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1027.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1027.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1027.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1027.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAADwvxsAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T00:43:46.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1025_Warehouse.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1025_Warehouse.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1025_Warehouse.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1025_Warehouse.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1025_Warehouse.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAwFIAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T00:43:23.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ZHQXC",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\ZHQXC.csproj",
+              "RelativeDocumentMoniker": "ZHQXC\\ZHQXC.csproj",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\ZHQXC.csproj",
+              "RelativeToolTip": "ZHQXC\\ZHQXC.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-24T14:40:48.441Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1026_Warehouse.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1026_Warehouse.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1026_Warehouse.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1026_Warehouse.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1026_Warehouse.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAwEgAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T02:40:03.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1026.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1026.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1026.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1026.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1026.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAqwEcAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T02:40:01.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "AutoClearHoldSingleRequestTaskStartUp_1025.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1025.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1025.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u5305\u5934\\\u5305\u5934_Q\u5F62\u4ED3\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1025.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\\u4E13\u673A\\AutoClearHoldSingleRequestTaskStartUp_1025.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAqwEUAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T14:39:50.62Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

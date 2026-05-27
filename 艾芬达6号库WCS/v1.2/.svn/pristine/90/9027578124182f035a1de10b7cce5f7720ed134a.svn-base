@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Framework.Devices
+{
+    /// <summary>
+    /// 任务状态
+    /// </summary>
+    public enum TaskStatus
+    {
+        /// <summary>
+        /// 初始化时数据
+        /// </summary>
+        Empty = 0,
+        /// <summary>
+        /// 完成
+        /// </summary>
+        Finished = 1,
+        /// <summary>
+        /// 执行中
+        /// </summary>
+        Running = 2,
+        /// <summary>
+        /// 等待执行
+        /// </summary>
+        Waiting = 3,
+        /// <summary>
+        /// 任务不能执行
+        /// </summary>
+        Error = 4,
+        /// <summary>
+        /// 其它 未完成（原因或状态定义）；
+        /// </summary>
+        Other = 5
+    }
+}

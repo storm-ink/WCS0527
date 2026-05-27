@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Runtime.Serialization;
+
+namespace Wcs.Client.Interfaces.Conveyor
+{
+    /// <summary>
+    /// 输送线占位信号
+    /// 此信号通常是在容器到达或经过某些特定的输送线位置时，由电气控制生成。
+    /// 一般用在入库时入库指令的生成上
+    /// </summary>
+    [Description("占位信号")]
+    [DataContract]
+    public class HoldSignalNetTransferObject
+    {
+        /// <summary>
+        /// 获取或设置占位信号对应的货位号（信号源）
+        /// </summary>
+        /// <value>
+        /// 货位对应的设备编码形式.即输送线位置对象 DeviceCode 值.
+        /// </value>
+        [Description("货位号")]
+        [DataMember]
+        public UInt16 PosNo { get; set; }
+
+        /// <summary>
+        ///  获取或设置占位信号的握手变量值
+        /// </summary>
+        /// <value>
+        /// 占位信号握手变量
+        /// </value>
+        [Description("握手")]
+        [DataMember]
+        public HoldSignalNetTransferObjectHandShake HandShake { get; set; }
+        /// <summary>
+        /// 获取或设置占位信号对应的任务号
+        /// </summary>
+        [Description("任务号")]
+        [DataMember]
+        public UInt32 AssignmentID { get; set; }
+        /// <summary>
+        /// 获取或设置占位信号对应的托盘号
+        /// </summary>
+        [Description("托盘号")]
+        [DataMember]
+        public UInt16 TU_ID { get; set; }
+        /// <summary>
+        /// 获取或设置占位信号对应的托盘类型
+        /// </summary>
+        [Description("托盘类型")]
+        [DataMember]
+        public UInt16 TU_Type { get; set; }
+        /// <summary>
+        /// 获取或设置占位信号对应的业务数据
+        /// </summary>
+        [Description("业务数据")]
+        [DataMember]
+        public UInt16 IO_Data{get;set;}
+    }
+}

@@ -1,0 +1,16 @@
+﻿<script src="@Url.Content("~/Scripts/noty/jquery.noty.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/top.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/topLeft.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/topRight.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/topCenter.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/bottom.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/inline.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/bottomCenter.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/bottomLeft.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/bottomRight.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/center.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/centerLeft.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/layouts/centerRight.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/noty/themes/default.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/notyWrapper.js")" type="text/javascript"></script>

@@ -1,0 +1,5 @@
+C:\Users\78001003\source\repos\ConsoleApp2\S7\obj\Debug\S7.csproj.CoreCompileInputs.cache
+C:\Users\78001003\source\repos\ConsoleApp2\S7\bin\Debug\S7.dll
+C:\Users\78001003\source\repos\ConsoleApp2\S7\bin\Debug\S7.pdb
+C:\Users\78001003\source\repos\ConsoleApp2\S7\obj\Debug\S7.dll
+C:\Users\78001003\source\repos\ConsoleApp2\S7\obj\Debug\S7.pdb

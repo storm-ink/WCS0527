@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+namespace Wcs.Framework.Devices
+{
+    public class ConveyorLocationState : NetTransferObject
+    {
+        public UInt16 PosNo{get;set;}
+        public ConveyorLocationStatus Status { get; set; }
+        //public ConveyorLocationState(byte[] data):base(data)
+        //{
+
+        //}
+
+        public override object this[string name]
+        {
+            set 
+            {
+                switch (name)
+                {
+                    case "PosNo":
+                        this.PosNo = Convert.ToUInt16(value);
+                        break;
+                    case "Status":
+                        this.Status = (ConveyorLocationStatus)Convert.ToInt32(value);
+                        break;
+                    default:
+                        throw new NotImplementedException(String.Format("{0} 未实现对属性 {1} 的赋值操作", this.GetType(), name));
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Client.RailGuidedVehicle.ChangeOfState>
+@{
+    Layout = null;
+}
+
+<table id="table">
+<tr>
+    <th>Id</th>
+    <th>设备名</th>
+    <th>状态A</th>
+    <th>状态B</th>
+    <th>是否运行</th>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>持续时长</th>
+  
+</tr>
+
+@foreach (var item in Model)
+{
+<tr class="">
+    <td>@item.Id</td>
+    <td>@item.Name</td>
+    <td>@item.StateA</td>
+    <td>@item.StateB</td>
+    <td>@item.IsRunning</td>  
+    <td>@item.StartTime</td>
+    <td>@item.EndTime</td>
+    <td>@TimeSpan.FromMilliseconds(item.TotalMilliseconds)</td>
+</tr>    
+}
+</table>
+
+
+
+@if (Model.Count() > 0)
+{
+    @Html.PagedListPager(this.Model, pageIndex => Url.Action("Index", new { pageIndex }), new PagedListRenderOptions { DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共 {2} 个" })
+}

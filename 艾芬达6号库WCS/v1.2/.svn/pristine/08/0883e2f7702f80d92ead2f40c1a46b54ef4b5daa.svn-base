@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script src="~/Scripts/Design/userData.js"></script>
+    <script src="~/Scripts/Design/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/Design/kinetic-v5.1.0.min.js"></script>
+    <script src="~/Scripts/Design/jsCrane.js"></script>
+    <script src="~/Scripts/Design/jsTBCrane.js"></script>
+    <script src="~/Scripts/Design/jsImage.js"></script>
+    <script src="~/Scripts/Design/jsShuttle.js"></script>
+    <script src="~/Scripts/Design/JSConveyorLocation.js"></script>
+    <script src="~/Scripts/Design/JSConveyorDataAdapter.js"></script>
+    <script src="~/Scripts/Design/JSCraneDataAdapter.js"></script>
+    <script src="~/Scripts/Design/dialog.js"></script>
+    <script src="~/Scripts/Design/editor.js"></script>
+    <link href="~/Scripts/Design/dialog.css" rel="stylesheet" />
+    <script defer="defer">
+        loadStage('@Request["name"]');
+    </script>
+    <style>
+        *, html {
+            font-size:12px;
+        }
+        #stage {
+        text-align:center;
+        line-height:100%;
+        }
+    </style>
+</head>
+<body>
+   <div id="stage"></div>
+</body>
+</html>

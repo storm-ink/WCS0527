@@ -1,0 +1,607 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Framework;
+using Wcs.Framework.Devices;
+using Wcs.Framework.Impl;
+using System.Xml;
+using System.IO;
+using System.Net.Sockets;
+using System.Threading;
+using System.Diagnostics;
+using System.Net;
+namespace 通讯测试
+{
+    public partial class Form1 : Form
+    {
+        DefaultConveyorNetPackageDecoder decoder;
+        DefaultConveyorNetPackageDecoder encoder;
+        ConveyorNetPackage _netPackage = new ConveyorNetPackage();
+        TcpClient client;
+        Thread _thread;
+        SendTaskBlock _sendTaskObject;
+        public Form1()
+        {
+            InitializeComponent();
+            Control.CheckForIllegalCrossThreadCalls = false;
+            _sendTaskObject = new SendTaskBlock
+            {
+                AssignmentID=123,
+                StartMotorNo = 1101,
+                DestinationNo = 2113,
+                RotingNo = 1,
+                Index =1,
+                HandShake=HandShake.New,
+                TU_ID = 123,
+                IO_Data=0,
+                TU_Type=0
+            };
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Path.Combine(Application.StartupPath, "wcs.config.xml"));
+            XmlNode db2DecoderElement = doc.SelectSingleNode("configuration/netPackageDecoders/netPackageDecoder[@name='netPackageDecoder1']");
+            decoder = new DefaultConveyorNetPackageDecoder(db2DecoderElement);
+
+            XmlNode db1DecoderElement = doc.SelectSingleNode("configuration/netPackageDecoders/netPackageDecoder[@name='netPackageDecoder2']");
+            encoder = new DefaultConveyorNetPackageDecoder(db1DecoderElement);
+        }
+
+        Boolean 持续接收 = false;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                持续接收 = checkBox2.Checked;
+                button1.PerformClick();
+                client = new TcpClient();
+                client.Connect(textBox1.Text, int.Parse(textBox2.Text));
+
+                _thread = new Thread(使用组包器接收数据时间统计);
+                _thread.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void cancel()
+        {
+            _sendTaskObject.HandShake = HandShake.ApplyForDelete;
+            Console.WriteLine("{0:HH:mm:ss fffff} 开始编码", DateTime.Now);
+            var package = encoder.CreateFullMap();
+            package[typeof(SendTaskBlock)][0] = _sendTaskObject;
+            var taskBytes = encoder.Encode(package);
+            taskBytes = taskBytes.Concat(new byte[] { 0, 0, 0, 0, 0, 0 }).ToArray();
+            //taskBytes = _netPackage.CreateSendPackage(taskBytes);
+            taskBytes = _netPackage.CreateSendPackage(taskBytes).GetBytes();
+            Console.WriteLine("{0:HH:mm:ss fffff} 编码成功，开始发送", DateTime.Now);
+            client.GetStream().Write(taskBytes, 0, taskBytes.Length);
+            Console.WriteLine("{0:HH:mm:ss fffff} 发送成功", DateTime.Now);
+        }
+
+        private void send()
+        {
+            _sendTaskObject.HandShake = HandShake.New;
+            Console.WriteLine("{0:HH:mm:ss fffff} 开始编码",DateTime.Now);
+            var package = encoder.CreateFullMap();
+            package[typeof(SendTaskBlock)][0] = _sendTaskObject;
+            var taskBytes = encoder.Encode(package);
+            taskBytes = taskBytes.Concat(new byte[] { 0, 0, 0, 0, 0, 0 }).ToArray();
+            taskBytes = _netPackage.CreateSendPackage(taskBytes).GetBytes();
+            Console.WriteLine("{0:HH:mm:ss fffff} 编码成功，开始发送", DateTime.Now);
+            client.GetStream().Write(taskBytes, 0, taskBytes.Length);
+            Console.WriteLine("{0:HH:mm:ss fffff} 发送成功", DateTime.Now);
+        }
+
+        Int32 counter = 0;
+        void receive()
+        {
+            counter = 0;
+            try
+            {
+                var netStream = client.GetStream();
+                byte[] buff = new byte[1024];
+                while (true)
+                {
+                    Int32 receivedCount = netStream.Read(buff, 0, buff.Length);
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+                    if (receivedCount == 0)
+                    {
+                        throw new Exception();
+                    }
+
+                    _netPackage.AddBytes(buff.Take(receivedCount));
+                    var package = _netPackage.FetchPackage();
+                    sw.Stop();
+                    if (package != null && package.Length > 0)
+                    {
+                        Console.WriteLine("{0:HH:mm:ss fffff} 取包耗时 {1}", DateTime.Now, sw.ElapsedMilliseconds);
+                        counter++;
+                        Console.WriteLine("{0:HH:mm:ss fffff} 开始解包 {1}", DateTime.Now, counter);
+                        var tasks = decoder.Get<TaskBlock>(package.Data);
+                        Console.WriteLine("{0:HH:mm:ss fffff} 解包完成 {1}", DateTime.Now, counter);
+                        if (tasks != null)
+                        {
+                            var task = tasks.FirstOrDefault(x => x.AssignmentID == _sendTaskObject.AssignmentID);
+                            if (task != null)
+                            {
+                                Console.WriteLine("{0:HH:mm:ss fffff} 接收到状态数据", DateTime.Now);
+                                client.Close();
+                                client = null;
+                                _thread.Abort();
+                                _thread = null;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (ThreadAbortException)
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+        /// <summary>
+        /// a是否包含b
+        /// </summary>
+        /// <param name="arrayA">   The array a. </param>
+        /// <param name="arrayB">   The array b. </param>
+        /// <returns>
+        /// true if it succeeds, false if it fails.
+        /// </returns>
+        bool xx(byte[] arrayA, byte[] arrayB)
+        {
+            if (arrayA.Length < arrayB.Length)
+            {
+                return false;
+            }
+
+            if (arrayA.Length == arrayB.Length)
+            {
+                return arrayA.SequenceEqual(arrayB);
+            }
+
+            for (int i = 0; i < arrayA.Length; i++)
+            {
+                if (arrayA[i] != arrayB[0])
+                {
+                    continue;
+                }
+
+                Boolean found = true;
+                for (int bIndex = 1; bIndex < arrayB.Length; bIndex++)
+                {
+                    if (arrayA[i + bIndex] != arrayB[bIndex])
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        void 接收并搜索特征码()
+        {
+            int receivedTotals = 0;
+            byte[] tzm = new byte[] { 4, 125, 63, 2 };
+            byte[] header = new byte[] { 255, 255, 255, 255, 255, 255 };
+            try
+            {
+                var netStream = client.GetStream();
+                byte[] buff = new byte[200];
+                Stopwatch sw = new Stopwatch();
+                while (true)
+                {
+                    Int32 receivedCount = netStream.Read(buff, 0, buff.Length);
+                    
+                    if (receivedCount == 0)
+                    {
+                        throw new Exception();
+                    }
+
+                    if (receivedTotals == 0)
+                    {
+                        sw = new Stopwatch();
+                        sw.Start();
+                        addMsg("开始接收来自于服务器的的数据,【特征码模式】...");
+                    }
+                    receivedTotals += receivedCount;
+
+                    if (xx(buff.Take(receivedCount).ToArray(), tzm))
+                    {
+                        sw.Stop();
+                        addMsg("发现特征码，接收结束，共耗时 {0} ms,共收到 {1} bytes.", sw.ElapsedMilliseconds, receivedTotals);
+                        receivedTotals = 0;
+                        if (!持续接收)
+                        {
+                            stopListener = true;
+                            client.Close();
+                            client = null;
+                            _thread.Abort();
+                            _thread = null;
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (ThreadAbortException)
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        Int32 数据包长度 = 8364;
+        void 接收固定大小数据包时间统计()
+        {
+            List<cssj> result = new List<cssj>();
+            int 包总数 = 0;
+            try
+            {
+                DateTime? 上一个包结束时间 = null;
+                DateTime? 下一个包的开始时间 = null;
+                int receivedTotals = 0;
+                var netStream = client.GetStream();
+                byte[] buff = new byte[240];
+                Stopwatch sw = new Stopwatch();
+                button5.Text = "断开";
+                addMsg("服务器连接成功...");
+                while (true)
+                {
+                    Int32 receivedCount = netStream.Read(buff, 0, buff.Length);
+
+                    if (receivedCount == 0)
+                    {
+                        throw new Exception();
+                    }
+                    if (receivedTotals == 0)
+                    {
+                        下一个包的开始时间 = DateTime.Now;
+                        sw = new Stopwatch();
+                        sw.Start();
+                        addMsg("开始接收来自于服务器的的数据,【定长模式】...");
+                    }
+                    receivedTotals += receivedCount;
+
+                    if (receivedTotals >= 数据包长度)//8364
+                    {
+                        sw.Stop();
+                        包总数++;
+                        if (包总数 != 1)
+                        {
+                            result.Add(new cssj
+                            {
+                                no = 包总数,
+                                size = receivedTotals,
+                                ms = sw.ElapsedMilliseconds + Convert.ToInt64(上一个包结束时间 == null ? 0 : 下一个包的开始时间.Value.Subtract(上一个包结束时间.Value).TotalMilliseconds)
+                            });
+                        }
+                        addMsg("{3}:成功接收了 {0} bytes，共耗时 {1} ms,包间隔 {2}", receivedTotals, sw.ElapsedMilliseconds, 上一个包结束时间 == null ? 0 : 下一个包的开始时间.Value.Subtract(上一个包结束时间.Value).TotalMilliseconds, 包总数);
+                        receivedTotals = 0;
+                        上一个包结束时间 = DateTime.Now;
+                        if (!持续接收)
+                        {
+                            addMsg("共接收了 {0} 个包，最长耗时 {1} ms，最短耗时 {2} ms，平均耗时 {3} ms", result.Count, result.Max(x => x.ms), result.Min(x => x.ms), result.Average(x => x.ms));
+
+                            stopListener = true;
+                            client.Close();
+                            _thread.Abort();
+                        }
+                    }
+                }
+            }
+            catch (ThreadAbortException)
+            {
+                button5.Text = "定长接收";
+
+
+                _thread = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                button5.Text = "定长接收";
+                _thread.Abort();
+                _thread = null;
+            }
+
+        }
+
+        void 使用组包器接收数据时间统计()
+        {
+            try
+            {
+                int receivedPackageTotals = 0;
+                int receivedBytesTotals = 0;
+                int matchsTotals = 0;
+                var netStream = client.GetStream();
+                byte[] buff = new byte[200];
+                Stopwatch sw = new Stopwatch();
+
+                int packageCountBytes = 0;
+                Stopwatch cccSw = new Stopwatch();
+                while (true)
+                {
+                    Int32 receivedCount = netStream.Read(buff, 0, buff.Length);
+
+                    if (receivedCount == 0)
+                    {
+                        throw new Exception();
+                    }
+                    if (packageCountBytes == 0)
+                    {
+                        cccSw = new Stopwatch();
+                        cccSw.Start();
+                    }
+                    if (receivedBytesTotals == 0)
+                    {
+                        sw = new Stopwatch();
+                        sw.Start();
+                        addMsg("开始接收来自于服务器的的数据,【组包器模式】...");
+                    }
+                    receivedBytesTotals += receivedCount;
+                    packageCountBytes += receivedCount;
+
+                    _netPackage.AddBytes(buff.Take(receivedCount));
+                    var package = _netPackage.FetchPackage();
+
+                    if (package != null && package.Length>0)
+                    {
+                        receivedPackageTotals += 1;
+                        var 光电块 = decoder.Get<OccupyStatus>(package.Data);
+                        if (光电块 != null && 光电块
+                            .Where(x => x.PosNo == 1149)
+                            .Any(x => x.AftPosPotocell || x.AftProPotocell || x.AftSloPotocell || x.FroPosPotocell || x.FroProPotocell || x.FroSloPotocell))
+                        {
+                            matchsTotals++;
+                            sw.Stop(); ;
+                            addMsg("接收到状态数据,总数据量 {0} bytes，包量 {1}，命中 {2}，共耗时 {3} ms", receivedBytesTotals, receivedPackageTotals, matchsTotals, sw.ElapsedMilliseconds);
+                            receivedBytesTotals = 0;
+                            if (!持续接收)
+                            {
+                                stopListener = true;
+                                client.Close();
+                                _thread.Abort();
+                            }
+                        }
+                        else
+                        {
+                            cccSw.Stop();
+                            addMsg("接收到状态数据,总数据量 {0} bytes，包号 {1}，共耗时 {2} ms", packageCountBytes, receivedPackageTotals, cccSw.ElapsedMilliseconds);
+                            packageCountBytes = 0;
+                        }
+                    }
+
+                }
+            }
+            catch (ThreadAbortException)
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+        
+        Boolean stopListener = false;
+        private void 服务器监听(object state)
+        {
+            addMsg("开始准备数据...");
+            byte[] package = new byte[8364];
+            using (BinaryReader sr = new BinaryReader(new FileStream(@"c:\a.x", FileMode.Open)))
+            {
+                package = sr.ReadBytes(package.Length);
+                sr.Close();
+            }
+
+            package = (new byte[] { 255, 255, 255, 255, 255, 255, 255, 255 }).Concat(package).Concat(new byte[] { 238, 238, 238, 238, 238, 238, 238, 238 }).ToArray();
+
+            addMsg("数据准备结束");
+            TcpListener tcpListener = (TcpListener)state;
+
+            Int32 sendPackageTotals = 0;
+
+            try
+            {
+                while (!stopListener)
+                {
+                    if (tcpListener.Pending())
+                    {
+                        TcpClient tcpClient = tcpListener.AcceptTcpClient();
+                        addMsg("接受来自 {0} 已连接", tcpClient.Client.RemoteEndPoint);
+                        if (持续发送)
+                        {
+                            while (!stopListener)
+                            {
+                                sendPackageTotals++;
+                                addMsg("开始向客户端发送数据包 #{0}...", sendPackageTotals);
+                                tcpClient.GetStream().Write(package, 0, package.Length);
+                                addMsg("#{0} 数据包发送结束", sendPackageTotals);
+                                Thread.Sleep(10);
+                            }
+                        }
+                        else
+                        {
+                            sendPackageTotals++;
+                            addMsg("开始向客户端发送数据包 #{0}...", sendPackageTotals);
+                            //foreach (var b in package)
+                            //{
+                            //    tcpClient.GetStream().WriteByte(b);
+                            //}
+                            tcpClient.GetStream().Write(package, 0, package.Length);
+                            addMsg("#{0} 数据包发送结束",sendPackageTotals);
+                        }
+                    }
+                    else
+                    {
+                        Thread.Sleep(1);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                addMsg(ex.Message);
+            }
+
+            tcpListener.Stop();
+        }
+
+        private void addMsg(string formatStr, params object[] args)
+        {
+            string msg = string.Format("{0:HH:mm:ss fffffff} ",DateTime.Now) + string.Format(formatStr, args);
+            this.BeginInvoke(new MethodInvoker(() =>
+            {
+                richTextBox1.AppendText(msg + "\r\n");
+            }));
+        }
+
+        Boolean 持续发送 = false;
+        private void button3_Click(object sender, EventArgs e)
+        {
+            持续发送 = checkBox1.Checked;
+            richTextBox1.Clear();
+            stopListener = false;
+            TcpListener tcpListener = new TcpListener(System.Net.IPAddress.Parse(textBox1.Text), int.Parse(textBox2.Text));
+            tcpListener.Start();
+            ThreadPool.QueueUserWorkItem(服务器监听, tcpListener);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                client = new TcpClient();
+                client.Connect(textBox1.Text, int.Parse(textBox2.Text));
+
+                _thread = new Thread(接收并搜索特征码);
+                _thread.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!int.TryParse(textBox3.Text, out 数据包长度) || 数据包长度<=0)
+                {
+                    MessageBox.Show("数据包长度必须为数字，且必须大于 0");
+                    textBox3.Focus();
+                    return;
+                }
+
+                if (_thread == null)
+                {
+                    client = new TcpClient();
+                    client.Connect(textBox1.Text, int.Parse(textBox2.Text));
+
+                    _thread = new Thread(接收固定大小数据包时间统计);
+                    _thread.Start();
+                }
+                else
+                {
+                    _thread.Abort();
+                    _thread = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            持续接收 = checkBox2.Checked;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            持续发送 = checkBox1.Checked;
+        }
+
+        UdpClient udpClient;
+        Thread udpThread;
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (udpClient!=null)
+            {
+                udpThread.Abort();
+                Thread.Sleep(TimeSpan.FromMilliseconds(500d));
+                udpClient.Close();
+            }
+            try
+            {
+                udpClient = new UdpClient();
+                udpClient.Connect(new IPEndPoint(IPAddress.Parse(textBox1.Text),int.Parse(textBox2.Text)));
+                udpThread = new Thread(new ThreadStart(udpReceived));
+                udpThread.Start();
+
+            }
+            catch (Exception y)
+            {
+                MessageBox.Show(this, y.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        void udpReceived()
+        {
+            IPEndPoint remoteHost = null;
+            while(udpClient!=null)
+            {
+                try
+                {
+                    byte[] buf = udpClient.Receive(ref remoteHost);
+                    string bufs = Encoding.UTF8.GetString(buf);
+                    addMsg("主机：{0}; 端口:{1}; 数据报长度:{2}", remoteHost.Address, remoteHost.Port, buf.Length);
+                }
+                catch (Exception ex)
+                {
+                    addMsg("发生错误:", ex);
+                }
+
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
+            Thread.CurrentThread.Abort();
+        }
+
+        class cssj
+        {
+            public Int32 no { get; set; }
+            public long ms { get; set; }
+            public Int32 size { get; set; }
+        }
+    }
+}

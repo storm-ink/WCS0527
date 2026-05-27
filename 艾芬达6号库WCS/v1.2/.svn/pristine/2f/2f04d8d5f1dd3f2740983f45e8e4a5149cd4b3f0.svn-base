@@ -1,0 +1,191 @@
+﻿.CraneControlBox {
+    width:600px;
+    background-color:#f0f0f0;
+    margin:auto;
+    padding:20px 0px;
+    color:#000;
+    border-radius: 20px; 
+}
+
+.CraneControlBox .infoBox {
+    font-family:Microsoft Sans Serif;
+    font-size:16px;
+    font-weight:bold;
+    height:90px;
+    margin:0px;
+    vertical-align:middle;
+    border-bottom:1px solid #ccc;
+    line-height:1.8;
+}
+        
+.CraneControlBox .infoBox .CraneName {
+    font-size:25px;
+    height:60px;
+    width:100px;
+    line-height:60px;
+    text-align:center;
+    /*background-color:#ececec;*/
+    vertical-align:middle;
+    float:left;
+    }
+        
+.CraneControlBox .infoBox .userColumn {
+    font-weight:bold;
+    width:150px;
+    float:left;
+    }
+.CraneControlBox .infoBox .userLevel {
+    font-weight:bold;
+    width:150px;
+    float:left;
+    }
+.CraneControlBox .infoBox .taskId {
+    font-weight:bold;
+    width:150px;
+    float:left;
+    }
+.CraneControlBox .infoBox .error {
+    font-weight:bold;
+    width:200px;
+    float:left;
+    }
+
+.CraneControlBox .infoBox .state {
+    font-weight:bold;
+    width:150px;
+    float:left;
+    }
+    .infoBox .event {
+    font-weight:bold;
+    width:150px;
+    float:left;
+    }
+
+.CraneControlBox .controlTable {
+    font-family:Microsoft Sans Serif;
+    font-size:16px;
+    font-weight:bold;
+    width:70%;
+    margin:10px auto;
+    border:none;
+}
+        
+.CraneControlBox .controlTable tr td {
+    padding:5px;
+    text-align:center;
+    border:none;
+}
+        
+.CraneControlBox .controlTable .leftPick{
+            
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnLGet.Image.png') no-repeat center center;
+}
+.CraneControlBox .controlTable .leftPut{
+            
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnLPut.Image.png') no-repeat center center;
+}
+.CraneControlBox .controlTable .rightPick{
+            
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnRGet.Image.png') no-repeat center center;
+}
+.CraneControlBox .controlTable .rightPut{
+            
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnRPut.Image.png') no-repeat center center;
+}
+
+.CraneControlBox .controlTable .running{
+    font-size:14px;
+    font-weight:bold;
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnRunRowCol.Image.png') no-repeat left center;
+    text-align:right;
+}
+
+        
+.CraneControlBox .controlTable .up{
+            
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnCUp.Image.png') no-repeat center center;
+}
+
+.CraneControlBox .controlTable .left{
+            
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnCBack.Image.png') no-repeat center center;
+}
+.CraneControlBox .controlTable .right{
+            
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnCGO.Image.png') no-repeat center center;
+}
+.CraneControlBox .controlTable .down{
+            
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnCDOWN.Image.png') no-repeat center center;
+}
+.CraneControlBox .controlTable .lock{
+    font-size:14px;
+    font-weight:bold;
+    text-align:right;
+    width:60px;
+    height:40px;
+    background:url('/content/icons/btnLock.Image.png') no-repeat left center;
+}
+.CraneControlBox .controlTable .jt{
+    font-size:14px;
+    font-weight:bold;
+    text-align:right;
+    width:60px;
+    height:40px;
+    background:url('/content/icons/alarm.png') no-repeat left center;
+}
+.CraneControlBox .controlTable .qxjt{
+    font-size:14px;
+    font-weight:bold;
+    text-align:right;
+    width:90px;
+    height:40px;
+    background:url('/content/icons/Warn.png') no-repeat left center;
+}
+.CraneControlBox .controlTable .yd{
+    font-size:14px;
+    font-weight:bold;
+    text-align:right;
+    width:60px;
+    height:40px;
+    background:url('/content/icons/run.png') no-repeat left center;
+}
+
+.CraneControlBox .controlTable .num{
+    border:1px solid #ccc;
+    width:60px;
+    height:32px;
+    font-size:14px;
+    font-weight:bold;
+    text-align:center;
+    background-color:#f0f0f0;
+}
+
+
+.CraneControlBox .controlTable .clearTASK{
+    font-size:14px;
+    font-weight:bold;
+    text-align:right;
+    width:60px;
+    height:40px;
+    background:url('/content/icons/clear.png') no-repeat left center;
+}
+

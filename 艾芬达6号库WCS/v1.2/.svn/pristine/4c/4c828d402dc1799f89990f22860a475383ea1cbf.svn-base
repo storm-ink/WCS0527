@@ -1,0 +1,500 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.App.Elements.UIEditor;
+using Wcs.Client.Interfaces.Conveyor;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("输送线数据源")]
+    [Serializable]
+    public class ConveyorDataSource:Element,IWarningContainer
+    {
+        List<ConveyorLocation> locations = new List<ConveyorLocation>();
+        AlarmNetTransferObject[] _alarmsCache = new AlarmNetTransferObject[0];
+        Int32 m_Interval;
+        StringFormat sf;
+
+        public ConveyorDataSource(Editor editor)
+            : base(editor)
+        {
+            Init();
+        }
+
+        public ConveyorDataSource(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            Init();
+
+            this.AreaName = (string)info.GetValue("AreaName", typeof(string));
+            this.ConfigurationName = (string)info.GetValue("ConfigurationName", typeof(string));
+            this.Interval = (Int32)info.GetValue("Interval", typeof(Int32));
+        }
+
+        [Description("区域名称（设备名称）"), Category("行为")]
+        public String AreaName { get; set; }
+
+        [Description("终结点配置名称"), Category("行为"),
+        EditorAttribute(typeof(ServiceEndPointConfigurationNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public String ConfigurationName { get; set; }
+
+        public Int32 Interval
+        {
+            get
+            {
+                return m_Interval;
+            }
+            set
+            {
+                if (value < 500)
+                {
+                    throw new InvalidOperationException("激活间隔时间必须大于等于 500ms");
+                }
+                m_Interval = value;
+            }
+        }
+
+        public override void Draw(System.Drawing.Graphics graphics)
+        {
+            if (Editor.IsDesign)
+            {
+                base.Draw(graphics);
+
+                graphics.DrawRectangles(Pens.Red, new RectangleF[] { this.Rectangle });
+                graphics.DrawString("输送线数据源", Control.DefaultFont, new SolidBrush(Color.Red), this.Rectangle, sf);
+            }
+        }
+
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            info.AddValue("AreaName", this.AreaName);
+            info.AddValue("Interval", this.Interval);
+            info.AddValue("ConfigurationName", this.ConfigurationName);
+
+            base.GetObjectData(info, context);
+        }
+
+        ConveyorLocation FindLocation(Int32 posNo)
+        {
+            ConveyorLocation r = null;
+            if (locations != null)
+            {
+                r = locations.FirstOrDefault(x => x.PosNo == posNo);
+            }
+            if (r != null)
+            {
+                return r;
+            }
+            r = Editor.Find<ConveyorLocation>(x => x.PosNo == posNo);
+            if (r != null)
+            {
+                locations.Add(r);
+            }
+
+            return r;
+        }
+
+        void Init()
+        {
+            this.Size = new System.Drawing.SizeF(50, 50);
+            sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+            Interval = 1000;
+
+            System.Threading.ThreadPool.QueueUserWorkItem((stat) =>
+            {
+                Proc();
+            });
+        }
+        void Proc()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(Interval);
+
+                if (Editor.IsDesign)
+                {
+                    continue;
+                }
+
+                if (String.IsNullOrWhiteSpace(this.ConfigurationName) || String.IsNullOrWhiteSpace(this.AreaName))
+                {
+                    continue;
+                }
+                ConveryorServiceClient client = null;
+                try
+                {
+                    client = new ConveryorServiceClient(this.ConfigurationName);
+                    client.Open();
+                    var alarms = client.GetAlarms(this.AreaName);
+                    foreach (var item in alarms)
+                    {
+                        var loc = FindLocation(item.PosNo);
+                        if (loc != null)
+                        {
+                            loc.Alarm = item;
+                        }
+                    }
+
+                    _alarmsCache = alarms;
+
+                    var holdSignals = client.GetHoldSignals(this.AreaName);
+                    foreach (var item in holdSignals)
+                    {
+                        var loc = FindLocation(item.PosNo);
+                        if (loc != null)
+                        {
+                            loc.HoldSignal = item;
+                        }
+                    }
+
+                    var occupys = client.GetOccupys(this.AreaName);
+                    foreach (var item in occupys)
+                    {
+                        var loc = FindLocation(item.PosNo);
+                        if (loc != null)
+                        {
+                            loc.Occupy = item;
+                        }
+                    }
+
+                    var status = client.GetLocationStatus(this.AreaName);
+                    foreach (var item in status)
+                    {
+                        var loc = FindLocation(item.PosNo);
+                        if (loc != null)
+                        {
+                            loc.Status = item;
+                            loc.DataSource = this;
+                        }
+                    }
+
+                    var tasks = client.GetLocationTasks(this.AreaName);
+                    foreach (var item in tasks)
+                    {
+                        var loc = FindLocation(item.PosNo);
+                        if (loc != null)
+                        {
+                            loc.LocationTask = item;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+
+                    if (client != null)
+                    {
+                        client.Abort();
+                    }
+                }
+                finally
+                {
+                    if (client != null)
+                    {
+                        client.Close();
+                        client = null;
+                    }
+                }
+            }
+        }
+
+        #region IConveyorService
+        public string[] AllOperations()
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.AllOperations();
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public object Call(string name, object[] args)
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.Call(name, args);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void ClearTask(int equipmentTaskId)
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.ClearTask(this.AreaName, equipmentTaskId);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void DeleteLocationTask(int posNo, int equipmentTaskId)
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.DeleteLocationTask(this.AreaName, posNo, equipmentTaskId);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void DeleteTask(int equipmentTaskId)
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.DeleteTask(this.AreaName, equipmentTaskId);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.AlarmNetTransferObject[] GetAlarms()
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.GetAlarms(this.AreaName);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.HoldSignalNetTransferObject[] GetHoldSignals()
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.GetHoldSignals(this.AreaName);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.LocationNetTransferObject[] GetLocationStatus()
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.GetLocationStatus(this.AreaName);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.LocationTaskNetTransferObject[] GetLocationTasks()
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.GetLocationTasks(this.AreaName);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.OccupyNetTransferObject[] GetOccupys()
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.GetOccupys(this.AreaName);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public Wcs.Client.Interfaces.Conveyor.TaskNetTransferObject[] GetTasks()
+        {
+            var client = new ConveryorServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.GetTasks(this.AreaName);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+        #endregion
+
+        public override Element Clone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Warning[] GetWarings()
+        {
+            if (_alarmsCache == null || _alarmsCache.Length == 0)
+            {
+                return new Warning[0];
+            }
+
+            List<Warning> result = new List<Warning>();
+            foreach (var item in _alarmsCache)
+            {
+                var alarm = item.ToAlarms();
+                if (alarm == null || alarm.Length == 0)
+                {
+                    continue;
+                }
+
+                Warning w = new Warning();
+                w.DeviceType = "输送线";
+                w.DeviceName = string.Format("{0} 号货位", item.PosNo);
+                w.Message = string.Join(",", alarm);
+
+                result.Add(w);
+            }
+
+            return result.ToArray();
+        }
+
+        public override float WidthScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+
+        public override float HeightScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+    }
+}

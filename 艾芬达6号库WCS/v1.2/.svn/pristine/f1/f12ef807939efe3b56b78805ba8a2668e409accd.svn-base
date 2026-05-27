@@ -1,0 +1,110 @@
+﻿using NLog;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// Wcs 主任务，描述一个完整的作业
+    /// </summary>
+    [DataContract]
+    public class Task
+    {
+        [DataMember]
+        public Int32 Id { get; set; }
+        /// <summary>
+        /// 任务编号
+        /// </summary>
+        [DataMember]
+        public String TaskCode { get; set; }
+        /// <summary>
+        /// 任务来源
+        /// </summary>
+        [DataMember]
+        public TaskSource Source { get; set; }
+        /// <summary>
+        /// 任务起始位置
+        /// </summary>
+        [DataMember]
+        public LocationInfo StartLocation { get; set; }
+        /// <summary>
+        /// 终点位置
+        /// </summary>
+        [DataMember]
+        public LocationInfo EndLocation { get; set; }
+        /// <summary>
+        /// 当前位置
+        /// </summary>
+        [DataMember]
+        public LocationInfo CurrentLocation { get; set; }
+        /// <summary>
+        /// 任务方向
+        /// </summary>
+        [DataMember]
+        public TaskDirection Direction { get; set; }
+        /// <summary>
+        /// 任务状态
+        /// </summary>
+        [DataMember]
+        public TaskStatus Status { get; set; }
+        /// <summary>
+        /// 业务类型
+        /// </summary>
+        [DataMember]
+        public TaskBizType BizType { get; set; }
+        /// <summary>
+        /// 任务类型
+        /// <para>此属性的值来源于业务系统，在与业务系统交互时可能需要用到。</para>
+        /// </summary>
+        [DataMember]
+        public String TaskType { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [DataMember]
+        public DateTime CreatedAt { get; set; }
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        [DataMember]
+        public DateTime? FinishedAt { get; set; }
+        /// <summary>
+        /// 备注信息
+        /// </summary>
+        [DataMember]
+        public String Description { get; set; }
+        /// <summary>
+        /// 任务优先级（默认为 0），值越大，优先级越高。
+        /// </summary>
+        [DataMember]
+        public Int32 Priority { get; set; }
+        /// <summary>
+        /// 已存在的动作
+        /// </summary>
+        [DataMember]
+        public LogicMovement[] Movements { get;  set; }
+        /// <summary>
+        /// 托盘号
+        /// </summary>
+        [DataMember]
+        public String[] ContainerCodes { get;  set; }
+        /// <summary>
+        /// 附加属性集合
+        /// </summary>
+        [DataMember]
+        public Dictionary<String, String> AdditionalInfo { get; set; }
+
+        public Task()
+        {
+            Movements = new LogicMovement[0];
+            AdditionalInfo = new Dictionary<String, String>();
+        }
+        public override string ToString()
+        {
+            return this.TaskCode;
+        }
+
+    }
+}

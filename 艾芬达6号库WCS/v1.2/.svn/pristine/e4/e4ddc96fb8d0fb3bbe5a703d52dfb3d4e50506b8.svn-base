@@ -1,0 +1,213 @@
+﻿using Gensong;
+using Lutai.RailGuidedVehicle;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace WindowsFormsApplication1
+{
+    public class RgvSimulation
+    {
+        RgvAction _currentAction;
+
+        private System.Timers.Timer _timer;
+        public Boolean AutoExcute { get; set; }
+
+        public RgvSimulation(String ip, Int32 port)
+        {
+            this.TcpServer = new TcpServer(ip, port);
+            TcpServer.ClientAccepted += TcpServer_ClientAccepted;
+            TcpServer.Stopped += TcpServer_Stopped;
+
+            const double defaultInterval = 1000;
+            _timer = new System.Timers.Timer(defaultInterval);
+            _timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
+            _timer.Start();
+        }
+
+        void TcpServer_Stopped(object sender, EventArgs e)
+        {
+            this.Client = null;
+
+            Logger.Info("服务器已停止");
+        }
+
+        void TcpServer_ClientAccepted(object sender, ClientAcceptedEventArgs e)
+        {
+            Logger.Info("{0} 接入服务器...", e.TcpClient);
+            this.Client = new ClientProxy(e.TcpClient, new System.Text.ASCIIEncoding());
+            this.Client.Closed += Client_Closed;
+            this.Client.StartRead();
+        }
+
+        void Client_Closed(object sender, EventArgs e)
+        {
+            this.Client = null;
+        }
+
+
+        /// <summary>
+        /// 获取连接到此模拟设备的客户端代理。
+        /// </summary>
+        public ClientProxy Client { get; internal set; }
+
+        public RailGuidedVehicleEvent Event { get; internal set; }
+
+        public Boolean HasGoods { get; internal set; }
+        RailGuidedVehicleStatus m_Status;
+        public RailGuidedVehicleStatus Status
+        {
+            get
+            {
+                return m_Status;
+            }
+            internal set
+            {
+                if (value == RailGuidedVehicleStatus.有货待命 || value == RailGuidedVehicleStatus.有货运行)
+                {
+                    this.HasGoods = true;
+                }
+                else
+                {
+                    this.HasGoods = false;
+                }
+                m_Status = value;
+            }
+        }
+
+        public String TaskId { get; set; }
+
+        public Int32 Position { get; set; }
+        public Int32 CurrentStaion { get; set; }
+        public Int32 ContainerCode { get; set; }
+        public Boolean AtStation { get; set; }
+
+        public Int32 ErrorCode { get; set; }
+
+        public Int32 FormStation { get; set; }
+        public Int32 ToStation { get; set; }
+
+
+        public RailGuidedVehicleTaskMode TaskMode { get; internal set; }
+
+        /// <summary>
+        /// 获取此模模拟设备的 TcpServer。
+        /// </summary>
+        internal TcpServer TcpServer { get; private set; }
+        public void ExecuteCommand(RequestTelex telex)
+        {
+            if (telex is HB)
+            {
+                executeHB(telex as HB);
+            }
+            else if (telex is HS)
+            {
+                executeHS(telex as HS);
+            }
+            else if (telex is HP)
+            {
+                executeHP(telex as HP);
+            }
+            else
+            {
+                throw new NotSupportedException(string.Format("无法识别的报文 {0}", telex.Telex));
+            }
+        }
+
+        void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (_currentAction != null && _currentAction.IsCompleted == false && AutoExcute)
+            {
+                _currentAction.ExecuteStep();
+            }
+        }
+
+        void executeHB(HB hb)
+        {
+            if (hb.TaskMode != RailGuidedVehicleTaskMode.Picking && hb.TaskMode != RailGuidedVehicleTaskMode.Putting)
+            {
+                throw new Exception("HB 任务只接收“取货”、“放货”模式。");
+            }
+
+            if (hb.TaskMode == RailGuidedVehicleTaskMode.Picking)
+            {
+                if (hb.FromStation == 0)
+                {
+                    throw new InvalidOperationException("取货任务起始站点不能为 0.");
+                }
+
+                if (hb.FromStationChainAction != Lutai.ChainAction.LeftPicking && hb.FromStationChainAction != Lutai.ChainAction.RightPicking)
+                {
+                    throw new InvalidOperationException(string.Format("取货任务起始站点链条动作 {0} 无效.",hb.FromStationChainAction));
+                }
+
+                _currentAction = new PickingAction(this, hb.FromStationChainAction,hb.FromStation, false);
+            }
+
+            if (hb.TaskMode == RailGuidedVehicleTaskMode.Putting)
+            {
+                if (hb.ToStation == 0)
+                {
+                    throw new InvalidOperationException("放货任务目标站点不能为 0.");
+                }
+
+                if (hb.ToStationChainAction != Lutai.ChainAction.LeftUnloading && hb.ToStationChainAction != Lutai.ChainAction.RightUnloading)
+                {
+                    throw new InvalidOperationException(string.Format("放货任务起目标站点链条动作 {0} 无效.", hb.ToStationChainAction));
+                }
+
+                _currentAction = new PuttingAction(this, hb.ToStationChainAction,hb.ToStation, false);
+            }
+
+            this.TaskId = hb.TaskId;
+            this.FormStation = hb.FromStation;
+            this.ToStation = hb.ToStation;
+        }
+
+        void executeHS(HS hs)
+        {
+            if (hs.TaskMode != RailGuidedVehicleTaskMode.Walk && hs.TaskMode != RailGuidedVehicleTaskMode.WalkWithGoods)
+            {
+                throw new InvalidOperationException("HS 任务只接收“无货行走”、“带货行走”模式。");
+            }
+
+            if (hs.ToStation == 0)
+            {
+                throw new InvalidOperationException("HS 任务目标站点不能为 0");
+            }
+            _currentAction = new MovingAction(this, hs.TaskMode,hs.ToStation, false);
+
+
+            this.TaskId = hs.TaskId;
+            this.ToStation = hs.ToStation;
+            this.FormStation = 0;
+        }
+
+        void executeHP(HP hp)
+        {
+            if (this.Event != RailGuidedVehicleEvent.AutomaticTaskCompletion)
+            {
+                throw new InvalidOperationException("穿梭车事件必须处于“自动任务完成”时才能执行HP命令");
+            }
+
+            _currentAction = null;
+            this.TaskId = "0";
+            this.Event = RailGuidedVehicleEvent.Initialized;
+            if (this.HasGoods)
+            {
+                this.Status = RailGuidedVehicleStatus.有货待命;
+            }
+            else
+            {
+                this.Status = RailGuidedVehicleStatus.无货待命;
+            }
+
+            this.FormStation = 0;
+            this.ToStation = 0;
+            this.TaskMode = RailGuidedVehicleTaskMode.Initialized;
+        }
+    }
+}

@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Framework.Devices
+{
+    public class MachineAlarms : NetTransferObject
+    {
+        public UInt16 PosNo{get;set;}
+        public Boolean Manual{get;set;}
+        public Boolean Isolator{get;set;}
+        public Boolean Breaker{get;set;}
+        public Boolean Photocell{get;set;}
+        public Boolean RunOvertime{get;set;}
+        public Boolean OccupyOvertime{get;set;}
+        public Boolean TaskNoGoods{get;set;}
+        public Byte MotorUseStatus{get;set;}
+        public Boolean X_MotorVAF{get;set;}
+        public Boolean Y_MotorVAF{get;set;}
+        public Boolean X_MotorContactor{get;set;}
+        public Boolean X_MotorBraker{get;set;}
+        public Boolean Y_MotorContactor{get;set;}
+        public Boolean Y_MotorBraker{get;set;}
+        public Boolean Lift_MotorContactor{get;set;}
+        public Boolean Lift_MotorBraker{get;set;}
+        public Byte Spare { get; set; }
+        public override object this[string name]
+        {
+            set
+            {
+                switch (name)
+                {
+                    case "PosNo":
+                        this.PosNo = Convert.ToUInt16(value);
+                        break;
+                    case "Manual":
+                        this.Manual = Convert.ToBoolean(value);
+                        break;
+                    case "Isolator":
+                        this.Isolator = Convert.ToBoolean(value);
+                        break;
+                    case "Breaker":
+                        this.Breaker = Convert.ToBoolean(value);
+                        break;
+                    case "Photocell":
+                        this.Photocell = Convert.ToBoolean(value);
+                        break;
+                    case "RunOvertime":
+                        this.RunOvertime = Convert.ToBoolean(value);
+                        break;
+                    case "OccupyOvertime":
+                        this.OccupyOvertime = Convert.ToBoolean(value);
+                        break;
+                    case "TaskNoGoods":
+                        this.TaskNoGoods = Convert.ToBoolean(value);
+                        break;
+                    case "MotorUseStatus":
+                        this.MotorUseStatus = Convert.ToByte(value);
+                        break;
+                    case "X_MotorVAF":
+                        this.X_MotorVAF = Convert.ToBoolean(value);
+                        break;
+                    case "Y_MotorVAF":
+                        this.Y_MotorVAF = Convert.ToBoolean(value);
+                        break;
+                    case "X_MotorContactor":
+                        this.X_MotorContactor = Convert.ToBoolean(value);
+                        break;
+                    case "X_MotorBraker":
+                        this.X_MotorBraker = Convert.ToBoolean(value);
+                        break;
+                    case "Y_MotorContactor":
+                        this.Y_MotorContactor = Convert.ToBoolean(value);
+                        break;
+                    case "Y_MotorBraker":
+                        this.Y_MotorBraker = Convert.ToBoolean(value);
+                        break;
+                    case "Lift_MotorContactor":
+                        this.Lift_MotorContactor = Convert.ToBoolean(value);
+                        break;
+                    case "Lift_MotorBraker":
+                        this.Lift_MotorBraker = Convert.ToBoolean(value);
+                        break;
+                    case "Spare":
+                        this.Spare = Convert.ToByte(value);
+                        break;
+                    default:
+                        throw new NotImplementedException(String.Format("{0} 未实现对属性 {1} 的赋值操作", this.GetType(), name));
+                }
+            }
+        }
+    }
+}

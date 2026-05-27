@@ -1,0 +1,275 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Wcs.Client.Interfaces.Task;
+using NHibernate.Linq;
+using NLog;
+using System.Runtime.Remoting.Messaging;
+
+namespace Wcs.Client.Services
+{
+    public class TaskService : Wcs.Client.Interfaces.AbstractClientService, Wcs.Client.Interfaces.Task.ITaskService
+    {
+        static Logger _logger = LogManager.GetCurrentClassLogger();
+        public Interfaces.Task.Task[] GetTasks()
+        {
+            try
+            {
+                List<Wcs.Framework.Task> tasks;
+                using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
+                {
+                    tasks = unitOfWork.session.Query<Wcs.Framework.Task>().ToList();
+                    unitOfWork.Commit();
+                }
+
+                var q = from o in tasks
+                        select toTaskDtb(o);
+
+                return q.ToArray();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex,this);
+                throw;
+            }
+        }
+
+        public Interfaces.Task.Task GetTask(string taskNo)
+        {
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
+            {
+                var task = unitOfWork.session.Query<Wcs.Framework.Task>().FirstOrDefault(x => x.TaskCode == taskNo);
+                
+                unitOfWork.Commit();
+
+                if (task == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return toTaskDtb(task);
+                }
+            }
+        }
+
+        public Task GetTaskByEquipmentTaskId(int equipmentTaskId)
+        {
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
+            {
+                var act = unitOfWork.session.Query<Wcs.Framework.EquipmentAction>().FirstOrDefault(x => x.EquipmentTaskId == equipmentTaskId);
+
+                unitOfWork.Commit();
+
+                if (act == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return toTaskDtb(act.Movement.Task);
+                }
+            }
+        }
+
+        public void SuspendTask(string taskNo)
+        {
+            Wcs.Framework.Task task;
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            {
+                task = unitOfWork.session.Query<Wcs.Framework.Task>().FirstOrDefault(x => x.TaskCode==taskNo);
+
+                unitOfWork.Commit();
+            }
+
+            Wcs.Framework.TaskHelper.Suspend(task.Id);
+
+        }
+
+        public void CompleteTask(int id)
+        {
+
+            Wcs.Framework.TaskHelper.Complete(id);
+        }
+
+        public void CompleteMovenent(int id)
+        {
+            Wcs.Framework.TaskHelper.CompleteMovement(id);
+        }
+
+        public void CompleteAction(int id)
+        {
+            Wcs.Framework.TaskHelper.CompleteAction(id);
+        }
+
+        public void CancelTask(string taskNo)
+        {
+            Wcs.Framework.Task task;
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            {
+                task = unitOfWork.session.Query<Wcs.Framework.Task>().FirstOrDefault(x => x.TaskCode == taskNo);
+
+                unitOfWork.Commit();
+            }
+
+            Wcs.Framework.TaskHelper.Cancel(task.Id);
+        }
+
+        public void ResumeTask(string taskNo)
+        {
+            Wcs.Framework.Task task;
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            {
+                task = unitOfWork.session.Query<Wcs.Framework.Task>().FirstOrDefault(x => x.TaskCode == taskNo);
+
+                unitOfWork.Commit();
+            }
+
+            //在本次调用上下文中关闭用户信息验证框（仅本次有效）
+            CallContext.SetData("双货叉.启用任务继续执行信息验证", false);
+            CallContext.SetData("单货叉.启用任务继续执行信息验证", false);
+
+            Wcs.Framework.TaskHelper.Resume(task.Id, Wcs.Framework.LocationConverter.ToLocation(task.CurrentLocation));
+        }
+
+        public void ResumeTaskWithCurrentLocation(string taskNo, string currentLocation)
+        {
+            Wcs.Framework.Task task;
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            {
+                task = unitOfWork.session.Query<Wcs.Framework.Task>().FirstOrDefault(x => x.TaskCode == taskNo);
+
+                unitOfWork.Commit();
+            }
+
+            //在本次调用上下文中关闭用户信息验证框（仅本次有效）
+            CallContext.SetData("双货叉.启用任务继续执行信息验证", false);
+            CallContext.SetData("单货叉.启用任务继续执行信息验证", false);
+
+            Wcs.Framework.TaskHelper.Resume(task.Id, Wcs.Framework.LocationConverter.UserCodeToLcation(currentLocation));
+        }
+
+        public object Call(string name, object[] args)
+        {
+            return this.InternalCall<object>(name, args);
+        }
+
+
+        public string[] AllOperations()
+        {
+            return _registeredCalls.Select(x => x.Key.Name).ToArray();
+        }
+
+
+        Task toTaskDtb(Wcs.Framework.Task task)
+        {
+            return new Task
+            {
+                AdditionalInfo = task.AdditionalInfo.ToDictionary(x => x.Key, x => x.Value),
+                BizType = (TaskBizType)task.BizType,
+                ContainerCodes = task.ContainerCodes.ToArray(),
+                CreatedAt = task.CreatedAt,
+                CurrentLocation = new LocationInfo
+                {
+                    DeviceCode = task.CurrentLocation.DeviceCode,
+                    DeviceName = task.CurrentLocation.DeviceName,
+                    UserCode = task.CurrentLocation.UserCode
+                },
+                Description = task.Description,
+                Direction = (TaskDirection)task.Direction,
+                EndLocation = new LocationInfo
+                {
+                    DeviceCode = task.EndLocation.DeviceCode,
+                    DeviceName = task.EndLocation.DeviceName,
+                    UserCode = task.EndLocation.UserCode
+                },
+                FinishedAt = task.FinishedAt,
+                Id = task.Id,
+                Movements = task.Movements.Select(x => ToLogicMovementDto(x)).ToArray(),
+                Priority = task.Priority,
+                Source = (TaskSource)task.Source,
+                StartLocation = new LocationInfo
+                {
+                    DeviceCode = task.StartLocation.DeviceCode,
+                    DeviceName = task.StartLocation.DeviceName,
+                    UserCode = task.StartLocation.UserCode
+                },
+                Status = (TaskStatus)task.Status,
+                TaskCode = task.TaskCode,
+                TaskType = task.TaskType
+            };
+        }
+
+        LogicMovement ToLogicMovementDto(Wcs.Framework.LogicMovement movement)
+        {
+            return new LogicMovement
+            {
+                CreatedAt = movement.CreatedAt,
+                DeviceName = movement.DeviceName,
+                EndLocation = new LocationInfo
+                {
+                    DeviceCode = movement.EndLocation.DeviceCode,
+                    DeviceName = movement.EndLocation.DeviceName,
+                    UserCode = movement.EndLocation.UserCode
+                },
+                EquipmentActions = movement.EquipmentActions.Select(y =>ToEquipmentActionDto(y)).ToArray(),
+                FinishedAt = movement.FinishedAt,
+                Id = movement.Id,
+                Ordering = movement.Ordering,
+                RouteId = movement.RouteId,
+                RouteNo =getRouteNo(movement.RouteId),
+                StartLocation = new LocationInfo
+                {
+                    DeviceCode = movement.StartLocation.DeviceCode,
+                    DeviceName = movement.StartLocation.DeviceName,
+                    UserCode = movement.StartLocation.UserCode
+                },
+                Status = (LogicMovementStatus)movement.Status
+            };
+        }
+
+        Int32? getRouteNo(Int32? routeId)
+        {
+            if (routeId == null)
+            {
+                return null;
+            }
+
+            return Wcs.Framework.Cfg.WcsConfiguration.Instance.RouteCollection.Routes.Where(x => x.Id == routeId)
+                .Select(x => (Int32?)x.No)
+                .FirstOrDefault();
+        }
+
+        EquipmentAction ToEquipmentActionDto(Wcs.Framework.EquipmentAction act)
+        {
+            return new EquipmentAction
+            {
+                ContainerCode = act.ContainerCode,
+                CreatedAt = act.CreatedAt,
+                DeviceName = act.DeviceName,
+                EquipmentTaskId = act.EquipmentTaskId,
+                FinishedAt = act.FinishedAt,
+                Id = act.Id,
+                Ordering = act.Ordering,
+                SentAt = act.SentAt,
+                SequenceOrdering = act.SequenceOrdering,
+                Status = (EquipmentActionStatus)act.Status,
+                Warnings = act.Warnings.Select(z => new EquipmentActionWarning
+                {
+                    Code = z.Code,
+                    CreatedAt = z.CreatedAt,
+                    Description = z.Description,
+                    DeviceName = z.DeviceName,
+                    Id = z.Id
+                }).ToArray(),
+                ReadableDescription=act.ToReadableDescription()
+            };
+        }
+
+        public void Archive(int taskId)
+        {
+            Wcs.Framework.TaskHelper.Archive(taskId);
+        }
+    }
+}

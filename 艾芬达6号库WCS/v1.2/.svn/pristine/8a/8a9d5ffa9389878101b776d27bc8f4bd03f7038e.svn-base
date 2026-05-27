@@ -1,0 +1,329 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Wcs.Client.Interfaces.Conveyor;
+using NHibernate.Linq;
+namespace Wcs.Client.Services
+{
+    public class ConveyorService : Wcs.Client.Interfaces.AbstractClientService, Wcs.Client.Interfaces.Conveyor.IConveyorService
+    {
+        public Interfaces.Conveyor.AlarmNetTransferObject[] GetAlarms(string deviceName)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+                   .WcsConfiguration
+                   .Instance
+                   .DeviceCollection
+                   .ParticularDeviceCollection
+                   .SelectMany(x => x.DeviceElements)
+                   .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                   .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                   .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var alarms = conveyorDevice
+                .MachineAlarms
+                .Select(x => new AlarmNetTransferObject
+                {
+                    PosNo = x.PosNo,
+                    Breaker = x.Breaker,
+                    Isolator = x.Isolator,
+                    Lift_MotorBraker = x.Lift_MotorBraker,
+                    Lift_MotorContactor = x.Lift_MotorContactor,
+                    Manual = x.Manual,
+                    MotorUseStatus = x.MotorUseStatus,
+                    OccupyOvertime = x.OccupyOvertime,
+                    Photocell = x.Photocell,
+                    RunOvertime = x.RunOvertime,
+                    Spare = x.Spare,
+                    TaskNoGoods = x.TaskNoGoods,
+                    X_MotorBraker = x.X_MotorBraker,
+                    X_MotorContactor = x.X_MotorContactor,
+                    X_MotorVAF = x.X_MotorVAF,
+                    Y_MotorBraker = x.Y_MotorBraker,
+                    Y_MotorContactor = x.Y_MotorContactor,
+                    Y_MotorVAF = x.Y_MotorVAF
+                });
+
+            return alarms.ToArray();
+        }
+
+        public Interfaces.Conveyor.HoldSignalNetTransferObject[] GetHoldSignals(string deviceName)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+                   .WcsConfiguration
+                   .Instance
+                   .DeviceCollection
+                   .ParticularDeviceCollection
+                   .SelectMany(x => x.DeviceElements)
+                   .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                   .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                   .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var occupiedSignals = conveyorDevice
+                .OccupiedSignals
+                .Select(x => new HoldSignalNetTransferObject
+                {
+                    AssignmentID = x.AssignmentID,
+                    HandShake = (HoldSignalNetTransferObjectHandShake)x.HandShake,
+                    IO_Data = x.IO_Data,
+                    PosNo = x.PosNo,
+                    TU_ID = x.TU_ID,
+                    TU_Type = x.TU_Type
+                });
+
+            return occupiedSignals.ToArray();
+        }
+
+        public Interfaces.Conveyor.LocationNetTransferObject[] GetLocationStatus(string deviceName)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+               .WcsConfiguration
+               .Instance
+               .DeviceCollection
+               .ParticularDeviceCollection
+               .SelectMany(x => x.DeviceElements)
+               .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+               .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+               .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var status = conveyorDevice
+                .ConveyorLocationStates
+                .Select(x => new LocationNetTransferObject
+                {
+                    PosNo = x.PosNo,
+                    Status = (LocationNetTransferObjectStatus)x.Status
+                });
+
+            return status.ToArray();
+        }
+
+        public Interfaces.Conveyor.LocationTaskNetTransferObject[] GetLocationTasks(string deviceName)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+               .WcsConfiguration
+               .Instance
+               .DeviceCollection
+               .ParticularDeviceCollection
+               .SelectMany(x => x.DeviceElements)
+               .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+               .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+               .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var status = conveyorDevice
+                .LocationCurrentTasks
+                .Select(x => new LocationTaskNetTransferObject
+                {
+                    Fnh_Rcv_X = x.Fnh_Rcv_X,
+                    Fnh_Rcv_Y = x.Fnh_Rcv_Y,
+                    PosNo = x.PosNo,
+                    Rcv_Rdy = x.Rcv_Rdy,
+                    Rqs_Snt = x.Rqs_Snt,
+                    Str_Rcv_X = x.Str_Rcv_X,
+                    Str_Rcv_Y = x.Str_Rcv_Y,
+                    TaskNo = x.TaskNo,
+                    TUID = x.TUID
+                });
+
+            return status.ToArray();
+        }
+
+        public Interfaces.Conveyor.OccupyNetTransferObject[] GetOccupys(string deviceName)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+                .WcsConfiguration
+                .Instance
+                .DeviceCollection
+                .ParticularDeviceCollection
+                .SelectMany(x => x.DeviceElements)
+                .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var status = conveyorDevice
+                .OccupyStatus
+                .Select(x => new OccupyNetTransferObject
+                {
+                    AftPosPotocell = x.AftPosPotocell,
+                    AftProPotocell = x.AftProPotocell,
+                    AftSloPotocell = x.AftSloPotocell,
+                    DownPotocell = x.DownPotocell,
+                    FroPosPotocell = x.FroPosPotocell,
+                    FroProPotocell = x.FroProPotocell,
+                    FroSloPotocell = x.FroSloPotocell,
+                    PhocllUseStatus = x.PhocllUseStatus,
+                    PosNo = x.PosNo,
+                    UpPotocell = x.UpPotocell
+                });
+
+            return status.ToArray();
+        }
+
+        public Interfaces.Conveyor.TaskNetTransferObject[] GetTasks(string deviceName)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+                .WcsConfiguration
+                .Instance
+                .DeviceCollection
+                .ParticularDeviceCollection
+                .SelectMany(x => x.DeviceElements)
+                .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var status = conveyorDevice
+                .Tasks
+                .Select(x => new TaskNetTransferObject
+                {
+                    AssignmentID = x.AssignmentID,
+                    DestinationNo = x.DestinationNo,
+                    HandShake = (TaskNetTransferObjectHandShake)x.HandShake,
+                    IO_Data = x.IO_Data,
+                    ReadTask = x.ReadTask,
+                    RotingNo = x.RotingNo,
+                    Spare = x.Spare,
+                    StartMotorNo = x.StartMotorNo,
+                    TaskStatus = (TaskNetTransferObjectStatus)x.TaskStatus,
+                    TU_ID = x.TU_ID,
+                    TU_Type = x.TU_Type
+                });
+
+            return status.ToArray();
+        }
+
+        public void ClearTask(string deviceName, int equipmentTaskId)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+                  .WcsConfiguration
+                  .Instance
+                  .DeviceCollection
+                  .ParticularDeviceCollection
+                  .SelectMany(x => x.DeviceElements)
+                  .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                  .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                  .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var tsk = conveyorDevice.Tasks.FirstOrDefault(x => x.AssignmentID == equipmentTaskId);
+            if (tsk == null)
+            {
+                throw new InvalidOperationException(string.Format("在 {0} 中未找到设备任务", deviceName, equipmentTaskId));
+            }
+
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
+            {
+                if (unitOfWork.session.Query<Wcs.Framework.EquipmentAction>().Any
+                    (x => x.EquipmentTaskId == equipmentTaskId
+                    && x.Status != Framework.EquipmentActionStatus.Completed
+                    && x.Status != Framework.EquipmentActionStatus.Cancelled
+                    && x.Status != Framework.EquipmentActionStatus.Error
+                    && x.Status != Framework.EquipmentActionStatus.Suspend))
+                {
+                    throw new InvalidOperationException(string.Format("{0} 属于联机任务，不能被人工清除。",equipmentTaskId));
+                }
+            }
+
+            Wcs.DefaultImpls.Conveyor.ApplyClearTaskCommand cmd = new DefaultImpls.Conveyor.ApplyClearTaskCommand(
+                tsk.AssignmentID, 
+                tsk.RotingNo, 
+                tsk.StartMotorNo, 
+                tsk.DestinationNo,
+                Convert.ToUInt16(tsk.AtPacketIndex),
+                Convert.ToUInt32(Wcs.Framework.SerialNumberFactory.GenerateRandomValue(int.MinValue,int.MaxValue))
+                );
+
+            conveyorDevice.Write(cmd, (device, _cmd) =>
+            {
+                return conveyorDevice.Tasks[_cmd.Index - 1].AssignmentID != _cmd.AssignmentID;
+            });
+        }
+
+        public void DeleteTask(string deviceName, int equipmentTaskId)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+                   .WcsConfiguration
+                   .Instance
+                   .DeviceCollection
+                   .ParticularDeviceCollection
+                   .SelectMany(x => x.DeviceElements)
+                   .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                   .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                   .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var tsk = conveyorDevice.Tasks.FirstOrDefault(x => x.AssignmentID == equipmentTaskId);
+            if (tsk == null)
+            {
+                throw new InvalidOperationException(string.Format("在 {0} 中未找到设备任务", deviceName, equipmentTaskId));
+            }
+
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
+            {
+                if (unitOfWork.session.Query<Wcs.Framework.EquipmentAction>().Any
+                    (x => x.EquipmentTaskId == equipmentTaskId
+                    && x.Status != Framework.EquipmentActionStatus.Completed
+                    && x.Status != Framework.EquipmentActionStatus.Cancelled
+                    && x.Status != Framework.EquipmentActionStatus.Error
+                    && x.Status != Framework.EquipmentActionStatus.Suspend))
+                {
+                    throw new InvalidOperationException(string.Format("{0} 属于联机任务，不能被人工删除。", equipmentTaskId));
+                }
+            }
+
+            Wcs.DefaultImpls.Conveyor.ApplyDeleteTaskCommand cmd = new DefaultImpls.Conveyor.ApplyDeleteTaskCommand(
+                tsk.AssignmentID,
+                tsk.RotingNo,
+                tsk.StartMotorNo,
+                tsk.DestinationNo,
+                Convert.ToUInt16(tsk.AtPacketIndex),
+                Convert.ToUInt32(Wcs.Framework.SerialNumberFactory.GenerateRandomValue(int.MinValue, int.MaxValue))
+                );
+
+            conveyorDevice.Write(cmd, (device, _cmd) =>
+            {
+                return conveyorDevice.Tasks[_cmd.Index - 1].AssignmentID != _cmd.AssignmentID;
+            });
+        }
+
+        public void DeleteLocationTask(string deviceName, int posNo, int equipmentTaskId)
+        {
+            var conveyorDevice = Wcs.Framework.Cfg
+                   .WcsConfiguration
+                   .Instance
+                   .DeviceCollection
+                   .ParticularDeviceCollection
+                   .SelectMany(x => x.DeviceElements)
+                   .Where(x => x.Device is Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                   .Select(x => x.Device as Wcs.DefaultImpls.Conveyor.ConveyorDevice)
+                   .Single(x => x.Name.Equals(deviceName, StringComparison.CurrentCultureIgnoreCase));
+
+            var tsk = conveyorDevice.Tasks.FirstOrDefault(x => x.AssignmentID == equipmentTaskId);
+            if (tsk != null)
+            {
+                throw new InvalidOperationException(string.Format("{0} 还存在于任务区，无法被人工删除。", deviceName, equipmentTaskId));
+            }
+
+            var locTsk = conveyorDevice.LocationCurrentTasks.FirstOrDefault(x => x.TaskNo == equipmentTaskId);
+
+            Wcs.DefaultImpls.Conveyor.ClearLocationTaskCommand cmd = new DefaultImpls.Conveyor.ClearLocationTaskCommand(
+                locTsk.PosNo,
+                locTsk.TaskNo,
+                locTsk.TUID,
+                Convert.ToUInt16(locTsk.AtPacketIndex),
+                Convert.ToUInt32(Wcs.Framework.SerialNumberFactory.GenerateRandomValue(int.MinValue, int.MaxValue))
+                );
+
+            conveyorDevice.Write(cmd, (device, _cmd) =>
+            {
+                return conveyorDevice.LocationCurrentTasks[_cmd.Index - 1].TaskNo != _cmd.TaskNo;
+            });
+        }
+
+        public object Call(string name, object[] args)
+        {
+            return this.InternalCall<object>(name, args);
+        }
+
+        public string[] AllOperations()
+        {
+            return _registeredCalls.Select(x => x.Key.Name).ToArray();
+        }
+    }
+}

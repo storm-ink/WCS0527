@@ -1,0 +1,356 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("穿梭车")]
+    [Serializable]
+    public class Shuttle:Element
+    {
+        Dictionary<String, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject> _status = new Dictionary<string, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject>();
+        Boolean initializing = false;
+        ShuttleDrawDirection m_DrawDirection;
+        [CategoryAttribute("行为"), Description("站点位置")]
+        [EditorAttribute(typeof(Wcs.Client.App.Elements.UIEditor.ShuttleStationEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        ShuttleStation[] m_Stations;
+
+        public Shuttle(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            Stations = new ShuttleStation[0];
+            initializing = true;
+            var cars = (ShuttleCar[])info.GetValue("Cars", typeof(ShuttleCar[]));
+            this.Cars = cars;
+
+            //var paths = (PathScaler[])info.GetValue("Paths", typeof(PathScaler[]));
+            //this.Paths = paths;
+
+            this.Stations = (ShuttleStation[])info.GetValue("Stations", typeof(ShuttleStation[]));
+
+            this.CarSize = (float)info.GetValue("CarSize", typeof(float));
+            this.DrawDirection = (ShuttleDrawDirection)info.GetValue("DrawDirection", typeof(ShuttleDrawDirection));
+            initializing = false;
+
+            this.MouseClick += Shuttle_MouseClick;
+        }
+
+
+        Forms.frmShuttleUI frm = null;
+        void Shuttle_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (Editor.IsDesign)
+            {
+                return;
+            }
+
+            foreach (var item in Cars)
+            {
+                if(DrawCarTools.TestHit(e.X,e.Y,this,item,GetStatus(item.Name)))
+                {
+                    if (frm == null || frm.Disposing || frm.IsDisposed)
+                    {
+                        frm = new Forms.frmShuttleUI(this,item.Name);
+
+                        frm.Show(Container.FindForm());
+                    }
+                }
+            }
+        }
+
+        public Shuttle(Editor editor)
+            : base(editor)
+        {
+            Paths = new PathScaler[0];
+            Cars = new ShuttleCar[0];
+            Stations = new ShuttleStation[0];
+
+            this.Size = new SizeF(300, 60);
+            this.CarSize = 40;
+
+            var c1 = new ShuttleCar();
+            c1.Name = "1号小车";
+
+            Cars = Cars.Concat(new ShuttleCar[] { c1 }).ToArray();
+
+            this.MouseClick += Shuttle_MouseClick;
+        }
+
+        [CategoryAttribute("行为"), Description("车辆集合")]
+        [EditorAttribute(typeof(Wcs.Client.App.Elements.UIEditor.CarsEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public ShuttleCar[] Cars { get; set; }
+
+        [CategoryAttribute("布局"), Description("小车尺寸")]
+        public float CarSize { get; set; }
+
+        [CategoryAttribute("布局"), Description("绘制方向")]
+        public ShuttleDrawDirection DrawDirection
+        {
+            get
+            {
+                return m_DrawDirection;
+            }
+            set
+            {
+                if (m_DrawDirection != value && initializing != true)
+                {
+                    this.Size = new SizeF(this.Size.Height, this.Size.Width);
+                }
+                m_DrawDirection = value;
+            }
+        }
+
+        [Browsable(false)]
+        [CategoryAttribute("行为"), Description("路径转换关系表")]
+        [EditorAttribute(typeof(Wcs.Client.App.Elements.UIEditor.PathScalerEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public PathScaler[] Paths { get; private set; }
+
+        [CategoryAttribute("行为"), Description("站点集合")]
+        [EditorAttribute(typeof(Wcs.Client.App.Elements.UIEditor.ShuttleStationEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public ShuttleStation[] Stations
+        {
+            get
+            {
+                return m_Stations;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    value = new ShuttleStation[0];
+                }
+                m_Stations = value;
+
+                CreatePaths();
+            }
+        }
+
+        public override Element Clone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Draw(Graphics graphics)
+        {
+
+            if (!Visible)
+            {
+                return;
+            }
+
+            base.Draw(graphics);
+
+            DrawRailway(graphics);
+
+            foreach (var item in Cars)
+            {
+                if (_status.ContainsKey(item.Name))
+                {
+                    DrawCarTools.DrawCar(graphics, this, item, _status[item.Name]);
+                }
+                else
+                {
+                    DrawCarTools.DrawCar(graphics, this, item, null);
+                }
+            }
+        }
+
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+
+            info.AddValue("Cars", Cars);
+            info.AddValue("CarSize", CarSize);
+            info.AddValue("DrawDirection", DrawDirection);
+            info.AddValue("Stations", Stations);
+
+        }
+
+        public void SetStatus(String carName, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject status)
+        {
+            if (_status.ContainsKey(carName))
+            {
+                _status[carName] = status;
+            }
+            else
+            {
+                _status.Add(carName, status);
+            }
+        }
+
+        public Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject GetStatus(String carName)
+        {
+            if (_status.ContainsKey(carName))
+            {
+                return _status[carName];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public override void UpdateEditor(Editor editor)
+        {
+            base.UpdateEditor(editor);
+
+            CreatePaths();
+        }
+        void CreatePaths()
+        {
+            if (m_Stations==null || m_Stations.Length == 0 || this.Editor == null)
+            {
+                Paths = new PathScaler[0];
+            }
+            else
+            {
+                List<PathScaler> paths = new List<PathScaler>();
+                foreach (var item in m_Stations)
+                {
+                    if (item == null)
+                    {
+                        continue;
+                    }
+                    var posNo = item.PosNo;
+                    var loc = Editor.Find<ConveyorLocation>(x => x.PosNo == posNo);
+                    if (loc == null)
+                    {
+                        continue;
+                    }
+                    float pixel;
+                    float offset;
+                    if (this.DrawDirection == ShuttleDrawDirection.LeftRight)
+                    {
+                        if (loc.Left > this.Left)
+                        {
+                            pixel = loc.Left - this.Left;
+                        }
+                        else
+                        {
+                            pixel = this.Left - loc.Left;
+                        }
+
+                        offset = Math.Max(loc.Size.Width, this.CarSize) - Math.Min(loc.Size.Width, this.CarSize);
+                        if (loc.Size.Width > this.CarSize)
+                        {
+                            pixel += offset;
+                        }
+                        else
+                        {
+                            pixel += -offset;
+                        }
+                    }
+                    else
+                    {
+                        if (loc.Top > this.Top)
+                        {
+                            pixel = loc.Top - this.Top;
+                        }
+                        else
+                        {
+                            pixel = this.Top - loc.Top;
+                        }
+
+                        offset = Math.Max(loc.Size.Height, this.CarSize) - Math.Min(loc.Size.Height, this.CarSize);
+                        if (loc.Size.Height > this.CarSize)
+                        {
+                            pixel += offset;
+                        }
+                        else
+                        {
+                            pixel += -offset;
+                        }
+                    }
+                    var ps = new PathScaler();
+
+                    if (paths.LastOrDefault() != null)
+                    {
+                        ps.MinPixel = paths.Last().MaxPixel + 1;
+                        ps.MinBarcode = paths.Last().MaxBarcode + 1;
+                        ps.MaxPixel = pixel;
+                        ps.MaxBarcode = item.Barcode;
+                    }
+                    else
+                    {
+                        ps.MinPixel = pixel;
+                        ps.MinBarcode = 0;
+                        ps.MaxPixel = pixel;
+                        ps.MaxBarcode = item.Barcode;
+                    }
+
+                    paths.Add(ps);
+                }
+
+                this.Paths = paths.ToArray();
+            }
+        }
+
+        void DrawRailway(Graphics graphics)
+        {
+            switch (DrawDirection)
+            {
+                case ShuttleDrawDirection.LeftRight:
+                    graphics.FillRectangle(new SolidBrush(SystemColors.Control),
+                        this.Rectangle.Left,
+                        this.Rectangle.Top + 0 + AbsoluteTransform.H(10),
+                        this.Rectangle.Width,
+                        AbsoluteTransform.H(3));
+                    graphics.DrawRectangle(Pens.Black,
+                        Convert.ToInt32(this.Rectangle.Left),
+                        Convert.ToInt32(this.Rectangle.Top + 0 + AbsoluteTransform.H(10)),
+                        Convert.ToInt32(this.Rectangle.Width),
+                        Convert.ToInt32(AbsoluteTransform.H(3)));
+
+                    graphics.FillRectangle(new SolidBrush(SystemColors.Control),
+                        this.Rectangle.Left,
+                        this.Rectangle.Top + this.Rectangle.Height - AbsoluteTransform.H(10) - AbsoluteTransform.H(3),
+                        this.Rectangle.Width,
+                        AbsoluteTransform.H(3));
+                    graphics.DrawRectangle(Pens.Black,
+                        Convert.ToInt32(this.Rectangle.Left),
+                        Convert.ToInt32(this.Rectangle.Top + this.Rectangle.Height - AbsoluteTransform.H(10) - AbsoluteTransform.H(3)),
+                        Convert.ToInt32(this.Rectangle.Width),
+                        Convert.ToInt32(AbsoluteTransform.H(3)));
+                    break;
+                case ShuttleDrawDirection.TopBottom:
+                    graphics.FillRectangle(new SolidBrush(SystemColors.Control),
+                        this.Rectangle.Left + 0 + AbsoluteTransform.W(10),
+                        this.Rectangle.Top,
+                        AbsoluteTransform.W(3),
+                        this.Rectangle.Height);
+                    graphics.DrawRectangle(Pens.Black,
+                        Convert.ToInt32(this.Rectangle.Left + 0 + AbsoluteTransform.W(10)),
+                        Convert.ToInt32(this.Rectangle.Top),
+                        Convert.ToInt32(AbsoluteTransform.W(3)),
+                        Convert.ToInt32(this.Rectangle.Height));
+
+                    graphics.FillRectangle(new SolidBrush(SystemColors.Control),
+                        this.Rectangle.Right - AbsoluteTransform.W(10),
+                        this.Rectangle.Top,
+                        AbsoluteTransform.W(3),
+                        this.Rectangle.Height);
+                    graphics.DrawRectangle(Pens.Black,
+                        Convert.ToInt32(this.Rectangle.Right - AbsoluteTransform.W(10)),
+                        Convert.ToInt32(this.Rectangle.Top),
+                        Convert.ToInt32(AbsoluteTransform.W(3)),
+                        Convert.ToInt32(this.Rectangle.Height));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        [OnDeserialized]
+        void OnDeserialized(StreamingContext context)
+        {
+            CreatePaths();
+        }
+
+    }
+
+
+}

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="wcs-configuration" type="Wcs.Framework.Cfg.WcsConfigurationSectionHandler, Wcs.Framework" />
+    <section name="hibernate-configuration" type="NHibernate.Cfg.ConfigurationSectionHandler, NHibernate" />
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog" />
+  </configSections>
+
+  <wcs-configuration mode="Simulation">
+    <application>
+      <startups>
+        <startup type="Wcs.DefaultImpls.Conveyor.ConveyorConfirmSignalBindApplicationStartup, Wcs.DefaultImpls" />
+        <startup type="Wcs.Framework.DefaultApplicationStartup, Wcs.Framework" />
+      </startups>
+    </application>
+    <dataReceives>
+      <receiver xmlFile="receiver1.xml" type="Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement, Wcs.DefaultImpls" />
+      <receiver name="receiver2" type="Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement, Wcs.DefaultImpls">
+        <senderEncoding xmlFile="db1.xml" />
+        <receiverEncoding xmlFile="db2.xml" />
+      </receiver>
+      <receiver name="craneDataReceiver" type="Wcs.DefaultImpls.Crane.DefaultCraneDataReceiverElement, Wcs.DefaultImpls" />
+    </dataReceives>
+    <devices>
+      <conveyors type="Wcs.DefaultImpls.Conveyor.ConveyorCollection, Wcs.DefaultImpls">
+        <conveyor name="输送线1" no="1" ip="127.0.0.1" port="8000" dataReceiver="receiver1" receiveTimeout="60000">
+          <equipmentActionScheduler />
+        </conveyor>
+      </conveyors>
+      <conveyors type="Wcs.DefaultImpls.Conveyor.ConveyorCollection, Wcs.DefaultImpls">
+        <conveyor name="输送线2" no="1" ip="127.0.0.1" port="8001" dataReceiver="receiver1" />
+      </conveyors>
+      <cranes type="Wcs.DefaultImpls.Crane.CraneCollection, Wcs.DefaultImpls">
+        <crane name="C001" no="1" ip="127.0.0.1" port="4000" dataReceiver="craneDataReceiver" />
+      </cranes>
+    </devices>
+    <locations>
+      <平口区位置 type="Wcs.DefaultImpls.Conveyor.ConveyorLocationCollection, Wcs.DefaultImpls" device="输送线1">
+        <location isWildcard="true" />
+        <location userCode="00-001-1101" deviceCode="1101" />
+        <location userCode="00-001-1102" deviceCode="1102" />
+        <location userCode="00-001-1103" deviceCode="1103" />
+      </平口区位置>
+      <c001 xmlFile="C001.xml" type="Wcs.DefaultImpls.Crane.RackLocationCollection, Wcs.DefaultImpls" />
+    </locations>
+    <routes>
+      <route id="1" path="1101,1102" direction="In" type="Normal,Counting" device="输送线1">
+        <logicMovement type="Wcs.DefaultImpls.Conveyor.ConveyorTransferMovement, Wcs.DefaultImpls" />
+      </route>
+      <route id="2" path="1102,1101" direction="In" adjoins="3" type="Normal,Counting" device="输送线1">
+        <logicMovement type="Wcs.DefaultImpls.Conveyor.ConveyorTransferMovement, Wcs.DefaultImpls" />
+      </route>
+      <route id="3" path="1101@输送线1,*@C001" direction="In" type="Normal,Counting" device="C001">
+        <logicMovement type="Wcs.DefaultImpls.Crane.CraneAutomaticTransferMovement, Wcs.DefaultImpls" />
+        <logicMovementSelector type="Wcs.DefaultImpls.Crane.DefaultLogicMovementSelector, Wcs.DefaultImpls" />
+      </route>
+      <route id="4" path="*@C001,1102@输送线1" direction="In" adjoins="2" type="Normal,Counting" device="C001">
+        <logicMovement type="Wcs.DefaultImpls.Crane.CraneAutomaticTransferMovement, Wcs.DefaultImpls" />
+        <logicMovementSelector type="Wcs.DefaultImpls.Crane.DefaultLogicMovementSelector, Wcs.DefaultImpls" />
+      </route>
+    </routes>
+    <settings xmlFile="settings.xml" />
+    <taskEventHandlers>
+      <onRunning>
+        <handler type="Wcs.Framework.DefaultTaskRunningEventHandler, Wcs.Framework" />
+      </onRunning>
+      <onCompleted>
+        <handler type="Wcs.Framework.DefaultTaskCompletedEventHandler, Wcs.Framework" />
+        <handler type="Wcs.DefaultImpls.Conveyor.ConveyorTaskCompletedEventHandler, Wcs.DefaultImpls" />
+      </onCompleted>
+      <onError>
+        <handler type="Wcs.Framework.DefaultTaskErrorEventHandler, Wcs.Framework" />
+        <handler type="Wcs.DefaultImpls.Conveyor.ConveyorTaskErrorEventHandler, Wcs.DefaultImpls" />
+      </onError>
+      <onRequest>
+        <handler type="Wcs.Framework.DefaultTaskRequestEventHandler, Wcs.Framework" />
+        <handler type="Wcs.DefaultImpls.Conveyor.ConveyorTaskRequestEventHandler, Wcs.DefaultImpls" />
+      </onRequest>
+    </taskEventHandlers>
+  </wcs-configuration>
+
+  <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
+
+    <session-factory name="wcs">
+      <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
+      <property name="connection.connection_string">Data Source=.;Initial Catalog=wcs_v3;User Id=sa;Password=gen@song123;</property>
+      <property name="dialect">NHibernate.Dialect.MsSql2005Dialect</property>
+      <property name="adonet.batch_size">50</property>
+      <property name="query.substitutions">true 1, false 0</property>
+      <property name="prepare_sql">true</property>
+      <property name="show_sql">false</property>
+      <mapping assembly="Wcs.Framework" />
+      <mapping assembly="Wcs.DefaultImpls" />
+    </session-factory>
+  </hibernate-configuration>
+  <nlog throwExceptions="true">
+    <targets async="true">
+      <default-target-parameters type="File" archiveAboveSize="50485760" maxArchiveFiles="50" archiveNumbering="Rolling" keepFileOpen="false" layout="${longdate} ${level} ${event-context:sender} ${callsite} ${message} ${exception:format=Message, Type, ShortType, ToString, Method, StackTrace}" />
+      <target name="f1" type="File" fileName="${basedir}\App_Data\NLog.txt" archiveFileName="${basedir}\App_Data\NLog_{###}.txt" />
+      <target name="console" type="ColoredConsole" layout="${longdate} ${level} ${message} ${exception:format=Message, Type, ShortType, ToString, Method, StackTrace}" />
+    </targets>
+    <rules>
+      <logger name="*" minlevel="Trace" writeTo="f1,console" />
+    </rules>
+  </nlog>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="NHibernate" publicKeyToken="aa95f207798dfdb4" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.3.1.4000" newVersion="3.3.1.4000" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

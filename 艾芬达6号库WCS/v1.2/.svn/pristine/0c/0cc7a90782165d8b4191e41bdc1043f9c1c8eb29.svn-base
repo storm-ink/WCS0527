@@ -1,0 +1,72 @@
+﻿
+using System;
+using System.ComponentModel;
+using Gensong.MCS;
+
+namespace Gensong
+{
+    // 枚举转换
+    public class Util
+    {
+        /// <summary>字符转枚举</summary>
+        public static T PEnum<T>(string s)
+        {
+            return (T)Enum.Parse(typeof(T), s);
+        }
+
+        /// <summary>获取枚举的描述</summary>
+        public static string PDescription(Enum e)
+        {
+            try
+            {
+                return ((DescriptionAttribute)Attribute.GetCustomAttribute(e.GetType().GetMember(e.ToString())[0], typeof(DescriptionAttribute))).Description;
+            }
+            catch //(Exception ex)
+            {
+                return e.ToString();
+            }
+        }
+    }
+
+    // 报警音频
+    public class BeepInfo
+    {
+        static BeepInfo()
+        {
+            try
+            {
+                foreach (var sName in Task.rk.GetValueNames())
+                {
+                    if (sName == "BeepFrequency") Frequency = Convert.ToInt32(Task.rk.GetValue("BeepFrequency"));
+                    else if (sName == "BeepPersist") Persist = Convert.ToInt32(Task.rk.GetValue("BeepPersist"));
+                    else if (sName == "BeepInterval") Interval = Convert.ToInt32(Task.rk.GetValue("BeepInterval"));
+                }
+            }
+            catch //(Exception ex)
+            {
+            }
+        }
+
+        /// <summary>频率</summary>
+        public static int Frequency = 0x0230;
+        /// <summary>频长</summary>
+        public static int Persist = 180;
+        /// <summary>间隔</summary>
+        public static int Interval = 1200;
+
+        public static void Save(int iF, int iP, int iI)
+        {
+            try
+            {
+                Frequency = iF; Persist = iP; Interval = iI;
+
+                Task.rk.SetValue("BeepFrequency", iF);
+                Task.rk.SetValue("BeepPersist", iP);
+                Task.rk.SetValue("BeepInterval", iI);
+            }
+            catch //(Exception ex)
+            {
+            }
+        }
+    }
+}

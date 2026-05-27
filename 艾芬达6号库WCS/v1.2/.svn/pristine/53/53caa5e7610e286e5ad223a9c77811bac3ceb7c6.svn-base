@@ -1,0 +1,201 @@
+﻿
+using System;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
+using Gensong.ServiceCrane;
+
+namespace Gensong
+{
+    public partial class frmCHT : Form
+    {
+        public frmCHT()
+        {
+            InitializeComponent(); this.pnlInfo.Hide();
+            this.BackColor = Color.Black; this.ForeColor = Color.White;
+
+            this.gbxTitle.Click += (sender, e) => { try { this.Close(); } catch { } };
+            this.lblTitle.MouseMove += (sender, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    API.ReleaseCapture(); API.SendMessage(this.Handle, 274, 61458, 0);
+                }
+            };
+        }
+
+        private void frmCHT_Load(object sender, EventArgs e)
+        {
+            ucManual.btnReturn.Click += new EventHandler(btnReturn_Click);
+            ucAlarm.btnReturn.Click += new EventHandler(btnReturn_Click);
+            ucNullTu.btnReturn.Click += new EventHandler(btnReturn_Click);
+
+            Globle.aUCrane = new ucCrane[8];
+            for (int i = 0; i < 8; i++)
+            {
+                string sCraneName = "C00" + (i + 1).ToString();
+                ucCrane crn = new ucCrane(sCraneName);
+
+                crn.EManualClick += new EventHandler(EventManualClick);
+                crn.EAlarmClick += new EventHandler(EventAlarmClick);
+
+                flpCrane.Controls.Add(crn); Globle.aUCrane[i] = crn;
+            }
+
+            TryConnect(); //BeepThread();
+        }
+        private void frmCHT_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (e.CloseReason != CloseReason.UserClosing) return;
+
+                if (frmMsgbox.Show("确定要退出系统吗？", Btn.YesNo, Ico.Warn) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                /*else
+                    Globle.DeLock();*/
+            }
+            catch
+            {
+            }
+        }
+
+        private void btnReturn_Click(object sender, EventArgs e)
+        {
+            this.pnlInfo.Hide();
+            this.ucManual.Crane = null; this.ucAlarm.Crane = null;
+
+            foreach (var c in flpCrane.Controls)
+            {
+                ucCrane crn = c as ucCrane;
+
+                if (crn != null)
+                {
+                    crn.ShowDetail = true; crn.lblCraneName.ForeColor = Color.White;
+                }
+            }
+        }
+        private void btnHide_Click(object sender, EventArgs e)
+        {
+            ucManual.Show(); ucAlarm.Hide();
+        }
+
+        private void pbxLogo_Click(object sender, EventArgs e)
+        {
+            frmMenu frm = new frmMenu(); frm.ShowDialog();
+
+            switch (frm.eMenu)
+            {
+                case EMenu.BeepInfo:
+                    new frmBeep().ShowDialog(); break;
+                case EMenu.NullTu:
+                    EventNullTuClick(null, null); break;
+            }
+        }
+
+        private void EventManualClick(object sender, EventArgs e)
+        {
+            ucCrane crn = (ucCrane)sender; ShowRightPanel(crn);
+
+            ucManual.Crane = crn.Crane;
+            ucManual.Show(); ucAlarm.Hide(); ucNullTu.Hide();
+        }
+        private void EventAlarmClick(object sender, EventArgs e)
+        {
+            ucCrane crn = (ucCrane)sender; ShowRightPanel(crn);
+
+            ucAlarm.Crane = crn.Crane;
+            ucAlarm.Show(); ucManual.Hide(); ucNullTu.Hide();
+        }
+        private void EventNullTuClick(object sender, EventArgs e)
+        {
+            ShowRightPanel(null);
+
+            ucNullTu.Show(); ucAlarm.Hide(); ucManual.Hide();
+        }
+
+        public void ShowRightPanel(ucCrane uActive)
+        {
+            foreach (Control trl in flpCrane.Controls)
+            {
+                ucCrane uCrn = trl as ucCrane; uCrn.ShowDetail = false;
+                //if (uActive != null) 
+                uCrn.lblCraneName.ForeColor = uCrn == uActive ? Color.DeepSkyBlue : Color.White;
+            }
+
+            this.pnlInfo.Show();
+        }
+
+        private void BeepThread()
+        {
+            System.Timers.Timer tmr = new System.Timers.Timer(3000);
+            tmr.Elapsed += (sender, e) =>
+            {
+                if (Globle.TcpConnected == false) return;
+
+                if (Globle.aLA != null)
+                {
+                    foreach (var v in Globle.aLA)
+                    {
+                        if (v != null && v.Connected && v.ErrorCode != "0000")
+                        {
+                            API.Beep(BeepInfo.Frequency, BeepInfo.Persist); break;
+                        }
+                    }
+
+                    Thread.Sleep(BeepInfo.Interval);
+                }
+            };
+            tmr.Start();
+        }
+        private void TryConnect()
+        {
+            System.Timers.Timer tmr = new System.Timers.Timer(150); object oLock = new object();
+            tmr.Elapsed += (sender, e) =>
+            {
+                //if (Monitor.TryEnter(oLock, 150))
+                if (Monitor.TryEnter(oLock))
+                {
+                    try
+                    {
+                        if (Alarm.dsAlarm == null)
+                        {
+                            SConfig cfg = Globle.MCS.ReadConfig();
+                            Alarm.dsAlarm = cfg.dsAlarm;
+                            Globle.aShelf = cfg.arShelf;
+                        }
+
+                        Globle.aLA = Globle.MCS.ReadLA();
+                        for (int i = 0; i < Globle.aUCrane.Length && i < Globle.aLA.Length; i++)
+                        {
+                            Globle.aUCrane[i].Crane.SetLA = Globle.aLA[i];
+                        }
+
+                        if (Globle.TcpConnected == false)
+                        {
+                            Globle.TcpConnected = true;
+                        }
+                    }
+                    catch //(Exception ex)
+                    {
+                        foreach (var v in Globle.aUCrane)
+                        {
+                            if (v != null) v.EventClosed(null, null);
+                        }
+                        ucAlarm.EventClosed(null, null);
+                        ucManual.EventClosed(null, null);
+
+                        if (Globle.TcpConnected == true) Globle.TcpConnected = false;
+                    }
+                    finally
+                    {
+                        Monitor.Exit(oLock);
+                    }
+                }
+            };
+            tmr.Start();
+        }
+    }
+}

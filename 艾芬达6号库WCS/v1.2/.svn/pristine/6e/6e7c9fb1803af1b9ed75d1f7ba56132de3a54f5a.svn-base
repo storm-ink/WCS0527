@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing.Design;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+
+namespace Wcs.Client.App.Elements.UIEditor
+{
+    public class BindMappingEditor : UITypeEditor
+    {
+        public override object EditValue(System.ComponentModel.ITypeDescriptorContext context, IServiceProvider provider, object value)
+        {
+            System.Collections.IList list;
+            if (value == null)
+            {
+                list = (System.Collections.IList)typeof(BindMappingEditor).Assembly.CreateInstance(context.PropertyDescriptor.PropertyType.FullName);
+            }
+            else if (value is System.Collections.IList)
+            {
+                list = (System.Collections.IList)value;
+            }
+            else
+            {
+                ICollection coll = value as ICollection;
+                System.Collections.IList il = new System.Collections.ArrayList();
+                IEnumerator ie = coll.GetEnumerator();
+                while (ie.MoveNext())
+                {
+                    il.Add(ie.Current);
+                }
+
+                list = il;
+            }
+
+            var xx = list.Cast<KeyValuePair<PropertyInfo, String>>();
+
+            using (BindMappingEditorUI frm = new BindMappingEditorUI(xx))
+            {
+                if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    value = frm.Values;
+
+
+                    if (context.Instance is Array)
+                    {
+                        context.PropertyDescriptor.SetValue(context.Instance, value);
+                    }          
+
+
+
+                }
+            }
+
+            return value;
+        }
+
+        public override UITypeEditorEditStyle GetEditStyle(System.ComponentModel.ITypeDescriptorContext context)
+        {
+            return UITypeEditorEditStyle.Modal;
+        }
+
+
+    }
+}

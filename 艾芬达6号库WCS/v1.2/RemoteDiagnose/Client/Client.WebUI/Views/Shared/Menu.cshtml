@@ -1,0 +1,76 @@
+﻿<ul id="menu">
+    <li>
+        <a href="javascript:void(0);">联机任务</a>
+        <ul>
+             <li>@Html.ActionLink("入库一览", "Index", "ReceiptMandate")</li>
+             <li>@Html.ActionLink("出库一览", "Index", "DeliveryMandate")</li>
+             <li>@Html.ActionLink("中间库出库计划", "Index", "zjb")</li>
+             <li>@Html.ActionLink("中间库入库计划", "rk_Index_List", "zjb")</li>
+        </ul>
+    </li>
+    <li><a href="javascript:void(0);">空托任务</a>
+        <ul>
+            <li>@Html.ActionLink("入库一览", "Index", "ReceiptEmptyPalletMandate")</li>
+            <li>@Html.ActionLink("出库一览", "Index", "DeliveryEmptyPalletMandate")</li>
+            <li>@Html.ActionLink("空托出库", "Create", "DeliveryEmptyPalletMandate")</li>
+        </ul>
+     </li>
+    <li><a href="javascript:void(0);">位置</a>
+                            
+        <ul>
+            <li>@Html.ActionLink("巷道", "Index", "Laneways")</li>
+            <li>@Html.ActionLink("货架", "Index", "Racks")</li>
+            <li>@Html.ActionLink("可视货位", "G", "RackLocations", new { rackusercode = "01" }, new { @class = "external", target = "_blank" })</li>
+            <li>@Html.ActionLink("货格", "Index", "RackLocations")</li>
+            <li>@Html.ActionLink("输送线", "Index", "PlainLocations")</li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="javascript:void(0);">库存</a>
+        <ul>
+            <li>@Html.ActionLink("货载", "Index", "UnitLoads")</li>
+            <li>@Html.ActionLink("库存一览", "kcyl", "UnitLoads")</li>
+        </ul>
+    </li>
+
+
+    <li>
+        <a href="javascript:void(0);">任务</a>
+        <ul>
+            <li>@Html.ActionLink("当前任务", "Index", "Tasks")</li>
+            <li>@Html.ActionLink("历史任务", "Archived", "Tasks")</li>
+            <li>@Html.ActionLink("统计", "Stats", "Tasks")</li>
+            <li>@Html.ActionLink("手工出库", "ManualOut", "Tasks")</li>
+        </ul>
+    </li>
+    <li>
+        <a href="javascript:void(0);">系统</a>
+                                
+        <ul>
+            <li>@Html.ActionLink("配置","Index","WmsSettings")</li>
+            <li>@Html.ActionLink("用户", "Index", "Users")</li>
+            <li>@Html.ActionLink("角色", "Index", "Roles")</li>
+            <li>@Html.ActionLink("权限","Index","Operations")</li>
+            <li>@Html.ActionLink("日志", "Index", "Logs", null, new { @class = "external", target = "_blank" })</li>
+        </ul>
+    </li>
+    <li>
+        <a href="javascript:void(0);">数据工具</a>
+        <ul>
+            <li>@Html.ActionLink("删除货载", "DeleteUnitLoad", "DataTool")</li>
+            <li>@Html.ActionLink("移动货载", "MoveUnitLoad", "DataTool")</li>
+            <li>@Html.ActionLink("手工注册货载","RegisterUnitLoad","DataTool")</li>
+        </ul>
+                            
+    </li>
+    @if (this.Request.IsAuthenticated)
+    {
+    <li>
+    <a style="background-image: url(/Content/avatar.png); background-position:4px center; background-repeat:no-repeat;padding-left:24px;" 
+        href="/Account"
+        title="您已登录为 @User.Identity.Name"
+        >@User.Identity.Name</a>
+    </li>
+    }
+</ul>

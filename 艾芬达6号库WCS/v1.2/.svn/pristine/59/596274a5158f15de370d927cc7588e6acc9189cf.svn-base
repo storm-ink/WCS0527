@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    /// <summary>
+    /// 报警信息
+    /// </summary>
+    public class Warning
+    {
+        /// <summary>
+        /// 设备名称
+        /// </summary>
+        public String DeviceName { get; set; }
+        /// <summary>
+        /// 设备类型
+        /// </summary>
+        public String DeviceType { get; set; }
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public String Message { get; set; }
+
+        public override int GetHashCode()
+        {
+            return string.Format("{0}_{1}_{2}", DeviceName, DeviceType, Message).GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            var w = obj as Warning;
+            if (w == null)
+            {
+                return false;
+            }
+
+            return this.DeviceName == w.DeviceName
+                && this.DeviceType == w.DeviceType
+                && this.Message == w.Message;
+        }
+    }
+}

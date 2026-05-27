@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace Gensong
+{
+    public partial class Crane
+    {
+        /// <summary>
+        /// 表示行走动作。
+        /// </summary>
+        private class MoveCraneAction : CraneAction
+        {
+            private Position _destination;
+
+            public MoveCraneAction(Crane crane, Position destination, Boolean isChildActin) : base(crane, isChildActin)
+            {
+                
+                _destination = destination;
+
+                this.Starting += new EventHandler(MoveCraneAction_Starting);
+                this.Completed += new EventHandler(MoveCraneAction_Completed);
+            }
+
+            void MoveCraneAction_Completed(object sender, EventArgs e)
+            {
+                if (this.IsChildAction == false)
+                {
+                    //Debug.WriteLine(this.IsChildAction);
+                    this.Crane.LastEvent = ECraneEvent.E06;
+                    this.Crane.StateInternal = CraneStateInternal.Waiting;
+                }
+            }
+
+            void MoveCraneAction_Starting(object sender, EventArgs e)
+            {
+                this.Crane.LastEvent = ECraneEvent.E01;
+                this.Crane.StateInternal = CraneStateInternal.Running;
+            }
+
+            public override void ExecuteStep()
+            {
+                Logger.Debug("MoveCraneAction.ExecuteStep");
+
+                if (this.Crane.Position.Equals(_destination))
+                {
+                    throw new InvalidOperationException("目标已在上一步到达。");
+                }
+
+                if (IsStarted == false)
+                {
+                    OnStarting(EventArgs.Empty);
+                    IsStarted = true;
+                }
+
+                // _destination.Subtract(this.Crane.Position);
+                CranePositionDifference diff = new CranePositionDifference(_destination.Col - this.Crane.Position.Col, _destination.Row - this.Crane.Position.Row); 
+                CranePositionDifference offset = new CranePositionDifference();
+
+                offset.ColumnDifference = Math.Sign(diff.ColumnDifference);
+                offset.LevelDifference = Math.Sign(diff.LevelDifference);
+
+                //this.Crane.Position.Add(offset);
+                this.Crane.Position = new Position(this.Crane.Position.Col + offset.ColumnDifference, this.Crane.Position.Row + offset.LevelDifference); 
+
+                if (this.Crane.Position.Equals(_destination))
+                {
+                    base.IsCompleted = true;
+                    OnCompleted(EventArgs.Empty);
+                }
+            }
+
+            ///// <summary>求此位置与另一个位置的差</summary>
+            //public CranePositionDifference Subtract(Position position)
+            //{
+            //    return new CranePositionDifference(this.Col - position.Col, this.Row - position.Row);
+            //}
+            ///// <summary>在此位置上加上位置差，得到另一个位置</summary>
+            //public Position Add(CranePositionDifference diff)
+            //{
+            //    return new Position(this.Col + diff.ColumnDifference, this.Row + diff.LevelDifference);
+            //}
+        }
+    }
+}

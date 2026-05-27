@@ -1,0 +1,25 @@
+﻿
+
+<a href="/Roles/Create">添加角色</a>
+<br />
+<div>
+    @using (Ajax.BeginForm("Index_List", null, new AjaxOptions { UpdateTargetId = "list", LoadingElementId = "loading_img", OnBegin = "onListLoadBegin", OnFailure = "onListLoadFailure", OnSuccess = "onListLoadSuccess", OnComplete = "onListLoadComplete"  }, new { id = "spec_form" }))
+    {   
+        <label>
+           角色名称：
+         @Html.TextBox("RoleNameToMatch")
+        </label>
+        
+        @Html.Partial("PageSizeSelect")
+        
+        <input type="submit" value="查询" />
+        <input type="reset"  value="重置" /> 
+
+        <input type="hidden" id="pageIndex" name="pageIndex" value="1" />@*
+        <img style="display:none; " id="loading_img" src="@Url.Content("~/Content/loading.gif")" alt="loading" />*@
+
+    }
+</div>
+<div id="list">
+</div>
+@Html.Partial("IndexJs")

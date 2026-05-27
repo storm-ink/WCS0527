@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle
+{
+    [ServiceContract]
+    public interface ISinglePlantformRailGuidedVehicleService : IClientService
+    {
+        [OperationContract]
+        Dictionary<String, StatusTransferObject> GetStatus();
+    }
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a621a60f-4286-4b3a-aec2-7ca0abebcd93" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9991/TwoForksCraneService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="7d74c701-98d4-4158-81dd-72519ff01715" SourceId="1" SourceUrl="http://localhost:9991/TwoForksCraneService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="09edbc47-86b8-4ab1-be3e-ec996823ffa5" SourceId="1" SourceUrl="http://localhost:9991/TwoForksCraneService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="3feb7c66-b695-4b38-bc4f-e15c348537ef" SourceId="1" SourceUrl="http://localhost:9991/TwoForksCraneService/mex" />
+    <MetadataFile FileName="CraneService.TwoForksCrane.xsd" MetadataType="Schema" ID="eead5a7c-06b8-43a2-8033-42bdd3abfbfc" SourceId="1" SourceUrl="http://localhost:9991/TwoForksCraneService/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="68d25480-d253-4352-b0da-32645c57729f" SourceId="1" SourceUrl="http://localhost:9991/TwoForksCraneService/mex" />
+    <MetadataFile FileName="Wcs.DefaultImpls.Crane.xsd" MetadataType="Schema" ID="542cc434-4e03-4004-897d-8c57e0ad04bc" SourceId="1" SourceUrl="http://localhost:9991/TwoForksCraneService/mex" />
+    <MetadataFile FileName="Wcs.DefaultImpls.TwoForksCrane.xsd" MetadataType="Schema" ID="66c0111e-c6fc-4b06-9428-506d6d7880a9" SourceId="1" SourceUrl="http://localhost:9991/TwoForksCraneService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

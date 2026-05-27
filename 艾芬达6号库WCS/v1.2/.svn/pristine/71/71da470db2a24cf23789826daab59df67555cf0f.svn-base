@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Task
+{
+    [ServiceContract]
+    public interface ITaskService : IClientService
+    {
+        /// <summary>
+        /// 归档
+        /// </summary>
+        /// <param name="taskId"></param>
+        [OperationContract]
+        void Archive(Int32 taskId);
+        /// <summary>
+        /// 获取所有任务
+        /// </summary>
+        [OperationContract]
+        Task[] GetTasks();
+        /// <summary>
+        /// 获取指定任务号的任务明细（包括子逻辑动作物理动作等）信息
+        /// </summary>
+        /// <param name="taskNo">任务号</param>
+        [OperationContract]
+        Task GetTask(String taskNo);
+        /// <summary>
+        /// 获取指定任务号的任务明细（包括子逻辑动作物理动作等）信息
+        /// </summary>
+        /// <param name="taskNo">任务号</param>
+        [OperationContract]
+        Task GetTaskByEquipmentTaskId(Int32 equipmentTaskId);
+        /// <summary>
+        /// 暂停指定的任务
+        /// </summary>
+        /// <param name="taskNo">任务号</param>
+        /// <returns></returns>
+        [OperationContract]
+        void SuspendTask(String taskNo);
+        /// <summary>
+        /// 完成指定的任务对象
+        /// </summary>
+        /// <param name="id">主键值</param>
+        /// <returns></returns>
+        [OperationContract]
+        void CompleteTask(Int32 id);
+        /// <summary>
+        /// 完成指定的逻辑动作对象
+        /// </summary>
+        /// <param name="id">主键值</param>
+        /// <returns></returns>
+        [OperationContract]
+        void CompleteMovenent(Int32 id);
+        /// <summary>
+        /// 完成指定的物理动作对象
+        /// </summary>
+        /// <param name="id">主键值</param>
+        /// <returns></returns>
+        [OperationContract]
+        void CompleteAction(Int32 id);
+        /// <summary>
+        /// 取消指定的任务
+        /// </summary>
+        /// <param name="taskNo">任务号</param>
+        /// <returns></returns>
+        [OperationContract]
+        void CancelTask(String taskNo);
+        /// <summary>
+        /// 继续执行指定的任务
+        /// </summary>
+        /// <param name="taskNo">任务号</param>
+        ///</returns>
+        [OperationContract]
+        void ResumeTask(String taskNo);
+        /// <summary>
+        /// 继续执行指定的任务
+        /// </summary>
+        /// <param name="taskNo">任务号</param>
+        /// <param name="currentLocation">当前停靠位置</param>
+        /// <returns></returns>
+        [OperationContract]
+        void ResumeTaskWithCurrentLocation(String taskNo, String currentLocation);
+    }
+}

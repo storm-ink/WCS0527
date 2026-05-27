@@ -1,0 +1,40 @@
+﻿
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Gensong
+{
+    public partial class frmMenu : Form
+    {
+        public frmMenu()
+        {
+            InitializeComponent();
+
+            this.BackColor = Color.Black; this.ForeColor = Color.White;
+
+            switch (Globle.eProject)
+            {
+                case EProject.LT_YS:
+                case EProject.LT_SS:
+                    btnNullTu.Visible = true; return;
+            }
+        }
+
+        private void btnBeepInfo_Click(object sender, EventArgs e)
+        {
+            eMenu = EMenu.BeepInfo; this.Close();
+        }
+        private void btnNullTu_Click(object sender, EventArgs e)
+        {
+            eMenu = EMenu.NullTu; this.Close();
+        }
+
+        public EMenu eMenu;
+    }
+
+    public enum EMenu
+    {
+        Nothing, BeepInfo, NullTu
+    }
+}

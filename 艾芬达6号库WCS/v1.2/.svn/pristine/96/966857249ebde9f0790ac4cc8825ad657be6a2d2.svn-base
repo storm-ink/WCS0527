@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Runtime.Serialization;
+
+namespace Wcs.Client.Interfaces.Conveyor
+{
+    /// <summary>
+    /// 货位当前任务
+    /// </summary>
+    [Description("货位当前任务")]
+    [DataContract]
+    public class LocationTaskNetTransferObject
+    {
+        [Description("货位号")]
+        [DataMember]
+        public UInt16 PosNo { get; set; }
+        [Description("任务号")]
+        [DataMember]
+        public UInt32 TaskNo { get; set; }
+        [Description("托盘号")]
+        [DataMember]
+        public UInt16 TUID { get; set; }
+        [DataMember]
+        public Boolean Str_Rcv_X { get; set; }
+        [DataMember]
+        public Boolean Fnh_Rcv_X { get; set; }
+        [DataMember]
+        public Boolean Rqs_Snt { get; set; }
+        [DataMember]
+        public Boolean Rcv_Rdy { get; set; }
+        [DataMember]
+        public Boolean Str_Rcv_Y { get; set; }
+        [DataMember]
+        public Boolean Fnh_Rcv_Y{get;set;}
+    }
+}

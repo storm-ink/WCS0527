@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Runtime.Serialization;
+
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// 任务方向
+    /// </summary>
+    [DataContract]
+    public enum TaskDirection
+    {
+        /// <summary>
+        /// 不明确的
+        /// </summary>
+        [Description("未知")]
+        [EnumMember]
+        Unknow,
+        /// <summary>
+        /// 入库
+        /// </summary>
+        [Description("入库")]
+        [EnumMember]
+        In,
+        /// <summary>
+        /// 出库
+        /// </summary>
+        [Description("出库")]
+        [EnumMember]
+        Out
+    }
+}

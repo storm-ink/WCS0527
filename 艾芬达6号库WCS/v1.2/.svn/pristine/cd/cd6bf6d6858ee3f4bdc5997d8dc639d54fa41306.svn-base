@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Net.Sockets;
+
+namespace Gensong
+{
+
+    [Serializable]
+    public class ClientAcceptedEventArgs : EventArgs
+    {
+        public ClientAcceptedEventArgs(TcpClient tcpClient)
+        {
+            this.TcpClient = tcpClient;
+        }
+
+        public TcpClient TcpClient { get; private set; }
+    }
+}

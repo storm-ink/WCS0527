@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    [Serializable]
+    public class ShuttleStation:System.Runtime.Serialization.ISerializable
+    {
+        [CategoryAttribute("行为"), Description("站点号")]
+        public Int32 No { get; set; }
+
+        [CategoryAttribute("行为"), Description("货位号")]
+        [EditorAttribute(typeof(Wcs.Client.App.Elements.UIEditor.ShuttleStationPosNoEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public Int32 PosNo { get; set; }
+
+        [CategoryAttribute("行为"), Description("条码值")]
+        public Int32 Barcode { get; set; }
+
+        [Browsable(false)]
+        public Boolean IsEmpty
+        {
+            get
+            {
+                return this.No == 0
+                    && this.PosNo == 0
+                    && this.Barcode == 0;
+            }
+        }
+
+        public ShuttleStation()
+        {
+        }
+
+        public void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            info.AddValue("No", No);
+            info.AddValue("PosNo", PosNo);
+            info.AddValue("Barcode", Barcode);
+        }
+
+        public ShuttleStation(SerializationInfo info, StreamingContext context)
+            : this()
+        {
+            this.No = (Int32)info.GetValue("No", typeof(Int32));
+            this.PosNo = (Int32)info.GetValue("PosNo", typeof(Int32));
+            this.Barcode = (Int32)info.GetValue("Barcode", typeof(Int32));
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0}:{1}:{2}", No,PosNo, Barcode);
+        }
+    }
+}

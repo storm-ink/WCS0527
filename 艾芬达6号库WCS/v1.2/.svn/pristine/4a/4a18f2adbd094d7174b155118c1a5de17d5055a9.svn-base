@@ -1,0 +1,94 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Wcs.DefaultImpls.Conveyor;
+using Wcs.Framework.Cfg;
+
+namespace UnitTestProject1
+{
+    [TestClass]
+    public class CfgTest
+    {
+        [TestMethod]
+        public void ApplicationElementTest()
+        {
+            var section = System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+            Wcs.Framework.Cfg.WcsConfiguration wcsConfig = (Wcs.Framework.Cfg.WcsConfiguration)section;
+
+            Assert.AreNotEqual(wcsConfig, null);
+            Assert.AreNotEqual(wcsConfig.ApplicationElement, null);
+            Assert.AreNotEqual(wcsConfig.ApplicationElement.StartupSelection.StartupElements.Length, 0);
+        }
+
+
+        object section;
+        [TestMethod]
+        public void ConfigSingletonTest()
+        {
+            var section1 = System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+            var section2 = System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+
+            section = section1;
+            Assert.AreNotEqual(section1, null);
+            Assert.AreEqual(section1, section2);
+
+            aa();
+        }
+
+        public void aa()
+        {
+            var section1 = System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+
+            Assert.AreEqual(section1, section);
+        }
+
+        [TestMethod]
+        public void DataReceiverTest()
+        {
+            WcsConfiguration wcsConfig = (WcsConfiguration)System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+            var dataReceiver = wcsConfig.DataReceiverCollection.DataReceiverElements[0].CreateDataReceiver();
+
+            Assert.AreNotEqual(dataReceiver, null);
+        }
+
+        [TestMethod]
+        public void DeviceTest()
+        {
+            WcsConfiguration wcsConfig = (WcsConfiguration)System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+            var devieConfig = wcsConfig.DeviceCollection;
+
+            Assert.AreNotEqual(devieConfig, null);
+            Assert.AreNotEqual(devieConfig.ParticularDeviceCollection, null);
+            Assert.AreNotEqual(devieConfig.ParticularDeviceCollection.Length,0);
+            Assert.AreNotEqual(devieConfig.ParticularDeviceCollection[0].DeviceElements.Length, 0);
+            Assert.AreNotEqual(devieConfig.ParticularDeviceCollection[0].DeviceElements[0].Device, null);
+        }
+
+        [TestMethod]
+        public void LocationTest()
+        {
+            WcsConfiguration wcsConfig = (WcsConfiguration)System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+            var devieConfig = wcsConfig.DeviceCollection;
+
+            ConveyorDevice conveyorDevice=(ConveyorDevice)devieConfig.ParticularDeviceCollection[0].DeviceElements[0].Device;
+            Assert.AreNotEqual(conveyorDevice.Locations, null);
+            Assert.AreNotEqual(conveyorDevice.Locations.Length, 0);
+        }
+
+        [TestMethod]
+        public void UpdateConfigurationTest()
+        {
+            WcsConfiguration wcsConfig = (WcsConfiguration)System.Configuration.ConfigurationManager.GetSection("wcs-configuration");
+            var f1 = wcsConfig.SettingCollection.GetSetting<Int32>("f1", 0);
+            Assert.AreEqual(f1, 1);
+            wcsConfig.SettingCollection.SetSetting<Int32>("f1", 11);
+            f1 = wcsConfig.SettingCollection.GetSetting<Int32>("f1", 0);
+            Assert.AreEqual(f1, 11);
+
+            var f2 = wcsConfig.SettingCollection.GetSetting<Int32>("f2");
+
+            wcsConfig.SettingCollection.SetSetting<Boolean>("f3", true);
+            var f3 = wcsConfig.SettingCollection.GetSetting<Boolean>("f3", false);
+            Assert.AreEqual(f3, true);
+        }
+    }
+}

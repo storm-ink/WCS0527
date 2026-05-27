@@ -1,0 +1,27 @@
+﻿
+
+@{
+    ViewBag.Title = "LoginSuccess";
+}
+<style>
+    .div
+    {
+        margin-left:20px;
+        text-align:center;
+    }
+</style>
+
+
+
+
+<div class="div">
+    <h2>
+您现在有即将要过期或者超限的物料<br />
+    请注意查看
+</h2>
+<a href="/Materials/Excessmaterial">超限物料</a>
+ <a href="/Materials/Expiredmaterials">要过期的物料</a>
+<br />
+ <a href="@ViewBag.ReturnUrl">返回原有页面</a>
+
+</div>

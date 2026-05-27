@@ -1,0 +1,844 @@
+﻿using NLog;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Wcs;
+using Wcs.Client.Interfaces.SingleForkCrane;
+using Wcs.Client.Interfaces.TwoForkCrane;
+using Wcs.DefaultImpls.Crane;
+using Wcs.Framework;
+namespace Wcs.Client.Services
+{
+    public class TwoForksCraneService: Wcs.Client.Interfaces.AbstractClientService,ITwoForksCraneService
+    {
+        static Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+
+        public List<CraneInfo> LoadCraneInfos()
+        {
+            List<CraneInfo> result = new List<CraneInfo>();
+            foreach (var craneDevice in Wcs.Framework.Cfg.WcsConfiguration.Instance.DeviceCollection.ParticularDeviceCollection.SelectMany(x => x.DeviceElements)
+                .Where(x => x.Device is Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneDevice)
+                .Select(x => x.Device as Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneDevice))
+            {
+                var info = new CraneInfo();
+                info.Name = craneDevice.Name;
+                var locations = craneDevice.Locations.Where(x => x is Wcs.DefaultImpls.TwoForksCrane.TwoForksRackLocation);
+                if (locations.Count() > 0)
+                {
+                    info.MinColumn = locations.Min(x => x.UserColumn);
+                    info.MaxColumn = locations.Max(x => x.UserColumn);
+                    info.MinLevel = locations.Min(x => x.UserLevel);
+                    info.MaxLevel = locations.Max(x => x.UserLevel);
+                }
+                result.Add(info);
+            }
+
+            return result;
+        }
+
+        public Dictionary<string, Wcs.Client.Interfaces.TwoForkCrane.LA> ReadStatus()
+        {
+            Dictionary<String, Wcs.Client.Interfaces.TwoForkCrane.LA> result = new Dictionary<String, Wcs.Client.Interfaces.TwoForkCrane.LA>();
+            foreach (var craneDevice in Wcs.Framework.Cfg.WcsConfiguration.Instance.DeviceCollection.ParticularDeviceCollection.SelectMany(x => x.DeviceElements)
+                .Where(x => x.Device is Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneDevice)
+                .Select(x => x.Device as Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneDevice))
+            {
+                var lastStatus=(Wcs.DefaultImpls.TwoForksCrane.RequestStateCommandReplyTelexTransferObject)craneDevice.LastStatus;
+
+                if (lastStatus != null)
+                {
+                    var alarm = Wcs.Framework.Cfg.WcsConfiguration.Instance.DeviceCollection
+                    .ParticularDeviceCollection.Where(x => x is Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneCollection)
+                    .Select(x => x as Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneCollection)
+                    .SelectMany(x => x.AlarmCollection.AlarmElements)
+                    .Where(x => x.Code == lastStatus.ErrorCode.ToString("0000"))
+                    .FirstOrDefault();
+
+                    var errorDescription = "";
+                    var errorSolution = "";
+                    var errorName = "";
+                    if (alarm != null)
+                    {
+                        errorName = alarm.Name;
+                        errorDescription = alarm.Description;
+                        errorSolution = alarm.Solution;
+                    }
+
+                    var location = craneDevice.GetCurrentLocation();
+
+                    Wcs.Client.Interfaces.TwoForkCrane.LA la = new Wcs.Client.Interfaces.TwoForkCrane.LA
+                    {
+                        AtStation = lastStatus.AtStation,
+                        ErrorCode = lastStatus.ErrorCode,
+                        ErrorName = errorName,
+                        ErrorDescription = errorDescription,
+                        ErrorSolution = errorSolution,
+                        Event = (Wcs.Client.Interfaces.SingleForkCrane.CraneEvent)lastStatus.Event,
+                        Fork1HorizontalPosition = (Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition)lastStatus.Fork1HorizontalPosition,
+                        Fork2HorizontalPosition = (Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition)lastStatus.Fork2HorizontalPosition,
+                        Fork1Status = (Wcs.Client.Interfaces.TwoForkCrane.ForkStatus)lastStatus.Fork1Status,
+                        Fork2Status = (Wcs.Client.Interfaces.TwoForkCrane.ForkStatus)lastStatus.Fork2Status,
+                        ForkVerticalPosition = (Wcs.Client.Interfaces.SingleForkCrane.ForkVerticalPosition)lastStatus.ForkVerticalPosition,
+                        UserColumn = location == null ? "?" : location.UserColumn.ToString("000"),
+                        UserLevel = location == null ? "?" : location.UserLevel.ToString("000"),
+                        LockerIp = craneDevice.Locker.IPAddress,
+                        LockerUser = craneDevice.Locker.UserName,
+                        State = (Wcs.Client.Interfaces.SingleForkCrane.CraneStatus)lastStatus.State,
+                        TaskId = lastStatus.TaskId,
+                        CurrentLocation = location == null ? "" : location.UserCode
+                    };
+
+                    var context = Wcs.Framework.NhAbstractStateManager.Contexts.FirstOrDefault(x => x.Device == craneDevice);
+                    if (context != null && context.EquipmentAction is Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneJob)
+                    {
+                        var job = (Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneJob)context.EquipmentAction;
+                        if (job.Fork1EquipmentAction != null)
+                        {
+                            la.Fork1TaskId = job.Fork1EquipmentAction.EquipmentTaskId.ToString();
+                            la.Fork1Task = toTaskDtb(job.Fork1EquipmentAction.Movement.Task);
+                        }
+
+                        if (job.Fork2EquipmentAction != null)
+                        {
+                            la.Fork2TaskId = job.Fork2EquipmentAction.EquipmentTaskId.ToString();
+                            la.Fork2Task = toTaskDtb(job.Fork2EquipmentAction.Movement.Task);
+                        }
+                    }
+
+                    result.Add(craneDevice.Name, la);
+                }
+                else
+                {
+                    result.Add(craneDevice.Name, null);
+                }
+            }
+
+            return result;
+        }
+
+        public void BackToTheOrigin(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的回原点命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送回原点命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                if (craneDevice.LastStatus.State == Wcs.DefaultImpls.Crane.CraneStatus.ManualMode)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 堆垛机正处于手动模式, 不能下发任务。", craneDevice));
+                }
+
+                if (craneDevice.LastStatus.ForkHorizontalPosition != Wcs.DefaultImpls.Crane.ForkHorizontalPosition.Center)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 货叉不在中位, 不能下发任务。", craneDevice));
+                }
+
+                craneDevice.BackToTheOrigin(new Wcs.Framework.LockerInfo(userName, ipAddress));
+
+                _logger.Trace1("回原点命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void EmergencyStop(string craneName)
+        {
+            _logger.Trace1(string.Format("收到了一个 {0} 急停命令", craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送急停命令。", craneDevice));
+                }
+
+                craneDevice.EmergencyStop();
+
+                _logger.Trace1("急停命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void CancelEmergencyStop(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的取消急停命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送取消急停命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                craneDevice.CancelEmergencyStop(new Wcs.Framework.LockerInfo(userName, ipAddress));
+
+                _logger.Trace1("取消急停命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Move(string craneName, string userName, string ipAddress, int userColumn, int userLevel)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的移动到 {3}列{4}层 的命令", ipAddress, userName, craneName, userColumn, userLevel), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送移动命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                checkStatus(craneDevice);
+
+                int currentLevel = craneDevice.LastStatus.Level;
+                int currentColumn = craneDevice.LastStatus.Column;
+                var formLocation = Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneHelper.GetGroup(craneDevice, currentColumn, currentLevel);
+                if (formLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 不存在 {1}列{2}层这个位置组。", craneDevice, currentColumn, currentLevel));
+                }
+
+                var toLocation = Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneHelper.GetGroupByUserColumnAndLevel(craneDevice, userColumn, userLevel, Wcs.DefaultImpls.TwoForksCrane.Forks.Fork1);
+                if (toLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 不存在 {1}列{2}层 这个位置。", craneDevice, userColumn, userLevel));
+                }
+
+                _logger.Trace1(string.Format("本次移动的起始位置为 {0}，目标位置为 {1}", formLocation, toLocation), this);
+
+                //craneDevice.Move(new Wcs.Framework.LockerInfo(userName, ipAddress), formLocation, toLocation);
+
+                craneDevice.Move(new Wcs.Framework.LockerInfo(userName, ipAddress), formLocation, toLocation);
+
+                _logger.Trace1("移动命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Pick(string craneName, string userName, string ipAddress, Wcs.Client.Interfaces.SingleForkCrane.ForkDirection? fork1Direction, Wcs.Client.Interfaces.SingleForkCrane.ForkDirection? fork2Direction)
+        {
+            if (fork1Direction != null && fork2Direction != null)
+            {
+                _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的使用叉1向{3}取货，使用叉2向{4}取货的命令", ipAddress, userName, craneName, fork1Direction.Value.GetDescription(), fork2Direction.Value.GetDescription()), this);
+            }
+            else if (fork1Direction != null && fork2Direction == null)
+            {
+                _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的使用叉1向{3}取货的命令", ipAddress, userName, craneName, fork1Direction.Value.GetDescription()), this);
+            }
+            else if (fork1Direction == null && fork2Direction != null)
+            {
+                _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的使用叉2向{3}取货的命令", ipAddress, userName, craneName, fork2Direction.Value.GetDescription()), this);
+            }
+            else
+            {
+                throw new InvalidOperationException("至少需要指定一个货叉动作");
+            }
+
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送取货命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                checkStatus(craneDevice);
+
+                int level = craneDevice.LastStatus.Level;
+                int column = craneDevice.LastStatus.Column;
+
+                _logger.Trace1(string.Format("取 {0} 的当前位置 {1}列{2}层为目的地", craneDevice, column, level), this);
+
+                var formLocation = (Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup)craneDevice.GetCurrentLocation();
+
+                if (formLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 不存在 {1}列{2}层这个位置。", craneDevice, column, level));
+                }
+
+                _logger.Trace1(string.Format("本次取货目标位置为 {0}", formLocation), this);
+
+
+                craneDevice.Pick(new Wcs.Framework.LockerInfo(userName, ipAddress), formLocation, (Wcs.DefaultImpls.Crane.ForkDirection)fork1Direction, (Wcs.DefaultImpls.Crane.ForkDirection)fork2Direction);
+
+                _logger.Trace1("取货命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Putdown(string craneName, string userName, string ipAddress, Wcs.Client.Interfaces.SingleForkCrane.ForkDirection? fork1Direction, Wcs.Client.Interfaces.SingleForkCrane.ForkDirection? fork2Direction)
+        {
+            if (fork1Direction != null && fork2Direction != null)
+            {
+                _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的使用叉1向{3}放货，使用叉2向{4}放货的命令", ipAddress, userName, craneName, fork1Direction.Value.GetDescription(), fork2Direction.Value.GetDescription()), this);
+            }
+            else if (fork1Direction != null && fork2Direction == null)
+            {
+                _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的使用叉1向{3}放货的命令", ipAddress, userName, craneName, fork1Direction.Value.GetDescription()), this);
+            }
+            else if (fork1Direction == null && fork2Direction != null)
+            {
+                _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的使用叉2向{3}放货的命令", ipAddress, userName, craneName, fork2Direction.Value.GetDescription()), this);
+            }
+            else
+            {
+                throw new InvalidOperationException("至少需要指定一个货叉动作");
+            }
+
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送放货命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                checkStatus(craneDevice);
+
+                int level = craneDevice.LastStatus.Level;
+                int column = craneDevice.LastStatus.Column;
+
+                _logger.Trace1(string.Format("取 {0} 的当前位置 {1}列{2}层为目的地", craneDevice, column, level), this);
+
+                var toLocation = (Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup)craneDevice.GetCurrentLocation();
+                if (toLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 不存在 {1}列{2}这个位置。", craneDevice, column, level));
+                }
+
+                _logger.Trace1(string.Format("本次放货目标位置为 {0}", toLocation), this);
+
+
+                craneDevice.Putdown(new Wcs.Framework.LockerInfo(userName, ipAddress), toLocation, (Wcs.DefaultImpls.Crane.ForkDirection)fork1Direction, (Wcs.DefaultImpls.Crane.ForkDirection)fork2Direction);
+
+                _logger.Trace1("放货命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Lock(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的向 {0} 的锁定命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+                craneDevice.Lock(new Wcs.Framework.LockerInfo(userName, ipAddress));
+
+                _logger.Trace1("锁定成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Unlock(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的向 {0} 的解除锁定命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+                craneDevice.Unlock(new Wcs.Framework.LockerInfo(userName, ipAddress));
+
+                _logger.Trace1("解除锁定成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Up(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的提升命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送提升命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                checkStatus(craneDevice);
+
+                int level = craneDevice.LastStatus.Level;
+                int column = craneDevice.LastStatus.Column;
+                var formLocation = Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneHelper.GetGroup(craneDevice, column, level);
+
+                if (formLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 不存在 {1}列{2}这个位置。", craneDevice, column, level));
+                }
+
+                _logger.Trace1(string.Format("取 {0} 的当前位置 {1} 为依据", craneDevice, formLocation), this);
+
+                var toLocation = (Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup)craneDevice.Locations
+                  .Where(x =>
+                  x is Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup
+                  && x.UserColumn == formLocation.UserColumn
+                  && x.UserLevel > formLocation.UserLevel)
+                  .OrderBy(x => x.UserLevel)
+                  .FirstOrDefault();
+
+                if (toLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 已无法再提升层位置，请检查 {1} 是否已运行至提升极限", formLocation, craneDevice));
+                }
+
+                _logger.Trace1(string.Format("本次提升起始位置为 {0}，目标位置为 {1}", formLocation, toLocation), this);
+
+                craneDevice.Move(new Wcs.Framework.LockerInfo(userName, ipAddress), formLocation, toLocation);
+
+                _logger.Trace1("提升命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Down(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的下降命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送下降命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                checkStatus(craneDevice);
+
+                int level = craneDevice.LastStatus.Level;
+                int column = craneDevice.LastStatus.Column;
+                var formLocation = Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneHelper.GetGroup(craneDevice, column, level);
+
+                if (formLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 不存在 {1}列{2}这个位置。", craneDevice, column, level));
+                }
+
+                _logger.Trace1(string.Format("取 {0} 的当前位置 {1} 为依据", craneDevice, formLocation), this);
+
+                var toLocation = (Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup)craneDevice.Locations
+                   .Where(x =>
+                   x is Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup
+                   && x.UserColumn == formLocation.UserColumn
+                   && x.UserLevel < formLocation.UserLevel)
+                   .OrderByDescending(x => x.UserLevel)
+                   .FirstOrDefault();
+
+                if (toLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 已无法再下降层位置，请检查 {1} 是否已运行至下降极限", formLocation, craneDevice));
+                }
+
+                _logger.Trace1(string.Format("本次下降起始位置为 {0}，目标位置为 {1}", formLocation, toLocation), this);
+
+                craneDevice.Move(new Wcs.Framework.LockerInfo(userName, ipAddress), formLocation, toLocation);
+
+                _logger.Trace1("下降命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Forward(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的前进命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送前进命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                checkStatus(craneDevice);
+
+                int level = craneDevice.LastStatus.Level;
+                int column = craneDevice.LastStatus.Column;
+
+                var formLocation = Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneHelper.GetGroup(craneDevice, column, level);
+
+                if (formLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 不存在 {1}列{2}这个位置。", craneDevice, column, level));
+                }
+
+                _logger.Trace1(string.Format("取 {0} 的当前位置 {1} 为依据", craneDevice, formLocation), this);
+
+                var toLocation = (Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup)craneDevice.Locations
+                 .Where(x =>
+                 x is Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup
+                 && x.UserLevel == formLocation.UserLevel
+                 && x.UserColumn > formLocation.UserColumn)
+                 .OrderBy(x => x.UserColumn)
+                 .FirstOrDefault();
+
+                if (toLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 已无法再前进列位置，请检查 {1} 是否已运行至前进极限", formLocation, craneDevice));
+                }
+
+                _logger.Trace1(string.Format("本次前进起始位置为 {0}，目标位置为 {1}", formLocation, toLocation), this);
+
+                craneDevice.Move(new Wcs.Framework.LockerInfo(userName, ipAddress), formLocation, toLocation);
+
+                _logger.Trace1("前进命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+        public void Back(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的后退命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送后退命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                checkStatus(craneDevice);
+
+                int level = craneDevice.LastStatus.Level;
+                int column = craneDevice.LastStatus.Column;
+
+                var formLocation = Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneHelper.GetGroup(craneDevice, column, level);
+
+                if (formLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 不存在 {1}列{2}这个位置。", craneDevice, column, level));
+                }
+
+                _logger.Trace1(string.Format("取 {0} 的当前位置 {1} 为依据", craneDevice, formLocation), this);
+
+                var toLocation = (Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup)craneDevice.Locations
+                .Where(x =>
+                x is Wcs.DefaultImpls.TwoForksCrane.RackLocationGroup
+                && x.UserLevel == formLocation.UserLevel
+                && x.UserColumn < formLocation.UserColumn)
+                .OrderByDescending(x => x.UserColumn)
+
+                .FirstOrDefault();
+                if (toLocation == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 已无法再后退列位置，请检查 {1} 是否已运行至后退极限", formLocation, craneDevice));
+                }
+
+                _logger.Trace1(string.Format("本次后退起始位置为 {0}，目标位置为 {1}", formLocation, toLocation), this);
+
+                craneDevice.Move(new Wcs.Framework.LockerInfo(userName, ipAddress), formLocation, toLocation);
+
+                _logger.Trace1("后退命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+
+        Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneDevice getCraneDevice(string craneName)
+        {
+            var craneDevice = Wcs.Framework.DeviceConverter.ToDevice<Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneDevice>(craneName);
+
+            return craneDevice;
+        }
+
+        void checkStatus(Wcs.DefaultImpls.TwoForksCrane.TwoForksCraneDevice craneDevice)
+        {
+            if (craneDevice.LastStatus == null)
+            {
+                throw new InvalidOperationException(string.Format("{0} 状态未同步。", craneDevice));
+            }
+
+            if (craneDevice.LastStatus.State == Wcs.DefaultImpls.Crane.CraneStatus.ManualMode)
+            {
+                throw new InvalidOperationException(string.Format("{0} 堆垛机正处于手动模式, 不能下发任务。", craneDevice));
+            }
+
+            if (craneDevice.LastStatus.AtStation == false)
+            {
+                throw new InvalidOperationException(string.Format("{0} 堆垛机不在站点位置, 不能下发任务。", craneDevice));
+            }
+
+            if (craneDevice.LastStatus.ForkHorizontalPosition != Wcs.DefaultImpls.Crane.ForkHorizontalPosition.Center)
+            {
+                throw new InvalidOperationException(string.Format("{0} 货叉不在中位, 不能下发任务。", craneDevice));
+            }
+
+            if (craneDevice.LastStatus.Event != Wcs.DefaultImpls.Crane.CraneEvent.Initialized
+                && craneDevice.LastStatus.Event != Wcs.DefaultImpls.Crane.CraneEvent.Finished
+                )
+            {
+                throw new InvalidOperationException(string.Format("{0} 堆垛机任务事件未完成, 不能下发任务。", craneDevice));
+            }
+
+            if (craneDevice.LastStatus.State != Wcs.DefaultImpls.Crane.CraneStatus.Initialized
+                && craneDevice.LastStatus.State != Wcs.DefaultImpls.Crane.CraneStatus.无货待命
+                && craneDevice.LastStatus.State != Wcs.DefaultImpls.Crane.CraneStatus.有货待命
+                )
+            {
+                throw new InvalidOperationException(string.Format("{0} 堆垛机处于非待命状态, 不能下发任务。", craneDevice));
+            }
+        }
+
+        public void ResetWarn(string craneName, string userName, string ipAddress)
+        {
+            _logger.Trace1(string.Format("收到了来自 {0} 的 {1} 向 {2} 发送的报警复位命令", ipAddress, userName, craneName), this);
+            try
+            {
+                var craneDevice = getCraneDevice(craneName);
+                if (craneDevice.LastStatus == null)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 状态未同步，当前无法发送报警复位命令。", craneDevice));
+                }
+
+                if (craneDevice.Locker.IsEmpty)
+                {
+                    throw new InvalidOperationException(string.Format("未获取锁。"));
+                }
+
+                if (craneDevice.LastStatus.State == Wcs.DefaultImpls.Crane.CraneStatus.ManualMode)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 堆垛机正处于手动模式, 当前无法发送报警复位命令。", craneDevice));
+                }
+
+                if (craneDevice.LastStatus.ForkHorizontalPosition != Wcs.DefaultImpls.Crane.ForkHorizontalPosition.Center)
+                {
+                    throw new InvalidOperationException(string.Format("{0} 货叉不在中位, 当前无法发送报警复位命令。", craneDevice));
+                }
+
+                craneDevice.ResetWarn(new Wcs.Framework.LockerInfo(userName, ipAddress));
+
+                _logger.Trace1("报警复位命令发送成功", this);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                throw;
+            }
+        }
+
+
+        public object Call(string name, object[] args)
+        {
+            return this.InternalCall<object>(name, args);
+        }
+
+
+        public string[] AllOperations()
+        {
+            return _registeredCalls.Select(x => x.Key.Name).ToArray();
+        }
+
+
+
+        #region TaskInfo
+
+        Wcs.Client.Interfaces.Task.Task toTaskDtb(Wcs.Framework.Task task)
+        {
+            return new Wcs.Client.Interfaces.Task.Task
+            {
+                AdditionalInfo = task.AdditionalInfo.ToDictionary(x => x.Key, x => x.Value),
+                BizType = (Wcs.Client.Interfaces.Task.TaskBizType)task.BizType,
+                ContainerCodes = task.ContainerCodes.ToArray(),
+                CreatedAt = task.CreatedAt,
+                CurrentLocation = new Wcs.Client.Interfaces.Task.LocationInfo
+                {
+                    DeviceCode = task.CurrentLocation.DeviceCode,
+                    DeviceName = task.CurrentLocation.DeviceName,
+                    UserCode = task.CurrentLocation.UserCode
+                },
+                Description = task.Description,
+                Direction = (Wcs.Client.Interfaces.Task.TaskDirection)task.Direction,
+                EndLocation = new Wcs.Client.Interfaces.Task.LocationInfo
+                {
+                    DeviceCode = task.EndLocation.DeviceCode,
+                    DeviceName = task.EndLocation.DeviceName,
+                    UserCode = task.EndLocation.UserCode
+                },
+                FinishedAt = task.FinishedAt,
+                Id = task.Id,
+                Movements = task.Movements.Select(x => ToLogicMovementDto(x)).ToArray(),
+                Priority = task.Priority,
+                Source = (Wcs.Client.Interfaces.Task.TaskSource)task.Source,
+                StartLocation = new Wcs.Client.Interfaces.Task.LocationInfo
+                {
+                    DeviceCode = task.StartLocation.DeviceCode,
+                    DeviceName = task.StartLocation.DeviceName,
+                    UserCode = task.StartLocation.UserCode
+                },
+                Status = (Wcs.Client.Interfaces.Task.TaskStatus)task.Status,
+                TaskCode = task.TaskCode,
+                TaskType = task.TaskType
+            };
+        }
+
+        Wcs.Client.Interfaces.Task.LogicMovement ToLogicMovementDto(Wcs.Framework.LogicMovement movement)
+        {
+            return new Wcs.Client.Interfaces.Task.LogicMovement
+            {
+                CreatedAt = movement.CreatedAt,
+                DeviceName = movement.DeviceName,
+                EndLocation = new Wcs.Client.Interfaces.Task.LocationInfo
+                {
+                    DeviceCode = movement.EndLocation.DeviceCode,
+                    DeviceName = movement.EndLocation.DeviceName,
+                    UserCode = movement.EndLocation.UserCode
+                },
+                EquipmentActions = movement.EquipmentActions.Select(y => ToEquipmentActionDto(y)).ToArray(),
+                FinishedAt = movement.FinishedAt,
+                Id = movement.Id,
+                Ordering = movement.Ordering,
+                RouteId = movement.RouteId,
+                RouteNo = getRouteNo(movement.RouteId),
+                StartLocation = new Wcs.Client.Interfaces.Task.LocationInfo
+                {
+                    DeviceCode = movement.StartLocation.DeviceCode,
+                    DeviceName = movement.StartLocation.DeviceName,
+                    UserCode = movement.StartLocation.UserCode
+                },
+                Status = (Wcs.Client.Interfaces.Task.LogicMovementStatus)movement.Status
+            };
+        }
+
+        Int32? getRouteNo(Int32? routeId)
+        {
+            if (routeId == null)
+            {
+                return null;
+            }
+
+            return Wcs.Framework.Cfg.WcsConfiguration.Instance.RouteCollection.Routes.Where(x => x.Id == routeId)
+                .Select(x => (Int32?)x.No)
+                .FirstOrDefault();
+        }
+
+        Wcs.Client.Interfaces.Task.EquipmentAction ToEquipmentActionDto(Wcs.Framework.EquipmentAction act)
+        {
+            return new Wcs.Client.Interfaces.Task.EquipmentAction
+            {
+                ContainerCode = act.ContainerCode,
+                CreatedAt = act.CreatedAt,
+                DeviceName = act.DeviceName,
+                EquipmentTaskId = act.EquipmentTaskId,
+                FinishedAt = act.FinishedAt,
+                Id = act.Id,
+                Ordering = act.Ordering,
+                SentAt = act.SentAt,
+                SequenceOrdering = act.SequenceOrdering,
+                Status = (Wcs.Client.Interfaces.Task.EquipmentActionStatus)act.Status,
+                Warnings = act.Warnings.Select(z => new Wcs.Client.Interfaces.Task.EquipmentActionWarning
+                {
+                    Code = z.Code,
+                    CreatedAt = z.CreatedAt,
+                    Description = z.Description,
+                    DeviceName = z.DeviceName,
+                    Id = z.Id
+                }).ToArray(),
+                ReadableDescription = act.ToReadableDescription()
+            };
+        }
+        #endregion
+
+    }
+}

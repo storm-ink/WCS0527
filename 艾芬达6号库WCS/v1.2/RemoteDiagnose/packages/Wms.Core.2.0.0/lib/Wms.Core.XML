@@ -1,0 +1,3166 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wms.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Wms.UnitLoadRepositoryBase">
+            <summary>
+            货载的仓储基类
+            </summary>
+        </member>
+        <member name="M:Wms.UnitLoadRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 UnitLoadRepositoryBase 类的新实例
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Wms.UnitLoadRepositoryBase.DoArchive(Wms.UnitLoadBase)">
+            <summary>
+            将指定的货载归档
+            </summary>
+            <param name="unitLoad"></param>
+        </member>
+        <member name="M:Wms.UnitLoadRepositoryBase.Archive(Wms.UnitLoadBase)">
+            <summary>
+            将 UnitLoad 归档
+            </summary>
+            <param name="unitLoad"></param>
+        </member>
+        <member name="M:Wms.UnitLoadRepositoryBase.Archive(Wms.UnitLoadBase[])">
+            <summary>
+            将 UnitLoad 批量归档
+            </summary>
+            <param name="unitLoads"></param>
+        </member>
+        <member name="M:Wms.UnitLoadRepositoryBase.GetByContainerCodes(System.String[])">
+            <summary>
+            指定容器编码，获取单元货载。
+            </summary>
+            <param name="containerCodes">用作查询条件的货载编码。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadRepositoryBase.GetByContainerCode(System.String)">
+            <summary>
+            指定容器编码，获取货载。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="containerCode">用作查询条件的货载编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadRepositoryBase.GetUnitLoadsByContainerType(System.String)">
+            <summary>
+            指定容器类型，获取货载
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadRepositoryBase.IsContainerInUse(System.String)">
+            <summary>
+            指定容器编码，判断容器是否在使用中
+            </summary>
+            <param name="containerCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.UnitLoadItemBase">
+            <summary>
+            单元货载项
+            </summary>
+        </member>
+        <member name="M:Wms.UnitLoadItemBase.#ctor">
+            <summary>
+            初始化 UnitLoadItemBase 的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.UnitLoadItemBase.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadItemBase.NewArchived">
+            <summary>
+            创建空白的 ArchivedUnitLoadItemBase
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadItemBase.GetArchived">
+            <summary>
+            获取此实例的归档版本
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.UnitLoadItemBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadItemBase.Material">
+            <summary>
+            此项关联的是哪个物料
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadItemBase.Quantity">
+            <summary>
+            此项含有多少个单位的物料
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadItemBase.QuantityInMainUnit">
+            <summary>
+            以最小单位计，此项含有多少物料
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadItemBase.UnitLoad">
+            <summary>
+            此项属于哪个 UnitLoad
+            </summary>
+        </member>
+        <member name="T:Wms.WarehouseRepositoryBase">
+            <summary>
+            使用 nhibernate 实现的 Warehouse 的 Repository。
+            </summary>
+        </member>
+        <member name="M:Wms.WarehouseRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            初始化 WarehouseRepositoryBase 类的新实例
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Wms.WarehouseRepositoryBase.GetByUserCode(System.String)">
+            <summary>
+            按照用户编码获取仓库。
+            </summary>
+            <param name="userCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.WarehouseRepositoryBase.GetByName(System.String)">
+            <summary>
+            按照名称获取仓库。
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.TaskDirection">
+            <summary>
+            任务方向
+            </summary>
+        </member>
+        <member name="F:Wms.TaskDirection.In">
+            <summary>
+            入库任务，从输送线到货架
+            </summary>
+        </member>
+        <member name="F:Wms.TaskDirection.Out">
+            <summary>
+            出库任务，从货架到输送线
+            </summary>
+        </member>
+        <member name="F:Wms.TaskDirection.Other">
+            <summary>
+            其他任务，从货架到货架，或从输送线到输送线
+            </summary>
+        </member>
+        <member name="T:Wms.TaskDirectionEnumStringType">
+            <summary>
+            TaskDirection 的 EnumStringType
+            </summary>
+        </member>
+        <member name="T:Wms.Laneway">
+            <summary>
+            巷道。此类配置了 nh 二级缓存，不要使用触发器等外部源更改表数据。
+            </summary>
+        </member>
+        <member name="M:Wms.Laneway.#ctor">
+            <summary>
+            初始化 Laneway 类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.Laneway.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.Laneway.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.UpdatedAt">
+            <summary>
+            更新时间。
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.Name">
+            <summary>
+            巷道名称，自然键。
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.Area">
+            <summary>
+            巷道所在的区域。
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.IndexInArea">
+            <summary>
+            巷道在其区域内的 0 基索引。同一区域的巷道索引不能重复。
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.Warehouse">
+            <summary>
+            此货架所属的仓库
+            </summary>
+        </member>
+        <member name="P:Wms.Laneway.HasDeviceError">
+            <summary>
+            此巷道是否有设备故障。
+            </summary>
+        </member>
+        <member name="T:Wms.IWcsRequestPreHandler">
+            <summary>
+            定义 wcs 请求类型预处理程序，wms 框架在引发请求事件之前先调用此接口对请求信息进行预处理。
+            </summary>
+        </member>
+        <member name="M:Wms.IWcsRequestPreHandler.PreProcess(DC2.WcsRequestInfo)">
+            <summary>
+            对实现者的说明：不要进行实质性的业务处理，应仅对请求信息中的数据做一些变换操作，比如，如果 wcs 未提供请求类型，则为请求类型赋值。
+            </summary>
+            <param name="requestInfo"></param>
+        </member>
+        <member name="T:Wms.Cfg.InStrategyElement">
+            <summary>
+            表示 wmsSettings/ioStrategies/inStrategies/inStrategy 元素
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.InStrategyElement.Name">
+            <summary>
+            与 inStrategy 元素的 name 属性对应。
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.InStrategyElement.Type">
+            <summary>
+            与 inStrategy 元素的 type 属性对应。
+            </summary>
+        </member>
+        <member name="T:Wms.WcfServices.WmsServiceOperationErrorHandler">
+            <summary>
+            Wms 服务操作异常处理
+            </summary>
+        </member>
+        <member name="T:Wms.WaitLockRepositoryBase">
+            <summary>
+            WaitLock 的仓储基类
+            </summary>
+        </member>
+        <member name="M:Wms.WaitLockRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 WaitLockRepositoryBase 的新实例
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Wms.WaitLockRepositoryBase.GetPairLock(System.String)">
+            <summary>
+            指定容器编码，获取配对锁。
+            </summary>
+            <param name="containerCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.ErpException">
+            <summary>
+            与 erp 相关错误，例如请求的条码没有erp任务，或执行一半的看板被删除
+            </summary>
+        </member>
+        <member name="M:Wms.ErpException.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.ErpException.#ctor(System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.ErpException.#ctor(System.String,System.Exception)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.ErpException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="T:Wms.Warehouse">
+            <summary>
+            仓库。此类配置了 nh 二级缓存，不要使用触发器等外部源更改表数据。
+            </summary>
+        </member>
+        <member name="M:Wms.Warehouse.#ctor">
+            <summary>
+            初始化 Warehouse 类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.Warehouse.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.Warehouse.Id">
+            <summary>
+            Id。
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.Version">
+            <summary>
+            版本。
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.UpdatedAt">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.UserCode">
+            <summary>
+            用户编码。自然键。
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.Name">
+            <summary>
+            仓库名称
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.Telephone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.AreaCode">
+            <summary>
+            区域
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.PostCode">
+            <summary>
+            邮编
+            </summary>
+        </member>
+        <member name="P:Wms.Warehouse.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Wms.RackRepositoryBase">
+            <summary>
+            货架的仓储基类
+            </summary>
+        </member>
+        <member name="M:Wms.RackRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 RackRepositoryBase 的新实例。
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Wms.RackRepositoryBase.GetCountAllowingInbound">
+            <summary>
+            获取允许入站的货架数量。此查询使用了 nh 的查询缓存。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.RackRepositoryBase.GetAvailableRacksForEntrance(Wms.PlainLocationBase)">
+            <summary>
+            为入库口获取未禁止入站，且巷道没有设备故障的货架。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="entrance">入库口</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.RackRepositoryBase.GetAvailableRacksForEntrance(Wms.PlainLocationBase,System.String)">
+            <summary>
+            在指定区域为入库口获取未禁止入站，且巷道没有设备故障的货架。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="entrance">入库口</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.RackRepositoryBase.GetAvailableRacksForExit(Wms.PlainLocationBase)">
+            <summary>
+            为出库口获取禁止出站，且巷道没有设备故障的货架。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="exit">出库口</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.RackRepositoryBase.GetAvailableRacksForExit(Wms.PlainLocationBase,System.String)">
+            <summary>
+            在指定区域为出库口获取禁止出站，且巷道没有设备故障的货架。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="exit">出库口</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.RackRepositoryBase.GetByUserCode(System.String)">
+            <summary>
+            按照编码获取货架。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="rackCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.RackRepositoryBase.GetAllRacks">
+            <summary>
+            获取所有货架。此查询使用了 nh 的查询缓存。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.TaskBase">
+            <summary>
+            表示 wms 中的任务。
+            </summary>
+        </member>
+        <member name="T:Wms.ILockHolder">
+            <summary>
+            可以锁定资源的对象
+            </summary>
+        </member>
+        <member name="M:Wms.ILockHolder.IsSameEntity(Wms.ILockHolder)">
+            <summary>
+            判断此实例与参数 obj 是否是同一个实体
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBase.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.TaskBase.NewArchived">
+            <summary>
+            创建空白的 ArchivedUnitLoadBase
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBase.GetArchived(Wms.TaskCompleteStatus)">
+            <summary>
+            获取此实例的归档版本
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBase.GetUnitLoadContainerCodes">
+            <summary>
+            获取此任务运送的容器编码，多个编码以半角逗号分隔
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBase.AddUnitLoads(System.Collections.Generic.IEnumerable{Wms.UnitLoadBase})">
+            <summary>
+            向此任务添加一组货载。
+            </summary>
+            <param name="unitLoads"></param>
+        </member>
+        <member name="M:Wms.TaskBase.ToString">
+            <summary>
+            返回此实例的字符串表示。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBase.IsSameEntity(Wms.ILockHolder)">
+            <summary>
+            判断此实例与 obj 是否是同一实体。实现 ILockHolder.IsSameEntity 方法。
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBase.Check">
+            <summary>
+            检查此实例是否符合规则。
+            </summary>
+        </member>
+        <member name="M:Wms.TaskBase.CheckOnSendToWcs">
+            <summary>
+            下发前检查，确保任务可以下发。
+            检查的内容有：
+            1，任务是否是 wcs 任务，(IsWcsTask 属性)，并且尚未下发(WasSentToWcs 属性)；
+            2，检查起点是否存在，是否允许出站，货架是否允许出站，巷道是否标记为有设备故障；
+            3，检查终点是否存在，是否允许入站，货架是否允许出站，巷道是否标记为有设备故障；
+            4，检查出库和入库任务的可达性；
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.Version">
+            <summary>
+            版本。
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.UpdatedAt">
+            <summary>
+            更新时间。
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.CreatedAt">
+            <summary>
+            创建时间。
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.TaskCode">
+            <summary>
+            任务号
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.UnitLoads">
+            <summary>
+            要移动的单元货载
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.FromLocation">
+            <summary>
+            起点位置
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.ToLocation">
+            <summary>
+            终点位置
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.Direction">
+            <summary>
+            此任务的方向
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.IsWcsTask">
+            <summary>
+            此任务是否是 wcs 任务，为 false 时，不会下发给 wcs。
+            在平库场景或纠正错误库存时使用。
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.WcsRequestId">
+            <summary>
+            wcs 请求 id
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.WasSentToWcs">
+            <summary>
+            是否已下发给wcs。
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.SentToWcsAt">
+            <summary>
+            下发给 wcs 的时间
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.TaskType">
+            <summary>
+            获取或设置此任务的类型，当任务完成时，使用此属性来决定分配给哪个任务处理程序。此属性相当于玫德项目的 Tag。
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.AdditionalInfo">
+            <summary>
+            获取或设置此任务的附加信息，例如，回调erp时的参数，要回填的中间表id
+            </summary>
+        </member>
+        <member name="P:Wms.TaskBase.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Wms.Cfg.EventHandlerElement">
+            <summary>
+            表示 wmsSettings/eventBus/events/event/handlers/add 元素
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.EventHandlerElement.HandlerType">
+            <summary>
+            与 handler 元素的 type 属性对应。
+            </summary>
+        </member>
+        <member name="T:Wms.Cfg.OutStrategyElement">
+            <summary>
+            表示 wmsSettings/ioStrategies/outStrategies/outStrategy 元素
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.OutStrategyElement.Name">
+            <summary>
+            与 outStrategy 元素的 name 属性对应。
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.OutStrategyElement.Type">
+            <summary>
+            与 outStrategy 元素的 type 属性对应。
+            </summary>
+        </member>
+        <member name="T:Wms.ArchivedUnitLoadItemBase">
+            <summary>
+            归档的单元货载项
+            </summary>
+        </member>
+        <member name="M:Wms.ArchivedUnitLoadItemBase.#ctor">
+            <summary>
+            初始化 ArchivedUnitLoadItemBase 类的新实例。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadItemBase.Id">
+            <summary>
+            此实例的 id，值不是新生成的，而是归档之前的 id
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadItemBase.Material">
+            <summary>
+            物料
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadItemBase.Quantity">
+            <summary>
+            此实例的 sku 数量
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadItemBase.QuantityInMainUnit">
+            <summary>
+            以最小单位计，此项含有多少物料
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadItemBase.UnitLoad">
+            <summary>
+            此实例所属的货载对象。
+            </summary>
+        </member>
+        <member name="T:Wms.UnitLoadType">
+            <summary>
+            单元货载类型
+            </summary>
+        </member>
+        <member name="F:Wms.UnitLoadType.Empty">
+            <summary>
+            空盘，容器里没有物料
+            </summary>
+        </member>
+        <member name="F:Wms.UnitLoadType.Standard">
+            <summary>
+            标准货载，容器里只有一种物料
+            </summary>
+        </member>
+        <member name="F:Wms.UnitLoadType.Mixed">
+            <summary>
+            拼盘，容器里有多种物料
+            </summary>
+        </member>
+        <member name="T:Wms.UnitLoadInfo">
+            <summary>
+            单元货载信息，值语义，nhibernate 组件。
+            因货载会归档，无法使用引用语义。
+            因此使用此类型为步骤，动作和盘点结果等记录货载信息。
+            </summary>
+        </member>
+        <member name="M:Wms.UnitLoadInfo.Equals(System.Object)">
+            <summary>
+            确定指定的对象与此实例是否相等。
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadInfo.GetHashCode">
+            <summary>
+            返回此实例的哈希值。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadInfo.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.UnitLoadInfo.UnitLoadId">
+            <summary>
+            UnitLoad 的 id
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadInfo.UnitLoadContainerCode">
+            <summary>
+            货载的容器编码。
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadInfo.UnitLoadContainerType">
+            <summary>
+            货载的容器类型。
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadInfo.UnitLoadContainerUsage">
+            <summary>
+            货载的容器用途。
+            </summary>
+        </member>
+        <member name="T:Wms.LocationRepositoryBase">
+            <summary>
+            位置的仓储基类
+            </summary>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 LocationRepositoryBase 的新实例
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetByUserCode(System.String)">
+            <summary>
+            按照编码获取位置。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="userCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetByUserCode``1(System.String)">
+            <summary>
+            按照编码获取位置。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="userCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetRackLocations``1(System.Int32)">
+            <summary>
+            指定货架 Id，获取货架货位。
+            </summary>
+            <param name="rackId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetRackLocations``1(System.String)">
+            <summary>
+            指定货架编码，获取货架货位。
+            </summary>
+            <typeparam name="TSubclass"></typeparam>
+            <param name="rackUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetByName(System.String)">
+            <summary>
+            按照名称获取位置。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetByName``1(System.String)">
+            <summary>
+            按照名称获取位置。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetByNames(System.String[])">
+            <summary>
+            按照名称获取位置。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="names"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetByNames``1(System.String[])">
+            <summary>
+            按照名称获取位置。此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="names"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetByGroup(System.String)">
+            <summary>
+            按照组查询位置。
+            </summary>
+            <param name="group"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetBySubgroup(System.String,System.String)">
+            <summary>
+            按照组及子组查询货位。
+            </summary>
+            <param name="group"></param>
+            <param name="subgroup"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetAvailableRackLocations``1(System.String,System.String,System.String)">
+            <summary>
+            返回一个 linq 查询，此查询在入库操作时可作为进一步查询的基础。此查询已应用的条件有：
+            1，货位 Exists 属性为 true；
+            2，货位未禁止入站；
+            3，货位未锁定；
+            4，货位上无货；
+            5，货架未禁止入站；
+            6，巷道没有设备故障；
+            7，货位的 Group 等于 group 参数；
+            8，货位的 Subgroup 等于 subgroup 参数；
+            9，货架编码等于 rackUserCode 参数；
+            </summary>
+            <param name="rackUserCode">货架编码</param>
+            <param name="group">货位的组，如传入 null，则会使用 Location.NullGroup</param>
+            <param name="subgroup">货位的子组，如传入 null，则会使用 Location.NullSubgroup</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetAvailableRackLocationsByLaneway``1(System.Int32,System.String,System.String)">
+            <summary>
+            返回一个 linq 查询，此查询在入库操作时可作为进一步查询的基础。此查询已应用的条件有：
+            1，货位 Exists 属性为 true；
+            2，货位未禁止入站；
+            3，货位未锁定；
+            4，货位上无货；
+            5，货架未禁止入站；
+            6，巷道没有设备故障；
+            7，货架的巷道等于 lanewayId 参数；
+            8，货位的 Group 等于 group 参数；
+            9，货位的 Subgroup 等于 subgroup 参数；
+            </summary>
+            <param name="lanewayId">巷道</param>
+            <param name="group">货位的组，如传入 null，则会使用 Location.NullGroup</param>
+            <param name="subgroup">货位的子组，如传入 null，则会使用 Location.NullSubgroup</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetAvailableRackLocationsByLaneway``1(System.String,System.String,System.String)">
+            <summary>
+            返回一个 linq 查询，此查询在入库操作时可作为进一步查询的基础。此查询已应用的条件有：
+            1，货位 Exists 属性为 true；
+            2，货位未禁止入站；
+            3，货位未锁定；
+            4，货位上无货；
+            5，货架未禁止入站；
+            6，巷道没有设备故障；
+            7，货架的巷道等于 lanewayId 参数；
+            8，货位的 Group 等于 group 参数；
+            9，货位的 Subgroup 等于 subgroup 参数；
+            </summary>
+            <param name="lanewayName">巷道名</param>
+            <param name="group">货位的组，如传入 null，则会使用 Location.NullGroup</param>
+            <param name="subgroup">货位的子组，如传入 null，则会使用 Location.NullSubgroup</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetAvailableRackLocations``1">
+            <summary>
+            获取符合最小入库条件的货位的 linq 查询。这些条件有：
+            1，货位 Exists 属性为 true；
+            2，货位未禁止入站；
+            3，货位未锁定；
+            4，货位上无货；
+            5，货架未禁止入站；
+            6，巷道没有设备故障；
+            </summary>
+            <typeparam name="TSubclass"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LocationRepositoryBase.GetAvailableRackLocationsInArea``1(System.String,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            获取区域内的可用货位的linq查询，按公式 ((index - seq) % lanewayCount + lanewayCount) % lanewayCount 得到巷道的排序值，返回的查询按照排序值进行排序
+            </summary>
+            <typeparam name="TSubclass"></typeparam>
+            <param name="area"></param>
+            <param name="lanewayCountInArea"></param>
+            <param name="seqValue"></param>
+            <param name="group"></param>
+            <param name="subgroup"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.Cfg.CompletionHandlerElementCollection">
+            <summary>
+            表示 wmsSettings/eventBus/requests 元素
+            </summary>
+        </member>
+        <member name="M:Wms.Cfg.CompletionHandlerElementCollection.CreateNewElement">
+            <summary>
+            重写基类的 CreateNewElement 方法。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.Cfg.CompletionHandlerElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            重写 GetElementKey 方法。
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.IWcsRequestHandler">
+            <summary>
+            此接口定义 wcs 请求的处理程序。
+            </summary>
+        </member>
+        <member name="M:Wms.IWcsRequestHandler.CanHandle(System.String)">
+            <summary>
+            获取一个值，指示此实例能否对指定的请求类型进行处理。
+            </summary>
+        </member>
+        <member name="M:Wms.IWcsRequestHandler.ProcessRequest(DC2.WcsRequestInfo,Spiral.IRepositoryContext)">
+            <summary>
+            对请求进行处理。此方法将在 TransactionScope 范围中被调用。
+            </summary>
+            <param name="requestInfo">请求信息</param>
+            <param name="repositoryContext">repository 上下文</param>
+        </member>
+        <member name="T:Wms.MaterialBase">
+            <summary>
+            物料。此类配置了 nh 二级缓存，不要使用触发器等外部源更改表数据。
+            </summary>
+        </member>
+        <member name="M:Wms.MaterialBase.#ctor">
+            <summary>
+            初始化物料的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.MaterialBase.AddConversionRatios(Spiral.Utils.Quantity,Spiral.Utils.Quantity)">
+            <summary>
+            添加转换率。a 和 b 是等价但单位不同的两个数量。若 a 与 b 单位相同，则忽略此次调用。
+            若 a 与 b 的转换率已在 UnitConversionRatios 集合中，则抛出 InvalidOperationException 异常。
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+        </member>
+        <member name="M:Wms.MaterialBase.ConvertQuantity(Spiral.Utils.Quantity,System.String)">
+            <summary>
+            将指定的数量转换成另一个单位的数量
+            </summary>
+            <param name="value"></param>
+            <param name="toUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.MaterialBase.ConvertToMainUnit(Spiral.Utils.Quantity)">
+            <summary>
+            将数量转换成等价的主单位数量
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.MaterialBase.ConvertFromMainUnit(System.Decimal,System.String)">
+            <summary>
+            将数目从主单位转换到指定的单位。
+            </summary>
+            <param name="numberOfMainUnit"></param>
+            <param name="toUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.MaterialBase.ToString">
+            <summary>
+            返回此物料的字符串形式。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.MaterialBase.IsValidUnit(System.String)">
+            <summary>
+            判断一个单位是否是此物料的有效单位。
+            </summary>
+            <param name="unit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.MaterialBase.GetValidUnits">
+            <summary>
+            获取此物料的有效单位列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.MaterialBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.UpdatedAt">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.Code">
+            <summary>
+            此物料的编码，自然键。
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.Name">
+            <summary>
+            此物料的名称
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.Barcode">
+            <summary>
+            此物料的条码
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.Comments">
+            <summary>
+            此物料的备注
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.MainUnit">
+            <summary>
+            主单位就是最小单位，在编辑物料时，主单位的修改应慎重。
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.AbcClass">
+            <summary>
+            此物料在 abc 分类法中的属性
+            </summary>
+            
+        </member>
+        <member name="P:Wms.MaterialBase.MnemonicCode">
+            <summary>
+            此物料的助记码
+            </summary>
+        </member>
+        <member name="P:Wms.MaterialBase.UnitConversionRatios">
+            <summary>
+            此物料的单位转换率
+            </summary>
+        </member>
+        <member name="T:Wms.ArchivedKeeping">
+            <summary>
+            归档的 keeping，不实现 IAggregateRoot 接口
+            </summary>
+        </member>
+        <member name="M:Wms.ArchivedKeeping.#ctor">
+            <summary>
+            初始化 ArchivedKeeping 类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.ArchivedKeeping.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.ArchivedKeeping.Id">
+            <summary>
+            Keeping 的 id，值不是新生成的，而是归档之前的 id
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedKeeping.Location">
+            <summary>
+            位置
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedKeeping.UnitLoadId">
+            <summary>
+            单元货载 id
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedKeeping.CreatedAt">
+            <summary>
+            创建时间，值不是新生成的，而是归档之前的对象的创建时间。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedKeeping.EndTime">
+            <summary>
+            此 Keeping 的结束时间
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedKeeping.Ordering">
+            <summary>
+            叠盘顺序，这个属性暂未使用，是为以后预留的
+            </summary>
+        </member>
+        <member name="T:Wms.UnitConversionRate">
+            <summary>
+            描述 A 单位与 B 单位的转换比率，值语义。比率是随上下文变动的，例如同样是箱和瓶，对于不同的酒来说，比率不同
+            </summary>
+        </member>
+        <member name="M:Wms.UnitConversionRate.ConvertToUnitA(System.Decimal)">
+            <summary>
+            将 UnitB 的数目转换为 UnitA
+            </summary>
+            <param name="numberOfUnitB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitConversionRate.ConvertToUnitB(System.Decimal)">
+            <summary>
+            计算 a 个 UnitA 等于多少 UnitB
+            </summary>
+        </member>
+        <member name="M:Wms.UnitConversionRate.Equals(System.Object)">
+            <summary>
+            返回一个值，指示此实例与另一对象是否相等。
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitConversionRate.GetHashCode">
+            <summary>
+            返回此实例的哈希值。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.UnitConversionRate.UnitA">
+            <summary>
+            A单位
+            </summary>
+        </member>
+        <member name="P:Wms.UnitConversionRate.UnitB">
+            <summary>
+            B单位
+            </summary>
+        </member>
+        <member name="P:Wms.UnitConversionRate.Rate">
+            <summary>
+            指示一个 UnitA 等于多少个 UnitB
+            </summary>
+        </member>
+        <member name="T:Wms.MaterialRepositoryBase">
+            <summary>
+            物料的 Repository 基类。
+            </summary>
+        </member>
+        <member name="M:Wms.MaterialRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 MaterialRepositoryBase 的新实例
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Wms.MaterialRepositoryBase.GetByCode(System.String)">
+            <summary>
+            按编码查找物料。此方法使用了 nh 的查询缓存。
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.Keeping">
+            <summary>
+            表示货位和货载的保存关系。在某一时刻，一个货载最多只有一个 keeping，但是一个货位可以有不只一个 keeping。
+            </summary>
+        </member>
+        <member name="M:Wms.Keeping.#ctor">
+            <summary>
+            初始 Keeping 的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.Keeping.ToString">
+            <summary>
+            返回表示此 keeping 的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.Keeping.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.Keeping.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Wms.Keeping.CreatedAt">
+            <summary>
+            此Keeping的开始时间
+            </summary>
+        </member>
+        <member name="P:Wms.Keeping.UpdatedAt">
+            <summary>
+            更新时间。
+            </summary>
+        </member>
+        <member name="P:Wms.Keeping.Location">
+            <summary>
+            位置
+            </summary>
+        </member>
+        <member name="P:Wms.Keeping.UnitLoad">
+            <summary>
+            货载
+            </summary>
+        </member>
+        <member name="P:Wms.Keeping.Ordering">
+            <summary>
+            叠盘顺序，这个属性暂未使用，是为以后预留的
+            </summary>
+        </member>
+        <member name="T:Wms.CommonWarehouseSpecTranslator">
+            <summary>
+             CommonWarehouseSpec 的翻译程序。
+            </summary>
+        </member>
+        <member name="M:Wms.CommonWarehouseSpecTranslator.ApplyWhere(System.Linq.IQueryable{Wms.Warehouse},Spiral.ISpecification)">
+            <summary>
+            在指定的 linq 查询上应用查询条件。
+            </summary>
+            <param name="q"></param>
+            <param name="spec"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.CommonRackSpecTranslator">
+            <summary>
+            货架;
+            </summary>
+        </member>
+        <member name="M:Wms.CommonRackSpecTranslator.ApplyWhere(System.Linq.IQueryable{Wms.RackBase},Spiral.ISpecification)">
+            <summary>
+            在指定的 linq 查询上应用查询条件。
+            </summary>
+            <param name="q"></param>
+            <param name="spec"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.RackLocationBase">
+            <summary>
+            货架上的货位，有几个属性是从 KeepingLocation 继承的
+            </summary>
+        </member>
+        <member name="T:Wms.Location">
+            <summary>
+            表示一个位置。
+            </summary>
+        </member>
+        <member name="F:Wms.Location.NullLocationUserCode">
+            <summary>
+            表示一个不存在的位置，此位置编码的用途是，在生成任务时，取消对起点的检查
+            </summary>
+        </member>
+        <member name="F:Wms.Location.NullGroup">
+            <summary>
+            表示空的组。
+            </summary>
+        </member>
+        <member name="F:Wms.Location.NullSubgroup">
+            <summary>
+            表示空的子组。
+            </summary>
+        </member>
+        <member name="F:Wms.Location.NoneAbcClass">
+            <summary>
+            表示未指定货位 abc 分类的特殊值。
+            </summary>
+        </member>
+        <member name="M:Wms.Location.#ctor">
+            <summary>
+            初始化位置类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.Location.ReleaseUnitLoads(System.Collections.Generic.IList{Wms.UnitLoadBase})">
+            <summary>
+            解除此位置与其上货载保存关系，也就是将 keeping 归档。
+            当任务完成时，无论 CanKeepUnitLoads 属性为何值，都应调用此方法。
+            </summary>
+            <param name="unitLoads">要释放的货载</param>
+        </member>
+        <member name="M:Wms.Location.AcceptUnitLoads(System.Collections.Generic.IList{Wms.UnitLoadBase})">
+            <summary>
+            将一组单元货载放入此位置，是否形成 keeping 取决此位置的 CanKeepUnitLoads 属性值。
+            当任务完成时，无论 CanKeepUnitLoads 属性为何值，都应调用此方法。
+            </summary>
+            <param name="unitLoads">要接受的货载</param>
+            <returns>返回新形成的 keeping 数组，若没有形成新的 keeping，则返回的数组长度为 0</returns>
+        </member>
+        <member name="M:Wms.Location.ToString">
+            <summary>
+            返回表示此位置的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.Location.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.Location.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Wms.Location.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Wms.Location.UpdatedAt">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Wms.Location.Type">
+            <summary>
+            此位置的类型
+            </summary>
+        </member>
+        <member name="P:Wms.Location.UserCode">
+            <summary>
+            用户编码。自然键。
+            </summary>
+        </member>
+        <member name="P:Wms.Location.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Wms.Location.Warehouse">
+            <summary>
+            此位置属于的仓库
+            </summary>
+        </member>
+        <member name="P:Wms.Location.ForbidInbound">
+            <summary>
+            此位置是否禁止入站任务。默认值为 false。
+            当位置禁止入站时，不能生成以它为终点的新任务。
+            在任务执行过程中，如终点变为禁止入站，则任务仍可以正常报完成。
+            </summary>
+        </member>
+        <member name="P:Wms.Location.ForbidOutbound">
+            <summary>
+            此位置是否禁止出站任务。默认值为 false。
+            当位置禁止出站时，不能生成以它为起点的新任务。
+            在任务执行过程中，如起点变为禁止出站，则任务仍可以正常报完成。
+            </summary>
+        </member>
+        <member name="P:Wms.Location.Exists">
+            <summary>
+            指示此货位是否存在
+            </summary>
+        </member>
+        <member name="P:Wms.Location.CanKeepUnitLoads">
+            <summary>
+            指示此位置是否接受货载以形成 keeping
+            </summary>
+        </member>
+        <member name="P:Wms.Location.Name">
+            <summary>
+            货位的名称，名称不能重复，不需要名称时，可设为 UserCode 的值
+            </summary>
+        </member>
+        <member name="P:Wms.Location.Group">
+            <summary>
+            货位的分组。默认值为 Location.NullGroup 常数的值。
+            </summary>
+        </member>
+        <member name="P:Wms.Location.Subgroup">
+            <summary>
+            货位的子组。默认值为 Location.NullSubgroup 常数的值。
+            </summary>
+        </member>
+        <member name="T:Wms.ILockable">
+            <summary>
+            可以锁定的对象
+            </summary>
+        </member>
+        <member name="P:Wms.ILockable.IsLocked">
+            <summary>
+            获取一个值，指示此实例当前是否被锁定
+            </summary>
+        </member>
+        <member name="P:Wms.ILockable.CurrentLockHolder">
+            <summary>
+            获取一个对象，指示即，谁锁定了此实例
+            </summary>
+        </member>
+        <member name="F:Wms.RackLocationBase.Default_Max_Weight">
+            <summary>
+            MaxWeight 属性的默认值。
+            </summary>
+        </member>
+        <member name="M:Wms.RackLocationBase.#ctor">
+            <summary>
+            初始化 RackLocationBase 类的新实例
+            </summary>
+        </member>
+        <member name="M:Wms.RackLocationBase.ReleaseUnitLoads(System.Collections.Generic.IList{Wms.UnitLoadBase})">
+            <summary>
+            释放此位置上的货载。
+            </summary>
+            <param name="unitLoads"></param>
+            <param name="keepingRepository"></param>
+        </member>
+        <member name="M:Wms.RackLocationBase.AcceptUnitLoads(System.Collections.Generic.IList{Wms.UnitLoadBase})">
+            <summary>
+            接受一组货载到此货位。
+            </summary>
+            <param name="unitLoads"></param>
+            <param name="keepingRepository"></param>
+        </member>
+        <member name="P:Wms.RackLocationBase.Rack">
+            <summary>
+            所属货架
+            </summary>
+        </member>
+        <member name="P:Wms.RackLocationBase.Column">
+            <summary>
+            列号，从 1 开始
+            </summary>
+        </member>
+        <member name="P:Wms.RackLocationBase.Level">
+            <summary>
+            层号，从 1 开始
+            </summary>
+        </member>
+        <member name="P:Wms.RackLocationBase.IsLocked">
+            <summary>
+            此货位是否锁定
+            </summary>
+        </member>
+        <member name="P:Wms.RackLocationBase.IsLoaded">
+            <summary>
+            获取或设置一个布尔值，表示此货位是否存在货载。
+            </summary>
+        </member>
+        <member name="P:Wms.RackLocationBase.MaxWeight">
+            <summary>
+            获取或设置此货位接受的最大重量，以 kg 为单位，默认为 1500
+            </summary>
+        </member>
+        <member name="P:Wms.RackLocationBase.CurrentLockHolder">
+            <summary>
+            获取或设置当前锁定此货载的对象
+            </summary>
+        </member>
+        <member name="P:Wms.RackLocationBase.AbcClass">
+            <summary>
+            在 abc 分类法中，此货位适合保存哪种物料
+            </summary>
+        </member>
+        <member name="T:Wms.ArchivedTaskBase">
+            <summary>
+            归档的任务
+            </summary>
+        </member>
+        <member name="M:Wms.ArchivedTaskBase.#ctor">
+            <summary>
+            实例化此类的实例。
+            </summary>
+        </member>
+        <member name="M:Wms.ArchivedTaskBase.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.CreatedAt">
+            <summary>
+            创建时间。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.CompletedAt">
+            <summary>
+            任务完成的时间。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.CompleteStatus">
+            <summary>
+            任务完成状态。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.TaskCode">
+            <summary>
+            任务号
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.UnitLoads">
+            <summary>
+            要移动的单元货载
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.FromLocation">
+            <summary>
+            起点位置
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.FromLocationUserCode">
+            <summary>
+            起点位置编码
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.ToLocation">
+            <summary>
+            终点位置
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.ToLocationUserCode">
+            <summary>
+            终点位置编码
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.Direction">
+            <summary>
+            此任务的方向
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.IsWcsTask">
+            <summary>
+            此任务是否是 wcs 任务，为 false 时，不会下发给 wcs。
+            在平库场景或纠正错误库存时使用。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.WcsRequestId">
+            <summary>
+            wcs 请求 id
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.WasSentToWcs">
+            <summary>
+            是否已下发给wcs。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.SentToWcsAt">
+            <summary>
+            下发给 wcs 的时间
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.TaskType">
+            <summary>
+            获取或设置此任务的类型，当任务完成时，使用此属性来决定分配给哪个任务处理程序。此属性相当于玫德项目的 Tag。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.AdditionalInfo">
+            <summary>
+            获取或设置此任务的附加信息，例如，回调erp时的参数，要回填的中间表id
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedTaskBase.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Wms.TaskCompleteStatus">
+            <summary>
+            完成状态
+            </summary>
+        </member>
+        <member name="F:Wms.TaskCompleteStatus.Success">
+            <summary>
+            任务成功完成，货已运走。
+            </summary>
+        </member>
+        <member name="F:Wms.TaskCompleteStatus.Cancelled">
+            <summary>
+            任务未成功完成，而是被取消，货在原位。
+            </summary>
+        </member>
+        <member name="T:Wms.TaskCompleteStatusEnumStringType">
+            <summary>
+            TaskCompleteStatus 的 EnumStringType。
+            </summary>
+        </member>
+        <member name="T:Wms.WcfServices.WmsServiceOperationBehavior">
+            <summary>
+            用于服务操作的行为扩展
+            </summary>
+        </member>
+        <member name="T:Wms.CommonWarehouseSpec">
+            <summary>
+            表示 Warehouse 的一般查询条件。
+            </summary>
+        </member>
+        <member name="M:Wms.CommonWarehouseSpec.Trim">
+            <summary>
+            修剪此实例中不规范的值使之适合查询。
+            </summary>
+        </member>
+        <member name="M:Wms.CommonWarehouseSpec.GetTranslatorTypeName">
+            <summary>
+            获取翻译程序名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.CommonWarehouseSpec.WareHouseId">
+            <summary>
+             仓库ID
+            </summary>
+        </member>
+        <member name="P:Wms.CommonWarehouseSpec.Code">
+            <summary>
+            仓库编码
+            </summary>
+        </member>
+        <member name="P:Wms.CommonWarehouseSpec.NameToMatch">
+            <summary>
+            仓库名称
+            </summary>
+        </member>
+        <member name="P:Wms.CommonWarehouseSpec.CommentsToMatch">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Wms.TaskRepositoryBase">
+            <summary>
+            Task 的仓储基类
+            </summary>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 TaskRepositoryBase 的新实例
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetByCode(System.String)">
+            <summary>
+            指定任务号，查询任务
+            </summary>
+            <param name="taskCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.DoArchive(Wms.TaskBase,Wms.TaskCompleteStatus)">
+            <summary>
+            实现归档操作。
+            </summary>
+            <param name="task"></param>
+            <param name="completeStatus">完成状态</param>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.Archive(Wms.TaskBase,Wms.TaskCompleteStatus)">
+            <summary>
+            将指定的任务归档
+            </summary>
+            <param name="task"></param>
+            <param name="completeStatus">完成状态</param>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetInboundTasks(System.String)">
+            <summary>
+            获取指定位置的入站任务。入站任务是指，以此位置为 ToLocation 的任务。
+            </summary>
+            <param name="locationUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetInboundTaskCount(System.String)">
+            <summary>
+            获取指定位置的入站任务数。入站任务是指，以此位置为 ToLocation 的任务。
+            </summary>
+            <param name="locationUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetInboundTaskCountByRack(System.String)">
+            <summary>
+            获取指定货架的入站任务数。入站任务是指，以此货架的货位为 ToLocation 的任务。
+            </summary>
+            <param name="rackUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetInboundTaskCountByLaneway(System.Int32)">
+            <summary>
+            获取指定巷道的入站任务数。入站任务是指，以此巷道的货架的货位为 ToLocation 的任务。
+            </summary>
+            <param name="lanewayId">巷道</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetOutboundTasks(System.String)">
+            <summary>
+            获取指定位置的出站任务
+            </summary>
+            <param name="locationUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetOutboundTaskCount(System.String)">
+            <summary>
+            获取指定位置的出站任务数
+            </summary>
+            <param name="locationUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetOutboundTaskCountByRack(System.String)">
+            <summary>
+            获取指定货架的出站任务数。
+            </summary>
+            <param name="rackUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetOutboundTaskCountByLaneway(System.Int32)">
+            <summary>
+            获取指定巷道的出站任务数。
+            </summary>
+            <param name="lanewayId">巷道</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskRepositoryBase.GetTasksByRequestId(System.String)">
+            <summary>
+            按 id 查询任务。
+            </summary>
+            <param name="requestId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.TaskBuilder">
+            <summary>
+            任务生成器。
+            </summary>
+        </member>
+        <member name="M:Wms.TaskBuilder.BuildInTask(Wms.TaskBase,Wms.PlainLocationBase,Wms.RackLocationBase,System.Collections.Generic.IList{Wms.UnitLoadBase},System.String,Spiral.NhRepositoryContext)">
+            <summary>
+            将空白的任务对象构建为入库任务，其 IsWcsTask 属性为 true。此方法不会将任务保存到数据库。
+            </summary>
+            <param name="task">空白的 TaskBase </param>
+            <param name="entrance">入口位置</param>
+            <param name="rackLocation">目标货位</param>
+            <param name="unitLoads">要运送的货载</param>
+            <param name="wcsRequestId">wcs请求id</param>
+            <param name="repositoryContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBuilder.BuildInTask(Wms.TaskBase,Wms.PlainLocationBase,Wms.RackLocationBase,Wms.UnitLoadBase,System.String,Spiral.NhRepositoryContext)">
+            <summary>
+            将空白的任务对象构建为入库任务，其 IsWcsTask 属性为 true。此方法不会将任务保存到数据库。
+            </summary>
+            <param name="task">空白的 TaskBase</param>
+            <param name="entrance">入口位置</param>
+            <param name="rackLocation">目标货位</param>
+            <param name="unitLoad">要运送的货载</param>
+            <param name="wcsRequestId">wcs请求id</param>
+            <param name="repositoryContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBuilder.BuildOutTask(Wms.TaskBase,Wms.RackLocationBase,Wms.PlainLocationBase,System.String,Spiral.NhRepositoryContext)">
+            <summary>
+            将空白的任务对象构建为出库任务，其 IsWcsTask 属性为 true。此动作会将货位上所有货载移出。此方法不会将任务保存到数据库。
+            </summary>
+            <param name="task">空白的 TaskBase</param>
+            <param name="rackLocation">货架货位</param>
+            <param name="exit">出库口</param>
+            <param name="wcsRequestId">wcs请求id</param>
+            <param name="repositoryContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBuilder.BuildOtherTask(Wms.TaskBase,Wms.PlainLocationBase,Wms.PlainLocationBase,System.Collections.Generic.IList{Wms.UnitLoadBase},System.String,Spiral.NhRepositoryContext)">
+            <summary>
+            将空白的任务对象构建为从普通位置到普通位置的任务，其 IsWcsTask 属性为 true。此方法不会将任务保存到数据库。
+            </summary>
+            <param name="task">空白的任务对象</param>
+            <param name="fromLocation"></param>
+            <param name="toLocation"></param>
+            <param name="unitLoads"></param>
+            <param name="wcsRequestId"></param>
+            <param name="repositoryContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskBuilder.BuildOtherTask(Wms.TaskBase,Wms.PlainLocationBase,Wms.PlainLocationBase,Wms.UnitLoadBase,System.String,Spiral.NhRepositoryContext)">
+            <summary>
+            创建一个从普通位置到普通位置的任务，其 IsWcsTask 属性为 true。此方法不会将任务保存到数据库。
+            </summary>
+            <param name="task">空白的任务对象</param>
+            <param name="fromLocation"></param>
+            <param name="toLocation"></param>
+            <param name="unitLoad"></param>
+            <param name="wcsRequestId"></param>
+            <param name="repositoryContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.Cfg.RequestHandlerElementCollection">
+            <summary>
+            表示 wmsSettings/eventBus/requests 元素
+            </summary>
+        </member>
+        <member name="M:Wms.Cfg.RequestHandlerElementCollection.CreateNewElement">
+            <summary>
+            重写基类的 CreateNewElement 方法。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.Cfg.RequestHandlerElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            重写 GetElementKey 方法。
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.Cfg.RequestHandlerElementCollection.PreHandler">
+            <summary>
+            与 wmsSettings/eventBus/requests 元素的 preHandler 属性对应。
+            </summary>
+        </member>
+        <member name="T:Wms.Cfg.EventElementCollection">
+            <summary>
+            表示 wmsSettings/eventBus/events 元素
+            </summary>
+        </member>
+        <member name="M:Wms.Cfg.EventElementCollection.CreateNewElement">
+            <summary>
+            重写基类的 CreateNewElement 方法。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.Cfg.EventElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            重写 GetElementKey 方法。
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.Cfg.EventBusSection">
+            <summary>
+            表示 wmsSettings/eventBus 配置节
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.EventBusSection.Type">
+            <summary>
+            与 eventBus 元素的 type 属性对应。
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.EventBusSection.EventElementCollection">
+            <summary>
+            与 wmsSettings/eventBus/events 元素对应
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.EventBusSection.RequestHandlerElementCollection">
+            <summary>
+            与 wmsSettings/eventBus/requests 元素对应
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.EventBusSection.CompletionHandlerElementCollection">
+            <summary>
+            与 wmsSettings/eventBus/completions 元素对应
+            </summary>
+        </member>
+        <member name="T:Wms.WaitLockType">
+            <summary>
+            等待锁的类型。
+            </summary>
+        </member>
+        <member name="F:Wms.WaitLockType.配对锁">
+            <summary>
+            配对锁
+            </summary>
+        </member>
+        <member name="F:Wms.WaitLockType.盘点锁">
+            <summary>
+            盘点锁
+            </summary>
+        </member>
+        <member name="F:Wms.WaitLockType.手工锁">
+            <summary>
+            手工锁
+            </summary>
+        </member>
+        <member name="F:Wms.WaitLockType.拣货锁">
+            <summary>
+            拣货锁
+            </summary>
+        </member>
+        <member name="T:Wms.WaitLock">
+            <summary>
+            等待锁。
+            </summary>
+        </member>
+        <member name="M:Wms.WaitLock.#ctor">
+            <summary>
+            初始化此类的新实例。已设为 internal protected，只能由 WaitLockFactory 调用，以强制一些规则。
+            </summary>
+        </member>
+        <member name="M:Wms.WaitLock.NewPairLock(Wms.RackLocationBase,System.String)">
+            <summary>
+            实例化新的 WaitLock，其 Type 属性为 WaitLockType.PairLock。此方法只返回新的锁对象，不会对货位加锁。
+            </summary>
+            <param name="rackLocation"></param>
+            <param name="containerCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.WaitLock.NewCountLock(Wms.UnitLoadBase)">
+            <summary>
+            实例化新的 WaitLock，其 Type 属性为 WaitLockType.CountLock。此方法只返回新的锁对象，不会对货载加锁。
+            </summary>
+            <param name="unitLoad"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.WaitLock.NewManualLock(Wms.RackLocationBase)">
+            <summary>
+            实例化新的 WaitLock，其 Type 属性为 WaitLockType.ManualLock。此方法只返回新的锁对象，不会对货位加锁。
+            </summary>
+            <param name="rackLocation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.WaitLock.NewPickLock(Wms.UnitLoadBase)">
+            <summary>
+            实例化新的 WaitLock，其 Type 属性为 WaitLockType.PickLock。此方法只返回新的锁对象，不会对货载加锁。
+            </summary>
+            <param name="unitLoad"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.WaitLock.AcquireLock(Spiral.NhRepositoryContext)">
+            <summary>
+            为此实例在资源上获取锁。
+            </summary>
+            <param name="repositoryContext"></param>
+        </member>
+        <member name="M:Wms.WaitLock.IsSameEntity(Wms.ILockHolder)">
+            <summary>
+            判断另一个 ILockHolder 与此实例是否是同一个实体。
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.WaitLock.Check">
+            <summary>
+            检查此实例是否违反不变量。
+            </summary>
+        </member>
+        <member name="M:Wms.WaitLock.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.WaitLock.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.WaitLock.Version">
+            <summary>
+            版本。
+            </summary>
+        </member>
+        <member name="P:Wms.WaitLock.UpdatedAt">
+            <summary>
+            更新时间。
+            </summary>
+        </member>
+        <member name="P:Wms.WaitLock.CreatedAt">
+            <summary>
+            创建时间。
+            </summary>
+        </member>
+        <member name="P:Wms.WaitLock.Type">
+            <summary>
+            锁的类型
+            </summary>
+        </member>
+        <member name="P:Wms.WaitLock.Reason">
+            <summary>
+            锁定原因
+            </summary>
+        </member>
+        <member name="P:Wms.WaitLock.AdditionalInfo">
+            <summary>
+            附加信息。
+            </summary>
+        </member>
+        <member name="P:Wms.WaitLock.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Wms.RackLocationLock">
+            <summary>
+            锁定货位的等待锁。
+            </summary>
+        </member>
+        <member name="P:Wms.RackLocationLock.RackLocation">
+            <summary>
+            被锁定的货位。
+            </summary>
+        </member>
+        <member name="T:Wms.UnitLoadLock">
+            <summary>
+            锁定货载的等待锁。
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadLock.UnitLoad">
+            <summary>
+            被锁定的货载。
+            </summary>
+        </member>
+        <member name="T:Wms.PairLock">
+            <summary>
+            配对锁。
+            </summary>
+        </member>
+        <member name="P:Wms.PairLock.ContainerCode">
+            <summary>
+            等待的容器编码。
+            </summary>
+        </member>
+        <member name="T:Wms.ManualLock">
+            <summary>
+            手工锁。
+            </summary>
+        </member>
+        <member name="T:Wms.CountLock">
+            <summary>
+            盘点锁。
+            </summary>
+        </member>
+        <member name="T:Wms.PickLock">
+            <summary>
+            拣货锁。
+            </summary>
+        </member>
+        <member name="T:Wms.FailedToAllocateLocationException">
+            <summary>
+            入库时未分配到合适的货位而引发的异常。
+            </summary>
+        </member>
+        <member name="M:Wms.FailedToAllocateLocationException.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.FailedToAllocateLocationException.#ctor(System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.FailedToAllocateLocationException.#ctor(System.String,System.Exception)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.FailedToAllocateLocationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="T:Wms.ArchivedUnitLoadBase">
+            <summary>
+            归档的单元货载。不实现 IAggregateRoot 接口 
+            </summary>
+        </member>
+        <member name="M:Wms.ArchivedUnitLoadBase.#ctor">
+            <summary>
+            初始化 ArchivedUnitLoadBase 类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.ArchivedUnitLoadBase.AddItem(Wms.ArchivedUnitLoadItemBase)">
+            <summary>
+            向此实例添加项
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Wms.ArchivedUnitLoadBase.ClearItems">
+            <summary>
+            移除此货载中的所有项。
+            </summary>
+        </member>
+        <member name="M:Wms.ArchivedUnitLoadBase.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.Id">
+            <summary>
+            货载 id，值不是新生成的，而与归档前一致。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.CreatedAt">
+            <summary>
+            创建时间，值不是新生成的，而是归档之前的对象的创建时间。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.ArchivedAt">
+            <summary>
+            归档时间。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.Ext">
+            <summary>
+            扩展属性
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.ContainerCode">
+            <summary>
+            容器编码
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.ContainerType">
+            <summary>
+            容器类型
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.ContainerUsage">
+            <summary>
+            容器用途
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.GrossWeight">
+            <summary>
+            毛重
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.ContainerWeight">
+            <summary>
+            皮重
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.Owner">
+            <summary>
+            所有者
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.UnitLoadThread">
+            <summary>
+            用于将拣货前后的货载串起来的“线”，货载初次注册时为货载 Id，拣货后如果货载中有剩余物料，则为拣货前货载的 UnitLoadThread。
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.Type">
+            <summary>
+            此单元货载的类型
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.Items">
+            <summary>
+            此实例中的项
+            对于非拼盘的情况，此集合中有 1 元素。
+            对于拼盘的情况，此集合中有 [1..n] 个元素。
+            对于空盘，此集合中有 0 个元素
+            </summary>
+        </member>
+        <member name="P:Wms.ArchivedUnitLoadBase.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Wms.WmsLockException">
+            <summary>
+            Wms锁异常。
+            </summary>
+        </member>
+        <member name="M:Wms.WmsLockException.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.WmsLockException.#ctor(System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.WmsLockException.#ctor(System.String,System.Exception)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.WmsLockException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="T:Wms.IWmsEventHandler">
+            <summary>
+            定义事件侦听器
+            </summary>
+        </member>
+        <member name="M:Wms.IWmsEventHandler.CanHandle(System.String)">
+            <summary>
+            获取一个值，指示此实例能否对指定的事件进行处理。
+            </summary>
+        </member>
+        <member name="M:Wms.IWmsEventHandler.HandleEvent(System.String,Wms.EventData)">
+            <summary>
+            对事件进行处理
+            </summary>
+            <param name="eventName">事件名称</param>
+            <param name="eventData">事件数据</param>
+        </member>
+        <member name="T:Wms.LanewayRepositoryBase">
+            <summary>
+            巷道的仓储基类
+            </summary>
+        </member>
+        <member name="M:Wms.LanewayRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 LanewayRepositoryBase 的新实例。
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Wms.LanewayRepositoryBase.GetLanewayCountInArea(System.String)">
+            <summary>
+            获取区域内的巷道数，即使是有设备错误的巷道，也会计数。
+            此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="area"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.LanewayRepositoryBase.GetLanewaysInArea(System.String)">
+            <summary>
+            获取区域内的巷道，即使是有设备错误的巷道，也会返回。
+            此查询使用了 nh 的查询缓存。
+            </summary>
+            <param name="area"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.EventData">
+            <summary>
+            事件数据基类
+            </summary>
+        </member>
+        <member name="T:Wms.WmsEventBus">
+            <summary>
+            wms 事件总线
+            </summary>
+        </member>
+        <member name="F:Wms.WmsEventBus.Instance">
+            <summary>
+            WmsEventBus 的只读唯一实例。此字段由静态构造函数依据配置赋值。
+            </summary>
+        </member>
+        <member name="M:Wms.WmsEventBus.RegisterEventHandler(System.String,System.Type)">
+            <summary>
+            注册事件处理程序
+            </summary>
+            <param name="eventName"></param>
+            <param name="handlerType"></param>
+        </member>
+        <member name="M:Wms.WmsEventBus.RegisterRequestHandler(System.String,System.Type,System.String)">
+            <summary>
+            注册请求处理程序
+            </summary>
+            <param name="requestType"></param>
+            <param name="handlerType"></param>
+            <param name="lockString">用于线程同步的锁字符串</param>
+        </member>
+        <member name="M:Wms.WmsEventBus.RegisterCompletedTaskHandler(System.String,System.Type,System.String)">
+            <summary>
+            注册完成处理程序
+            </summary>
+            <param name="taskType"></param>
+            <param name="handlerType"></param>
+            <param name="lockString">用于线程同步的锁字符串</param>
+        </member>
+        <member name="M:Wms.WmsEventBus.FireEvent(System.String,Wms.EventData)">
+            <summary>
+            引发事件，WmsEventBus 会将事件转发给订阅者。
+            </summary>
+            <param name="eventName">事件名称</param>
+            <param name="eventData">事件数据</param>
+        </member>
+        <member name="M:Wms.WmsEventBus.OnWcsRequest(DC2.WcsRequestInfo)">
+            <summary>
+            引发 Wcs 请求事件。
+            </summary>
+            <param name="requestInfo"></param>
+        </member>
+        <member name="M:Wms.WmsEventBus.OnTaskCompleted(DC2.WcsTaskInfo)">
+            <summary>
+            引发任务完成事件。
+            </summary>
+            <param name="taskInfo">任务编码</param>
+        </member>
+        <member name="T:Wms.WmsEventBus.WmsEventHandlerItem">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Wms.Cfg.InStrategyElementCollection">
+            <summary>
+            表示 wmsSettings/ioStrategies/inStrategies 元素
+            </summary>
+        </member>
+        <member name="M:Wms.Cfg.InStrategyElementCollection.CreateNewElement">
+            <summary>
+            重写基类的 CreateNewElement 方法。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.Cfg.InStrategyElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            重写 GetElementKey 方法。
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.RackBase">
+            <summary>
+            货架。此类配置了 nh 二级缓存，不要使用触发器等外部源更改表数据。
+            </summary>
+        </member>
+        <member name="M:Wms.RackBase.#ctor">
+            <summary>
+            初始化 RackBase 类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.RackBase.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.RackBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.UpdatedAt">
+            <summary>
+            更新时间。
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.ForbidInbound">
+            <summary>
+            此货架是否禁止入站任务。默认值为 false。
+            当货架禁止入站时，不能生成以它的货位为终点的新任务。
+            在任务执行过程中，如终点所在的货架变为禁止入站，则任务仍可以正常报完成。
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.ForbidOutbound">
+            <summary>
+            此货架是否禁止出站任务。默认值为 false。
+            当货架禁止出站时，不能生成以它的货位为起点的新任务。
+            在任务执行过程中，如起点所在的货架变为禁止出站，则任务仍可以正常报完成。
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.UserCode">
+            <summary>
+            货架的用户编码。自然键。
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Laneway">
+            <summary>
+            货架所属的巷道。默认值为 null。
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.LanewayName">
+            <summary>
+            货架所属的巷道。默认值为 null。
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Side">
+            <summary>
+            指示货架在巷道哪一侧。
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Columns">
+            <summary>
+            列数
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Levels">
+            <summary>
+            层数
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Locations">
+            <summary>
+            此货架上的货位
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Warehouse">
+            <summary>
+            此货架所属的仓库
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Exits">
+            <summary>
+            此货架可用的出库口
+            </summary>
+        </member>
+        <member name="P:Wms.RackBase.Entrances">
+            <summary>
+            此货架可用的入库口
+            </summary>
+        </member>
+        <member name="T:Wms.LocationType">
+            <summary>
+            货位类型。
+            </summary>
+        </member>
+        <member name="F:Wms.LocationType.RackLocation">
+            <summary>
+            货架上的货位
+            </summary>
+        </member>
+        <member name="F:Wms.LocationType.PlainLocation">
+            <summary>
+            普通货位
+            </summary>
+        </member>
+        <member name="T:Wms.LocationTypeEnumStringType">
+            <summary>
+            LocationType 的 EnumStringType
+            </summary>
+        </member>
+        <member name="T:Wms.IInStrategy">
+            <summary>
+            入库策略接口。
+            </summary>
+        </member>
+        <member name="M:Wms.IInStrategy.GetRackLocation(System.Collections.Generic.IList{Wms.UnitLoadBase},Wms.PlainLocationBase,Spiral.NhRepositoryContext)">
+            <summary>
+            指定货载，入口和 repository 上下文，为货载查找入库的目标位置。
+            </summary>
+            <param name="unitLoads"></param>
+            <param name="entrance"></param>
+            <param name="repositoryContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.Cfg.CompletionHandlerElement">
+            <summary>
+            表示 wmsSettings/eventBus/completions/add 元素
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.CompletionHandlerElement.TaskType">
+            <summary>
+            与 add 元素的 taskType 属性对应。
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.CompletionHandlerElement.HandlerType">
+            <summary>
+            与 add 元素的 handlerType 属性对应。
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.CompletionHandlerElement.ThreadLockString">
+            <summary>
+            与 add 元素的 threadLockString 属性对应。
+            </summary>
+        </member>
+        <member name="T:Wms.UnitLoadTypeEnumStringType">
+            <summary>
+            UnitLoadType 的 EnumStringType。
+            </summary>
+        </member>
+        <member name="T:Wms.UnifiedUnitLoadItemBase">
+            <summary>
+            统一的货载项结构。统一是指已归档和未归档货载项都可以通过此结构进行查询。
+            </summary>
+        </member>
+        <member name="M:Wms.UnifiedUnitLoadItemBase.#ctor">
+            <summary>
+            初始化 UnitLoadItemBase 的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.UnifiedUnitLoadItemBase.ToString">
+            <summary>
+            返回表示此实例的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadItemBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadItemBase.Material">
+            <summary>
+            此项关联的是哪个物料。
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadItemBase.Quantity">
+            <summary>
+            此项含有多少个单位的物料
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadItemBase.QuantityInMainUnit">
+            <summary>
+            以最小单位计，此项含有多少物料
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadItemBase.UnitLoad">
+            <summary>
+            此项属于哪个 UnitLoad
+            </summary>
+        </member>
+        <member name="T:Wms.UnifiedUnitLoadBase">
+            <summary>
+            统一的货载结构。统一是指已归档和未归档货载都可以通过此结构进行查询。
+            </summary>
+        </member>
+        <member name="M:Wms.UnifiedUnitLoadBase.#ctor">
+            <summary>
+            初始化 UnitLoadBase 类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.UnifiedUnitLoadBase.ToString">
+            <summary>
+            返回表示此货载的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.CreatedAt">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.IsArchived">
+            <summary>
+            是否已归档
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.ArchivedAt">
+            <summary>
+            归档时间
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.ContainerCode">
+            <summary>
+            容器编码
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.ContainerType">
+            <summary>
+            容器类型
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.ContainerUsage">
+            <summary>
+            容器用途
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.ContainerWeight">
+            <summary>
+            皮重
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.GrossWeight">
+            <summary>
+            毛重，即皮重加净重。
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.Owner">
+            <summary>
+            所有者
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.UnitLoadThread">
+            <summary>
+            用于将拣货前后的货载串起来的“线”，货载初次注册时为货载 Id，拣货后如果货载中有剩余物料，则为拣货前货载的 UnitLoadThread。
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.Type">
+            <summary>
+            此单元货载的类型，类型的定义为，
+            当 Items.Count 为 0 时，Type 为 Empty；
+            当 Items.Count 为 1 时，Type 为 Single；
+            当 Items.Count 大于 1 时，Type 为 Mixed，即使这些 Item 引用的是同一个物料。
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.Items">
+            <summary>
+            此实例中的项。
+            </summary>
+        </member>
+        <member name="P:Wms.UnifiedUnitLoadBase.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Wms.InvalidRequestException">
+            <summary>
+            收到无效的请求时引发的异常。
+            </summary>
+        </member>
+        <member name="M:Wms.InvalidRequestException.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.InvalidRequestException.#ctor(System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.InvalidRequestException.#ctor(System.String,System.Exception)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.InvalidRequestException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="T:Wms.PlainLocationBase">
+            <summary>
+            输送线货位。区别于 RackLocation。
+            </summary>
+        </member>
+        <member name="M:Wms.PlainLocationBase.#ctor">
+            <summary>
+            实例化此类型的新实例。
+            </summary>
+        </member>
+        <member name="T:Wms.TaskHelper">
+            <summary>
+            Task 辅助类
+            </summary>
+        </member>
+        <member name="M:Wms.TaskHelper.GetNextTaskCode">
+            <summary>
+            获取下一个任务号，任务号由两部分构成，前8位数字表示日期，后6位数字表示一天内的流水号。
+            流水号从 1 开始。此方法在当前事务之外运行，即使环境事务回滚，也会占用序号。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.TaskHelper.OnCompleted(Wms.TaskBase,Spiral.NhRepositoryContext)">
+            <summary>
+            当任务完成时，执行最小化的必要操作。这些操作有：
+            1，解锁起点位置（如果起点是货架货位）；
+            2，解锁终点位置（如果终点是货架货位）；
+            3，解锁货载；
+            4，将旧 Keeping 归档；
+            5，形成新 Keeping（如果终点接受货载）；
+            6，将任务归档；
+            7，通知任务所在的步骤对象（如果有）；
+            </summary>
+            <param name="task"></param>
+            <param name="repositoryContext"></param>
+        </member>
+        <member name="M:Wms.TaskHelper.OnCompleted(Wms.TaskBase,System.Boolean,Spiral.NhRepositoryContext)">
+            <summary>
+            当任务完成时，执行最小化的必要操作。这些操作有：
+            1，解锁起点位置（如果起点是货架货位）；
+            2，解锁终点位置（如果终点是货架货位）；
+            3，解锁货载；
+            4，将旧 Keeping 归档；
+            5，形成新 Keeping（如果终点接受货载）；
+            6，将任务归档；
+            7，通知任务所在的步骤对象（如果有）；
+            </summary>
+            <param name="task"></param>
+            <param name="clearCurrentLocation">
+            若为 true，则指示将货载的 CurrentLocation 设为 Location.NullLocationUserCode。
+            否则，货载的 CurrentLocation 将为目标位置的编码。</param>
+            <param name="repositoryContext"></param>
+        </member>
+        <member name="T:Wms.Cfg.EventElement">
+            <summary>
+            表示 wmsSettings/eventBus/events/event 元素
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.EventElement.Name">
+            <summary>
+            与 event 元素的 name 属性对应。
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.EventElement.Handlers">
+            <summary>
+            与 handlers 元素对应。
+            </summary>
+        </member>
+        <member name="T:Wms.Cfg.OutStrategyElementCollection">
+            <summary>
+            表示 wmsSettings/ioStrategies/outStrategies 元素
+            </summary>
+        </member>
+        <member name="M:Wms.Cfg.OutStrategyElementCollection.CreateNewElement">
+            <summary>
+            重写基类的 CreateNewElement 方法。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.Cfg.OutStrategyElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            重写 GetElementKey 方法。
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.WcfServices.IWcfWmsServiceForWcs">
+            <summary>
+            为 wcs 提供的 wcf 服务
+            </summary>
+        </member>
+        <member name="M:Wms.WcfServices.IWcfWmsServiceForWcs.Request(DC2.WcsRequestInfo)">
+            <summary>
+            供 wcs 申请任务时调用
+            </summary>
+            <param name="requestInfo">请求信息</param>
+        </member>
+        <member name="M:Wms.WcfServices.IWcfWmsServiceForWcs.CompleteTask(DC2.WcsTaskInfo)">
+            <summary>
+            wcs 调用此方法通知 wms 任务已完成。
+            </summary>
+            <param name="taskInfo"></param>
+        </member>
+        <member name="T:Wms.DuplicateContainerCodeException">
+            <summary>
+            注册货载时使用重复条码而引发的异常。
+            </summary>
+        </member>
+        <member name="M:Wms.DuplicateContainerCodeException.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.DuplicateContainerCodeException.#ctor(System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.DuplicateContainerCodeException.#ctor(System.String,System.Exception)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.DuplicateContainerCodeException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="T:Wms.KeepingRepositoryBase">
+            <summary>
+            keeping 的仓储基类
+            </summary>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 KeepingRepositoryBase
+            </summary>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.GetByContainerCode(System.String)">
+            <summary>
+            指定容器编码，查找 keeping
+            </summary>
+            <param name="containerCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.GetByContainerCodes(System.String[])">
+            <summary>
+            指定容器编码，查找 keeping
+            </summary>
+            <param name="containerCodes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.GetByLocation(System.String)">
+            <summary>
+            查询指定位置上的 keeping
+            </summary>
+            <param name="locationUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.LocationHasKeepings(System.String)">
+            <summary>
+            返回一个值，指示货位上是否有 keeping
+            </summary>
+            <param name="locationUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.DoArchive(Wms.Keeping)">
+            <summary>
+            实现 keeping 的归档操作。
+            </summary>
+            <param name="keeping"></param>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.Archive(System.Collections.Generic.List{Wms.Keeping})">
+            <summary>
+            归档 keeping
+            </summary>
+            <param name="keepings"></param>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.Archive(Wms.Keeping)">
+            <summary>
+            归档 keeping
+            </summary>
+            <param name="keeping"></param>
+        </member>
+        <member name="M:Wms.KeepingRepositoryBase.KeepingExists(System.String,System.String)">
+            <summary>
+            判断 keeping 是否存在
+            </summary>
+            <param name="containerCode"></param>
+            <param name="locationUserCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.IoStrategies">
+            <summary>
+            用于访问在配置文件中配置的出入库策略。
+            </summary>
+        </member>
+        <member name="M:Wms.IoStrategies.GetInStrategy(System.String)">
+            <summary>
+            指定名称，获取入库策略。
+            </summary>
+            <param name="name">要使用的策略名。若传入空或空白字符，则会使用“常规”入库策略</param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.CommonRackSpec">
+            <summary>
+            货架规格
+            </summary>
+        </member>
+        <member name="M:Wms.CommonRackSpec.Trim">
+            <summary>
+            修剪此实例以适合查询。
+            </summary>
+        </member>
+        <member name="M:Wms.CommonRackSpec.GetTranslatorTypeName">
+            <summary>
+            获取翻译程序名称。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.CommonRackSpec.UserCode">
+            <summary>
+             货架编码;
+            </summary>
+        </member>
+        <member name="P:Wms.CommonRackSpec.WarehouseId">
+            <summary>
+             仓库ID
+            </summary>
+        </member>
+        <member name="T:Wms.Cfg.RequestHandlerElement">
+            <summary>
+            表示 wmsSettings/eventBus/requests/add 元素
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.RequestHandlerElement.RequestType">
+            <summary>
+            与 add 元素的 requestType 属性对应。
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.RequestHandlerElement.HandlerType">
+            <summary>
+            与 add 元素的 handlerType 属性对应。
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.RequestHandlerElement.ThreadLockString">
+            <summary>
+            与 add 元素的 threadLockString 属性对应。
+            </summary>
+        </member>
+        <member name="T:Wms.Cfg.EventHandlerElementCollection">
+            <summary>
+            表示 wmsSettings/eventBus/events/event/handlers 元素
+            </summary>
+        </member>
+        <member name="M:Wms.Cfg.EventHandlerElementCollection.CreateNewElement">
+            <summary>
+            重写 CreateNewElement 方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.Cfg.EventHandlerElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            重写 GetElementKey 方法
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wms.Cfg.IoStrategiesSection">
+            <summary>
+            表示 wmsSettings/ioStrategies 配置节
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.IoStrategiesSection.InStrategyElementCollection">
+            <summary>
+            与 wmsSettings/ioStrategies/inStrategies 元素对应
+            </summary>
+        </member>
+        <member name="P:Wms.Cfg.IoStrategiesSection.OutStrategyElementCollection">
+            <summary>
+            与 wmsSettings/ioStrategies/outStrategies 元素对应
+            </summary>
+        </member>
+        <member name="T:Wms.LockHelper">
+            <summary>
+            锁的帮助类
+            </summary>
+        </member>
+        <member name="M:Wms.LockHelper.AcquireLock(Wms.TaskBase,Wms.ILockable)">
+            <summary>
+            为任务在资源上获取锁。
+            </summary>
+            <param name="task">任务。</param>
+            <param name="lockable"></param>
+        </member>
+        <member name="M:Wms.LockHelper.ReleaseLock(Wms.TaskBase,Wms.ILockable)">
+            <summary>
+            为任务在资源上释放锁。
+            </summary>
+            <param name="task"></param>
+            <param name="lockable"></param>
+        </member>
+        <member name="M:Wms.LockHelper.DoAcquireLock(Wms.ILockHolder,Wms.ILockable)">
+            <summary>
+            为持有者在资源上获取锁
+            </summary>
+            <param name="lockHolder"></param>
+            <param name="lockable"></param>
+        </member>
+        <member name="M:Wms.LockHelper.DoReleaseLock(Wms.ILockHolder,Wms.ILockable)">
+            <summary>
+            为 lockHolder 释放 lockable 上的锁
+            </summary>
+            <param name="lockHolder"></param>
+            <param name="lockable"></param>
+        </member>
+        <member name="T:Wms.ICompletedTaskHandler">
+            <summary>
+            此接口定义已完成任务的处理程序。
+            </summary>
+        </member>
+        <member name="M:Wms.ICompletedTaskHandler.CanHandle(System.String)">
+            <summary>
+            返回一个值，指示此实例能否对已完成的任务进行处理。
+            </summary>
+            <param name="taskType">已完成的任务的业务类型。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.ICompletedTaskHandler.ProcessCompletedTask(DC2.WcsTaskInfo,Wms.TaskBase,Spiral.IRepositoryContext)">
+            <summary>
+            处理已完成的任务。此方法将在 TransactionScope 范围中被调用。
+            </summary>
+            <param name="taskInfo">Wcs 报完成时发给 wms 的原始任务信息。</param>
+            <param name="task">已完成的任务。</param>
+            <param name="repositoryContext">repository 上下文。</param>
+        </member>
+        <member name="T:Wms.WcfServices.WcfWmsServiceForWcs">
+            <summary>
+            实现 IWcfWmsServiceForWcs 接口
+            </summary>
+        </member>
+        <member name="M:Wms.WcfServices.WcfWmsServiceForWcs.Request(DC2.WcsRequestInfo)">
+            <summary>
+            供 wcs 申请任务时调用
+            </summary>
+            <param name="requestInfo">请求信息</param>
+        </member>
+        <member name="M:Wms.WcfServices.WcfWmsServiceForWcs.CompleteTask(DC2.WcsTaskInfo)">
+            <summary>
+            wcs 调用此方法通知 wms 任务已完成。
+            </summary>
+            <param name="taskInfo"></param>
+        </member>
+        <member name="T:Wms.PlainLocationExtension">
+            <summary>
+            普通货位扩展方法。
+            </summary>
+        </member>
+        <member name="T:Wms.UnitLoadBase">
+            <summary>
+            单元货载，单元货载的内容是不可变的，如果从托盘里取出部分物料后返库，应创建新的单元货载。
+            </summary>
+        </member>
+        <member name="F:Wms.UnitLoadBase.NullContainerType">
+            <summary>
+            表示空的容器类型。
+            </summary>
+        </member>
+        <member name="F:Wms.UnitLoadBase.NullContainerUsage">
+            <summary>
+            表示空的容器用途。
+            </summary>
+        </member>
+        <member name="M:Wms.UnitLoadBase.#ctor">
+            <summary>
+            初始化 UnitLoadBase 类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.UnitLoadBase.GetUnitLoadType">
+            <summary>
+            获取此货载的类型。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadBase.AddItem(Wms.UnitLoadItemBase)">
+            <summary>
+            向此实例添加项
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Wms.UnitLoadBase.RemoveItem(Wms.UnitLoadItemBase)">
+            <summary>
+            从此实例移除项
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Wms.UnitLoadBase.ClearItems">
+            <summary>
+            清除此实例中的所有项
+            </summary>
+        </member>
+        <member name="M:Wms.UnitLoadBase.ToString">
+            <summary>
+            返回表示此货载的字符串。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadBase.Check">
+            <summary>
+            检查此货载是否符合业务规则。
+            </summary>
+        </member>
+        <member name="M:Wms.UnitLoadBase.GetGroup">
+            <summary>
+            获取此货载的组，此值用来在入库时与货位的 Group 属性匹配。不需分组的货载返回 Location.NullGroup。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadBase.GetSubgroup">
+            <summary>
+            获取此货载的子组，此值用来在入库时与货位的 Subgroup 属性匹配。不需分组的货载返回 Location.NullSubgroup。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadBase.NewArchived">
+            <summary>
+            创建空白的 ArchivedUnitLoadBase
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wms.UnitLoadBase.GetArchived">
+            <summary>
+            获取此实例的归档版本
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wms.UnitLoadBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.UpdatedAt">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.CreatedAt">
+            <summary>
+            CreatedAt
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.ContainerCode">
+            <summary>
+            容器编码
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.ContainerType">
+            <summary>
+            容器类型
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.ContainerUsage">
+            <summary>
+            容器用途
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.ContainerWeight">
+            <summary>
+            皮重
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.GrossWeight">
+            <summary>
+            毛重，即皮重加净重。
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.Owner">
+            <summary>
+            所有者
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.UnitLoadThread">
+            <summary>
+            用于将拣货前后的货载串起来的“线”，货载初次注册时为货载 Id，拣货后如果货载中有剩余物料，则为拣货前货载的 UnitLoadThread。
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.Type">
+            <summary>
+            此单元货载的类型，类型的定义为，
+            当 Items.Count 为 0 时，Type 为 Empty；
+            当 Items.Count 为 1 时，Type 为 Single；
+            当 Items.Count 大于 1 时，Type 为 Mixed，即使这些 Item 引用的是同一个物料。
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.Items">
+            <summary>
+            此实例中的项。
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.IsLocked">
+            <summary>
+            获取或设置此货载当前是否被锁定。
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.CurrentLockHolder">
+            <summary>
+            获取或设置当前锁定此货载的对象
+            </summary>
+        </member>
+        <member name="P:Wms.UnitLoadBase.CurrentLocation">
+            <summary>
+            当前所在位置，当一条任务完成时，即使时货位不能保存货载，也会更新此属性为目标货位的编码。
+            </summary>
+        </member>
+        <member name="T:Wms.RackLocationCodeGenerator">
+            <summary>
+            货架货位的编码生成程序。
+            </summary>
+        </member>
+        <member name="M:Wms.RackLocationCodeGenerator.#ctor">
+            <summary>
+            初始化 RackLocationCodeGenerator 类的新实例。
+            </summary>
+        </member>
+        <member name="M:Wms.RackLocationCodeGenerator.GenerateUserCode(Wms.RackLocationBase)">
+            <summary>
+            为 location 生成用户编码，此方法不会更改 location 的属性，而是利用货位的货架，列和层属性返回一个值
+            </summary>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Wms.RackLocationCodeGenerator.Instance">
+            <summary>
+            表示此类的唯一实例。
+            </summary>
+        </member>
+        <member name="T:Wms.RackSideEnumStringType">
+            <summary>
+            RackSide 枚举的 EnumStringType。
+            </summary>
+        </member>
+        <member name="T:Wms.RackSide">
+            <summary>
+            用于指示货架在巷道的左侧还是右侧。左右并没有绝对意义，仅用于将两侧的货架区分开。
+            </summary>
+        </member>
+        <member name="F:Wms.RackSide.Unspecified">
+            <summary>
+            未指定。
+            </summary>
+        </member>
+        <member name="F:Wms.RackSide.Left">
+            <summary>
+            左侧货架。
+            </summary>
+        </member>
+        <member name="F:Wms.RackSide.Right">
+            <summary>
+            右侧货架。
+            </summary>
+        </member>
+    </members>
+</doc>

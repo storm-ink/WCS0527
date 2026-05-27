@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "修改密码";
+}
+
+
+    <script type="text/javascript">
+
+        function checkPassword() {
+            if (document.getElementById('n1').value == null || document.getElementById('n1').value == '') {
+                alert('密码不能为空，请重新输入！');
+                return false;
+            }
+            
+            if (document.getElementById('n1').value != document.getElementById('n2').value) {
+                alert('两次输入的密码不一致，请重新输入！');
+                return false;
+            }
+            return true;
+            
+        } 
+</script>
+
+<h4>更改密码</h4>
+
+@using (Html.BeginForm())
+{
+        <table class="edit-table">	
+              <tr>
+                <th class="percent15"><label for="password"> 新密码：</label></th>
+                <td><input type="password"  name="password"  id="password" /> </td>
+              </tr>
+					
+              <tr>
+                <th><label for="password_again">确认修改：</label> </th>
+                <td><input type="password" id="password_again" /></td>
+              </tr>
+              <tr>
+                <td></td>
+                  <td><input type="submit" value="提交" onclick="return checkPassword()" />
+                         <input  type="reset" value="取消" />
+                  </td>
+              </tr>
+        </table>
+}
+    <p>@ViewBag.msg</p>

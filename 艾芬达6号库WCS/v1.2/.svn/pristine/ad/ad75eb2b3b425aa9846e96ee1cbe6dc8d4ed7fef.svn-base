@@ -1,0 +1,330 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.Interfaces.Task;
+namespace Wcs.Client.App.Elements.Forms
+{
+    public partial class frmTaskViewer : Form
+    {
+        BindingSource _movementsBindingSource;
+        BindingSource _actionsBindingSource;
+        Task m_task;
+        TaskDataSource m_taskDataSource;
+        public frmTaskViewer(Task task,TaskDataSource taskDataSource)
+        {
+            m_task = task;
+            m_taskDataSource = taskDataSource;
+
+            InitializeComponent();
+
+            dgvMovementsGrid.AutoGenerateColumns =
+                dgvActionsGrid.AutoGenerateColumns = false;
+
+            _movementsBindingSource = new BindingSource();
+            _movementsBindingSource.DataSource = new List<LogicMovement>();
+            dgvMovementsGrid.DataSource = _movementsBindingSource;
+
+            _actionsBindingSource = new BindingSource();
+            _actionsBindingSource.DataSource = new List<EquipmentAction>();
+            dgvActionsGrid.DataSource = _actionsBindingSource;
+        }
+
+        private void frmTaskViewer_Load(object sender, EventArgs e)
+        {
+
+            try
+            {
+                load();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            } 
+            
+            dgvMovementsGrid.CellFormatting += dgvMovementsGrid_CellFormatting;
+            dgvActionsGrid.CellFormatting += dgvActionsGrid_CellFormatting;
+            _movementsBindingSource.CurrentItemChanged += _movementsBindingSource_CurrentItemChanged;
+
+        }
+
+        void load()
+        {
+            Task task = m_taskDataSource.Tasks.FirstOrDefault(x => x.TaskCode == m_task.TaskCode);
+            if (task == null)
+            {
+                this.Close();
+                return;
+            }
+
+            this.Text = string.Format("查看任务 {0}#{1} 信息", task.Id, task.TaskCode);
+
+            lblTaskCode.Text = string.Format("{0}#{1}", task.Id, task.TaskCode);
+            lblStartLocation.Text = string.Format("{0}@{1}", task.StartLocation.UserCode, task.StartLocation.DeviceName);
+            lblEndLocation.Text = string.Format("{0}@{1}", task.EndLocation.UserCode, task.EndLocation.DeviceName);
+            lblBzType.Text = task.BizType.GetDescription();
+            lblSource.Text = task.Source.GetDescription();
+            lblStatus.Text = task.Status.GetDescription();
+            lblPriority.Text = task.Priority.ToString();
+            lblCreatedAt.Text = task.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
+            if (task.FinishedAt == null)
+            {
+                lblFinishedAt.Text = "-";
+            }
+            else
+            {
+                lblFinishedAt.Text = task.FinishedAt.Value.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+            lblCurrentLocation.Text = string.Format("{0}@{1}", task.CurrentLocation.UserCode, task.CurrentLocation.DeviceName);
+            lblContainerCodes.Text = string.Join(",", task.ContainerCodes.ToArray());
+
+            setButtonsStatus(task.Status);
+
+            _movementsBindingSource.Clear();
+            foreach (var item in task.Movements)
+            {
+                _movementsBindingSource.Add((LogicMovement)item);
+            }
+
+            _movementsBindingSource_CurrentItemChanged(null, null);
+        }
+
+        void setButtonsStatus(TaskStatus taskStatus)
+        {
+            btnArchive.Enabled = taskStatus == TaskStatus.Completed || taskStatus == TaskStatus.Cancelled;
+            btnSuspend.Enabled = taskStatus == TaskStatus.New || taskStatus == TaskStatus.Executing;
+            btnResume.Enabled = taskStatus == TaskStatus.Suspend || taskStatus == TaskStatus.Error;
+            btnCompleted.Enabled = taskStatus == TaskStatus.Suspend || taskStatus == TaskStatus.Error;
+            btnCancel.Enabled = taskStatus == TaskStatus.Suspend || taskStatus == TaskStatus.Error;
+        }
+
+        #region 对象事件
+        void _movementsBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _actionsBindingSource.Clear();
+                if (_movementsBindingSource.Current == null)
+                {
+                    return;
+                }
+                var movement = (LogicMovement)_movementsBindingSource.Current;
+                foreach (var action in movement.EquipmentActions)
+                {
+                    _actionsBindingSource.Add((EquipmentAction)action);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvMovementsGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var movement = dgvMovementsGrid.Rows[e.RowIndex].DataBoundItem as LogicMovement;
+            if (e.ColumnIndex == colStatus.Index)
+            {
+                e.Value = movement.Status.GetDescription();
+            }
+            else if (e.ColumnIndex == colRouteNo.Index)
+            {
+                if (movement.RouteId.GetValueOrDefault(0) != 0)
+                {
+                    if (movement.RouteNo != null)
+                    {
+                        e.Value = string.Format("{0}#{1}", movement.RouteId, movement.RouteNo);
+                    }
+                    else
+                    {
+                        e.Value = string.Format("{0}(未找到)", movement.RouteId);
+                    }
+                }
+                else
+                {
+                    e.Value = movement.RouteId;
+                }
+            }
+        }
+
+        private void dgvActionsGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var action = dgvActionsGrid.Rows[e.RowIndex].DataBoundItem as EquipmentAction;
+            if (e.ColumnIndex == colWarning.Index)
+            {
+                var warning = action.Warnings.LastOrDefault();
+                if (warning == null)
+                {
+                    e.Value = "";
+
+                    dgvActionsGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Control.DefaultForeColor;
+                }
+                else
+                {
+                    e.Value = warning.Description;
+                    dgvActionsGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Red;
+                }
+            }
+            else if (e.ColumnIndex == colDevice.Index)
+            {
+                e.Value = action.DeviceName;
+            }
+            else if (e.ColumnIndex == colReadableDescription.Index)
+            {
+                e.Value = action.ReadableDescription;
+            }
+            else if (e.ColumnIndex == colActionStatus.Index)
+            {
+                e.Value = action.Status.GetDescription();
+            }
+        }
+
+        #endregion
+
+        #region 任务处理
+        private void tsmiArchive_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("是否确认要归档任务？", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
+                {
+                    return;
+                }
+
+                m_taskDataSource.Archive(m_task.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("任务归档失败：{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void tsmiSuspend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("是否确认要暂停任务？", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
+                {
+                    return;
+                }
+
+                m_taskDataSource.SuspendTask(m_task.TaskCode);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("任务暂停失败：{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void tsmiCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("是否确认要取消停任务？", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
+                {
+                    return;
+                }
+
+                m_taskDataSource.CancelTask(m_task.TaskCode);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("任务取消失败：{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void tsmiComplete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                using (frmSetObjectToCompleted frm = new frmSetObjectToCompleted(m_task))
+                {
+                    if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    var obj = frm.SelectedObject;
+
+                    if (obj is Task)
+                    {
+                        m_taskDataSource.CompleteTask(obj.Id);
+                    }
+                    else if (obj is LogicMovement)
+                    {
+                        m_taskDataSource.CompleteMovenent(obj.Id);
+                    }
+                    else if (obj is EquipmentAction)
+                    {
+                        m_taskDataSource.CompleteAction(obj.Id);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException(string.Format("未实现对 {0} 类型的任务的强制完成处理。", obj.GetType()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("任务强制完成失败：{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnResume_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String currentLocationUserCode = null;
+                using (frmResumeChooseCurrentLocation frm = new frmResumeChooseCurrentLocation(m_task.CurrentLocation.UserCode))
+                {
+                    if (frm.ShowDialog()!=System.Windows.Forms.DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    currentLocationUserCode = frm.CurrentLocationUserCode;
+                }
+
+                if (String.IsNullOrWhiteSpace(currentLocationUserCode))
+                {
+                    m_taskDataSource.ResumeTask(m_task.TaskCode);
+                }
+                else
+                {
+                    m_taskDataSource.ResumeTaskWithCurrentLocation(m_task.TaskCode, currentLocationUserCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("任务继续执行失败：{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+        #endregion
+
+        private void btnEsc_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                load();
+            }
+            catch (Exception)
+            {
+                
+            }
+        }
+    }
+}

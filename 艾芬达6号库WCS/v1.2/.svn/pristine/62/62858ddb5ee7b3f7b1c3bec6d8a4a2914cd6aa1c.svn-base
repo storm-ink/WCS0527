@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog"/>
+  </configSections>
+  <appSettings>
+    <add key="maxBatchSize" value="1000" />
+  </appSettings>
+  <connectionStrings>
+    <add name="diagnoseMatedata" connectionString="Data Source=.;Initial Catalog=wcs;User Id=sa;Password=gen@song123;" />
+  </connectionStrings>
+  
+  <nlog throwExceptions="true">
+    <targets async="true">
+      <target name="database" type="Database" connectionString="Data Source=.;Initial Catalog=wcs_logs;User Id=sa;Password=gen@song123;Enlist=False"
+                commandText="INSERT INTO [dbo].[Logs] ([LongDate],[Level],[ThreadId] ,[Logger],[Message],[Exception],[Sender],[MachineName],[ProcessName])
+              VALUES 
+              (@LongDate ,@Level ,@ThreadId ,@Logger ,@Message ,@Exception,@Sender,@MachineName, @ProcessName)">
+        <parameter name="@LongDate" layout="${date:format=yyyy-MM-dd HH\:mm\:ss.fff}" />
+        <parameter name="@Level" layout="${level}" />
+        <parameter name="@MachineName" layout="${machineName}" />
+        <parameter name="@ProcessName" layout="${processname}" />
+        <parameter name="@ProcessId" layout="${processid}" />
+        <parameter name="@ThreadId" layout="${threadid}" />
+        <parameter name="@Logger" layout="${logger}" />
+        <parameter name="@Message" layout="${message}" />
+        <parameter name="@Exception" layout="${exception:format=tostring}" />
+        <parameter name="@Sender" layout="${event-context:sender}" />
+      </target>
+    </targets>
+    <rules>
+
+      <logger name="*" minlevel="Trace" writeTo="database" />
+
+    </rules>
+  </nlog>
+  
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0" /></startup>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="NLog" publicKeyToken="5120e14c03d0593c" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.1.0.0" newVersion="3.1.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

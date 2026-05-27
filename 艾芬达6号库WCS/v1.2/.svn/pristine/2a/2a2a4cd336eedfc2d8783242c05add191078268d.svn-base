@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Wcs.Client.Interfaces;
+namespace Wcs.Client.Impls
+{
+    public class ClientService:AbstractClientService,IClientService
+    {
+        public object Call(string name, object[] args)
+        {
+            return this.InternalCall<object>(name, args);
+        }
+
+
+        public string[] AllOperations()
+        {
+            return _registeredCalls.Select(x => x.Key.Name).ToArray();
+        }
+    }
+}

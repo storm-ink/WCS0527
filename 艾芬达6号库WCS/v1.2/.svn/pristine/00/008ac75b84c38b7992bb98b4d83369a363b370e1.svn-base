@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+namespace Wcs.Client.App.Elements.Forms
+{
+    public partial class frmResumeChooseCurrentLocation : Form
+    {
+        public frmResumeChooseCurrentLocation(String currentLocation)
+        {
+            
+            InitializeComponent();
+            tbxCurrentLocationUserCode.Text = currentLocation;
+        }
+
+
+
+        public String CurrentLocationUserCode
+        {
+            get
+            {
+                return tbxCurrentLocationUserCode.Text.Trim();
+            }
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(CurrentLocationUserCode))
+            {
+                tbxCurrentLocationUserCode.Focus();
+
+                MessageBox.Show("必须选择一个任务的当前实际停靠位置", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Close();
+        }
+
+        private void btnCacnel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+    }
+}

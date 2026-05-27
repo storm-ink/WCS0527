@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0b4c311a-59a7-4b79-9f39-01b62885b8c9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:9998/WcfWcsServiceForWms/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="b9ca517a-235c-4e7f-a654-813170cedb47" SourceId="1" SourceUrl="net.tcp://localhost:9998/WcfWcsServiceForWms/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="4a4ca3cc-f74a-447e-a0e9-b51e869a00f3" SourceId="1" SourceUrl="net.tcp://localhost:9998/WcfWcsServiceForWms/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="af22cbcf-7de1-4363-a679-9c00be080271" SourceId="1" SourceUrl="net.tcp://localhost:9998/WcfWcsServiceForWms/mex" />
+    <MetadataFile FileName="DC2.xsd" MetadataType="Schema" ID="64fe8e96-6f6b-43f7-afb4-ac5bcf7667c5" SourceId="1" SourceUrl="net.tcp://localhost:9998/WcfWcsServiceForWms/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="8aeb073c-20f5-4d02-aec8-27201ec93802" SourceId="1" SourceUrl="net.tcp://localhost:9998/WcfWcsServiceForWms/mex" />
+    <MetadataFile FileName="WCS.xsd" MetadataType="Schema" ID="65feb64d-406a-4294-a209-1a0cd9db5800" SourceId="1" SourceUrl="net.tcp://localhost:9998/WcfWcsServiceForWms/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

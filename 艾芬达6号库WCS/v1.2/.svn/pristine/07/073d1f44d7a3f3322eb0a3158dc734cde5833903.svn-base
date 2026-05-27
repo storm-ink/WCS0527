@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="Iesi.Collections" version="3.2.0.4000" targetFramework="net40" />
+  <package id="Microsoft.Bcl.Build" version="1.0.21" targetFramework="net40" />
+  <package id="NHibernate" version="3.3.3.4001" targetFramework="net40" />
+  <package id="NHibernate.Caches.SysCache2" version="3.2.0.4000" targetFramework="net40" />
+  <package id="NLog" version="2.1.0" targetFramework="net40" />
+  <package id="Wcs" version="2.1.0.26281" targetFramework="net40" />
+  <package id="Wcs.DefaultImpls" version="2.1.0.22982" targetFramework="net40" />
+  <package id="Wcs.Framework" version="2.1.0.23489" targetFramework="net40" />
+</packages>

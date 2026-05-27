@@ -1,0 +1,94 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace Gensong
+{
+    /// <summary>接收回复报文</summary>
+    [Serializable]
+    [DataContract]
+    public class ResponseTelex
+    {
+        [DataMember]
+        public string Head { get; protected set; }
+
+        [DataMember]
+        public string Body { get; protected set; }
+
+        public string Text
+        {
+            get
+            {
+                return Head + Body;
+            }
+        }
+
+        public static List<ResponseTelex> Parse(StringBuilder strb)
+        {
+            List<ResponseTelex> aTelex = new List<ResponseTelex>();
+            MatchCollection mc = Regex.Matches(strb.ToString(), @"\u0002([^\u0002\u0003]*)\u0003");
+
+            foreach (Match m in mc)
+            {
+                string sTelex = m.Groups[1].Value;
+                if (string.IsNullOrEmpty(sTelex)) continue;
+
+                try
+                {
+                    ResponseTelex rTelex = null;
+
+                    switch (sTelex.Substring(0, 2))
+                    {
+                        case "LA": rTelex = ParseLA(sTelex); break;
+                        case "LB": rTelex = ParseLB(sTelex); break;
+                    }
+
+                    if (rTelex != null) aTelex.Add(rTelex);
+                }
+                catch
+                {
+                }
+            }
+
+            if (mc.Count > 0)
+            {
+                Match m = mc.Cast<Match>().Last();
+                strb.Remove(0, m.Index + m.Value.Length);
+            }
+
+            return aTelex;
+        }
+
+        internal static LA ParseLA(string sTelex)
+        {
+            if (string.IsNullOrEmpty(sTelex) || sTelex.Length != 26) return null;
+            sTelex = sTelex.Substring(2).Replace("\0", "0");
+
+            Position position = new Position(int.Parse(sTelex.Substring(2, 3)), int.Parse(sTelex.Substring(5, 3)));
+
+            LA la = new LA(
+                 Util.PEnum<ECraneState>(sTelex.Substring(0, 2)),
+                 position,
+                 Util.PEnum<ECraneLR>(sTelex.Substring(8, 1)),
+                 Util.PEnum<ECraneTL>(sTelex.Substring(9, 1)),
+                 sTelex.Substring(10, 1) == "0",
+                 sTelex.Substring(11, 4),
+                 Util.PEnum<ECraneEvent>(sTelex.Substring(15, 1)),
+                 sTelex.Substring(16, 8)
+            );
+
+            return la;
+        }
+        internal static LB ParseLB(string sTelex)
+        {
+            if (string.IsNullOrEmpty(sTelex) || sTelex.Length != 11) return null;
+            sTelex = sTelex.Substring(2);
+
+            return new LB((ETaskState)Enum.Parse(typeof(ETaskState), sTelex.Substring(0, 1)), sTelex.Substring(1));
+        }
+    }
+}

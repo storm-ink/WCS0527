@@ -1,0 +1,39 @@
+﻿/*
+ * ================================================
+ * 创建人：舒长兵
+ * 创建日期：2013/1/7
+ * 备注：
+ * 
+ * ================================================
+ */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel.Dispatcher;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+
+namespace Wcs.Client.Services
+{
+    public class ContextReceiver: ICallContextInitializer
+    {
+        const string nsName = "http://gen-song.net/ns/WcsServiceContext";
+        public void AfterInvoke(object correlationState) { }
+        public object BeforeInvoke(InstanceContext instanceContext, IClientChannel channel, Message message)
+        {
+            //string userName = null, ip = null;
+            //if(message.Headers.FindHeader("username",nsName)!=-1)
+            //{
+            //    userName=message.Headers.GetHeader<string>(message.Headers.FindHeader("username",nsName));
+            //}
+            //if(message.Headers.FindHeader("clientip",nsName)!=-1)
+            //{
+            //    ip=message.Headers.GetHeader<string>(message.Headers.FindHeader("clientip",nsName));
+            //}
+            
+            //Console.WriteLine("{0} {1} access {2}", DateTime.Now, userName, message.Headers.Action);
+           return null;
+       }
+   }
+}

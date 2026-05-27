@@ -1,0 +1,101 @@
+﻿<div>
+        <label>设备类型：<select name="DeviceType">
+    <option value="">不限</option>
+    @foreach (var item in (String[])ViewBag.DeviceTypes)
+    {
+        <option value="@item">@item</option>
+    }
+            </select></label>
+<label>等级：@Html.DropDownList("Level",Spiral.Web.EnumHelper.ToSelectList<Client.WarningLevel>(null),"")</label>
+
+     <label>设备名称 <input type="text" name="deviceName" id="deviceName" /></label>
+     <label>故障名称 <input type="text" name="warnName" id="warnName" /></label>
+    <label>年 <input type="text" name="year" id="year" value="@DateTime.Now.Year" /></label>
+<label>月 <input type="text" name="month" id="month" value="@DateTime.Now.ToString("MM")" /></label>
+<input type="submit" value="查询" id="submitBtn" />
+</div>
+<div id="canvasDiv" style="width:700px;float:left;"></div>
+<div id="detailsDiv" style="width:500px;float:left;"></div>
+<script type="text/javascript">
+    function loadMainChart(data) {
+        var chart = new iChart.LineBasic2D({
+            render: 'canvasDiv',
+            data: data.data,
+            align: 'center',
+            title: '按设备名称统计故障月走势图',
+            width: 1020,
+            height: 600,
+            border: {
+                width: 0,
+                color: '#ffffff'
+            },
+            tip: {
+                enable: true,
+                shadow: true
+            },
+            legend: {
+                enable: true,
+                row: 1,//设置在一行上显示，与column配合使用
+                column: 'max',
+                valign: 'top',
+                sign: 'bar',
+                background_color: null,//设置透明背景
+                offsetx: -10,//设置x轴偏移，满足位置需要
+                border: true
+            },
+            crosshair: {
+                enable: true,
+                line_color: '#62bce9'
+            },
+            sub_option: {
+                label: false,
+                point_hollow: false,
+                smooth: true,
+            },
+            coordinate: {
+                width: 900,
+                height: 400,
+                axis: {
+                    color: '#9f9f9f',
+                    width: [0, 0, 2, 2]
+                },
+                grids: {
+                    vertical: {
+                        way: 'share_alike',
+                        value: 5
+                    }
+                },
+                scale: [{
+                    position: 'left',
+                    start_scale: 0,
+                    end_scale: 20,
+                    scale_space: 10,
+                    scale_size: 2,
+                    scale_color: '#9f9f9f'
+                }, {
+                    position: 'bottom',
+                    labels: data.labels
+                }]
+            }
+        });
+
+
+        chart.draw();
+    }
+    $(document).ready(function () {
+        $('#submitBtn').click(function () {
+            $.ajax({
+                url: "/Warnings/Reports/WarningReports_CountByMonthAndDeviceName",
+                method: 'post',
+                data: { deviceName: $('#deviceName').val(), warnName: $('#warnName').val(), year: $('#year').val(), month: $('#month').val(), deviceType: $('select[name=DeviceType]').val(), level: $('select[name=Level]').val() },
+                dataType: 'json',
+                success: function (data) {
+                    loadMainChart(data);
+                }
+            });
+        });
+
+        $('#submitBtn').click();
+        $("#startTime,#endTime").datepicker();
+    });
+</script>

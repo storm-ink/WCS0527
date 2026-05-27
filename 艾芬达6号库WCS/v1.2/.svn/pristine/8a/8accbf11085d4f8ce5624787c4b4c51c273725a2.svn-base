@@ -1,0 +1,76 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@Request["mode"]'.toLowerCase() == 'bythread') {
+                    $("#ThreadId").val('@Request["ThreadId"]');
+                    $("#DateMin").val('@Request["DateMin"]');
+
+                    $('[name=Level]').prop('checked', "checked");
+                    $("#Array").val("升序");
+                    $("#Seconds").val(5);
+                    $('[name=pageSize]').val(100);
+
+                    $('#spec_form').submit();
+                }
+            });
+</script>
+<div>
+ @using (Ajax.BeginForm("Index_list", null, new AjaxOptions { UpdateTargetId = "list", LoadingElementId = "loading_img", OnBegin = "onListLoadBegin", OnFailure = "onListLoadFailure", OnSuccess = "onListLoadSuccess", OnComplete = "onListLoadComplete" }, new { id = "spec_form", target="_blank" }))
+ {
+<label>Id 从 <input name="IdMin" style="width:80px;" /></label>
+<label>取 <input name="IdCount" style="width:40px;" /> 个</label>
+<label>线程Id：<input id="ThreadId" name="ThreadId" style="width:50px;"/></label>
+<label>日志名：<input name="LoggerToMatch" style="width:80px;" /></label>
+<label>来源：<input name="SenderToMatch" style="width:80px;" /></label>
+<label>时间从 <input name="DateMin" id="DateMin" value="@DateTime.Now.AddMinutes(-5).ToString("yyyy-MM-dd HH:mm:ss")" /></label>
+<label>取 <input name="Seconds" id="Seconds" style="width:40px;" /> 秒</label>
+<label>内容包含：<input name="WordToMatch" id="WordToMatch" style="width:60px;"/></label>
+<label>用户名：<input name="UserNameToMatch" id="UserNameToMatch" style="width:60px;"/></label>
+<label>任务号：<input name="TaskCode" id="TaskCode" style="width:120px;"/></label>
+<label>设备任务号：<input name="EquipmentTaskId" id="EquipmentTaskId" style="width:60px;"/></label>
+       <br />
+<label>级别：</label>
+<label><input name="Level" type="checkbox" value="Trace" /> Trace</label>
+<label><input name="Level" type="checkbox" value="Debug" /> Debug</label>
+<label><input name="Level" type="checkbox" value="Info" checked="checked" /> Info</label>
+<label><input name="Level" type="checkbox" value="Warn" checked="checked" /> Warn</label>
+<label><input name="Level" type="checkbox" value="Error" checked="checked"/> Error</label>
+<label><input name="Level" type="checkbox" value="Fatal" checked="checked" /> Fatal</label>
+<input name="Level" type="hidden" value="False" />
+<label>分页
+<select name="pageSize">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="20" selected="selected">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+    <option value="200">200</option>
+    <option value="500">500</option>
+    <option value="1000">1000</option>
+    <option value="5000">5000</option>
+</select> 
+</label>
+ <label>排序:<select name="Array" id="Array">
+     <option value="升序">升序</option>
+     <option value="降序" selected="selected">降序</option>
+          </select></label>
+ <label>
+内容长度:<select name="notsplit" id="notsplit">
+     <option value="">全部</option>
+     <option value="30">30</option>
+     <option value="40">40</option>
+     <option value="50" selected="selected">50</option>
+     <option value="60">60</option>
+     <option value="80">80</option>
+     <option value="100">100</option>
+          </select>
+ </label>
+<input type="hidden" name="mode" value="@Request["mode"]" />
+<input type="submit" value="查询" />
+
+<input type="reset" value="重置" />
+<input type="hidden" id="pageIndex" name="pageIndex" value="1" />
+   @*<img style="display:none;width:16px" id="loading_img" src="@Url.Content("~/Content/loading.gif")" alt="loading" />*@
+ }
+ </div>
+<div id="list">
+</div>

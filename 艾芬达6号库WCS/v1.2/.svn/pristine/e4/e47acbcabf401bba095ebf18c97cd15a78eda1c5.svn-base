@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Conveyor
+{
+    [ServiceContract]
+    public interface IConveyorService : IClientService
+    {
+        [OperationContract]
+        AlarmNetTransferObject[] GetAlarms(String deviceName);
+
+        [OperationContract]
+        HoldSignalNetTransferObject[] GetHoldSignals(String deviceName);
+
+        [OperationContract]
+        LocationNetTransferObject[] GetLocationStatus(String deviceName);
+
+        [OperationContract]
+        LocationTaskNetTransferObject[] GetLocationTasks(String deviceName);
+
+        [OperationContract]
+        OccupyNetTransferObject[] GetOccupys(String deviceName);
+
+        [OperationContract]
+        TaskNetTransferObject[] GetTasks(String deviceName);
+
+        [OperationContract]
+        void ClearTask(String deviceName, Int32 equipmentTaskId);
+
+        [OperationContract]
+        void DeleteTask(String deviceName, Int32 equipmentTaskId);
+
+        [OperationContract]
+        void DeleteLocationTask(String deviceName,Int32 posNo, Int32 equipmentTaskId);
+    }
+}

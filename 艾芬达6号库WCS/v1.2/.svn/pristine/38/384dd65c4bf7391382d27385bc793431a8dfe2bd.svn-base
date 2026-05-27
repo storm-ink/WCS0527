@@ -1,0 +1,518 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.Interfaces.Task;
+
+namespace Wcs.Client.App.Elements.Forms
+{
+    public partial class frmTwoForksCraneUI : Form
+    {
+        TwoForksCrane m_Crane;
+        public frmTwoForksCraneUI(TwoForksCrane crane) 
+        {
+            m_Crane = crane;
+            InitializeComponent();
+
+            lblName.Text = crane.Name;
+            timer1_Tick(null, EventArgs.Empty);
+
+            if (System.IO.File.Exists(CHTSFilePath))
+            {
+                btnCHTS.Visible = true;
+            }
+            else
+            {
+                btnCHTS.Visible = false;
+            }
+
+            gbTaskInfo_VisibleChanged(null, null);
+        }
+
+        String CHTSFilePath
+        {
+            get
+            {
+                return System.IO.Path.Combine(System.IO.Path.GetDirectoryName(new Uri(this.GetType().Assembly.CodeBase).AbsolutePath), "TFCHTS.exe");
+            }
+        }
+
+        void setStatus()
+        {
+            if (m_Crane.LastStatus == null)
+            {
+                lblTaskId.Text = "-";
+                lblState.Text = "未连接";
+                lblUserPos.Text = "-";
+                lblF1Status.Text = "-";
+                lblF2Status.Text = "-";
+                lblF1Pos.Text = "-";
+                lblF2Pos.Text = "-";
+                lblUserPos.Text = "-";
+                lblEvent.Text = "-";
+                lblCol.Text = "-";
+                lblRow.Text = "-";
+                lblLocker.Text = "-";
+                lblECode.Text = "-";
+                lblEName.Text = "";
+                btnJT.Enabled = false;
+                return;
+            }
+            btnJT.Enabled = true;
+            lblTaskId.Text = m_Crane.LastStatus.TaskId;
+            switch (m_Crane.LastStatus.State)
+            {
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Initialized:
+                    lblState.Text = "初始化";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.BackToTheOrigin:
+                    lblState.Text = "回原点";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.无货待命:
+                    lblState.Text = "无货待命";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.有货待命:
+                    lblState.Text = "有货待命";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.无货运行:
+                    lblState.Text = "无货运行";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.有货运行:
+                    lblState.Text = "有货运行";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Pickup:
+                    lblState.Text = "取货";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Putin:
+                    lblState.Text = "放货";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.AlarmAndShutdown:
+                    lblState.Text = "报警停机";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.ResetAlarm:
+                    lblState.Text = "报警重置";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.奇怪的状态:
+                    lblState.Text = "???";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.Disconnected:
+                    lblState.Text = "未连接";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneStatus.ManualMode:
+                    lblState.Text = "手动";
+                    break;
+                default:
+                    lblState.Text = m_Crane.LastStatus.State.ToString();
+                    break;
+            }
+            switch (m_Crane.LastStatus.Fork1HorizontalPosition)
+            {
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Center:
+                    lblF1Pos.Text = "中位";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Left:
+                    lblF1Pos.Text = "左";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.LeftLimit:
+                    lblF1Pos.Text = "左极限";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Right:
+                    lblF1Pos.Text = "右";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.RightLimit:
+                    lblF1Pos.Text = "右极限";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E6:
+                    lblF1Pos.Text = "左(外)";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E7:
+                    lblF1Pos.Text = "左(外)极限";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E8:
+                    lblF1Pos.Text = "右(外)";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E9:
+                    lblF1Pos.Text = "右(外)极限";
+                    break;
+                default:
+                    lblF1Pos.Text = m_Crane.LastStatus.Fork1HorizontalPosition.ToString();
+                    break;
+            }
+
+            switch (m_Crane.LastStatus.Fork2HorizontalPosition)
+            {
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Center:
+                    lblF2Pos.Text = "中位";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Left:
+                    lblF2Pos.Text = "左";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.LeftLimit:
+                    lblF2Pos.Text = "左极限";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.Right:
+                    lblF2Pos.Text = "右";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.RightLimit:
+                    lblF2Pos.Text = "右极限";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E6:
+                    lblF2Pos.Text = "左(外)";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E7:
+                    lblF2Pos.Text = "左(外)极限";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E8:
+                    lblF2Pos.Text = "右(外)";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkHorizontalPosition.E9:
+                    lblF2Pos.Text = "右(外)极限";
+                    break;
+                default:
+                    lblF2Pos.Text = m_Crane.LastStatus.Fork2HorizontalPosition.ToString();
+                    break;
+            }
+            switch (m_Crane.LastStatus.ForkVerticalPosition)
+            {
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkVerticalPosition.Middle:
+                    lblTL.Text = "中位";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkVerticalPosition.Top:
+                    lblTL.Text = "高位";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.ForkVerticalPosition.Bottom:
+                    lblTL.Text = "低位";
+                    break;
+                default:
+                    lblTL.Text = m_Crane.LastStatus.ForkVerticalPosition.ToString();
+                    break;
+            }
+            switch (m_Crane.LastStatus.Event)
+            {
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.Initialized:
+                    lblEvent.Text = "初始化";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.BeginRunning:
+                    lblEvent.Text = "开始运行";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.BeginPickup:
+                    lblEvent.Text = "开始取货";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.EndPickup:
+                    lblEvent.Text = "取货完成";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.BeginPutin:
+                    lblEvent.Text = "开始放货";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.EndPutin:
+                    lblEvent.Text = "放货完成";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.Finished:
+                    lblEvent.Text = "完成";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.EmergencyStop:
+                    lblEvent.Text = "急停";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.CompletedWithError:
+                    lblEvent.Text = "出错完成";
+                    break;
+                case Wcs.Client.Interfaces.SingleForkCrane.CraneEvent.BackToTheOrigin:
+                    lblEvent.Text = "回原点";
+                    break;
+                default:
+                    lblEvent.Text = m_Crane.LastStatus.Event.ToString();
+                    break;
+            }
+
+            lblCol.Text = m_Crane.LastStatus.UserColumn;
+            lblRow.Text = m_Crane.LastStatus.UserLevel;
+            lblLocker.Text = m_Crane.LastStatus.LockerUser;
+            lblECode.Text = m_Crane.LastStatus.ErrorCode.ToString();
+            lblEName.Text = m_Crane.LastStatus.ErrorName;
+            lblUserPos.Text = m_Crane.LastStatus.CurrentLocation;
+            switch (m_Crane.LastStatus.Fork1Status)
+            {
+                case Interfaces.TwoForkCrane.ForkStatus.故障:
+                    lblF1Status.Text = "故障";
+                    break;
+                case Interfaces.TwoForkCrane.ForkStatus.无货待命:
+                    lblF1Status.Text = "无货待命";
+                    break;
+                case Interfaces.TwoForkCrane.ForkStatus.有货待命:
+                    lblF1Status.Text = "有货待命";
+                    break;
+                default:
+                    lblF1Status.Text = m_Crane.LastStatus.Fork1Status.ToString();
+                    break;
+            }
+            switch (m_Crane.LastStatus.Fork2Status)
+            {
+                case Interfaces.TwoForkCrane.ForkStatus.故障:
+                    lblF2Status.Text = "故障";
+                    break;
+                case Interfaces.TwoForkCrane.ForkStatus.无货待命:
+                    lblF2Status.Text = "无货待命";
+                    break;
+                case Interfaces.TwoForkCrane.ForkStatus.有货待命:
+                    lblF2Status.Text = "有货待命";
+                    break;
+                default:
+                    lblF2Status.Text = m_Crane.LastStatus.Fork2Status.ToString();
+                    break;
+            }
+        }
+
+
+        void setTaskInfo()
+        {
+            if (m_Crane.LastStatus ==null || m_Crane.LastStatus.TaskId.Contains("GOT"))
+            {
+                gbTaskInfoF1.Visible = false;
+                gbTaskInfoF2.Visible = false;
+                return;
+            }
+
+            Int32 equipementTaskIdF1, equipementTaskIdF2;
+            if (!Int32.TryParse(m_Crane.LastStatus.Fork1TaskId, out equipementTaskIdF1))
+            {
+                gbTaskInfoF1.Visible = false;
+            }
+
+            if (!Int32.TryParse(m_Crane.LastStatus.Fork2TaskId, out equipementTaskIdF2))
+            {
+                gbTaskInfoF2.Visible = false;
+            }
+
+            if(equipementTaskIdF1>0)
+            {
+                Task task = m_Crane.Editor.TaskDataSource.GetTaskByEquipmentTaskId(equipementTaskIdF1);
+                int taskCode1;
+
+                if(task== null)
+                {
+                    task = m_Crane.LastStatus.Fork1Task;
+                }
+
+                if (task == null)
+                {
+                    gbTaskInfoF1.Visible = false;
+                }
+                else
+                {
+                    lblTaskCode.Text = task.TaskCode;
+                    switch (task.BizType)
+                    {
+                        case TaskBizType.Normal:
+                            lblBizType.Text = "普通业务";
+                            break;
+                        case TaskBizType.Counting:
+                            lblBizType.Text = "盘点";
+                            break;
+                        default:
+                            lblBizType.Text = task.TaskType.ToString();
+                            break;
+                    }
+                    lblContainerCodes.Text = String.Join(",", task.ContainerCodes);
+                    lblCreatedAt.Text = task.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
+                    lblEndLocation.Text = task.EndLocation.ToString();
+                    switch (task.Source)
+                    {
+                        case TaskSource.Unknow:
+                            lblSource.Text = "未知";
+                            break;
+                        case TaskSource.Wms:
+                            lblSource.Text = task.Source.ToString();
+                            break;
+                        case TaskSource.Wcs:
+                            lblSource.Text = task.Source.ToString();
+                            break;
+                        default:
+                            lblSource.Text = task.Source.ToString();
+                            break;
+                    }
+                    lblStartLocation.Text = task.StartLocation.ToString();
+                    lblTaskType.Text = String.IsNullOrWhiteSpace(task.TaskType) ? "<空>" : task.TaskType;
+
+                    gbTaskInfoF1.Visible = true;
+                }
+            }
+
+            if (equipementTaskIdF2 > 0)
+            {
+                Task task = m_Crane.Editor.TaskDataSource.GetTaskByEquipmentTaskId(equipementTaskIdF2);
+                int taskCode2;
+                if (task == null)
+                {
+                    task = m_Crane.LastStatus.Fork2Task;
+                }
+
+                if (task == null)
+                {
+                    gbTaskInfoF2.Visible = false;
+                }
+                else
+                {
+                    lblTaskCode2.Text = task.TaskCode;
+                    switch (task.BizType)
+                    {
+                        case TaskBizType.Normal:
+                            lblBizType2.Text = "普通业务";
+                            break;
+                        case TaskBizType.Counting:
+                            lblBizType2.Text = "盘点";
+                            break;
+                        default:
+                            lblBizType2.Text = task.TaskType.ToString();
+                            break;
+                    }
+                    lblContainerCodes2.Text = String.Join(",", task.ContainerCodes);
+                    lblCreatedAt2.Text = task.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
+                    lblEndLocation2.Text = task.EndLocation.ToString();
+                    switch (task.Source)
+                    {
+                        case TaskSource.Unknow:
+                            lblSource2.Text = "未知";
+                            break;
+                        case TaskSource.Wms:
+                            lblSource2.Text = task.Source.ToString();
+                            break;
+                        case TaskSource.Wcs:
+                            lblSource2.Text = task.Source.ToString();
+                            break;
+                        default:
+                            lblSource2.Text = task.Source.ToString();
+                            break;
+                    }
+                    lblStartLocation2.Text = task.StartLocation.ToString();
+                    lblTaskType2.Text = String.IsNullOrWhiteSpace(task.TaskType) ? "<空>" : task.TaskType;
+
+                    gbTaskInfoF2.Visible = true;
+                }
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (this.IsDisposed || this.Disposing)
+            {
+                timer1.Stop();
+                return;
+            }
+
+            try
+            {
+                setStatus();
+                setTaskInfo();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        private void btnReturn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+       
+
+        private void lblSuspendTask_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (m_Crane.LastStatus == null || m_Crane.LastStatus.TaskId.Contains("GOT"))
+            {
+                gbTaskInfoF1.Visible = false;
+                return;
+            }
+
+            Int32 equipementTaskId;
+            if (!Int32.TryParse(m_Crane.LastStatus.TaskId, out equipementTaskId))
+            {
+                gbTaskInfoF1.Visible = false;
+                return;
+            }
+
+            var task = m_Crane.Editor.TaskDataSource.GetTaskByEquipmentTaskId(equipementTaskId);
+            if (task == null)
+            {
+                gbTaskInfoF1.Visible = false;
+                return;
+            }
+
+            if (MessageBox.Show(String.Format("确定要暂停任务 {0} 吗？", task.TaskCode)) != System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                m_Crane.Editor.TaskDataSource.SuspendTask(task.TaskCode);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void frmConveyorLocationUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void gbTaskInfo_VisibleChanged(object sender, EventArgs e)
+        {
+            if (gbTaskInfoF1.Visible && gbTaskInfoF2.Visible)
+            {
+                this.Height = 544;
+                gbTaskInfoF1.Location = new Point(7, 183);
+
+                gbTaskInfoF2.Location = new Point(7, 316);
+            }
+            else if(gbTaskInfoF1.Visible && gbTaskInfoF2.Visible==false)
+            {
+                this.Height = 400;
+
+                gbTaskInfoF1.Location = new Point(7, 183);
+            }
+            else if (gbTaskInfoF1.Visible==false && gbTaskInfoF2.Visible)
+            {
+                this.Height = 400;
+
+                gbTaskInfoF2.Location = new Point(7, 183);
+            }
+            else
+            {
+                this.Height = 273;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                m_Crane.DataSource.EmergencyStop(m_Crane.Name);
+            }
+            catch (Exception ex)
+            {
+                 MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var f = CHTSFilePath;
+                System.Diagnostics.Process.Start(f);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "启动失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+}

@@ -1,0 +1,83 @@
+﻿@model Client.User
+
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "form_container", OnBegin = "showTip", OnComplete = "hideTip" }))
+{
+        @Html.ValidationSummary(true)
+    
+    <table class="edit-table">
+        <tr>
+            <th>@Html.LabelFor(model => model.UserName)
+            </th>
+            <td>
+              @if (Model != null && Model.IsBuiltIn)
+              {
+                 @Html.DisplayFor(model => model.UserName) 
+              }
+              else
+              {
+                @Html.EditorFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+              }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.RealName)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.RealName)
+                @Html.ValidationMessageFor(model => model.RealName)
+            </td>
+            </tr>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Password)
+
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Roles)
+            </th>
+            <td>
+                   @foreach (var role in ViewBag.Roles)
+                   {
+                      
+                       <label> <input type="checkbox" name="Roles" value="@role.Id" @(Html.Raw(Model!=null && Model.IsInRole(role.RoleName) ? "checked='checked'" : "")) /> @role.RoleName</label> <br />
+                       @Html.ValidationMessageFor(model => model.Roles)  
+                   }
+            </td>
+        </tr>
+
+  @*      <tr>
+            <th>
+                车间：
+            </th>
+            <td>
+                @Html.TextBox(UserExtensions.UserProfileKey_Workshop, Model!=null && Model.Profile.ContainsKey(UserExtensions.UserProfileKey_Workshop)?Model.GetWorkshop():"")
+            </td>
+        </tr>*@
+
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Comments)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Comments)
+                @Html.ValidationMessageFor(model => model.Comments)
+            </td>
+        </tr>
+       
+         <tr>
+            <th></th>
+            <td><input type="submit" value="保存" />
+                <input type="button" value="取消" onclick="javascript:location.href='@Url.Action("Index", new { isReturned = true })'" />
+            </td>
+        </tr>
+    </table>
+    
+}

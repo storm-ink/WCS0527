@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Wcs.DefaultImpls.Crane;
+using Wcs.Framework.Cfg;
+namespace UnitTestProject1
+{
+    [TestClass]
+    public class 堆垛机测试
+    {
+        [TestMethod]
+        public void LA解析测试()
+        {
+            var state=CraneStatus.BackToTheOrigin;
+            int column=1,level=2;
+            ForkHorizontalPosition forkHorizontalPosition=ForkHorizontalPosition.Left;
+            ForkVerticalPosition forkVerticalPosition=ForkVerticalPosition.Middle;
+            bool atStation=true;
+            int erroCode = 999;
+            CraneEvent evt=CraneEvent.EndPickup;
+            string taskId=string.Format("{0:00000000}", 123);
+            var telex = new StringBuilder()
+                .Append((Char)2)
+                .Append("LA")
+                .AppendFormat("{0:00}", (int)state)
+                .AppendFormat("{0:000}", column)
+                .AppendFormat("{0:000}", level)
+                .AppendFormat("{0}", (int)forkHorizontalPosition)
+                .AppendFormat("{0}", (int)forkVerticalPosition)
+                .AppendFormat("{0}",Convert.ToInt32(atStation))
+                .AppendFormat("{0:0000}", erroCode)
+                .AppendFormat("{0}", (int)evt)
+                .Append(taskId)
+                .Append((Char)3)
+                .ToString();
+
+            RequestStateCommandReplyTelexTransferObject la = new RequestStateCommandReplyTelexTransferObject(telex);
+
+            Assert.AreEqual(la.State, state);
+            Assert.AreEqual(la.Column, column);
+            Assert.AreEqual(la.Level, level);
+            Assert.AreEqual(la.ForkHorizontalPosition, forkHorizontalPosition);
+            Assert.AreEqual(la.ForkVerticalPosition, forkVerticalPosition);
+            Assert.AreEqual(la.AtStation, atStation);
+            Assert.AreEqual(la.Event, evt);
+            Assert.AreEqual(la.TaskId, taskId);
+        }
+
+        [TestMethod]
+        public void HB测试()
+        {
+            RackLocation startLocation=(RackLocation)WcsConfiguration.TryParseLocation("01000001@C001");
+            RackLocation endLocation=(RackLocation)WcsConfiguration.TryParseLocation("02001001@C001");
+            AddTaskCommand addTaskCommand = new AddTaskCommand("12345678", AddTaskCommandType.全自动, startLocation, endLocation, "", false);
+
+            //string telex = addTaskCommand.ToTelex();
+            //Assert.AreEqual(addTaskCommand.ValidateType(telex), true);
+        }
+        [TestMethod]
+        public void 生成x列y层的位置配置()
+        {
+            StringBuilder sb = new StringBuilder();
+            int x = 100;
+            int y = 12;
+            int line = 1; //第几排
+            ForkDirection fd=ForkDirection.Left;
+            for (int i = 1; i <= x; i++)
+            {
+                for (int j = 1; j <= y; j++)
+                {
+                    sb.AppendLine(String.Format(@"<location userCode=""{3:00}-{0:000}-{1:000}"" column=""{0}"" level=""{0}"" forkDirection=""{2}"" />", i, j, fd,line));
+                }
+            }
+
+            fd = ForkDirection.Right;
+            for (int i = 1; i <= x; i++)
+            {
+                for (int j = 1; j <= y; j++)
+                {
+                    sb.AppendLine(String.Format(@"<location userCode=""{3:00}-{0:000}-{1:000}"" column=""{0}"" level=""{0}"" forkDirection=""{2}"" />", i, j, fd, line));
+                }
+            }
+
+            Console.WriteLine(sb);
+            System.Windows.Forms.Clipboard.SetText(sb.ToString());
+        }
+    }
+}

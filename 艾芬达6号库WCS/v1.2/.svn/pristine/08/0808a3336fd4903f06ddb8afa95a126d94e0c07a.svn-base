@@ -1,0 +1,154 @@
+﻿/*
+ * ================================================
+ * 创建人：舒长兵
+ * 创建日期：2013/1/8
+ * 备注：
+ * 
+ * ================================================
+ */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel.Channels;
+using System.Xml;
+using System.ServiceModel;
+using System.Diagnostics;
+namespace Wcs.Client.Services
+{
+    /// <summary>
+    /// 服务调用上下文
+    /// </summary>
+    public class WcsServiceOperationContext
+    {
+        public string Action { get; private set; }
+        public string ActionName { get; set; }
+        public List<_actionParamater> Paramaters { get; private set; }
+        public WcsServiceContext WcsServiceContext { get; private set; }
+        public Type ServiceType { get; private set; }
+        /// <summary>
+        /// 指示本操作是否属于未知方法
+        /// </summary>
+        public bool IsUnknowOperation { get; private set; }
+        public WcsServiceOperationContext(OperationContext operationContext)
+        {
+            if (operationContext != null)
+            {
+                this.ServiceType = operationContext.Host.Description.ServiceType;
+                this.Paramaters = new List<_actionParamater>();
+                this.WcsServiceContext = new WcsServiceContext(operationContext.RequestContext.RequestMessage);
+                this.Action = operationContext.RequestContext.RequestMessage.Headers.Action;
+
+                System.Xml.XmlDocument xml = new System.Xml.XmlDocument();
+                xml.LoadXml(operationContext.RequestContext.RequestMessage.ToString());
+
+                var root = xml.ChildNodes.Cast<System.Xml.XmlNode>().Where(x => x.Name == "s:Envelope").Single();
+                var body = root.ChildNodes.Cast<System.Xml.XmlNode>().Where(x => x.Name == "s:Body").Single();
+                if (body.ChildNodes.Count == 0)
+                {
+                    Action = operationContext.RequestContext.RequestMessage.Headers.Action;
+                    //更新服务时 http://schemas.xmlsoap.org/ws/2004/09/transfer/Get
+
+                    var segments = new Uri(operationContext.RequestContext.RequestMessage.Headers.Action).Segments;
+                    ActionName = string.Join("", segments.Skip(segments.Length - 2 < 0 ? 0 : segments.Length - 2).ToArray());
+
+                    this.IsUnknowOperation = true;
+                    return;
+                }
+
+                XmlNode methodNode = body.ChildNodes[0];
+                ActionName = methodNode.Name;
+                foreach (XmlNode paramaterNode in methodNode.ChildNodes)
+                {
+                    this.Paramaters.Add(getParamaters(paramaterNode));
+                }
+            }
+        }
+
+        private _actionParamater getParamaters(XmlNode paramaterNode)
+        {
+            string key = paramaterNode.LocalName;
+            if (paramaterNode.Attributes != null && paramaterNode.Attributes.Cast<XmlAttribute>().Any(x => x.Name == "i:nil" && x.Value == "true"))
+            {
+                return new _actionParamater(key, null);
+            }
+            else
+            {
+                if (paramaterNode.ChildNodes.Count == 0 || (paramaterNode.ChildNodes.Count == 1 && paramaterNode.ChildNodes[0] is System.Xml.XmlText))
+                {
+                    return new _actionParamater(key, paramaterNode.InnerText);
+                }
+                else
+                {
+                    List<_actionParamater> value = new List<_actionParamater>();
+                    foreach (XmlNode item in paramaterNode.ChildNodes)
+                    {
+                        value.Add(getParamaters(item));
+                    }
+                    return new _actionParamater(key, value);
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(string.Format("操作人 {0}:{1}", WcsServiceContext.IsAnonymous ? "Anonymous" : WcsServiceContext.UserName + " <" + WcsServiceContext.RealName + ">", WcsServiceContext.ClientIp));
+            sb.AppendLine(string.Format("方法名 {0}:{1}", ActionName, Action));
+
+            if (this.Paramaters.Count > 0)
+            {
+                sb.AppendLine(string.Format("参数"));
+                foreach (var item in Paramaters)
+                {
+                    if (item.value is List<_actionParamater>)
+                    {
+                        sb.AppendLine(string.Format("{0,10}", item.name));
+                        getParamaters(ref sb, item.value, 1 + 1);
+                    }
+                    else
+                    {
+                        sb.AppendLine(string.Format("{0,10}  {1}", item.name, item.value == null ? "<null>" : item.value));
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private void getParamaters (ref StringBuilder sb, object paramaterValue, int deep)
+        {
+            if (paramaterValue is List<_actionParamater>)
+            {
+                foreach (var item in (List<_actionParamater>)paramaterValue)
+                {
+                    if (item.value is List<_actionParamater>)
+                    {
+                        sb.AppendLine(string.Format("{0," + (10 + deep * 10).ToString() + "}", item.name));
+                        getParamaters(ref sb, item.value, deep+1);
+                    }
+                    else
+                    {
+                        sb.AppendLine(string.Format("{0," + (10 + deep * 10).ToString() + "}  {1}", item.name, item.value == null ? "<null>" : item.value));
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("paramaterValue is not List<_actionParamater>");
+            }
+        }
+
+        public class _actionParamater
+        {
+            public string name { get; set; }
+            public object value { get; set; }
+            public _actionParamater(string _name, object _value)
+            {
+                this.name = _name;
+                this.value = _value;
+            }
+        }
+    }
+}

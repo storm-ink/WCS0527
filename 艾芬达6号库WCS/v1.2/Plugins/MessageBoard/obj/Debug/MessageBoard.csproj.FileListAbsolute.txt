@@ -1,0 +1,257 @@
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Wcs.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Wcs.XML
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Wcs.Framework.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Wcs.Framework.XML
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\install.ps1
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\MessageBoard.nuspec
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Iesi.Collections.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\NHibernate.Caches.SysCache2.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\NHibernate.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\NLog.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Wcs.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Wcs.Framework.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\Iesi.Collections.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\NHibernate.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\bin\Debug\NLog.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\obj\Debug\MessageBoard.csprojResolveAssemblyReference.cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.frmMessage.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.ucMessageBoard.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.GenerateResource.Cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.pdb
+E:\svn\Wcs2\Wcs\branches\005\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\MessageBoard.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Wcs.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Wcs.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Wcs.Framework.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Wcs.Framework.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\install.ps1
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\NHibernate.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Wcs.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Wcs.Framework.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\NHibernate.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.frmMessage.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.ucMessageBoard.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\install.ps1
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\MessageBoard.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Wcs.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Wcs.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Wcs.Framework.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Wcs.Framework.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\NHibernate.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Wcs.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Wcs.Framework.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\NHibernate.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.frmMessage.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.ucMessageBoard.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Wcs.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Wcs.XML
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Wcs.Framework.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Wcs.Framework.XML
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\install.ps1
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\MessageBoard.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\NHibernate.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\NLog.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Wcs.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Wcs.Framework.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Wcs.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\NHibernate.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\NLog.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.frmMessage.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.ucMessageBoard.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.GenerateResource.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.CopyComplete
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\install.ps1
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\MessageBoard.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Wcs.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Wcs.XML
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Wcs.Framework.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Wcs.Framework.XML
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Plugins.MessageBoard.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\NHibernate.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\NLog.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Wcs.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Wcs.Framework.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Wcs.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\NHibernate.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\NLog.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.AssemblyReference.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.frmMessage.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\obj\Debug\Wcs.App.Plugins.MessageBoard.ucMessageBoard.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.GenerateResource.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\obj\Debug\MessageBoard.csproj.CopyComplete
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.2\Plugins\MessageBoard\obj\Debug\Plugins.MessageBoard.pdb

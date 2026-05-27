@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    [Serializable]
+    public class PathScaler : System.Runtime.Serialization.ISerializable
+    {
+        public PathScaler()
+        {
+        }
+
+        public PathScaler(SerializationInfo info, StreamingContext context)
+            : this()
+        {
+            this.MinPixel = (float)info.GetValue("MinPixel", typeof(float));
+            this.MaxPixel = (float)info.GetValue("MaxPixel", typeof(float));
+            this.MinBarcode = (float)info.GetValue("MinBarcode", typeof(float));
+            this.MaxBarcode = (float)info.GetValue("MaxBarcode", typeof(float));
+        }
+
+        [Description("结束条码值"), Category("条码坐标")]
+        public float MaxBarcode { get; set; }
+
+        [Description("结束像素值"), Category("屏幕坐标")]
+        public float MaxPixel { get; set; }
+
+        [Description("起始条码值"), Category("条码坐标")]
+        public float MinBarcode { get; set; }
+
+        [Description("起始像素值"), Category("屏幕坐标")]
+        public float MinPixel { get; set; }
+
+        public Boolean IsEmpty
+        {
+            get
+            {
+                return MaxBarcode == 0 &&
+                    MaxPixel == 0 &&
+                    MinBarcode == 0 &&
+                    MinPixel == 0;
+            }
+        }
+        /// <summary>
+        /// 一个象素可换算成多少个条码值
+        /// </summary>
+        [Browsable(false)]
+        public float Scale
+        {
+            get
+            {
+                return (MaxBarcode - MinBarcode) / (MaxPixel - MinPixel);
+            }
+        }
+
+        public Boolean Contains(Int32 barcode)
+        {
+            return barcode >= MinBarcode && barcode <= MaxBarcode;
+        }
+
+        public void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            info.AddValue("MinPixel", MinPixel);
+            info.AddValue("MaxPixel", MaxPixel);
+            info.AddValue("MinBarcode", MinBarcode);
+            info.AddValue("MaxBarcode", MaxBarcode);
+        }
+        public float ToBarcode(float pixel,PathScaler[] paths)
+        {
+            return (pixel-this.MinPixel) * Scale+this.MinBarcode;
+        }
+
+        public float ToPixel(Int32 barcode)
+        {
+            return (barcode-this.MinBarcode)/Scale+this.MinPixel;
+        }
+        public override string ToString()
+        {
+            return String.Format("{0:0.##}-{1:0.##}", MinPixel, MaxPixel);
+        }
+
+    }
+}

@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using Wcs.Framework.Cfg;
+namespace $rootnamespace$
+{
+    /// <summary>
+    /// 应修改 Wcs.App.exe.Config 中的堆垛机配置节点 type 值为 $rootnamespace$.WithRemoteControllerCraneDeviceCollection, $rootnamespace$
+    /// </summary>
+    public class WithRemoteControllerCraneDeviceCollection :Wcs.DefaultImpls.Crane.CraneCollection
+    {
+        public WithRemoteControllerCraneDeviceCollection(XmlNode node, WcsConfiguration configuration)
+            : base(node, configuration)
+        {
+        }
+        public override DeviceElement CreateDeviceElement(XmlNode deviceNode)
+        {
+            return new WithRemoteControllerCraneDeviceElement(deviceNode,this.WcsConfiguration);
+        }
+    }
+}

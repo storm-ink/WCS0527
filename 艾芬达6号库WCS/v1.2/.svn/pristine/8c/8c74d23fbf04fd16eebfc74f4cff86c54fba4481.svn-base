@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Spiral.Web</name>
+    </assembly>
+    <members>
+        <member name="T:Spiral.Web.WmsOperationAttribute">
+            <summary>
+            使用 wms 的 role 和 operation 数据进行授权的过滤器。
+            </summary>
+            
+        </member>
+        <member name="T:Spiral.Web.PageInfo">
+            <summary>
+            提供数据应如何分页的信息。页索引基于 1。
+            </summary>
+        </member>
+        <member name="M:Spiral.Web.PageInfo.RoundPageIndex">
+            <summary>
+            应在设置 TotalItemCount 之后调用，PageIndex 属性会调整为 1..max 之间的数值
+            </summary>
+        </member>
+        <member name="P:Spiral.Web.PageInfo.PageIndex">
+            <summary>
+            基于 1 的页索引。
+            </summary>
+        </member>
+        <member name="P:Spiral.Web.PageInfo.PageSize">
+            <summary>
+            页大小。
+            </summary>
+        </member>
+        <member name="P:Spiral.Web.PageInfo.TotalItemCount">
+            <summary>
+            一共有多少项。
+            </summary>
+        </member>
+        <member name="P:Spiral.Web.PageInfo.StartItemIndex">
+            <summary>
+            起始项的索引，基于 0。
+            </summary>
+        </member>
+        <member name="T:Spiral.Web.OpenSessionInViewExtentions">
+            <summary>
+            支持Osiv的扩展方法
+            </summary>
+        </member>
+        <member name="M:Spiral.Web.OpenSessionInViewExtentions.GetOsivAttribute(System.Web.HttpContextBase)">
+            <summary>
+            获取 httpContext 实例中的 OpenSessionInViewAttribute
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Web.OpenSessionInViewExtentions.GetNhRepositoryContext(System.Web.HttpContextBase)">
+            <summary>
+            获取 httpContext 实例中的 NhRepositoryContext
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Web.ReturnInfo.GetConditions">
+            <summary>
+            返回此实例中保存的查询条件，不检查此实例是否处于活动状态，如果没有查询条件，则返回 null。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Web.ReturnInfo.Delete">
+            <summary>
+            从 session 中删除此实例
+            </summary>
+        </member>
+        <member name="M:Spiral.Web.ReturnInfo.Create(System.Int32,System.Int32,System.Object)">
+            <summary>
+            将此实例创建到 session，但 IsActive 为 false
+            </summary>
+            <param name="pageIndex"></param>
+            <param name="conditions"></param>
+        </member>
+        <member name="M:Spiral.Web.ReturnInfo.SetActive">
+            <summary>
+            将此实例的 IsActive 设置为 true
+            </summary>
+        </member>
+        <member name="M:Spiral.Web.ModelStateDictionaryExtensions.ToMessage(System.Web.Mvc.ModelStateDictionary)">
+            <summary>
+            将 modelState 中包含的错误转换成字符串
+            </summary>
+            <param name="modelState"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.Web.OpenSessionInViewFilterAttribute">
+            <summary>
+            此过滤器用于在 asp.net mvc 中使用 Open Session In View
+            </summary>
+        </member>
+        <member name="M:Spiral.Web.EnumHelper.ToSelectList``1(System.Nullable{``0})">
+            <summary> 
+            将枚举类型转换成 asp.net mvc 中的 SelectList，
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="selectedValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Web.EnumHelper.ToSelectList``1(System.Nullable{``0},``0[])">
+            <summary>
+            将枚举转换成一个 asp.net mvc 中的 SelectList，允许指定不显示的枚举成员。
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="selectedValue"></param>
+            <param name="excluded"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Web.EnumHelper.ToSelectList2``1(System.Nullable{``0},``0[])">
+            <summary>
+            将枚举转换成一个 asp.net mvc 中的 SelectList，允许指定不显示的枚举成员。
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="selectedValue"></param>
+            <param name="included"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.Web.EnumHelper.GetDisplayName``1(``0)">
+            <summary>
+            获取枚举成员的显示名。如果枚举成员上定义了 DisplayAttribute，则使用 DisplayAttribute.Name。否则，返回 value.ToString 方法的返回值。
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.Web.PageHelper">
+            <summary>
+            列表页分页的 helper。
+            </summary>
+        </member>
+    </members>
+</doc>

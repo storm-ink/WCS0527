@@ -1,0 +1,191 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using Gensong.ServiceCrane;
+
+namespace Gensong
+{
+    [DesignTimeVisible(false)]
+    public partial class ucAlarm : UserControl
+    {
+        public ucAlarm()
+        {
+            InitializeComponent();
+
+            lblErrorCode.ForeColor = lblErrorName.ForeColor = lblErrorDescription.ForeColor = 
+            lblErrorSolution.ForeColor = lblTaskInfo.ForeColor = Color.Yellow;
+
+            EmptyInfo();
+        }
+
+        private void ucAlarm_VisibleChanged(object sender, EventArgs e)
+        {
+            flpAlarm.Visible = true;
+            flpAlarm.Controls.Clear();
+        }
+
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+            Globle.CheckLock(crn, (Button)sender);
+        }
+        private void btnAlarmInfo_Click(object sender, EventArgs e)
+        {
+            flpAlarm.Visible = true;
+        }
+        private void btnHE_Click(object sender, EventArgs e)
+        {
+            SendTask(ETask.HE);
+
+            //if (btnHE.Text == "  急停")
+            //{
+            //    SendTask(ETask.HE);
+            //    btnHE.Text = "  复位";
+            //}
+            //else
+            //{
+            //    SendTask(ETask.HC);
+            //    btnHE.Text = "  急停";
+            //}
+        }
+        private void btnHP_Click(object sender, EventArgs e)
+        {
+            SendTask(ETask.HP);
+        }
+
+        private void EventResponseTelex(object sender, ResponseEvent e)
+        {
+            Action a = () => { LA la = (LA)e.Telex;
+                if (la != null) {
+                    crn.CraneWorkModeKeyInfo = la.CraneWorkModeKeyInfo;
+                    lblTaskInfo.Text = la.SHB != null ? la.SHB.ToString() : "";
+
+                    if (la.LockUser != Globle.HostName)
+                    {
+                        btnLock.Text = "  锁定"; btnLock.Image = Gensong.Properties.Resources.Unlock;
+                    }
+                    else
+                    {
+                        btnLock.Text = "  解锁"; btnLock.Image = Gensong.Properties.Resources.Onlock;
+                    }
+
+                    if (lblState.AccessibleDescription != "Online")
+                    {
+                        lblState.AccessibleDescription = "Online";
+                    }
+
+                    if (la.ErrorList == null || la.ErrorList.Length == 0)
+                    {
+                        flpAlarm.Controls.Clear();
+                    }
+                    else
+                    {
+                        for (int i = flpAlarm.Controls.Count; i < la.ErrorList.Length; i++)
+                        {
+                            Label lbl = new Label();
+
+                            lbl.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+                            lbl.Size = new System.Drawing.Size(523, 36);
+                            lbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                            lbl.Text = la.ErrorList[i];
+                            lbl.Click += (b, c) => {
+                                Alarm.SetErrorInfo(!crn.Connected ? "" : lbl.Text.Substring(0, 4),
+                                    ref lblErrorCode, ref lblErrorName, ref lblErrorDescription, ref lblErrorSolution);
+
+                                flpAlarm.Visible = false;
+                            };
+
+                            flpAlarm.Controls.Add(lbl);
+                        }
+                    }
+                }
+            }; this.Invoke(a);
+        }
+        public void EventClosed(object sender, EventArgs e)
+        {
+            Action a = () => {
+                if (lblState.AccessibleDescription != "Closed")
+                {
+                    EmptyInfo(); lblState.AccessibleDescription = "Closed";
+                    flpAlarm.Controls.Clear();
+                }
+            }; this.Invoke(a);
+        }
+
+        private void EmptyInfo()
+        {
+            lblErrorCode.Text = lblErrorName.Text = lblErrorDescription.Text = lblErrorSolution.Text = lblTaskInfo.Text = string.Empty;
+            btnLock.Text = "  锁定"; btnLock.Image = Gensong.Properties.Resources.Unlock;
+            flpAlarm.Controls.Clear();
+        }
+        private void SendTask(ETask eTask)
+        {
+            try
+            {
+                if (!crn.Connected) { frmMsgbox.Show("无法连接堆垛机, 不能进行操作..."); return; }
+
+                if ((crn.CraneWorkModeKeyInfo == null || crn.CraneWorkModeKeyInfo.IsManual) && eTask != ETask.HE)
+                {
+                    frmMsgbox.Show("堆垛机远程手动模式已开，不能进行操作..."); return;
+                }
+
+                if (eTask != ETask.HE && eTask != ETask.HC)
+                {
+                    if (Globle.CheckLock(crn, true)) return;
+                }
+
+                if (eTask != ETask.HE && eTask != ETask.HC && eTask != ETask.HP)
+                {
+                    if (Globle.CheckCraneOK(crn) == false) return;
+                }
+
+                if (eTask == ETask.HB)
+                {
+                    if (frmMsgbox.Show("确定要重新执行任务吗?", Btn.YesNo) == DialogResult.No) return;
+                }
+
+                string sInfo = null;
+                switch (eTask)
+                {
+                    case ETask.HB: sInfo = Globle.MCS.SendHB(crn.CName, null); break;
+                    case ETask.HP: sInfo = Globle.MCS.SendHP(crn.CName); break;
+                    case ETask.HE: sInfo = Globle.MCS.SendHE(crn.CName); break;
+                    case ETask.HC: sInfo = Globle.MCS.SendHC(crn.CName); break;
+                }
+
+                if (sInfo != null) frmMsgbox.Show(sInfo);
+            }
+            catch (Exception ex)
+            {
+                frmMsgbox.Show(ex.Message);
+            }
+        }
+
+        private Crane crn;
+        public Crane Crane
+        {
+            set
+            {
+                if (crn != null)
+                {
+                    crn.EResponseTelex -= new EventHandler<ResponseEvent>(EventResponseTelex);
+                    crn.EClosed -= new EventHandler(EventClosed);
+                }
+                if (value == null) return; EmptyInfo(); btnAlarmInfo.Enabled = true;
+
+                crn = value;
+                crn.EResponseTelex += new EventHandler<ResponseEvent>(EventResponseTelex);
+                crn.EClosed += new EventHandler(EventClosed);
+
+                if (Globle.TcpConnected) EventResponseTelex(null, new ResponseEvent(crn.LA));
+            }
+        }
+
+        enum ETask
+        { 
+            HB, HE, HC, HP
+        }
+    }
+}

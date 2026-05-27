@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DC2</name>
+    </assembly>
+    <members>
+        <member name="T:DC2.WcsTaskInfo">
+            <summary>
+            任务信息。
+            </summary>
+        </member>
+        <member name="P:DC2.WcsTaskInfo.TaskCode">
+            <summary>
+            任务编码
+            </summary>
+        </member>
+        <member name="P:DC2.WcsTaskInfo.RequestId">
+            <summary>
+            产生任务的请求 id
+            </summary>
+        </member>
+        <member name="P:DC2.WcsTaskInfo.TaskType">
+            <summary>
+            任务类型，取值依项目而变化
+            </summary>
+        </member>
+        <member name="P:DC2.WcsTaskInfo.From">
+            <summary>
+            起点
+            </summary>
+        </member>
+        <member name="P:DC2.WcsTaskInfo.To">
+            <summary>
+            终点
+            </summary>
+        </member>
+        <member name="P:DC2.WcsTaskInfo.ContainerCodes">
+            <summary>
+            容器编码
+            </summary>
+        </member>
+        <member name="P:DC2.WcsTaskInfo.Direction">
+            <summary>
+            方向，In, Out 或 Other
+            </summary>
+        </member>
+        <member name="P:DC2.WcsTaskInfo.AdditionalInfo">
+            <summary>
+            附加信息
+            </summary>
+        </member>
+        <member name="T:DC2.WcsRequestInfo">
+            <summary>
+            wcs 给 wms 的请求信息。
+            </summary>
+        </member>
+        <member name="M:DC2.WcsRequestInfo.#ctor">
+            <summary>
+            初始化 WcsRequestInfo 类的新实例。
+            </summary>
+        </member>
+        <member name="P:DC2.WcsRequestInfo.WcsRequestId">
+            <summary>
+            wcs 请求 id
+            </summary>
+        </member>
+        <member name="P:DC2.WcsRequestInfo.LocationUserCode">
+            <summary>
+            指示在哪个位置发出请求
+            </summary>
+        </member>
+        <member name="P:DC2.WcsRequestInfo.ContainerCodes">
+            <summary>
+            容器编码
+            </summary>
+        </member>
+        <member name="P:DC2.WcsRequestInfo.Comments">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:DC2.WcsRequestInfo.RequestType">
+            <summary>
+            请求类型，例如，空托入库，机械手入库等，依项目而变化。
+            </summary>
+        </member>
+        <member name="P:DC2.WcsRequestInfo.AdditionalInfo">
+            <summary>
+            当预留属性不够用时使用的附加信息
+            </summary>
+        </member>
+        <member name="P:DC2.WcsRequestInfo.AdditionalInfoString">
+            <summary>
+            将 AdditionalInfo 字典的内容作为字符串返回。
+            </summary>
+        </member>
+    </members>
+</doc>

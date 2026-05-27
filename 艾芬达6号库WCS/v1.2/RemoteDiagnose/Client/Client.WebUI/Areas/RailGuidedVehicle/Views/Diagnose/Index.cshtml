@@ -1,0 +1,381 @@
+﻿@{
+    ViewBag.Title = "诊断";
+}
+
+<script type="text/javascript">
+    function toJSON(v) {
+        if (typeof (v) == 'string') {
+            r = $.parseJSON(v);
+        } else {
+            r = v;
+        }
+        for (var prop in r) {
+            if (r[prop] && typeof (r[prop]) == 'string') {
+                if ((this.startWith(r[prop], '\\{') && this.endWith(r[prop], '\}')) || (this.startWith(r[prop], '\\[') && this.endWith(r[prop], '\\]'))) {
+                    r[prop] = $.parseJSON(r[prop]);
+                } else {
+                    if (r[prop] == "null") {
+                        r[prop] = null;
+                    }
+                }
+            }
+        }
+
+        return r;
+    }
+    function getTaskModeName(v) {
+        switch (v) {
+            case 0:
+                return '无任务类型';
+            case 1:
+                return '全自动任务';
+            case 2:
+                return '取货任务';
+            case 3:
+                return '放货任务';
+            case 4:
+                return '有货行走';
+            case 5:
+                return '无货行走';
+            default:
+                return '未知模式';
+        }
+    }
+
+    function getEventName(v) {
+        switch (v) {
+            case 0:
+                return '无货无任务';
+            case 1:
+                return '接到任务未运行';
+            case 2:
+                return '行走运行';
+            case 3:
+                return '到达起始点';
+            case 4:
+                return '到达目的地';
+            case 5:
+                return '执行让道任务';
+            case 6:
+                return '自动任务完成';
+            case 7:
+                return '手动报完成';
+            case 8:
+                return '交接货超时';
+            default:
+                return '未知事件';
+        }
+
+    }
+
+    function getStateName(v) {
+        switch (v) {
+            case 0:
+                return '初始化';
+            case 1:
+                return '手动模式';
+            case 2:
+                return '无货待命';
+            case 3:
+                return '有货待命';
+            case 4:
+                return '无货运行';
+            case 5:
+                return '有货运行';
+            case 6:
+                return '停止';
+            case 7:
+                return '手动报完成';
+            case 8:
+                return '报警停机';
+            case 9:
+                return '有货';
+            default:
+                return '未知状态';
+        }
+    }
+
+    function updateStatus(status) {
+        $('#CraneControlBox label[name]').each(function (i, item) {
+            if (status.hasOwnProperty($(item).attr('name'))) {
+                var v = status[$(item).attr('name')];
+                switch ($(item).attr('name')) {
+                    case "TaskMode":
+                        v = getTaskModeName(v);
+                        break;
+                    case "Event":
+                        v = getEventName(v);
+                        break;
+                    case "State":
+                        v = getStateName(v);
+                        break;
+
+                }
+                $(item).text(v);
+            } else {
+                $(item).text('<属性不存在>');
+            }
+        });
+
+        //$('#CraneControlBox input').each(function (i, item) {
+
+        //    if (!$(item).hasClass('lock') && !$(item).hasClass('jt')) {
+        //        if (canHandle) {
+        //            $(item)
+        //                .removeClass('disable')
+        //                .removeAttr("disabled");
+        //        } else {
+        //            $(item)
+        //                .removeClass('disable')
+        //                .addClass('disable')
+        //                .removeAttr("disabled")
+        //                .attr('disabled', 'disabled');
+        //        }
+        //    } else {
+
+        //        $(item)
+        //            .removeClass('disable')
+        //            .removeAttr("disabled");
+        //    }
+        //});
+
+    }
+
+
+    function proc() {
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: '/RailGuidedVehicle/DeviceService/GetAllStatus',
+            success: function (data) {
+                if (data) {
+                    data = toJSON(data);
+                }
+
+                if (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var status = data[i];
+                        if (status.Name != $('#DeviceNames').val()) {
+                            continue;
+                        }
+
+                        updateStatus(status);
+                    }
+                }
+            },
+            error: function (x1, x2, x3) {
+                console.error(x1.status);
+            }
+        });
+    }
+
+
+    $(document).ready(function () {
+
+        //$('#CraneControlBox input').each(function (i, item) {
+        //    $(item)
+        //           .removeClass('disable')
+        //           .addClass('disable')
+        //           .removeAttr("disabled")
+        //           .attr('disabled', 'disabled');
+        //});
+
+        $('.leftPick').click(function () {
+            callRemote('Pick', { name: $('#DeviceNames').val(), forkDirection: 1 });
+        });
+
+        $('.rightPick').click(function () {
+            callRemote('Pick', { name: $('#DeviceNames').val(), forkDirection: 2 });
+        });
+
+        $('.leftPut').click(function () {
+
+            callRemote('Putdown', { name: $('#DeviceNames').val(), forkDirection: 1 });
+        });
+
+        $('.rightPut').click(function () {
+            callRemote('Putdown', { name: $('#DeviceNames').val(), forkDirection: 2 });
+        });
+
+        $('.running').click(function () {
+            callRemote('Move', { name: $('#DeviceNames').val(), station: $('#Station').val() });
+        });
+
+
+        $('#diagnose').click(function () {
+
+            callRemote('Diagnose', { name: $('#DeviceNames').val() }, function (data) {
+                if (data) {
+                    $('#diagnoseBox').text(data);
+                } else {
+
+                    $('#diagnoseBox').text('诊断信息获取失败');
+                }
+            });
+        });
+
+        $('.clearTASK').click(function () {
+            callRemote('ClearTask', { name: $('#DeviceNames').val()});
+        });
+
+        setInterval(proc, 1000);
+    });
+
+
+    function callRemote(methodName, data,callback) {
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: '/RailGuidedVehicle/DeviceService/' + methodName,
+            data: data,
+            success: function (data) {
+
+                if (callback && typeof(callback)=='function') {
+                    callback(data);
+                }else{
+                    if (!data.success) {
+                        alert(data.msg);
+                    }                    
+                }
+            },
+            error: function (x1, x2, x3) {
+                console.error(getResponseErrorText(x1));
+                alert(getResponseErrorText(x1));
+            }
+        });
+    }
+</script>
+
+<link href="/Scripts/Design/crane.css" rel="stylesheet" />
+<style type="text/css">
+    .disable {
+        opacity: 0.2;
+    }
+
+    .CraneControlBox table, .CraneControlBox table tr td {
+        padding: 0px;
+        border: none;
+    }
+
+    .CraneControlBox .diagnoseBox {
+        width: 100%;
+        line-height: 1.8;
+        height: 410px;
+        overflow-y: auto;
+        font-size: 12px;
+        text-align: left;
+    }
+
+    .CraneControlBox .infoBox {
+        font-size: 14px;
+    }
+</style>
+<div style="width: 100%; line-height: 1.8; font-size: 20px; margin-bottom: 20px; font-weight: bold;">
+    请选择穿梭车：
+    <select name="DeviceNames" id="DeviceNames">
+        @foreach (var item in ((List<String>)ViewBag.DeviceNames))
+        {
+            <option value="@item">@item</option>
+        }
+    </select> <span style="font-size:20px;font-weight:bold;color:red;">处于现场联机模式，请谨慎操作！</span>
+</div>
+<div class="CraneControlBox" id="CraneControlBox" style="float:left;">
+    <div class="infoBox">
+        <div name="Name" class="CraneName" style="font-size: 15px; font-weight: bold;">一号穿梭车</div>
+        <table border="0" cellspacing="0" cellpadding="0" style="width: 500px; float: left; font-size: 14px;">
+            <tr>
+                <td style="width: 33.33%">当前站：<label name="CurrentStation">-</label></td>
+                <td style="width: 33.33%">起始站：<label name="FromStation">-</label></td>
+                <td style="width: 33.33%">终点站：<label name="ToStation">-</label></td>
+            </tr>
+            <tr>
+                <td style="width: 33.33%">状态：<label name="State">-</label></td>
+                <td style="width: 33.33%">事件：<label name="Event">-</label></td>
+                <td style="width: 33.33%">模式：<label name="TaskMode">-</label></td>
+            </tr>
+            <tr>
+                <td style="width: 33.33%">坐标：<label name="Position">-</label></td>
+                <td style="width: 33.33%">任务号：<label name="TaskId">-</label></td>
+                <td style="width: 33.33%">报警码：<label name="ErrorCode">-</label><label name="ErrorName"></label></td>
+            </tr>
+        </table>
+    </div>
+    <table border="0" cellspacing="0" cellpadding="0" class="controlTable" style="width: 40%">
+        <tr>
+            <td style="width: 33.33%">左</td>
+            <td style="width: 33.33%">站点</td>
+            <td style="width: 33.33%">右</td>
+        </tr>
+        <tr>
+            <td style="width: 33.33%">
+                <input type="button" class="leftPick" title="左取货" /></td>
+            <td style="width: 33.33%">
+                <input type="text" class="num" id="Station" title="需要让小车运行到的目的站点" /></td>
+            <td style="width: 33.33%">
+                <input type="button" class="rightPick" title="右取货" /></td>
+        </tr>
+        <tr>
+            <td style="width: 33.33%">
+                <input type="button" class="leftPut" title="左放货"/></td>
+            <td style="width: 33.33%">
+                <input type="button" class="running" value="运行" title="向小车发送运行到指定站点的指令" /></td>
+            <td style="width: 33.33%">
+                <input type="button" class="rightPut" title="右放货" /></td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="CraneControlBox" style="float:left;margin-left:30px;">
+        
+        <table border="0" cellspacing="0" cellpadding="0" class="controlTable" style="width:95%;">
+            <tr>
+                <td style="width:20%;text-align:left;"><h2 style="margin:0px;padding:0px;float:left;">远程诊断信息</h2> <input id="diagnose" style="width:75px;border:none; text-decoration:underline; text-align:right;float:right;margin-top:0px;background:url(/content/icons/connected.png) left center no-repeat;" type="button" value="获取" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="diagnoseBox">
+BayAddPri	DINT	L#0	L#10	列认址片脉冲数	<br />
+BayMaxN	INT	0	62	列最大数	<br />
+TravelPlus	DINT	L#1	L#1	每个脉冲对应的毫米	<br />
+TravelCla	DINT	L#200	L#2000	爬行距离	<br />
+TravelDec	DINT	L#2000	L#5000	减速距离	<br />
+TravelAccT	DINT	L#6	L#6	加速时间	<br />
+TravelDec	DINT	L#6	L#4	减速时间	<br />
+TravelSpe	DINT	L#2667	L#200	运行速度(mm每秒)	<br />
+TrivalPlus	DINT	L#0	L#40	到达每个认址片的最大偏移量正方向	<br />
+TrivalPlus	DINT	L#0	L#40	到达每个认址片的最大偏移量反方向	<br />
+TrivalHigh	DINT	L#0	L#500	行走最高速	<br />	
+TrivalClim	DINT	L#0	L#10	爬行速度	<br />
+TrivalHad	INT	0	450	有货最高速度	<br />
+TrivalLowS	INT	0	95	慢速	　	<br />
+TrivalLowL	INT	0	10	慢慢速	<br />
+ManualSp	INT	0	10	手动高速		<br />
+ManualSp	INT	0	35	手动低速	　	<br />
+BayAddPri	DINT	L#0	L#50	列停止片脉冲数		<br />
+ToZeroSto	DINT	L#0	L#60	回零停止脉冲		<br />
+WalkingEn	DINT	L#0	L#13789	行走激光测距值		<br />
+Trival_H_S	DINT	L#0	L#500	行走高速	　	<br />
+Trival_L_S	DINT	L#0	L#12	行走低速	　	<br />
+Trival_C_S	DINT	L#0	L#10	行走爬行速度		<br />
+TravelDist	DINT	L#0	L#60000	行走高速减速距离		<br />
+TravelDist	DINT	L#0	L#53000	行走低速减速距离		<br />
+TravelDist	DINT	L#0	L#2500	行走爬行距离		<br />
+TravelBias	DINT	L#0	L#80	认址偏差	　	<br />
+Speed_50	DINT	L#0	L#120	50Hz时堆垛机速度	<br />
+Data_50Hz	DINT	L#0	L#10666	50Hz时输出给变频器值	<br />
+Pulse_1m	DINT	L#0	L#10	1mm对应脉冲值		<br />
+AccTime	TIME	T#0MS	T#6S	加速时间	　	<br />
+DccTime	TIME	T#0MS	T#4S	减速时间	　	<br />
+LeastTime	TIME	T#0MS	T#3S	高速最短运行时间	<br />
+StartDista	DINT	L#0	L#9226	起始位置	　	<br />
+wandaoka	DINT	L#0	L#354346	靠近原点弯道脉冲	<br />
+wandaom	DINT	L#0	L#373566	靠近末端原点脉冲		<br />
+jiguangzhi	DINT	L#0	L#0	jiguanshishizhi		<br />
+xiangjiazh	DINT	L#0	L#354346	xiangjiazhi		<br />
+wandaoxi	DINT	L#0	L#50	弯道行走速度
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>

@@ -1,0 +1,247 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    public class DrawCarTools
+    {
+        static void DrawBox(Graphics graphics, RectangleF bigBoxRect, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject status)
+        {
+            if (
+                status == null
+                || (status.State != Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货
+                && status.State != Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货待命
+                && status.State != Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货运行)
+                )
+            {
+                return;
+            }
+
+            var width = bigBoxRect.Width * 0.4;
+            var height = bigBoxRect.Height * 0.4;
+
+            graphics.FillRectangle(Brushes.Peru,
+                Convert.ToInt32(bigBoxRect.Left + (bigBoxRect.Width / 2 - width / 2)),
+                Convert.ToInt32(bigBoxRect.Top + (bigBoxRect.Height / 2 - height / 2)),
+                Convert.ToInt32(width),
+                Convert.ToInt32(height));
+        }
+
+        public static Boolean TestHit(float x, float y, Shuttle m_shuttle, ShuttleCar carInfo, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject status)
+        {
+            var position = getPosition(m_shuttle, carInfo, status);
+            switch (m_shuttle.DrawDirection)
+            {
+                case ShuttleDrawDirection.LeftRight:
+                    {
+                        position = m_shuttle.AbsoluteTransform.W(position);
+                        var rect = new RectangleF(
+                           m_shuttle.Rectangle.Left + position,
+                           m_shuttle.Rectangle.Top,
+                           m_shuttle.AbsoluteTransform.W(m_shuttle.CarSize),
+                           m_shuttle.Rectangle.Height);
+
+                        return rect.Contains(x, y);
+                    }
+                case ShuttleDrawDirection.TopBottom:
+                    {
+                        position = m_shuttle.AbsoluteTransform.H(position);
+                        var rect = new RectangleF(
+                            m_shuttle.Rectangle.Left,
+                             m_shuttle.Rectangle.Top + position,
+                             m_shuttle.Rectangle.Width,
+                             m_shuttle.AbsoluteTransform.H(m_shuttle.CarSize));
+
+                        return rect.Contains(x, y);
+                    }
+                default:
+                    return false;
+            }
+        }
+
+        //取放货时应该闪烁
+        static Dictionary<String, Brush> lastChageStatusBrush = new Dictionary<string, Brush>();
+        static Dictionary<String, DateTime> lastChangeStatusTime = new Dictionary<string, DateTime>();
+
+        public static void DrawCar(Graphics graphics, Shuttle m_shuttle, ShuttleCar carInfo, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject status)
+        {
+            var position = getPosition(m_shuttle, carInfo,status);
+
+            var fillBrush = GetFillBrush(status);
+            switch (m_shuttle.DrawDirection)
+            {
+                case ShuttleDrawDirection.LeftRight:
+                    {
+                        position = m_shuttle.AbsoluteTransform.W(position);
+                        var bigRect = new RectangleF(
+                           m_shuttle.Rectangle.Left + position,
+                           m_shuttle.Rectangle.Top,
+                           m_shuttle.AbsoluteTransform.W(m_shuttle.CarSize),
+                          m_shuttle.Rectangle.Height);
+                        var smallRect = new RectangleF(bigRect.X + m_shuttle.AbsoluteTransform.W(4), bigRect.Y, bigRect.Width - m_shuttle.AbsoluteTransform.W(4 * 2), bigRect.Height);
+
+                        graphics.FillRectangle(fillBrush, bigRect);
+                        graphics.DrawRectangles(Pens.Black, new RectangleF[] { bigRect });
+
+                        graphics.FillRectangle(fillBrush, smallRect);
+                        graphics.DrawRectangles(Pens.Black, new RectangleF[] { smallRect });
+
+                        DrawBox(graphics, bigRect,status);
+                    }
+                    break;
+                case ShuttleDrawDirection.TopBottom:
+                    {
+                        position = m_shuttle.AbsoluteTransform.H(position);
+                        var bigRect = new RectangleF(
+                          m_shuttle.Rectangle.Left,
+                          m_shuttle.Rectangle.Top + position,
+                           m_shuttle.Rectangle.Width,
+                           m_shuttle.AbsoluteTransform.H(m_shuttle.CarSize));
+                        var smallRect = new RectangleF(bigRect.X, bigRect.Y + m_shuttle.AbsoluteTransform.H(4), bigRect.Width, bigRect.Height - m_shuttle.AbsoluteTransform.H(4 * 2));
+                        graphics.FillRectangle(fillBrush, bigRect);
+                        graphics.DrawRectangles(Pens.Black, new RectangleF[] { bigRect });
+
+                        graphics.FillRectangle(fillBrush, smallRect);
+                        graphics.DrawRectangles(Pens.Black, new RectangleF[] { smallRect });
+
+                        DrawBox(graphics, bigRect, status);
+
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            DrawStatus(graphics, m_shuttle, carInfo, status);
+        }
+
+        static void DrawStatus(Graphics graphics, Shuttle m_shuttle, ShuttleCar carInfo, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject status)
+        {
+            var position = getPosition(m_shuttle, carInfo, status);
+            var brush = getStatusBoxBrush(status);
+            var size = 5;
+            switch (m_shuttle.DrawDirection)
+            {
+                case ShuttleDrawDirection.LeftRight:
+                    {
+                        position = m_shuttle.AbsoluteTransform.W(position);
+                        var rect = new RectangleF(
+                            m_shuttle.Rectangle.Left + position + m_shuttle.AbsoluteTransform.W(7),
+                            m_shuttle.Rectangle.Top + m_shuttle.AbsoluteTransform.H(5),
+                            m_shuttle.AbsoluteTransform.W(size),
+                            m_shuttle.AbsoluteTransform.H(size));
+
+                        graphics.FillRectangle(brush, rect);
+                        graphics.DrawRectangles(Pens.Black, new RectangleF[] { rect });
+                    }
+                    break;
+                case ShuttleDrawDirection.TopBottom:
+                    {
+                        position = m_shuttle.AbsoluteTransform.H(position);
+                        var rect = new RectangleF(
+                            m_shuttle.Rectangle.Left + m_shuttle.Rectangle.Width - m_shuttle.AbsoluteTransform.W(size) - m_shuttle.AbsoluteTransform.W(5),
+                            m_shuttle.Rectangle.Top + position + m_shuttle.AbsoluteTransform.H(7),
+                            m_shuttle.AbsoluteTransform.W(size),
+                            m_shuttle.AbsoluteTransform.H(size));
+
+                        graphics.FillRectangle(brush, rect);
+                        graphics.DrawRectangles(Pens.Black, new RectangleF[] { rect });
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        static float getPosition(Shuttle m_shuttle, ShuttleCar carInfo, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject status)
+        {
+            if (status == null)
+            {
+                if (carInfo.DefaultBarcode == 0)
+                {
+                    return carInfo.DefaultPosition;
+                }
+                else
+                {
+                    var p = m_shuttle.Paths.FirstOrDefault(x => x.Contains(carInfo.DefaultBarcode));
+                    if (p == null)
+                    {
+                        return carInfo.DefaultPosition;
+                    }
+                    else
+                    {
+                        return p.ToPixel(carInfo.DefaultBarcode);
+                    }
+                }
+            }
+            else
+            {
+
+                var p = m_shuttle.Paths.FirstOrDefault(x => x.Contains(status.Position));
+                if (p == null)
+                {
+                    return carInfo.DefaultPosition;
+                }
+
+                return p.ToPixel(status.Position);
+            }
+        }
+        static Brush getStatusBoxBrush(Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject status)
+        {
+            if (status == null)
+            {
+                return Brushes.Gray;
+            }
+
+            switch (status.State)
+            {
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.初始化:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.无货待命:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货待命:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.手动模式:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.停止:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货:
+                    return Brushes.Gainsboro;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.无货运行:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货运行:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.输送线运行:
+                    return Brushes.SpringGreen;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.报警停机:
+                    return Brushes.Red;
+                default:
+                    return Brushes.Gray;
+            }
+
+        }
+
+        static Brush GetFillBrush(Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject status)
+        {
+            if (status == null)
+            {
+                return Brushes.Gray;
+            }
+
+            switch (status.State)
+            {
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.初始化:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.无货待命:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货待命:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.手动模式:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.停止:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货:
+                    return Brushes.Gainsboro;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.无货运行:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.有货运行:
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.输送线运行:
+                    return Brushes.SpringGreen;
+                case Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.报警停机:
+                    return Brushes.Red;
+                default:
+                    return Brushes.Gray;
+            }
+        }
+    }
+}

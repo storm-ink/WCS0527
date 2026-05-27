@@ -1,0 +1,63 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    [Serializable]
+    public class ShuttleCar:System.Runtime.Serialization.ISerializable
+    {
+        public ShuttleCar()
+        {
+        }
+        public ShuttleCar(SerializationInfo info, StreamingContext context)
+            :this()
+        {
+            this.Name = (string)info.GetValue("Name", typeof(string));
+            this.DefaultPosition = (float)info.GetValue("DefaultPosition", typeof(float));
+            this.DefaultBarcode = (Int32)info.GetValue("DefaultBarcode", typeof(Int32));
+        }
+
+        [Description("默认位置"), Category("行为")]
+        public float DefaultPosition { get; set; }
+
+        [Description("默认位置"), Category("行为")]
+        public Int32 DefaultBarcode { get; set; }
+        [Browsable(false)]
+        public Boolean IsEmpty
+        {
+            get
+            {
+                return String.IsNullOrWhiteSpace(this.Name) && this.DefaultPosition == default(float);
+            }
+        }
+
+        [Description("名称"), Category("行为")]
+        public String Name { get; set; }
+
+        public void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            info.AddValue("Name", this.Name);
+            info.AddValue("DefaultPosition", this.DefaultPosition);
+            info.AddValue("DefaultBarcode", this.DefaultBarcode);
+        }
+
+        public override string ToString()
+        {
+            if (!String.IsNullOrWhiteSpace(this.Name))
+            {
+                return this.Name;
+            }
+            else
+            {
+                return "<未命名>";
+            }
+        }
+
+    }
+}

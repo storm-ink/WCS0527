@@ -1,0 +1,312 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.App.Elements.UIEditor;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("单货位穿梭车数据源")]
+    [Serializable]
+    public class SinglePlantformRailGuidedVehicleDataSource:Element,Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.ISinglePlantformRailGuidedVehicleService,IWarningContainer
+    {
+        List<Shuttle> shuttles = new List<Shuttle>();
+        Int32 m_Interval;
+        StringFormat sf;
+
+
+        Dictionary<string, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject> statusCahces = new Dictionary<string, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject>();
+        
+        public SinglePlantformRailGuidedVehicleDataSource(Editor editor)
+            : base(editor)
+        {
+            Init();
+        }
+
+        public SinglePlantformRailGuidedVehicleDataSource(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            Init();
+
+            this.ConfigurationName = (string)info.GetValue("ConfigurationName", typeof(string));
+            this.Interval = (Int32)info.GetValue("Interval", typeof(Int32));
+        }
+
+        [Description("终结点配置名称"), Category("行为"),
+        EditorAttribute(typeof(ServiceEndPointConfigurationNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public String ConfigurationName { get; set; }
+
+        public Int32 Interval
+        {
+            get
+            {
+                return m_Interval;
+            }
+            set
+            {
+                if (value < 500)
+                {
+                    throw new InvalidOperationException("激活间隔时间必须大于等于 500ms");
+                }
+                m_Interval = value;
+            }
+        }
+
+        public override void Draw(System.Drawing.Graphics graphics)
+        {
+            if (Editor.IsDesign)
+            {
+                base.Draw(graphics);
+
+                graphics.DrawRectangles(Pens.Red, new RectangleF[] { this.Rectangle });
+                graphics.DrawString("单货位穿梭车数据源", Control.DefaultFont, new SolidBrush(Color.Red), this.Rectangle, sf);
+            }
+        }
+
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            info.AddValue("Interval", this.Interval);
+            info.AddValue("ConfigurationName", this.ConfigurationName);
+
+            base.GetObjectData(info, context);
+        }
+
+        Shuttle FindShuttle(String name)
+        {
+            Shuttle r = null;
+            if (shuttles != null)
+            {
+                r = shuttles.FirstOrDefault(x => x.Cars.Any(c=>String.Equals(c.Name, name, StringComparison.CurrentCultureIgnoreCase)));
+            }
+            if (r != null)
+            {
+                return r;
+            }
+            r = Editor.Find<Shuttle>(x => x.Cars.Any(c => String.Equals(c.Name, name, StringComparison.CurrentCultureIgnoreCase)));
+            if (r != null)
+            {
+                shuttles.Add(r);
+            }
+
+            return r;
+        }
+
+        void Init()
+        {
+            this.Size = new System.Drawing.SizeF(50, 50);
+            sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+            Interval = 1000;
+
+            System.Threading.ThreadPool.QueueUserWorkItem((stat) =>
+            {
+                Proc();
+            });
+        }
+        void Proc()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(Interval);
+
+                if (Editor.IsDesign)
+                {
+                    continue;
+                }
+
+                if (String.IsNullOrWhiteSpace(this.ConfigurationName))
+                {
+                    continue;
+                }
+
+                SinglePlantformRailGuidedVehicleServiceClient client = null;
+                try
+                {
+                    client = new SinglePlantformRailGuidedVehicleServiceClient(this.ConfigurationName);
+                    client.Open();
+
+                    var las = client.GetStatus();
+                    statusCahces = las;
+                    foreach (var item in las)
+                    {
+                        var crane = FindShuttle(item.Key);
+                        if (crane != null)
+                        {
+                            crane.SetStatus(item.Key, item.Value);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+
+                    statusCahces = new Dictionary<string, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject>();
+                    if (client != null)
+                    {
+                        client.Abort();
+                    }
+                }
+                finally
+                {
+                    if (client != null)
+                    {
+                        client.Close();
+                        client = null;
+                    }
+                }
+            }
+        }
+
+        #region ICraneService
+        public string[] AllOperations()
+        {
+            var client = new SingleForkCraneServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.AllOperations();
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public object Call(string name, object[] args)
+        {
+            var client = new SinglePlantformRailGuidedVehicleServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.Call(name, args);
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+
+        public Dictionary<string, Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject> GetStatus()
+        {
+            var client = new SinglePlantformRailGuidedVehicleServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.GetStatus();
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        #endregion
+
+        public override Element Clone()
+        {
+            SinglePlantformRailGuidedVehicleDataSource ds = new SinglePlantformRailGuidedVehicleDataSource(this.Editor);
+
+            ds.ConfigurationName = this.ConfigurationName;
+            ds.Interval = this.Interval;
+
+            CloneProperties(ds);
+
+            return ds;
+        }
+
+        public Warning[] GetWarings()
+        {
+            List<Warning> result = new List<Warning>();
+            foreach (var item in shuttles)
+            {
+                foreach (var car in item.Cars)
+                {
+                    if (statusCahces == null || statusCahces.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    if (statusCahces == null || statusCahces.Count == 0 || !statusCahces.ContainsKey(car.Name))
+                    {
+                        result.Add(new Warning
+                        {
+                            DeviceName = car.Name,
+                            DeviceType = "穿梭车",
+                            Message = "未连接"
+                        });
+
+                        continue;
+                    }
+
+                    var status = statusCahces[car.Name];
+
+                    if (status.ErrorCode != 0 || status.State == Interfaces.SinglePlantformRailGuidedVehicle.SinglePlantformRailGuidedVehicleStatus.报警停机)
+                    {
+                        Warning w = new Warning();
+                        w.DeviceType = "穿梭车";
+                        w.DeviceName = car.Name;
+                        if (String.IsNullOrWhiteSpace(status.ErrorName))
+                        {
+                            w.Message = "报警停机";
+                        }
+                        else
+                        {
+                            w.Message = status.ErrorName;
+                        }
+                        result.Add(w);
+                    }
+                }
+                
+            }
+
+            return result.ToArray();
+        }
+
+
+        public override float WidthScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+
+        public override float HeightScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+    }
+}

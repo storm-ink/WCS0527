@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Framework.Devices
+{
+    /// <summary>
+    /// 网络数据包结构
+    /// </summary>
+    public abstract class NetPackage
+    {
+        protected List<byte> _bytes = new List<byte>();
+        public void AddBytes(IEnumerable<byte> bytes)
+        {
+            lock (_bytes)
+            {
+                _bytes.AddRange(bytes);
+            }
+        }
+        public void Clear()
+        {
+            lock (_bytes)
+            {
+                _bytes = new List<byte>();
+            }
+        }
+        /// <summary>
+        /// 从当前接收的数据中取出一个完整的包
+        /// </summary>
+        /// <returns></returns>
+        public abstract byte[] FetchPackage();
+        /// <summary>
+        /// 创建一个用于发送的数据包
+        /// </summary>
+        /// <param name="dataPart">数据部分</param>
+        /// <returns></returns>
+        public abstract byte[] CreateSendPackage(byte[] dataPart);
+    }
+}

@@ -1,0 +1,43 @@
+﻿@model WebUI.Models.WmsSettingViewModel
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "form_container", OnBegin = "showTip", OnComplete = "hideTip" }))
+{
+    @Html.ValidationSummary(true)
+
+    <table class="edit-table">
+        <tr>
+             <th >@Html.LabelFor(model => model.Name)
+            </th>
+            <td>
+            @{
+    bool? editing = ViewBag.Editing ?? null;
+                }
+                @if (editing.HasValue && editing.Value)
+                {
+               @Html.EditorFor(model => model.Name, new { @readonly = "readonly" })
+                    }
+                    else
+                    {
+               @Html.EditorFor(model => model.Name)
+                    }
+            </td>
+        </tr>
+
+        <tr>
+            <th>@Html.LabelFor(model => model.Value)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Value)
+                @Html.ValidationMessageFor(model => model.Value)
+            </td>
+        </tr>
+
+        <tr>
+            <th></th>
+            <td><input type="submit" value="保存" onclick="javascript:location.href='@Url.Action("Index", new { isReturned = false })    '"  />
+                <input type="button" value="取消" onclick="javascript:location.href='@Url.Action("Index", new { isReturned = false })    '" />
+            </td>
+        </tr>
+    </table>
+    
+    
+}

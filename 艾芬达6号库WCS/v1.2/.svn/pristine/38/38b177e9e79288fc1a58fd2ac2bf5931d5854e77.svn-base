@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    
+    [Description("文本")]
+    [Serializable]
+    public class Label:Element
+    {
+        public Label(Editor editor)
+            : base(editor)
+        {
+            this.Font = new Font(System.Windows.Forms.Control.DefaultFont.FontFamily,20.0f,FontStyle.Regular,GraphicsUnit.Pixel);
+            this.Color = Color.Red;
+            this.Text = "文本";
+
+        }
+        public override Element Clone()
+        {
+            Label lbl = new Label(this.Editor);
+            lbl.Text = this.Text;
+            lbl.Font = this.Font;
+            lbl.Color = this.Color;
+
+            CloneProperties(lbl);
+
+            return lbl;
+        }
+
+        [CategoryAttribute("外观"), Description("文字颜色")]
+        public Color Color { get; set; }
+
+        [CategoryAttribute("外观"), Description("字体")]
+        public Font Font { get; set; }
+
+        [CategoryAttribute("外观"), Description("文字内容")]
+        public String Text { get; set; }
+
+        public Label(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            this.Color = (Color)info.GetValue("Color", typeof(Color));
+            this.Font = (Font)info.GetValue("Font", typeof(Font));
+            this.Text = (String)info.GetValue("Text", typeof(String));
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Color", this.Color);
+            info.AddValue("Font", this.Font);
+            info.AddValue("Text", this.Text);
+
+            base.GetObjectData(info, context);
+        }
+
+        public override void Draw(Graphics graphics)
+        {
+
+            if (!Visible)
+            {
+                return;
+            }
+
+            this.Size = graphics.MeasureString(this.Text, this.Font);
+
+            base.Draw(graphics);
+
+            var sm = graphics.SmoothingMode;
+            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            using (Brush brush = new SolidBrush(this.Color))
+            {
+                //graphics.DrawString(this.Text, this.Font, Brushes.Gray, this.Rectangle.X + 1, Rectangle.Y + 1);
+                graphics.DrawString(this.Text, this.Font, brush, this.Rectangle.X, Rectangle.Y);
+            }
+            graphics.SmoothingMode = sm;
+        }
+    }
+}

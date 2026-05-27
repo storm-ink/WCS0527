@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace Gensong
+{
+    public partial class Crane
+    {
+        /// <summary>
+        /// 表示复合动作。composite 模式。
+        /// 子动作在自己完成时会设置堆垛机的状态和事件，
+        /// 这个状态和事件对于复合动作可能是不正确的，
+        /// 但是没有
+        /// </summary>
+        private class MacroCraneAction : CraneAction
+        {
+            private Queue<CraneAction> _subActions;
+
+            public MacroCraneAction(Crane crane, Boolean isChildActin)
+                : base(crane, isChildActin)
+            {
+                _subActions = new Queue<CraneAction>();
+            }
+
+            /// <summary>
+            /// 向此动作添加一个子动作。
+            /// </summary>
+            /// <param name="subaction"></param>
+            public void AppendSubAction(CraneAction subaction)
+            {
+                subaction.Completed += new EventHandler(subaction_Completed);
+                _subActions.Enqueue(subaction);
+            }
+
+            void subaction_Completed(object sender, EventArgs e)
+            {
+                var currentSubaction = _subActions.Dequeue();
+                if (_subActions.Count == 0)
+                {
+
+                    if (currentSubaction is MoveCraneAction)
+                    {
+                        this.Crane.LastEvent = ECraneEvent.E06;
+                    }
+                    else if (currentSubaction is LoadCraneAction)
+                    {
+                        this.Crane.LastEvent = ECraneEvent.E03;
+                    }
+                    else if (currentSubaction is UnloadCraneAction)
+                    {
+                        this.Crane.LastEvent = ECraneEvent.E05;
+                    }
+
+                    this.Crane.StateInternal = CraneStateInternal.Waiting;
+                    this.Crane.LastEvent = ECraneEvent.E06;
+
+                    this.IsCompleted = true;
+                    OnCompleted(EventArgs.Empty);
+                }
+
+                //else
+                //{
+                //    // 如果不是最后的子动作，事件和状态保持不变。
+                //}
+
+            }
+
+            public override void ExecuteStep()
+            {
+                Logger.Debug("MacroCraneAction.ExecuteStep");
+
+                if (IsStarted == false)
+                {
+                    OnStarting(EventArgs.Empty);
+                    IsStarted = true;
+                }
+
+                CraneAction subAction = _subActions.Peek();
+                subAction.ExecuteStep();
+            }
+        }
+    }
+}

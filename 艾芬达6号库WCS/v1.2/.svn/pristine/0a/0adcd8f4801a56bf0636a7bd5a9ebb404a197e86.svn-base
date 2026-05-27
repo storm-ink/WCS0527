@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace 输送线模拟程序.TcpServer
+{
+    public class StartedEventArgs:EventArgs
+    {
+        public IPEndPoint IPEndPoint { get; set; }
+        public StartedEventArgs(IPEndPoint ipEndPoint)
+        {
+            this.IPEndPoint = ipEndPoint;
+        }
+    }
+}

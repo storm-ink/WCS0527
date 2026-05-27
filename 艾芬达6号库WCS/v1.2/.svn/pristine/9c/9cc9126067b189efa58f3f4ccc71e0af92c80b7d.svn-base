@@ -1,0 +1,51 @@
+﻿/*
+ * ================================================
+ * 创建人：舒长兵
+ * 创建日期：2013/1/8
+ * 备注：
+ * 
+ * ================================================
+ */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel.Channels;
+
+namespace Wcs.Client.Services
+{
+    /// <summary>
+    /// 服务上下文
+    /// 主要用于采集客户端消息中夹带的用户名、密码等内容
+    /// </summary>
+    public class WcsServiceContext
+    {
+        const string nsName = "http://gen-song.net/ns/WcsServiceContext";
+        public WcsServiceContext(Message message)
+        {
+            if (message.Headers.FindHeader("username", nsName) != -1)
+            {
+                this.UserName = message.Headers.GetHeader<string>(message.Headers.FindHeader("username", nsName));
+            }
+            if (message.Headers.FindHeader("realname", nsName) != -1)
+            {
+                this.RealName = message.Headers.GetHeader<string>(message.Headers.FindHeader("realname", nsName));
+            }
+            if (message.Headers.FindHeader("clientip", nsName) != -1)
+            {
+                this.ClientIp = message.Headers.GetHeader<string>(message.Headers.FindHeader("clientip", nsName));
+            }
+        }
+        public string UserName { get; set; }
+        public string RealName { get; set; }
+        public string Password { get; set; }
+        public string ClientIp { get; set; }
+        public bool IsAnonymous
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(this.UserName);
+            }
+        }
+    }
+}

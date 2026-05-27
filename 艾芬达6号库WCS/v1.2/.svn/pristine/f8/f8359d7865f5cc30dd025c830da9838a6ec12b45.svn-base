@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<configuration>
+  <appSettings>
+    <add key="selectCommandText" value="SELECT top {batchSize} [Id],[DeviceName] ,[CreatedAt] ,[StateTelexTransferObjectDataLog_Position] AS [Position] ,[StateTelexTransferObjectDataLog_CurrentStation] AS [CurrentStation] ,[StateTelexTransferObjectDataLog_AtStation] AS [AtStation] ,[StateTelexTransferObjectDataLog_ErrorCode] AS [ErrorCode] ,[StateTelexTransferObjectDataLog_State] AS [State] ,[StateTelexTransferObjectDataLog_Event] AS [Event] ,[StateTelexTransferObjectDataLog_TaskId] AS [TaskId] ,[StateTelexTransferObjectDataLog_ContainerCode] AS [ContainerCode] ,[StateTelexTransferObjectDataLog_FromStation] AS [FromStation] ,[StateTelexTransferObjectDataLog_ToStation] AS [ToStation] ,[StateTelexTransferObjectDataLog_TaskMode] AS [TaskMode] ,[StateTelexTransferObjectDataLog_Telex] AS [Telex] FROM [ReceivedDataLogs] where [discriminator]='StateTelexTransferObjectDataLog' and id&gt;=@id"/>
+  </appSettings>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="myHttpBinding" maxBufferSize="65535000" maxReceivedMessageSize="65535000" maxBufferPoolSize="65535000">
+          <readerQuotas maxArrayLength="65535000" maxBytesPerRead="65535000" maxStringContentLength="65535000" maxNameTableCharCount="65535000" maxDepth="65535000"/>
+        </binding>
+      </basicHttpBinding>
+    </bindings>
+    <services>
+      <service behaviorConfiguration="WcsServiceBehavior" name="MatedataServer.Services.RailGuidedVehicleService.RailGuidedVehicleDataDiagnoseMatedataService">
+        <endpoint address="" binding="basicHttpBinding" contract="Matedata.IMatedataService"/>
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://localhost:9991/RailGuidedVehicleDataDiagnoseMatedataService"/>
+          </baseAddresses>
+        </host>
+      </service>
+      <service behaviorConfiguration="WcsServiceBehavior" name="MatedataServer.Services.RailGuidedVehicleService.RailGuidedVehicleDataDiagnoseMatedataServiceProxy">
+        <endpoint address="" binding="basicHttpBinding" bindingConfiguration="myHttpBinding" contract="Matedata.IMatedataService"/>
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://localhost:9991/RailGuidedVehicleDataDiagnoseMatedataServiceProxy"/>
+          </baseAddresses>
+        </host>
+      </service>
+    </services>
+    <client>
+      <endpoint address="http://localhost:9991/RailGuidedVehicleDataDiagnoseMatedataService" binding="basicHttpBinding" bindingConfiguration="myHttpBinding" contract="Matedata.IMatedataService" name="RailGuidedVehicleDataDiagnoseMatedataService"/>
+    </client>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="WcsServiceBehavior">
+          <serviceDebug includeExceptionDetailInFaults="True"/>
+          <serviceMetadata httpGetEnabled="False"/>
+          <dataContractSerializer maxItemsInObjectGraph="65536000"/>
+          <appErrorToMessage/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <extensions>
+      <behaviorExtensions>
+        <add name="appErrorToMessage" type="Matedata.WcfServiceOperationBehavior, Matedata, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+      </behaviorExtensions>
+    </extensions>
+  </system.serviceModel>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/></startup></configuration>

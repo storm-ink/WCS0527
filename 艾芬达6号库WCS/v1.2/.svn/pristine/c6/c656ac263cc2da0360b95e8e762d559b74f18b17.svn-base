@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+
+namespace Wcs.Client.App
+{
+    public class TaskServiceClient : ClientBase<Wcs.Client.Interfaces.Task.ITaskService>, Wcs.Client.Interfaces.Task.ITaskService
+    {
+        public TaskServiceClient(String configurationName)
+            : base(configurationName)
+        {
+        }
+        public object Call(string name, object[] args)
+        {
+            return Channel.Call(name, args);
+        }
+
+
+        public string[] AllOperations()
+        {
+            return Channel.AllOperations();
+        }
+
+        public Wcs.Client.Interfaces.Task.Task[] GetTasks()
+        {
+            return Channel.GetTasks();
+        }
+
+        public Wcs.Client.Interfaces.Task.Task GetTask(string taskNo)
+        {
+            return Channel.GetTask(taskNo);
+        }
+
+        public void SuspendTask(string taskNo)
+        {
+            Channel.SuspendTask(taskNo);
+        }
+
+        public void CompleteTask(int id)
+        {
+            Channel.CompleteTask(id);
+        }
+
+        public void CompleteMovenent(int id)
+        {
+            Channel.CompleteMovenent(id);
+        }
+
+        public void CompleteAction(int id)
+        {
+            Channel.CompleteAction(id);
+        }
+
+        public void CancelTask(string taskNo)
+        {
+            Channel.CancelTask(taskNo);
+        }
+
+        public void ResumeTask(string taskNo)
+        {
+            Channel.ResumeTask(taskNo);
+        }
+
+        public void ResumeTaskWithCurrentLocation(string taskNo, string currentLocation)
+        {
+            Channel.ResumeTaskWithCurrentLocation(taskNo, currentLocation);
+        }
+
+
+        public Wcs.Client.Interfaces.Task.Task GetTaskByEquipmentTaskId(int equipmentTaskId)
+        {
+            return Channel.GetTaskByEquipmentTaskId(equipmentTaskId);
+        }
+
+        public void Archive(int taskId)
+        {
+            Channel.Archive(taskId);
+        }
+    }
+}

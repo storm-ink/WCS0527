@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace 输送线模拟程序.TcpServer
+{
+    public class ErrorEventArgs:EventArgs
+    {
+        public Exception Exception { get; set; }
+        public ErrorEventArgs(Exception ex)
+        {
+            this.Exception = ex;
+        }
+    }
+}

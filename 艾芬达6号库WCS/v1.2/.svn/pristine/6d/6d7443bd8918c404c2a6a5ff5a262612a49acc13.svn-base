@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// 业务类型
+    /// </summary>
+    [DataContract]
+    public enum TaskBizType
+    {
+        /// <summary>
+        /// 正常出入库
+        /// </summary>
+        [System.ComponentModel.Description("正常业务")]
+        [EnumMember]
+        Normal,
+        /// <summary>
+        /// 盘点业务
+        /// </summary>
+        [System.ComponentModel.Description("盘点业务")]
+        [EnumMember]
+        Counting,
+    }
+}

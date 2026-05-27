@@ -1,0 +1,16 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    public enum MouseMode
+    {
+        None,
+        Resize,
+        Move
+    }
+
+}

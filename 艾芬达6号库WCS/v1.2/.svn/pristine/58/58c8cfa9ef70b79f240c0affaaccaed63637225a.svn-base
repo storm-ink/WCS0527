@@ -1,0 +1,77 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
+
+namespace Gensong
+{
+    public class RequestTelexBuilder
+    {
+        private StringBuilder strb = new StringBuilder();
+
+        public void Append(String str)
+        {
+            Logger.Debug("appending: {0}", str);
+            strb.Append(str);
+            Logger.Debug("inner value: {0}", strb.ToString());
+        }
+
+        public List<RequestTelex> FetchTelexes()
+        {
+            List<RequestTelex> result = new List<RequestTelex>();
+
+            MatchCollection mc = Regex.Matches(strb.ToString(), @"\u0002([^\u0002\u0003]*)\u0003");
+
+            Logger.Debug("{0} match(es)", mc.Count);
+
+            foreach (Match match in mc)
+            {
+                string text = match.Groups[1].Value;
+                if (string.IsNullOrEmpty(text)) continue;
+
+                try
+                {
+                    RequestTelex telex = RequestTelex.Parse(text);
+                    result.Add(telex);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.ToString());
+                }
+            }
+
+            if (mc.Count > 0)
+            {
+                Match last = mc.Cast<Match>().Last();
+                strb.Remove(0, last.Index + last.Value.Length);
+                Logger.Debug("inner value: {0}", strb.ToString());
+            }
+
+            Logger.Debug("");
+            
+            return result;
+        }
+
+        public static String ToHumanReadableTelex(String telex)
+        {
+            return telex
+                .Replace((char)2, '<')
+                .Replace((char)3, '>');
+        }
+        public static String ToMachineTelex(String telex)
+        {
+            return telex
+                .Replace('<', (char)2)
+                .Replace('>', (char)3);
+
+        }
+
+        public static String WrapTelex(String text)
+        {
+            return String.Format("{0}{1}{2}", (char)2, text, (char)3);
+        }
+    }
+}

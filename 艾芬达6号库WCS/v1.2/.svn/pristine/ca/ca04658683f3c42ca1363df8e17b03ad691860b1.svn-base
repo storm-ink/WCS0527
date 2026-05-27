@@ -1,0 +1,177 @@
+﻿
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using Gensong.ServiceCrane;
+namespace Gensong
+{
+    [DesignTimeVisible(false)]
+    public partial class ucCrane : UserControl
+    {
+        public ucCrane(string sCraneName)
+        {
+            InitializeComponent();
+
+            lblState.ForeColor = lblEvent.ForeColor = lblCol.ForeColor = lblRow.ForeColor =
+            lblTaskId.ForeColor = lblAlarmCode.ForeColor = Color.Yellow;
+
+            this.Crane = new Crane(sCraneName);
+        }
+
+        private void ucCrane_Load(object sender, EventArgs e)
+        {
+            EmptyInfo();
+
+            crn.EResponseTelex += new EventHandler<ResponseEvent>(EventResponseTelex);
+            crn.EClosed += new EventHandler(EventClosed);
+
+            //this.ParentForm.FormClosed += (a, b) => {
+            //    if (crn != null) {
+            //        crn.EResponseTelex -= new EventHandler<ResponseEvent>(EventResponseTelex);
+            //        crn.EClosed -= new EventHandler(EventClosed);
+            //        crn.Close();
+            //    }
+            //};
+        }
+
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+            Globle.CheckLock(crn, (Button)sender);
+        }
+        private void btnManual_Click(object sender, EventArgs e)
+        {
+            if (EManualClick != null) EManualClick(this, EventArgs.Empty);
+        }
+        private void btnAlarm_Click(object sender, EventArgs e)
+        {
+            if (EAlarmClick != null) EAlarmClick(this, EventArgs.Empty);
+        }
+
+        public void EventClosed(object sender, EventArgs e)
+        {
+            Action a = () => {
+                if (crn.Connected && crn.LA == null)
+                {
+                    if (pbxOnline.AccessibleDescription != "OnlineError")
+                    {
+                        pbxError.Image = Gensong.Properties.Resources.online;
+                        pbxError.AccessibleDescription = "OnlineError";
+                        pbxOnline.Image = Gensong.Properties.Resources.alarm; EmptyInfo();
+                        pbxOnline.AccessibleDescription = "OnlineError";
+
+                        lblAlarmCode.Text = "无法解析堆垛机返回的报文";
+                    }
+                }
+                else
+                {
+                    if (pbxOnline.AccessibleDescription != "Unline")
+                    {
+                        pbxError.Image = Gensong.Properties.Resources.unline;
+                        pbxError.AccessibleDescription = "Unline";
+                        pbxOnline.Image = Gensong.Properties.Resources.unline; EmptyInfo();
+                        pbxOnline.AccessibleDescription = "Unline";
+                    }
+                }
+            }; this.Invoke(a);
+        }
+        private void EventResponseTelex(object sender, ResponseEvent e)
+        {
+            if (e == null || e.Telex == null) return;
+
+            Action a = () =>
+            {
+                LA la = (LA)e.Telex;
+                if (la != null)
+                {
+                    if (lblCol.Text != la.Position.UCol) lblCol.Text = la.Position.UCol;
+                    if (lblRow.Text != la.Position.URow) lblRow.Text = la.Position.URow;
+                    if (lblTaskId.Text != la.TaskId) lblTaskId.Text = la.TaskId;
+
+                    if (la.CraneWorkModeKeyInfo == null || la.CraneWorkModeKeyInfo.IsManual)
+                        lblState.Text = "手动";
+                    else
+                        lblState.Text = Util.PDescription(la.State);
+
+                    lblEvent.Text = Util.PDescription(la.Event);
+
+                    if (pbxError.AccessibleDescription != la.ErrorCode)
+                    {
+                        if (la.ErrorCode != "0000")
+                        {
+                            pbxError.Image = Gensong.Properties.Resources.alarm; 
+                            lblAlarmCode.Text = string.Format("{0} {1}", la.ErrorCode, la.ErrorInfo);
+                        }
+                        else
+                        {
+                            pbxError.Image = Gensong.Properties.Resources.unline;
+                            lblAlarmCode.Text = string.Empty;
+                        }
+
+                        pbxError.AccessibleDescription = la.ErrorCode;
+                    }
+
+                    //有锁定，但不是自己
+                    if (la.LockUser != Globle.HostName && !string.IsNullOrEmpty(la.LockGuid))
+                    {
+                        btnLock.Enabled = false;
+                        btnLock.Text = "解锁"; btnLock.ForeColor = Color.Tan;
+                    }
+                    //有锁定是自己
+                    else if (la.LockUser == Globle.HostName && !string.IsNullOrEmpty(la.LockGuid))
+                    {
+                        btnLock.Enabled = true;
+                        btnLock.Text = "解锁"; btnLock.ForeColor = Color.DeepPink;
+                    }
+                    //没锁定
+                    else if (string.IsNullOrEmpty(la.LockGuid))
+                    {
+                        btnLock.Enabled = true;
+                        btnLock.Text = "锁定"; btnLock.ForeColor = Color.Wheat;
+                    }
+                    else
+                    {
+                        btnLock.Enabled = true;
+                        btnLock.Text = "锁定"; btnLock.ForeColor = Color.Wheat;
+                    }
+
+
+                    if (pbxOnline.AccessibleDescription != "Online")
+                    {
+                        pbxOnline.Image = Gensong.Properties.Resources.online;
+                        pbxOnline.AccessibleDescription = "Online";
+                    }
+                }
+            }; this.Invoke(a);
+        }
+
+        private void EmptyInfo()
+        {
+            lblState.Text = lblEvent.Text = lblCol.Text = lblRow.Text = lblTaskId.Text = lblAlarmCode.Text = string.Empty;
+            btnLock.Text = "锁定"; btnLock.ForeColor = Color.White;
+        }
+        public bool ShowDetail
+        {
+            set
+            {
+                this.gbxCrane.Width = value ? 758 : 218;
+            }
+        }
+
+        private Crane crn = null;
+        public Crane Crane
+        {
+            get { return crn; }
+            set
+            {
+                crn = value; if (crn == null) return;
+                lblCraneName.Text = crn.CName;
+
+                EventResponseTelex(this, new ResponseEvent(crn.LA));
+            }
+        }        
+        
+        public event EventHandler EManualClick;
+        public event EventHandler EAlarmClick;
+    }
+}

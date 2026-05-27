@@ -1,0 +1,41 @@
+﻿@model Client.App.PeriodicWorker[]
+
+@{
+    ViewBag.Title = "";
+}
+
+<h2>工作进程</h2>
+
+<div id="list">
+<table border="1" cellpadding="1" cellspacing="4">
+    <tbody>
+        <tr>
+            <th>进程名称</th>
+            <th>激活间隔(毫秒)</th>
+            <th>状态</th>
+            <th>处于工作中</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Interval</td>
+            <td>@(item.IsRunning?"运行":"停止")</td>
+            <td>@(item.IsExecuting?"执行":"等待")</td>
+            <td>
+                @if (item.IsRunning)
+                {
+                    @Html.ActionLink("停止", "StopWorker", new { Id = item.GetHashCode() });
+                }
+                else
+                {
+                    @Html.ActionLink("运行", "StartWorker", new { Id = item.GetHashCode() });
+                }
+            </td>
+            </tr>
+        }
+</tbody>
+
+</table>
+</div>

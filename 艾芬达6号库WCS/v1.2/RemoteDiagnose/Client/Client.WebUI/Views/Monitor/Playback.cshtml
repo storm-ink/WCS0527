@@ -1,0 +1,245 @@
+﻿@{
+    ViewBag.Title = "实时监控";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>设计器</title>
+    <script src="~/Scripts/Design/userData.js"></script>
+    <script type="text/javascript">
+        window.Playback = true;
+        USERDATA.set('isDesign', false);
+    </script>
+    <script src="~/Scripts/Design/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/Design/kinetic-v5.1.0.min.js"></script>
+    <script src="~/Scripts/Design/jsCrane.js"></script>
+    <script src="~/Scripts/Design/jsTBCrane.js"></script>
+    <script src="~/Scripts/Design/jsImage.js"></script>
+    <script src="~/Scripts/Design/jsShuttle.js"></script>
+    <script src="~/Scripts/Design/JSConveyorLocation.js"></script>
+    <script src="~/Scripts/Design/JSConveyorDataAdapter.js"></script>
+    <script src="~/Scripts/Design/JSCraneDataAdapter.js"></script>
+    <script src="~/Scripts/Design/jsShuttleDataAdapter.js"></script>
+    <script defer="defer" src="~/Scripts/Design/editor.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/Design/dialog.js"></script>
+    <link href="~/Scripts/Design/dialog.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
+    <script src="~/Scripts/timeLine.js"></script>
+<script type="text/javascript">
+    var tl;
+    $(document).ready(function () {
+        loadStage('@Request["name"]');
+
+        $('#btnPlayback').click(function () {
+            var startTime = $('#startTime').val();
+            playback(startTime)
+        });
+
+        $("#slider").slider({
+            range: "max",
+            min: 1,
+            max: 20,
+            value: 5,
+            slide: function (event, ui) {
+                tl.speed = ui.value;
+            }
+        });
+
+    });
+
+    var timer = null;
+    function playback(startTime) {
+        if (tl) {
+            tl.stop();
+        }
+        tl = null;
+
+        $.ajax({
+            type: "POST",
+            url: '/SingleForkCrane/DiagnosisData/GetPlaybackData',
+            data: {startTime: startTime},
+            dataType: "json",
+            success: function (data) {
+                if (data == null || data.length == 0) {
+                    if ($('#autoPlay').prop('checked')) {
+                        playback(toDate(startTime).add('n',10).format('yyyy-MM-dd hh:mm:ss.S'));
+                    } else {
+                        alert('未找到任何回放数据');
+                    }
+                }
+                else {
+                    if (tl) {
+                        tl.stop();
+                    }
+                    tl = new timeLine($('#c'), toDate(data[0].LongDate), toDate(data[data.length - 1].LongDate));
+                    tl.speed = $("#slider").slider('value');
+                    tl.onChange = function (time) {
+                        $('#currentTime').text(time.format('yyyy-MM-dd hh:mm:ss'));
+                        var currentDatas = getCurrentDatas(data, time);
+                        for (var i = 0; i < currentDatas.length; i++) {
+                            console.log(i + ' ' + currentDatas[i].Column);
+                            var crane = getCrane(currentDatas[i].Name);
+                            crane.setStatus(currentDatas[i]);
+                        }
+
+                    };
+                    tl.onFinished = function () {
+                        tl.dispose();
+                        tl = null;
+                        if ($('#autoPlay').prop('checked')) {
+                            playback(toDate(data[data.length - 1].LongDate).format('yyyy-MM-dd hh:mm:ss.S'));
+                        } else {
+                            alert('回放结束');
+                        }
+                    };
+                    tl.start();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('读取回放数据失败\n' + errorThrown.message);
+            }
+
+        });
+    }
+
+    Date.prototype.format = function (format) {
+        var o = {
+            "M+": this.getMonth() + 1, //month 
+            "d+": this.getDate(), //day 
+            "h+": this.getHours(), //hour 
+            "m+": this.getMinutes(), //minute 
+            "s+": this.getSeconds(), //second 
+            "q+": Math.floor((this.getMonth() + 3) / 3), //quarter 
+            "S": this.getMilliseconds() //millisecond 
+        }
+
+        if (/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+
+        for (var k in o) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    }
+
+    Date.prototype.add = function (strInterval, Number) {
+        var dtTmp = this;
+        switch (strInterval) {
+            case 's': return new Date(Date.parse(dtTmp) + (1000 * Number));
+            case 'n': return new Date(Date.parse(dtTmp) + (60000 * Number));
+            case 'h': return new Date(Date.parse(dtTmp) + (3600000 * Number));
+            case 'd': return new Date(Date.parse(dtTmp) + (86400000 * Number));
+            case 'w': return new Date(Date.parse(dtTmp) + ((86400000 * 7) * Number));
+            case 'q': return new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + Number * 3, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds());
+            case 'm': return new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + Number, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds());
+            case 'y': return new Date((dtTmp.getFullYear() + Number), dtTmp.getMonth(), dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds());
+        }
+    }
+
+    function getCrane(name) {
+        var result = null;
+        window.stage.find('Layer').each(function (layer) {
+            layer.getChildren().each(function (crane) {
+                if (Kinetic.JSCraneTypes.contains(crane.getClassName()) && crane.getName() == name) {
+                    result = crane;
+                    return;
+                }
+
+                if (result != null) {
+                    return;
+                }
+            });
+
+            if (result != null) {
+                return;
+            }
+        });
+
+        return result;
+    }
+
+    function toDate(val) {
+        
+        if (/Date/.test(val)) {
+            return new Date(parseInt(val.replace("/Date(", "").replace(")/", ""), 10));
+        } else {
+
+            return new Date(val.replace(/\-/g, "/"));
+        }
+    }
+
+    function dateDiff(startTime, endTime, diffType) {
+        //将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式 
+        startTime = startTime.replace(/\-/g, "/");
+        endTime = endTime.replace(/\-/g, "/");
+
+        //将计算间隔类性字符转换为小写
+        diffType = diffType.toLowerCase();
+        var sTime = new Date(startTime); //开始时间
+        var eTime = new Date(endTime); //结束时间
+        //作为除数的数字
+        var divNum = 1;
+        switch (diffType) {
+            case "second":
+                divNum = 1000;
+                break;
+            case "minute":
+                divNum = 1000 * 60;
+                break;
+            case "hour":
+                divNum = 1000 * 3600;
+                break;
+            case "day":
+                divNum = 1000 * 3600 * 24;
+                break;
+            default:
+                break;
+        }
+        return parseInt((eTime.getTime() - sTime.getTime()) / parseInt(divNum));
+    }
+
+    function getCurrentDatas(datas, currentTime) {
+        var result = new Array();
+        for (var i = 0; i < datas.length; i++) {
+            if (currentTime.format("yyyy-MM-dd hh:mm:ss") == toDate(datas[i].LongDate).format("yyyy-MM-dd hh:mm:ss")) {
+                result.push(datas[i]);
+            }
+        }
+
+        return result;
+    }
+    </script>
+    </head>
+<body>
+<style>
+    *, html {
+        font-size:12px;
+    }
+    #stage {
+    text-align:center;
+    line-height:100%;
+    }
+</style>
+    <div style="width:100%;text-align:center;padding:5px 0px;background-color:#ccc;">
+        <label>记录时间 <input type="text" name="StartTime" id="startTime" value="2014-09-2 14:06:49" title="获取从开始时间计算，取10分钟内的数据" /></label>
+        播放速度：<div id="slider" style="width:100px;display:inline-block"></div>        
+        <label><input type="checkbox" id="autoPlay" value="true" />自动续播</label>
+        <input type="button" value="回放" id="btnPlayback" />
+    </div>
+    <div style="width:100%;text-align:center;padding:5px 0px;background-color:#ccc;">
+        时间轴：<i id="currentTime">2014-10-02 19:58:01</i>
+    </div>
+    <div style="width:100%; overflow-x:hidden; cursor:hand; margin:0px auto;height:65px;border-left:3px solid red;text-align:center;background-color:#ccc;" id="c"></div>
+
+<div id="stage"></div>
+</body>
+</html>

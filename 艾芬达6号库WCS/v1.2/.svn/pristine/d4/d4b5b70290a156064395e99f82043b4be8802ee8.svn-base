@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing.Design;
+using System.Linq;
+using System.Speech.Synthesis;
+using System.Text;
+using System.Windows.Forms.Design;
+
+namespace Wcs.Client.App.Elements.UIEditor
+{
+    public class InstalledVoicesEditor : UITypeEditor
+    {
+        public override UITypeEditorEditStyle GetEditStyle(System.ComponentModel.ITypeDescriptorContext context)
+        {
+            return UITypeEditorEditStyle.DropDown;//下拉列表方式，即当在PropertyGrid中选中对象的属性后会显示一个下拉列表按钮
+        }
+
+        //控制编辑时数据的显示方式，并返回该一个值作为属性的值。
+        public override object EditValue(System.ComponentModel.ITypeDescriptorContext context, IServiceProvider provider, object value)
+        {
+            IWindowsFormsEditorService editorService = null;
+            if (provider != null)
+            {
+                editorService = provider.GetService(
+                    typeof(IWindowsFormsEditorService))
+                    as IWindowsFormsEditorService;
+            }
+
+            if (editorService != null)
+            {
+
+                System.Windows.Forms.ListBox cb = new System.Windows.Forms.ListBox();
+                cb.Items.AddRange(GetInstalledVoiceNames());
+
+                cb.SelectedItem = value;
+
+                editorService.DropDownControl(cb);
+
+                value = cb.SelectedItem;
+            }
+            return value;
+        }
+
+        static String[] GetInstalledVoiceNames()
+        {
+            using (SpeechSynthesizer ss = new SpeechSynthesizer())
+            {
+                return ss.GetInstalledVoices().Select(x => x.VoiceInfo.Name).ToArray();
+            }
+
+        }
+    }
+
+}

@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// 逻辑动作
+    /// 表示一个任务的一个移动步骤，相当于原来的 子任务 概念
+    /// </summary>
+    [DataContract]
+    public class LogicMovement
+    {
+        public LogicMovement()
+        {
+            this.EquipmentActions = new EquipmentAction[0];
+        }
+
+        [DataMember]
+        public Int32 Id { get; set; }
+        /// <summary>
+        /// 逻辑动作在任务中的排序位置
+        /// </summary>
+        [DataMember]
+        public Int32 Ordering { get; set; }
+        /// <summary>
+        /// 所属设备名称
+        /// </summary>
+        [DataMember]
+        public String DeviceName { get; set; }
+        /// <summary>
+        /// 路径号(有可能为 null，不是所有逻辑动作都有路径)
+        /// </summary>
+        [DataMember]
+        public Int32? RouteId { get; set; }
+        [DataMember]
+        public Int32? RouteNo { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [DataMember]
+        public DateTime CreatedAt { get; set; }
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        [DataMember]
+        public DateTime? FinishedAt { get; set; }
+        /// <summary>
+        /// 该逻辑动作依次需要执行的物理动作
+        /// </summary>
+        [DataMember]
+        public EquipmentAction[] EquipmentActions { get; set; }
+        /// <summary>
+        /// 起点位置
+        /// </summary>
+        [DataMember]
+        public LocationInfo StartLocation { get; set; }
+        /// <summary>
+        /// 终点位置
+        /// </summary>
+        [DataMember]
+        public LocationInfo EndLocation { get; set; }
+
+        /// <summary>
+        /// 获取逻辑动作的状态
+        /// </summary>
+        [DataMember]
+        public LogicMovementStatus Status { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("逻辑动作#{0}", this.Id);
+        }
+    }
+}

@@ -1,0 +1,32 @@
+﻿/*
+ * ================================================
+ * 创建人：舒长兵
+ * 创建日期：2013/1/7
+ * 备注：
+ * 
+ * ================================================
+ */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel.Configuration;
+
+namespace Wcs.Client.Services
+{
+    /// <summary>
+    /// 用于收集客户端信息的终节点行为扩展对象
+    /// </summary>
+    public class ContextPropagationBehaviorElement : BehaviorExtensionElement
+    {
+       public override Type BehaviorType
+        {
+            get { return typeof(ContextPropagationBehavior); }
+        }
+     
+        protected override object CreateBehavior()
+        {
+          return new ContextPropagationBehavior();
+      }
+   }
+}

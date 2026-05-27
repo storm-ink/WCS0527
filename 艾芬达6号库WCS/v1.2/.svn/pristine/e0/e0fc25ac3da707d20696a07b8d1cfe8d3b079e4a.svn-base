@@ -1,0 +1,102 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+
+namespace Wcs.Client.App
+{
+    public class SingleForkCraneServiceClient : ClientBase<Wcs.Client.Interfaces.SingleForkCrane.ICraneService>, Wcs.Client.Interfaces.SingleForkCrane.ICraneService
+    {
+        public SingleForkCraneServiceClient(String configurationName)
+            : base(configurationName)
+        {
+        }
+        public object Call(string name, object[] args)
+        {
+            return Channel.Call(name, args);
+        }
+
+
+        public string[] AllOperations()
+        {
+            return Channel.AllOperations();
+        }
+
+        public List<Wcs.Client.Interfaces.SingleForkCrane.CraneInfo> LoadCraneInfos()
+        {
+            return Channel.LoadCraneInfos();
+        }
+
+        public Dictionary<string, Wcs.Client.Interfaces.SingleForkCrane.LA> ReadStatus()
+        {
+            return Channel.ReadStatus();
+        }
+
+        public void BackToTheOrigin(string craneName, string userName, string ipAddress)
+        {
+            Channel.BackToTheOrigin( craneName,  userName,  ipAddress);
+        }
+
+        public void EmergencyStop(string craneName)
+        {
+            Channel.EmergencyStop(craneName);
+        }
+
+        public void CancelEmergencyStop(string craneName, string userName, string ipAddress)
+        {
+            Channel.CancelEmergencyStop(craneName,  userName,  ipAddress);
+        }
+
+        public void Move(string craneName, string userName, string ipAddress, int userColumn, int userLevel)
+        {
+            Channel.Move(craneName, userName, ipAddress,userColumn,  userLevel);
+        }
+
+        public void Pick(string craneName, string userName, string ipAddress, Wcs.Client.Interfaces.SingleForkCrane.ForkDirection forkDirection)
+        {
+            Channel.Pick(craneName, userName, ipAddress, forkDirection);
+        }
+
+        public void Putdown(string craneName, string userName, string ipAddress, Wcs.Client.Interfaces.SingleForkCrane.ForkDirection forkDirection)
+        {
+            Channel.Putdown(craneName, userName, ipAddress, forkDirection);
+        }
+
+        public void Lock(string craneName, string userName, string ipAddress)
+        {
+            Channel.Lock(craneName, userName, ipAddress);
+        }
+
+        public void Unlock(string craneName, string userName, string ipAddress)
+        {
+            Channel.Unlock(craneName, userName, ipAddress);
+        }
+
+        public void Up(string craneName, string userName, string ipAddress)
+        {
+            Channel.Up(craneName, userName, ipAddress);
+        }
+
+        public void Down(string craneName, string userName, string ipAddress)
+        {
+            Channel.Down(craneName, userName, ipAddress);
+        }
+
+        public void Forward(string craneName, string userName, string ipAddress)
+        {
+            Channel.Forward(craneName, userName, ipAddress);
+        }
+
+        public void Back(string craneName, string userName, string ipAddress)
+        {
+            Channel.Back(craneName, userName, ipAddress);
+        }
+
+
+        public void ResetWarn(string craneName, string userName, string ipAddress)
+        {
+            Channel.ResetWarn(craneName, userName, ipAddress);
+        }
+    }
+}

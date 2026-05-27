@@ -1,0 +1,100 @@
+﻿@using Spiral;
+@using NHibernate.Linq;
+@using Spiral.Web;
+@{
+    ViewBag.Title = "Summary";
+}
+
+<style type="text/css">
+    table {
+        margin-top: 0px;
+    }
+
+        table td,table th {
+            border:1px solid #95B8E7;
+            text-align:center;
+        }
+
+        table th {
+            color:#0E2D5F;
+        }
+
+        table td {
+            color:#666666;
+        }
+
+    body {
+    margin:10px;
+    }
+</style>
+<div>
+
+    @{
+        double dayOfWrokHours = Client.WebUI.Properties.Settings.Default.OffDutyTime.Subtract(Client.WebUI.Properties.Settings.Default.WorkStartTime).TotalHours;
+        
+        var context = this.Context.GetNhRepositoryContext();
+        var datas = context.Session.CreateQuery(@"
+from Client.Warning w
+where cast(w.CreatedAt, time) between cast(:s as time) and cast(:e as time)")
+            .SetParameter<DateTime>("s", DateTime.Now.Date.Add(Client.WebUI.Properties.Settings.Default.WorkStartTime))
+            .SetParameter<DateTime>("e", DateTime.Now.Date.Add(Client.WebUI.Properties.Settings.Default.OffDutyTime))
+            
+            //                                    .Query<Client.Warning>()
+            //.Where(x=>
+            //    x.CreatedAt.TimeOfDay >= Client.WebUI.Properties.Settings.Default.WorkStartTime
+            //    && x.CreatedAt.TimeOfDay <= Client.WebUI.Properties.Settings.Default.OffDutyTime
+            //    )
+
+            .List<Client.Warning>();
+        var years = datas.GroupBy(x => x.StartTime.Year).Select(x => x.Key).ToArray();
+        foreach (var y in years.OrderByDescending(x=>x))
+        {
+            <div class="panel datagrid"  style="width:1250px;">
+                <div class="panel-header">
+                    <div class="panel-title">@{@y}年故障率统计（时间单位：小时，比例：<u><i>千分率</i></u>。该统计包含设备报警影响时间。）</div>
+                </div>
+            </div>
+            <table class="easyui-datagrid1" title="@{@y}年故障率统计（时间单位：小时，比例：千分率。该统计包含设备报警影响时间）" data-options="rownumbers:true" style="width:1250px;">
+                <thead>
+                    <tr>
+                        <th data-options="field:'itemid',width:80" rowspan="2">设备名称</th>
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                            <th data-options="field:'m_@y',width:80,align:'center'" colspan="2">@{@i.ToString("d2")}月</th>                            
+                        }
+                        <th data-options="field:'y',width:120,align:'center'" colspan="3">年故障率</th>
+                    </tr>
+                    <tr>
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                        <th data-options="field:'mr_@y',width:40,align:'center'">运行</th>
+                        <th data-options="field:'mg_@y',width:40,align:'center'">故障</th>
+                        }
+                        
+                        <th data-options="field:'yr_@y',width:40,align:'center'">运行</th>
+                        <th data-options="field:'yg_@y',width:40,align:'center'">故障</th>
+                        <th data-options="field:'yr_@y',width:40,align:'center'">故障率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach (var grouping in datas.GroupBy(x=>x.Name).OrderBy(x=>x.First().DeviceType).ThenBy(x=>x.Key))
+                   {
+                       var yearDatas = datas.Where(x => x.Name == grouping.Key && x.StartTime.Year == y);
+                       <tr>
+                           <td>@grouping.Key</td>
+                           @for (int m = 1; m <= 12; m++)
+                           {
+                               <td>@((dayOfWrokHours*30).ToString("0.##"))</td>
+                               <td>@TimeSpan.FromMilliseconds(yearDatas.Where(x=>x.StartTime.Month==m).Sum(x=>Convert.ToInt64(x.TotalMilliseconds))).TotalHours.ToString("0.##")</td>
+                           }
+                           <td>@((dayOfWrokHours*30*365).ToString("0.##"))</td>
+                           <td>@TimeSpan.FromMilliseconds(yearDatas.Sum(x=>Convert.ToInt64(x.TotalMilliseconds))).TotalHours.ToString("0.##")</td>
+                           <td>@((TimeSpan.FromMilliseconds(yearDatas.Sum(x=>Convert.ToInt64(x.TotalMilliseconds))).TotalHours/(dayOfWrokHours*30*365)*1000).ToString("0.##"))‰</td>
+                       </tr>
+                   }
+                </tbody>
+            </table>
+        }
+    }
+        
+ </div>

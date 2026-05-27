@@ -1,0 +1,260 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Speech.Synthesis;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.App.Elements.UIEditor;
+
+namespace Wcs.Client.App.Elements
+{
+    [Serializable]
+    [Description("语音播报")]
+    public class BroadcastVoice:Element
+    {
+        StringFormat sf;
+        Dictionary<Warning, DateTime> warningsCache = new Dictionary<Warning, DateTime>();
+
+        static BroadcastVoice()
+        {
+            using (SpeechSynthesizer ss = new SpeechSynthesizer())
+            {
+                InstalledVoiceNames = ss.GetInstalledVoices().Select(x => x.VoiceInfo.Name).ToArray();
+            }
+        }
+
+        public BroadcastVoice(Editor editor)
+            : base(editor)
+        {
+            Init();
+        }
+
+        public BroadcastVoice(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            Init();
+
+            this.Interval = (Int32)info.GetValue("Interval", typeof(Int32));
+            this.Rate = (Int32)info.GetValue("Rate", typeof(Int32));
+            this.Volumn = (Int32)info.GetValue("Volumn", typeof(Int32));
+            this.VoiceName = (String)info.GetValue("VoiceName", typeof(String));
+        }
+
+        public static String[] InstalledVoiceNames { get; private set; }
+        /// <summary>
+        /// 同一报警告的播报间隔毫秒时间
+        /// </summary>
+        [Category("行为"), Description("同一报警告的播报间隔毫秒时间")]
+        public Int32 Interval { get; set; }
+
+        /// <summary>
+        /// 语速(-10到10);
+        /// </summary>
+        [Category("行为"), Description("语速(-10到10)")]
+        public Int32 Rate { get; set; }
+
+        [Description("是否可见"), Category("行为")]
+        [Browsable(true)]
+        public override Boolean Visible { get; set; }
+
+
+        [Category("行为"), Description("播报引擎")]
+        [EditorAttribute(typeof(InstalledVoicesEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public String VoiceName { get; set; }
+
+        /// <summary>
+        /// 音量（0-100)
+        /// </summary>
+        [Category("行为"), Description("音量（0-100)")]
+        public Int32 Volumn { get; set; }
+
+        /// <summary>
+        /// 获取所有报警容器
+        /// </summary>
+        [Browsable(false)]
+        public IWarningContainer[] WarningContainers
+        {
+            get
+            {
+                return
+                    this
+                .Editor
+                .Items
+                .Where(x => x is IWarningContainer)
+                .Select(x => x as IWarningContainer)
+                .ToArray();
+            }
+        }
+
+        public override Element Clone()
+        {
+            BroadcastVoice bv = new BroadcastVoice(this.Editor);
+            bv.Interval = this.Interval;
+            bv.Rate = this.Rate;
+            bv.VoiceName = this.VoiceName;
+            bv.Volumn = this.Volumn;
+            CloneProperties(bv);
+
+            return bv;
+        }
+
+        public override void Draw(System.Drawing.Graphics graphics)
+        {
+            if (Editor.IsDesign)
+            {
+                base.Draw(graphics);
+
+                graphics.DrawRectangles(Pens.Red, new RectangleF[] { this.Rectangle });
+                graphics.DrawString("语音播报", Control.DefaultFont, new SolidBrush(Color.Red), this.Rectangle, sf);
+            }
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+
+            info.AddValue("Interval", Interval);
+            info.AddValue("Rate", Rate);
+            info.AddValue("Volumn", Volumn);
+            info.AddValue("VoiceName", VoiceName);
+
+        }
+
+        String getAndUpdateBroadcastMessage(List<Warning> nowWarnings)
+        {
+            //删除已恢复的报警
+            foreach (var item in warningsCache.Select(x => x.Key).ToArray())
+            {
+                if (!nowWarnings.Any(x => x.Equals(item)))
+                {
+                    warningsCache.Remove(item);
+                }
+            }
+
+            DateTime now = DateTime.Now;
+            //添加新报警
+            foreach (var item in nowWarnings)
+            {
+                if (!warningsCache.ContainsKey(item))
+                {
+                    warningsCache.Add(item, now);
+                }
+            }
+
+            var brodcastItems = warningsCache.Where(x => x.Value == now || now.Subtract(x.Value).TotalMilliseconds > Interval)
+                .Select(x => x.Key);
+
+            foreach (var item in brodcastItems.ToArray())
+            {
+                warningsCache[item] = now;
+            }
+
+            String result = String.Join("。", brodcastItems.Select(x => string.Format("{0} {1} {2}", x.DeviceType, x.DeviceName, x.Message)));
+
+            return result;
+        }
+
+        void Init()
+        {
+
+            this.Visible = true;
+
+            this.Size = new System.Drawing.SizeF(50, 50);
+            sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+            Interval = 60*1000;
+            Volumn = 100;
+            Rate = -2;
+            VoiceName = "VW Hui";
+
+            System.Threading.ThreadPool.QueueUserWorkItem((stat) =>
+            {
+                Proc();
+            });
+        }
+        void Proc()
+        {
+            while (true)
+            {
+
+                System.Threading.Thread.Sleep(1000);
+
+                if (this.Visible == false)
+                {
+                    continue;
+                }
+
+                String msg;
+                try
+                {
+                    var ws = WarningContainers.SelectMany(x => x.GetWarings())
+                        .ToList();
+
+                    msg = getAndUpdateBroadcastMessage(ws);
+
+                }
+                catch (Exception ex)
+                {
+                    msg = string.Format("报警信息获取失败：{0}",ex.Message);
+                }
+
+                if (String.IsNullOrWhiteSpace(msg))
+                {
+                    continue;
+                }
+
+                Speek(msg);
+            }
+        }
+        void Speek(String msg)
+        {
+            try
+            {
+                using (SpeechSynthesizer ss = new SpeechSynthesizer())
+                {
+                    ss.Volume = Volumn;
+                    ss.Rate = Rate;
+                    if (!InstalledVoiceNames.Any(x => x == VoiceName))
+                    {
+                        VoiceName = InstalledVoiceNames.First();
+                    }
+
+                    //if (InstalledVoiceNames.First() != VoiceName)
+                    //{
+
+                    //    ss.SelectVoice(VoiceName);
+                    //}
+
+                    ss.SelectVoice(VoiceName);
+
+                    ss.Speak(msg);
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+
+        public override float WidthScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+
+        public override float HeightScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+    }
+}

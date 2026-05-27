@@ -1,0 +1,147 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements.UIEditor
+{
+    public partial class frmPathScalerEditorUI : Form
+    {
+        public List<PathScaler> Paths { get; private set; }
+        BindingSource bindingSource;
+        public frmPathScalerEditorUI(List<PathScaler> paths)
+        {
+            InitializeComponent();
+
+            bindingSource = new BindingSource(paths, "");
+            lblPath.DataSource = bindingSource;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            PathScaler ps = new PathScaler();
+            bindingSource.Add(ps);
+            propertyGrid1.SelectedObject = ps;
+            lblPath.SelectedItem = ps;
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (lblPath.SelectedItem == null)
+            {
+                btnRemove.Enabled = false;
+                return;
+            }
+
+            bindingSource.Remove(lblPath.SelectedItem);
+        }
+
+        private void lblPath_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lblPath.SelectedItem != null)
+            {
+                propertyGrid1.SelectedObject = lblPath.SelectedItem;
+                btnRemove.Enabled = true;
+            }
+            else
+            {
+                btnRemove.Enabled = false;
+            }
+
+            if (lblPath.Items.Count == 1)
+            {
+                btnUP.Enabled =
+                    btnDown.Enabled = false;
+
+            }
+            else
+            {
+                if (lblPath.SelectedIndex == 0)
+                {
+                    btnUP.Enabled = false;
+                    btnDown.Enabled = true;
+                }
+                else if (lblPath.SelectedIndex == lblPath.Items.Count - 1)
+                {
+                    btnUP.Enabled = true;
+                    btnDown.Enabled = false;
+                }
+                else
+                {
+
+                    btnUP.Enabled = true;
+                    btnDown.Enabled = true;
+                }
+            }
+        }
+
+        private void btnUP_Click(object sender, EventArgs e)
+        {
+            if (lblPath.SelectedItem == null)
+            {
+                btnUP.Enabled = false;
+                btnDown.Enabled = false;
+                return;
+            }
+
+            int index = lblPath.SelectedIndex;
+            if (index == 0)
+            {
+                btnUP.Enabled = false;
+                return;
+            }
+
+            var item = lblPath.SelectedItem;
+            bindingSource.Remove(item);
+            bindingSource.Insert(index - 1, item);
+            propertyGrid1.SelectedObject = item;
+            lblPath.SelectedItem = item;
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            if (lblPath.SelectedItem == null)
+            {
+                btnUP.Enabled = false;
+                btnDown.Enabled = false;
+                return;
+            }
+
+            int index = lblPath.SelectedIndex;
+            if (index == lblPath.Items.Count-1)
+            {
+                btnDown.Enabled = false;
+                return;
+            }
+
+            var item = lblPath.SelectedItem;
+            bindingSource.Remove(item);
+            bindingSource.Insert(index + 1, item);
+            propertyGrid1.SelectedObject = item;
+            lblPath.SelectedItem = item;
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            var paths = bindingSource.Cast<PathScaler>().ToList();
+
+            if (paths.Any(x => x.IsEmpty))
+            {
+                MessageBox.Show("有未初始化的比例对象，请移除", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            this.Paths = paths;
+
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Client" namespace="Client.Conveyor" auto-import="false">
+  <class name="Alarm" table="`ConveyorAlarms`"  schema-action="none" batch-size="500">
+    <id name="Id" column="`Id`" type="Int32">
+      <generator class="increment">
+      </generator>
+    </id>
+    <version name="Version" type="Int32" column="`Version`" unsaved-value="0" />
+    <property name="LogId" type="Int32" column="`LogId`" not-null="true" />
+    <property name="ProjectId" type="Int32" column="`ProjectId`" not-null="true" />
+    <property name="CreatedAt" type="DateTime2" not-null="true">
+      <column name="`CreatedAt`" sql-type="DateTime2" />
+    </property>
+    <property name="LongDate" type="DateTime2">
+      <column name="`LongDate`" sql-type="DateTime2" />
+    </property>
+    <property name="Name" column="`Name`" type="String" not-null="true" />
+    
+    <property name="PosNo" column="`PosNo`" type="Int32" />
+    <property name="Manual" column="`Manual`" type="Boolean" />
+    <property name="Isolator" column="`Isolator`" type="Boolean" />
+    <property name="Breaker" column="`Breaker`" type="Boolean" />
+    <property name="Photocell" column="`Photocell`" type="Boolean" />
+    <property name="RunOvertime" column="`RunOvertime`" type="Boolean" />
+    <property name="OccupyOvertime" column="`OccupyOvertime`" type="Boolean" />
+    <property name="TaskNoGoods" column="`TaskNoGoods`" type="Boolean" />
+    <property name="MotorUseStatus" column="`MotorUseStatus`" type="Int32" />
+    <property name="X_MotorVAF" column="`X_MotorVAF`" type="Boolean" />
+    <property name="Y_MotorVAF" column="`Y_MotorVAF`" type="Boolean" />
+    <property name="X_MotorContactor" column="`X_MotorContactor`" type="Boolean" />
+    <property name="X_MotorBraker" column="`X_MotorBraker`" type="Boolean" />
+    <property name="Y_MotorContactor" column="`Y_MotorContactor`" type="Boolean" />
+    <property name="Y_MotorBraker" column="`Y_MotorBraker`" type="Boolean" />
+    <property name="Lift_MotorContactor" column="`Lift_MotorContactor`" type="Boolean" />
+    <property name="Lift_MotorBraker" column="`Lift_MotorBraker`" type="Boolean" />
+    <property name="Spare" column="`Spare`" type="Int32" />
+  </class>
+  <database-object>
+    <create>
+      <![CDATA[      
+      CREATE TABLE [dbo].[ConveyorAlarms](
+	      [Id] [int] NOT NULL PRIMARY KEY NONCLUSTERED,
+        [LogId] [int] NOT NULL,
+	      [ProjectId] [int] NOT NULL,
+        [CreatedAt] [datetime2](7) NULL,
+        [LongDate] [datetime2](7) NULL,
+        [Version] [int] NOT NULL,
+	      [Name] [nvarchar](255) NOT NULL,
+        
+	      [PosNo] [int] NULL,        
+	      [Manual] [bit] NULL,
+	      [Isolator] [bit] NULL,
+	      [Breaker] [bit] NULL,
+	      [Photocell] [bit] NULL,
+	      [RunOvertime] [bit] NULL,
+	      [OccupyOvertime] [bit] NULL,
+	      [TaskNoGoods] [bit] NULL,
+	      [MotorUseStatus] [int] NULL,
+	      [X_MotorVAF] [bit] NULL,
+	      [Y_MotorVAF] [bit] NULL,
+	      [X_MotorContactor] [bit] NULL,
+	      [X_MotorBraker] [bit] NULL,
+	      [Y_MotorContactor] [bit] NULL,
+	      [Y_MotorBraker] [bit] NULL,
+	      [Lift_MotorContactor] [bit] NULL,
+	      [Lift_MotorBraker] [bit] NULL,
+	      [Spare] [bit] NULL
+      ) ON [PRIMARY]
+      ]]>
+    </create>
+    <drop>
+      <![CDATA[
+      IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ConveyorAlarms]') AND type in (N'U'))
+      DROP TABLE [dbo].[ConveyorAlarms]
+      ]]>
+    </drop>
+  </database-object>
+  <database-object>
+    <create>
+      <![CDATA[
+            CREATE CLUSTERED INDEX [IX_ConveyorAlarms_LongDate] ON dbo.[ConveyorAlarms]
+            (
+            LongDate
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+
+    </drop>
+  </database-object>
+</hibernate-mapping>

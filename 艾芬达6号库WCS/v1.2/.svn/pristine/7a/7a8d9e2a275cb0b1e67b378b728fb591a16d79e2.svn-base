@@ -1,0 +1,465 @@
+﻿namespace Wcs.Client.App.Elements.Forms
+{
+    partial class frmTasks
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.colProperity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCreatedAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsMainTask = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiSuspend = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCancel = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiComplete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiArchive = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.colContainerCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvGrid = new System.Windows.Forms.DataGridView();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTaskCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTaskType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colBizType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEndLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCurrentLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbxKey = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbxEndLocation = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbxStartLocation = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbxContainerCode = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbxTaskCode = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.cmsMainTask.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // colProperity
+            // 
+            this.colProperity.DataPropertyName = "Priority";
+            this.colProperity.HeaderText = "优先级";
+            this.colProperity.Name = "colProperity";
+            this.colProperity.ReadOnly = true;
+            this.colProperity.Width = 70;
+            // 
+            // colCreatedAt
+            // 
+            this.colCreatedAt.DataPropertyName = "CreatedAt";
+            dataGridViewCellStyle1.Format = "yyyy-MM-dd HH:mm:ss.fff";
+            this.colCreatedAt.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colCreatedAt.HeaderText = "创建时间";
+            this.colCreatedAt.Name = "colCreatedAt";
+            this.colCreatedAt.ReadOnly = true;
+            this.colCreatedAt.Width = 150;
+            // 
+            // cmsMainTask
+            // 
+            this.cmsMainTask.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSuspend,
+            this.tsmiCancel,
+            this.tsmiComplete,
+            this.tsmiArchive,
+            this.tsmiView,
+            this.tsmiRefresh});
+            this.cmsMainTask.Name = "cmsMainTask";
+            this.cmsMainTask.Size = new System.Drawing.Size(125, 136);
+            this.cmsMainTask.Opening += new System.ComponentModel.CancelEventHandler(this.cmsMainTask_Opening);
+            // 
+            // tsmiSuspend
+            // 
+            this.tsmiSuspend.Name = "tsmiSuspend";
+            this.tsmiSuspend.Size = new System.Drawing.Size(124, 22);
+            this.tsmiSuspend.Text = "暂停";
+            this.tsmiSuspend.Click += new System.EventHandler(this.tsmiSuspend_Click);
+            // 
+            // tsmiCancel
+            // 
+            this.tsmiCancel.Name = "tsmiCancel";
+            this.tsmiCancel.Size = new System.Drawing.Size(124, 22);
+            this.tsmiCancel.Text = "取消";
+            this.tsmiCancel.Click += new System.EventHandler(this.tsmiCancel_Click);
+            // 
+            // tsmiComplete
+            // 
+            this.tsmiComplete.Name = "tsmiComplete";
+            this.tsmiComplete.Size = new System.Drawing.Size(124, 22);
+            this.tsmiComplete.Text = "强制完成";
+            this.tsmiComplete.Click += new System.EventHandler(this.tsmiComplete_Click);
+            // 
+            // tsmiArchive
+            // 
+            this.tsmiArchive.Name = "tsmiArchive";
+            this.tsmiArchive.Size = new System.Drawing.Size(124, 22);
+            this.tsmiArchive.Text = "归档任务";
+            this.tsmiArchive.Click += new System.EventHandler(this.tsmiArchive_Click);
+            // 
+            // tsmiView
+            // 
+            this.tsmiView.Name = "tsmiView";
+            this.tsmiView.Size = new System.Drawing.Size(124, 22);
+            this.tsmiView.Text = "查看详情";
+            this.tsmiView.Click += new System.EventHandler(this.tsmiView_Click);
+            // 
+            // tsmiRefresh
+            // 
+            this.tsmiRefresh.Name = "tsmiRefresh";
+            this.tsmiRefresh.Size = new System.Drawing.Size(124, 22);
+            this.tsmiRefresh.Text = "刷新";
+            this.tsmiRefresh.Click += new System.EventHandler(this.tsmiRefresh_Click);
+            // 
+            // colDescription
+            // 
+            this.colDescription.DataPropertyName = "Description";
+            this.colDescription.HeaderText = "描述";
+            this.colDescription.Name = "colDescription";
+            this.colDescription.ReadOnly = true;
+            // 
+            // colContainerCode
+            // 
+            this.colContainerCode.DataPropertyName = "ContainerCodes";
+            this.colContainerCode.HeaderText = "容器编码";
+            this.colContainerCode.Name = "colContainerCode";
+            this.colContainerCode.ReadOnly = true;
+            this.colContainerCode.Width = 150;
+            // 
+            // dgvGrid
+            // 
+            this.dgvGrid.AllowUserToAddRows = false;
+            this.dgvGrid.AllowUserToDeleteRows = false;
+            this.dgvGrid.AllowUserToResizeRows = false;
+            this.dgvGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dgvGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvGrid.ColumnHeadersHeight = 24;
+            this.dgvGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colId,
+            this.colTaskCode,
+            this.colTaskType,
+            this.colBizType,
+            this.colStartLocation,
+            this.colEndLocation,
+            this.colCurrentLocation,
+            this.colStatus,
+            this.colContainerCode,
+            this.colProperity,
+            this.colDescription,
+            this.colCreatedAt});
+            this.dgvGrid.ContextMenuStrip = this.cmsMainTask;
+            this.dgvGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvGrid.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dgvGrid.Location = new System.Drawing.Point(5, 61);
+            this.dgvGrid.Name = "dgvGrid";
+            this.dgvGrid.ReadOnly = true;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvGrid.RowHeadersWidth = 30;
+            this.dgvGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(248)))));
+            this.dgvGrid.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvGrid.RowTemplate.Height = 23;
+            this.dgvGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvGrid.Size = new System.Drawing.Size(949, 518);
+            this.dgvGrid.TabIndex = 4;
+            this.dgvGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGrid_CellDoubleClick);
+            this.dgvGrid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvGrid_CellFormatting);
+            this.dgvGrid.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvList_RowPostPaint);
+            // 
+            // colId
+            // 
+            this.colId.DataPropertyName = "Id";
+            this.colId.HeaderText = "编号";
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            this.colId.Width = 80;
+            // 
+            // colTaskCode
+            // 
+            this.colTaskCode.DataPropertyName = "TaskCode";
+            this.colTaskCode.HeaderText = "任务号";
+            this.colTaskCode.Name = "colTaskCode";
+            this.colTaskCode.ReadOnly = true;
+            this.colTaskCode.Width = 120;
+            // 
+            // colTaskType
+            // 
+            this.colTaskType.DataPropertyName = "TaskType";
+            this.colTaskType.HeaderText = "任务类型";
+            this.colTaskType.Name = "colTaskType";
+            this.colTaskType.ReadOnly = true;
+            this.colTaskType.Width = 80;
+            // 
+            // colBizType
+            // 
+            this.colBizType.DataPropertyName = "BizType";
+            this.colBizType.HeaderText = "业务类型";
+            this.colBizType.Name = "colBizType";
+            this.colBizType.ReadOnly = true;
+            this.colBizType.Width = 80;
+            // 
+            // colStartLocation
+            // 
+            this.colStartLocation.DataPropertyName = "StartLocation";
+            this.colStartLocation.HeaderText = "起始位置";
+            this.colStartLocation.Name = "colStartLocation";
+            this.colStartLocation.ReadOnly = true;
+            // 
+            // colEndLocation
+            // 
+            this.colEndLocation.DataPropertyName = "EndLocation";
+            this.colEndLocation.HeaderText = "结束位置";
+            this.colEndLocation.Name = "colEndLocation";
+            this.colEndLocation.ReadOnly = true;
+            // 
+            // colCurrentLocation
+            // 
+            this.colCurrentLocation.DataPropertyName = "CurrentLocation";
+            this.colCurrentLocation.HeaderText = "当前位置";
+            this.colCurrentLocation.Name = "colCurrentLocation";
+            this.colCurrentLocation.ReadOnly = true;
+            // 
+            // colStatus
+            // 
+            this.colStatus.DataPropertyName = "Status";
+            this.colStatus.HeaderText = "状态";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tbxKey);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Controls.Add(this.cmbStatus);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.tbxEndLocation);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.tbxStartLocation);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.tbxContainerCode);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.tbxTaskCode);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(5, 5);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(949, 56);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "任务查询";
+            // 
+            // tbxKey
+            // 
+            this.tbxKey.Location = new System.Drawing.Point(795, 22);
+            this.tbxKey.Name = "tbxKey";
+            this.tbxKey.Size = new System.Drawing.Size(64, 21);
+            this.tbxKey.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(778, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(11, 12);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "*";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(865, 21);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(61, 23);
+            this.btnSearch.TabIndex = 10;
+            this.btnSearch.Text = "查询";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // cmbStatus
+            // 
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Location = new System.Drawing.Point(673, 22);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(86, 20);
+            this.cmbStatus.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(637, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 12);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "状态";
+            // 
+            // tbxEndLocation
+            // 
+            this.tbxEndLocation.Location = new System.Drawing.Point(529, 22);
+            this.tbxEndLocation.Name = "tbxEndLocation";
+            this.tbxEndLocation.Size = new System.Drawing.Size(89, 21);
+            this.tbxEndLocation.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(470, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 12);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "终点位置";
+            // 
+            // tbxStartLocation
+            // 
+            this.tbxStartLocation.Location = new System.Drawing.Point(364, 22);
+            this.tbxStartLocation.Name = "tbxStartLocation";
+            this.tbxStartLocation.Size = new System.Drawing.Size(89, 21);
+            this.tbxStartLocation.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(305, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "起始位置";
+            // 
+            // tbxContainerCode
+            // 
+            this.tbxContainerCode.Location = new System.Drawing.Point(216, 22);
+            this.tbxContainerCode.Name = "tbxContainerCode";
+            this.tbxContainerCode.Size = new System.Drawing.Size(74, 21);
+            this.tbxContainerCode.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(157, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "容器编码";
+            // 
+            // tbxTaskCode
+            // 
+            this.tbxTaskCode.Location = new System.Drawing.Point(59, 22);
+            this.tbxTaskCode.Name = "tbxTaskCode";
+            this.tbxTaskCode.Size = new System.Drawing.Size(82, 21);
+            this.tbxTaskCode.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "任务号";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // frmTasks
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(959, 584);
+            this.Controls.Add(this.dgvGrid);
+            this.Controls.Add(this.groupBox1);
+            this.Name = "frmTasks";
+            this.Padding = new System.Windows.Forms.Padding(5);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "任务管理器";
+            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.cmsMainTask.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProperity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCreatedAt;
+        private System.Windows.Forms.ContextMenuStrip cmsMainTask;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSuspend;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCancel;
+        private System.Windows.Forms.ToolStripMenuItem tsmiComplete;
+        private System.Windows.Forms.ToolStripMenuItem tsmiArchive;
+        private System.Windows.Forms.ToolStripMenuItem tsmiView;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRefresh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colContainerCode;
+        private System.Windows.Forms.DataGridView dgvGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTaskCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTaskType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBizType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStartLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colEndLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCurrentLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox tbxKey;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbxEndLocation;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbxStartLocation;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbxContainerCode;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbxTaskCode;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer1;
+    }
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Client" namespace="Client.RailGuidedVehicle" auto-import="false">
+  <class name="ChangeOfState" table="`RailGuidedVehicleChangeOfStates`"  batch-size="500" schema-action="none">
+    <id name="Id" column="`Id`" type="Int32">
+      <generator class="increment">
+      </generator>
+    </id>
+    <version name="Version" type="Int32" column="`Version`" unsaved-value="0" />
+    <property name="Name" column="`Name`" type="String" not-null="true" />
+    <property name="StateAId" type="Int32" column="`StateAId`" not-null="true" />
+    <property name="StateBId" type="Int32" column="`StateBId`" />
+    <property name="StateA" column="`StateA`" type="RailGuidedVehicleStatus"  not-null="true"/>
+    <property name="StateB" column="`StateB`" type="RailGuidedVehicleStatus" />
+
+    <property name="StartTime" type="DateTime2" not-null="true">
+      <column name="`StartTime`" sql-type="DateTime2" />
+    </property>
+    <property name="EndTime" type="DateTime2">
+      <column name="`EndTime`" sql-type="DateTime2" />
+    </property>
+    
+    <property name="TotalMilliseconds" type="Int32" column="`TotalMilliseconds`" />
+    <property name="IsRunning" type="Boolean" column="`IsRunning`" />
+    <property name="CreatedAt" type="DateTime2" not-null="true">
+      <column name="`CreatedAt`" sql-type="DateTime2" />
+    </property>
+  </class>
+  <database-object>
+    <create>
+      <![CDATA[
+        CREATE TABLE [dbo].[RailGuidedVehicleChangeOfStates](
+	        [Id] [int] NOT NULL PRIMARY KEY NONCLUSTERED,
+	        [Name] [nvarchar](255) NOT NULL,
+          [StateAId] [int] NOT NULL,
+          [StateBId] [int] NOT NULL,
+	        [StateA] [int] NOT NULL,
+	        [StateB] [int] NULL,
+          [StartTime] [datetime2](7) NOT NULL,
+          [EndTime] [datetime2](7) NULL,
+	        [TotalMilliseconds] [int] NULL,
+	        [IsRunning] [bit] NOT NULL,
+          [CreatedAt] [datetime2](7) NOT NULL,
+          [Version] [int] NOT NULL
+        ) ON [PRIMARY]
+      ]]>
+    </create>
+    <drop>
+      <![CDATA[
+      IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RailGuidedVehicleChangeOfStates]') AND type in (N'U'))
+      DROP TABLE [dbo].[RailGuidedVehicleChangeOfStates]
+      ]]>
+    </drop>
+  </database-object>
+  <database-object>
+    <create>
+      <![CDATA[
+            CREATE CLUSTERED INDEX [IX_RailGuidedVehicleChangeOfStates_StartTime] ON dbo.[RailGuidedVehicleChangeOfStates]
+            (
+            StartTime
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+
+    </drop>
+  </database-object>
+</hibernate-mapping>

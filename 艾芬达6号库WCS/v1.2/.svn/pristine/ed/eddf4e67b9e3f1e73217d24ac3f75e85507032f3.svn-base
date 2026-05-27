@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a11c5f74-191a-4f5d-b8b8-7ef1cd44736d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9991/WcsLogsDiagnoseMatedataServiceProxy/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="852b2670-89ff-450e-b21c-b4364664883e" SourceId="1" SourceUrl="http://localhost:9991/WcsLogsDiagnoseMatedataServiceProxy/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="86be97aa-18d5-4b32-9f0b-2274c241a269" SourceId="1" SourceUrl="http://localhost:9991/WcsLogsDiagnoseMatedataServiceProxy/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="bc7d1231-4d2d-43da-9ed9-c5e3ae745a30" SourceId="1" SourceUrl="http://localhost:9991/WcsLogsDiagnoseMatedataServiceProxy/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

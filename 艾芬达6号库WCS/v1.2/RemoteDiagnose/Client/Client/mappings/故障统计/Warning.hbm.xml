@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Client" namespace="Client" auto-import="false">
+  <class name="Warning" table="`Warnings`" schema-action="none">
+    <id name="Id" column="`Id`" type="Int32">
+      <generator class="increment">
+      </generator>
+    </id>
+    <version name="Version" type="Int32" column="`Version`" unsaved-value="0" />
+    <property name="Name" column="`Name`" type="String" not-null="true" />
+    <property name="StateAId" type="Int32" column="`StateAId`" not-null="true" />
+    <property name="StateBId" type="Int32" column="`StateBId`" />
+    <property name="TaskId" column="`TaskId`" type="String" />
+    <property name="ErrorCode" column="`ErrorCode`" type="Int32" />
+    <property name="AlarmName" column="`AlarmName`" type="String" />
+    <property name="StartTime" type="DateTime2">
+      <column name="`StartTime`" sql-type="DateTime2" />
+    </property>
+    <property name="EndTime" type="DateTime2">
+      <column name="`EndTime`" sql-type="DateTime2" />
+    </property>
+    <property name="BatchDate" type="DateTime2">
+      <column name="`BatchDate`" sql-type="DateTime2" />
+    </property>    
+    <property name="TotalMilliseconds" type="Int32" column="`TotalMilliseconds`" />
+    <property name="CreatedAt" type="DateTime2" not-null="true">
+      <column name="`CreatedAt`" sql-type="DateTime2" />
+    </property>
+    <property name="UpdatedAt" type="DateTime2" not-null="true">
+      <column name="`UpdatedAt`" sql-type="DateTime2" />
+    </property>
+    <property name="SourceType" column="`SourceType`" type="String" not-null="true" />
+    <property name="DeviceType" column="`DeviceType`" type="String" not-null="true" />
+    <property name="Level" column="`Level`" type="Int32" not-null="true" />
+  </class>
+  <database-object>
+    <create>
+      <![CDATA[
+      CREATE TABLE [dbo].[Warnings](
+	        [Id] [int] NOT NULL PRIMARY KEY NONCLUSTERED,
+	        [Name] [nvarchar](255) NOT NULL,
+          [StateAId] [int] NOT NULL,
+          [StateBId] [int] NOT NULL,
+	        [TaskId] [nvarchar](255) NOT NULL,
+	        [ErrorCode] [int] NOT NULL,
+	        [AlarmName] [nvarchar](255) NULL,
+          [StartTime] [datetime2](7) NOT NULL,
+          [EndTime] [datetime2](7) NULL,
+	        [TotalMilliseconds] [int] NULL,
+          [CreatedAt] [datetime2](7) NOT NULL,
+          [UpdatedAt] [datetime2](7) NOT NULL,
+          [BatchDate] [datetime2](7) NOT NULL,
+	        [SourceType] [nvarchar](255) NULL,
+	        [DeviceType] [nvarchar](255) NULL,
+	        [Level] [int] NOT NULL,
+          [Version] [int] NOT NULL
+        ) ON [PRIMARY]    
+      
+      ]]>
+    </create>
+    <drop>
+      <![CDATA[
+      IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Warnings]') AND type in (N'U'))
+      DROP TABLE [dbo].[Warnings]
+      ]]>
+    </drop>
+  </database-object>
+  <database-object>
+    <create>
+      <![CDATA[
+            CREATE CLUSTERED INDEX [IX_Warnings_StartTime] ON dbo.[Warnings]
+            (
+            StartTime
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+
+    </drop>
+  </database-object>
+  <database-object>
+    <create>
+      <![CDATA[
+            CREATE INDEX [IX_Warnings_EndTime] ON dbo.[Warnings]
+            (
+            EndTime
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+
+    </drop>
+  </database-object>
+  <database-object>
+    <create>
+      <![CDATA[
+            CREATE INDEX [IX_Warnings_Name] ON dbo.[Warnings]
+            (
+            Name
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+
+    </drop>
+  </database-object>
+  <database-object>
+    <create>
+      <![CDATA[
+            CREATE INDEX [IX_Warnings_SourceType] ON dbo.[Warnings]
+            (
+            SourceType
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+
+    </drop>
+  </database-object>
+
+  <database-object>
+    <create>
+      <![CDATA[
+            CREATE INDEX [IX_Warnings_DeviceType] ON dbo.[Warnings]
+            (
+            DeviceType
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+
+    </drop>
+  </database-object>
+</hibernate-mapping>

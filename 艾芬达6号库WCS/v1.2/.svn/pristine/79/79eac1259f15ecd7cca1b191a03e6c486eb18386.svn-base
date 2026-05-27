@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Runtime.Serialization;
+namespace Wcs.Client.Interfaces.Conveyor
+{
+    /// <summary>
+    /// 输送线货位状态对象.
+    /// </summary>
+    [Description("输送线货位状态")]
+    [DataContract]
+    public class LocationNetTransferObject 
+    {
+        /// <summary>
+        /// 货位号.
+        /// </summary>
+        /// <value>
+        /// 位置在设备中的编码形式.
+        /// </value>
+        [Description("货位号")]
+        [DataMember]
+        public UInt16 PosNo{get;set;}
+        /// <summary>
+        /// 状态.
+        /// </summary>
+        [Description("状态")]
+        [DataMember]
+        public LocationNetTransferObjectStatus Status { get; set; }
+    }
+}

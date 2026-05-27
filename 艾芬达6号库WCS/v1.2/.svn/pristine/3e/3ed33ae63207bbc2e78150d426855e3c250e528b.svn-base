@@ -1,0 +1,288 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("区域选择器")]
+    [Serializable]
+    public class AreaSelector:Element
+    {
+        object locker = new object();
+        const String TaskManagerName = "任务管理器";
+        const String BroadcastVoiceName = "语音播报";
+        Color[] _colors = new Color[] { 
+            Color.LightBlue,
+            SystemColors.GradientInactiveCaption,
+            Color.PeachPuff,
+            Color.PaleGreen,
+            Color.Gold,
+            Color.Cornsilk,
+            Color.Thistle, 
+            Color.DarkSalmon,
+            Color.SteelBlue,
+            SystemColors.GradientActiveCaption
+        };
+
+        List<KeyValuePair<String, RectangleF>> _buttons = new List<KeyValuePair<String, RectangleF>>();
+        
+        [Description("字体颜色"), Category("外观")]
+        public Color Color { get; set; }
+
+        [Description("字体"), Category("外观")]
+        public Font Font { get; set; }
+
+         public AreaSelector(Editor editor)
+            : base(editor)
+        {
+
+            this.Font = System.Windows.Forms.Control.DefaultFont;
+            this.Color = System.Windows.Forms.Control.DefaultForeColor;
+
+            this.Size = new SizeF(80, 24);
+        }
+
+         public AreaSelector(SerializationInfo info, StreamingContext context)
+             : base(info, context)
+        {
+
+            this.Color = (Color)info.GetValue("Color", typeof(Color));
+            this.Font = (Font)info.GetValue("Font", typeof(Font));
+        }
+
+         public override void GetObjectData(SerializationInfo info, StreamingContext context)
+         {
+             base.GetObjectData(info, context);
+
+             info.AddValue("Color", this.Color);
+             info.AddValue("Font", this.Font);
+         }
+
+        public override Element Clone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public BroadcastVoice GetBroadcastVoice()
+        {
+            return Editor.Items.FirstOrDefault(x => x is BroadcastVoice) as BroadcastVoice;
+        }
+
+        public override void Draw(System.Drawing.Graphics graphics)
+        {
+            lock (locker)
+            {
+                base.Draw(graphics);
+
+
+                var sm = graphics.SmoothingMode;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+
+                var areas = this.Editor.Items.Where(x => x is Area)
+                    .Where(x => !String.IsNullOrWhiteSpace(x.Name))
+                    .OrderBy(x=>x.Index)
+                    .ToList();
+
+                var titles = areas.Select(x => x.Name).ToList();
+
+                var bv = GetBroadcastVoice();
+                if (Editor.TaskDataSource != null)
+                {
+                    titles.Insert(0, TaskManagerName);
+                }
+
+                if (bv != null)
+                {
+                    titles.Insert(1, BroadcastVoiceName);
+                }
+
+                _buttons.Clear();
+
+                using (StringFormat sf = new StringFormat())
+                {
+                    sf.LineAlignment = StringAlignment.Center;
+                    sf.Alignment = StringAlignment.Center;
+
+                    for (int i = 0; i < titles.Count; i++)
+                    {
+                        var width = this.Size.Width / titles.Count;
+                        var rect = new RectangleF(this.Rectangle.X + i * width, this.Rectangle.Y, width, this.Size.Height);
+                        GraphicsPath path;
+                        Color color = _colors[i];
+
+                        if (titles[i] != TaskManagerName && titles[i]!=BroadcastVoiceName)
+                        {
+                            if (!areas.First(x => x.Name == titles[i]).Visible)
+                            {
+                                color = Color.Silver;
+                            }
+                        }
+                        else if (titles[i] == BroadcastVoiceName)
+                        {
+                            if (bv != null && bv.Visible==false)
+                            {
+                                color = Color.Silver;
+                            }
+                        }
+
+                        using (Brush brush = new SolidBrush(color))
+                        {
+                            if (i == 0)
+                            {
+                                path = CreateStartRoundedRectanglePath(rect, 10);
+                                graphics.FillPath(brush, path);
+                            }
+                            else if (i == titles.Count - 1)
+                            {
+                                path = CreateEndRoundedRectanglePath(rect, 10);
+                                graphics.FillPath(brush, path);
+                            }
+                            else
+                            {
+                                graphics.FillRectangles(brush, new RectangleF[] { rect });
+                            }
+                        }
+
+                        using (Brush brush = new SolidBrush(Color))
+                        {
+                            graphics.DrawString(titles[i], Font, brush, rect, sf);
+                        }
+
+                        _buttons.Add(new KeyValuePair<String, RectangleF>(titles[i], rect));
+                    }
+                }
+
+                graphics.SmoothingMode = sm;
+            }
+        }
+
+        GraphicsPath CreateRoundedRectanglePath(RectangleF rect, int cornerRadius)
+        {
+            GraphicsPath roundedRect = new GraphicsPath();
+            roundedRect.AddArc(rect.X, rect.Y, cornerRadius * 2, cornerRadius * 2, 180, 90);
+            roundedRect.AddLine(rect.X + cornerRadius, rect.Y, rect.Right - cornerRadius * 2, rect.Y);
+            roundedRect.AddArc(rect.X + rect.Width - cornerRadius * 2, rect.Y, cornerRadius * 2, cornerRadius * 2, 270, 90);
+            roundedRect.AddLine(rect.Right, rect.Y + cornerRadius * 2, rect.Right, rect.Y + rect.Height - cornerRadius * 2);
+            roundedRect.AddArc(rect.X + rect.Width - cornerRadius * 2, rect.Y + rect.Height - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2, 0, 90);
+            roundedRect.AddLine(rect.Right - cornerRadius * 2, rect.Bottom, rect.X + cornerRadius * 2, rect.Bottom);
+            roundedRect.AddArc(rect.X, rect.Bottom - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2, 90, 90);
+            roundedRect.AddLine(rect.X, rect.Bottom - cornerRadius * 2, rect.X, rect.Y + cornerRadius * 2);
+            roundedRect.CloseFigure();
+            return roundedRect;
+        }
+
+        GraphicsPath CreateStartRoundedRectanglePath(RectangleF rect, int cornerRadius)
+        {
+            GraphicsPath roundedRect = new GraphicsPath();
+            roundedRect.AddArc(rect.X, rect.Y, cornerRadius * 2, cornerRadius * 2, 180, 90);
+            roundedRect.AddLine(rect.X + cornerRadius, rect.Y, rect.Right, rect.Y);
+
+
+            roundedRect.AddLine(rect.Right, rect.Y, rect.Right, rect.Y + rect.Height);
+            roundedRect.AddLine(rect.Right, rect.Y + rect.Height, rect.Right - cornerRadius * 2, rect.Bottom);
+
+
+            roundedRect.AddArc(rect.X, rect.Bottom - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2, 90, 90);
+            roundedRect.AddLine(rect.X, rect.Bottom - cornerRadius * 2, rect.X, rect.Y + cornerRadius * 2);
+            roundedRect.CloseFigure();
+            return roundedRect;
+        }
+
+        GraphicsPath CreateEndRoundedRectanglePath(RectangleF rect, int cornerRadius)
+        {
+            GraphicsPath roundedRect = new GraphicsPath();
+            roundedRect.AddLine(rect.X, rect.Y, rect.Right - cornerRadius * 2, rect.Y);
+
+            roundedRect.AddArc(rect.X + rect.Width - cornerRadius * 2, rect.Y, cornerRadius * 2, cornerRadius * 2, 270, 90);
+            roundedRect.AddLine(rect.Right, rect.Y + cornerRadius * 2, rect.Right, rect.Y + rect.Height - cornerRadius * 2);
+            
+            
+            
+            roundedRect.AddArc(rect.X + rect.Width - cornerRadius * 2, rect.Y + rect.Height - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2, 0, 90);
+            roundedRect.AddLine(rect.Right - cornerRadius * 2, rect.Bottom, rect.X + cornerRadius * 2, rect.Bottom);
+          
+
+            roundedRect.AddLine(rect.X, rect.Bottom, rect.X, rect.Y);
+            roundedRect.CloseFigure();
+            return roundedRect;
+        }
+
+        public override void UpdateEditor(Editor editor)
+        {
+            base.UpdateEditor(editor);
+
+            this.MouseClick -= AreaSelector_MouseClick;
+
+            this.MouseClick += AreaSelector_MouseClick;
+        }
+
+        void AreaSelector_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (this.Editor.IsDesign)
+            {
+                return;
+            }
+
+            String name;
+            lock (locker)
+            {
+                var index = _buttons.FindIndex(x => x.Value.Contains(e.X, e.Y));
+
+                if (index < 0)
+                {
+                    return;
+                }
+
+                name = _buttons[index].Key;
+            }
+
+            if (name == TaskManagerName)
+            {
+                using (Forms.frmTasks frm = new Forms.frmTasks(Editor.TaskDataSource))
+                {
+                    frm.ShowDialog();
+                }
+            }
+            else if (name == BroadcastVoiceName)
+            {
+                var bv = GetBroadcastVoice();
+                if (bv != null)
+                {
+                    bv.Visible = !bv.Visible;
+                }
+            }
+            else
+            {
+                var area = Editor.Find<Area>(x => x.Name == name);
+                if (area == null)
+                {
+                    return;
+                }
+
+
+                area.Visible = !area.Visible;
+            }
+        }
+
+        public override float WidthScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+
+        public override float HeightScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+    }
+}

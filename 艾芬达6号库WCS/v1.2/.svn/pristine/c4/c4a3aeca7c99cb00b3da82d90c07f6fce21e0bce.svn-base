@@ -1,0 +1,510 @@
+﻿namespace 双货叉堆垛机测试程序
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.cbxFork2Status = new System.Windows.Forms.ComboBox();
+            this.cbxFork1Status = new System.Windows.Forms.ComboBox();
+            this.cbxFork2HorizontalPosition = new System.Windows.Forms.ComboBox();
+            this.cbxFork1HorizontalPosition = new System.Windows.Forms.ComboBox();
+            this.tbxTaskId = new System.Windows.Forms.TextBox();
+            this.cbxEvent = new System.Windows.Forms.ComboBox();
+            this.tbxErrorCode = new System.Windows.Forms.TextBox();
+            this.cbxAtStation = new System.Windows.Forms.ComboBox();
+            this.cbxForkVerticalPosition = new System.Windows.Forms.ComboBox();
+            this.tbxLevel = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.cbxState = new System.Windows.Forms.ComboBox();
+            this.tbxColumn = new System.Windows.Forms.TextBox();
+            this.btnListen = new System.Windows.Forms.Button();
+            this.tbxPort = new System.Windows.Forms.TextBox();
+            this.tbxIP = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbxLog = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
+            this.groupBox1.Location = new System.Drawing.Point(15, 40);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(938, 98);
+            this.groupBox1.TabIndex = 49;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "LA";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
+            this.tableLayoutPanel1.ColumnCount = 12;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.19149F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.80851F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 68F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 66F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel1.Controls.Add(this.cbxFork2Status, 11, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cbxFork1Status, 10, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cbxFork2HorizontalPosition, 9, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cbxFork1HorizontalPosition, 8, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbxTaskId, 7, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cbxEvent, 6, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbxErrorCode, 5, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cbxAtStation, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cbxForkVerticalPosition, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbxLevel, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label37, 11, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label36, 10, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label35, 9, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label34, 8, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label33, 7, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label32, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label31, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label30, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label29, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label28, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label27, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label26, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cbxState, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbxColumn, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 20);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(915, 69);
+            this.tableLayoutPanel1.TabIndex = 51;
+            // 
+            // cbxFork2Status
+            // 
+            this.cbxFork2Status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbxFork2Status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFork2Status.FormattingEnabled = true;
+            this.cbxFork2Status.Location = new System.Drawing.Point(833, 39);
+            this.cbxFork2Status.Name = "cbxFork2Status";
+            this.cbxFork2Status.Size = new System.Drawing.Size(76, 20);
+            this.cbxFork2Status.TabIndex = 23;
+            // 
+            // cbxFork1Status
+            // 
+            this.cbxFork1Status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbxFork1Status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFork1Status.FormattingEnabled = true;
+            this.cbxFork1Status.Location = new System.Drawing.Point(758, 39);
+            this.cbxFork1Status.Name = "cbxFork1Status";
+            this.cbxFork1Status.Size = new System.Drawing.Size(66, 20);
+            this.cbxFork1Status.TabIndex = 22;
+            // 
+            // cbxFork2HorizontalPosition
+            // 
+            this.cbxFork2HorizontalPosition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbxFork2HorizontalPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFork2HorizontalPosition.FormattingEnabled = true;
+            this.cbxFork2HorizontalPosition.Location = new System.Drawing.Point(668, 39);
+            this.cbxFork2HorizontalPosition.Name = "cbxFork2HorizontalPosition";
+            this.cbxFork2HorizontalPosition.Size = new System.Drawing.Size(81, 20);
+            this.cbxFork2HorizontalPosition.TabIndex = 21;
+            // 
+            // cbxFork1HorizontalPosition
+            // 
+            this.cbxFork1HorizontalPosition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbxFork1HorizontalPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFork1HorizontalPosition.FormattingEnabled = true;
+            this.cbxFork1HorizontalPosition.Location = new System.Drawing.Point(573, 39);
+            this.cbxFork1HorizontalPosition.Name = "cbxFork1HorizontalPosition";
+            this.cbxFork1HorizontalPosition.Size = new System.Drawing.Size(86, 20);
+            this.cbxFork1HorizontalPosition.TabIndex = 20;
+            // 
+            // tbxTaskId
+            // 
+            this.tbxTaskId.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxTaskId.Location = new System.Drawing.Point(482, 39);
+            this.tbxTaskId.Name = "tbxTaskId";
+            this.tbxTaskId.Size = new System.Drawing.Size(82, 21);
+            this.tbxTaskId.TabIndex = 19;
+            this.tbxTaskId.Text = "GOT00001";
+            this.tbxTaskId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // cbxEvent
+            // 
+            this.cbxEvent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbxEvent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxEvent.FormattingEnabled = true;
+            this.cbxEvent.Location = new System.Drawing.Point(391, 39);
+            this.cbxEvent.Name = "cbxEvent";
+            this.cbxEvent.Size = new System.Drawing.Size(82, 20);
+            this.cbxEvent.TabIndex = 18;
+            // 
+            // tbxErrorCode
+            // 
+            this.tbxErrorCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxErrorCode.Location = new System.Drawing.Point(336, 39);
+            this.tbxErrorCode.Name = "tbxErrorCode";
+            this.tbxErrorCode.Size = new System.Drawing.Size(46, 21);
+            this.tbxErrorCode.TabIndex = 17;
+            this.tbxErrorCode.Text = "0000";
+            this.tbxErrorCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // cbxAtStation
+            // 
+            this.cbxAtStation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbxAtStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxAtStation.FormattingEnabled = true;
+            this.cbxAtStation.Location = new System.Drawing.Point(268, 39);
+            this.cbxAtStation.Name = "cbxAtStation";
+            this.cbxAtStation.Size = new System.Drawing.Size(59, 20);
+            this.cbxAtStation.TabIndex = 16;
+            // 
+            // cbxForkVerticalPosition
+            // 
+            this.cbxForkVerticalPosition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbxForkVerticalPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxForkVerticalPosition.FormattingEnabled = true;
+            this.cbxForkVerticalPosition.Location = new System.Drawing.Point(199, 39);
+            this.cbxForkVerticalPosition.Name = "cbxForkVerticalPosition";
+            this.cbxForkVerticalPosition.Size = new System.Drawing.Size(60, 20);
+            this.cbxForkVerticalPosition.TabIndex = 15;
+            // 
+            // tbxLevel
+            // 
+            this.tbxLevel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxLevel.Location = new System.Drawing.Point(128, 39);
+            this.tbxLevel.Name = "tbxLevel";
+            this.tbxLevel.Size = new System.Drawing.Size(62, 21);
+            this.tbxLevel.TabIndex = 14;
+            this.tbxLevel.Text = "001";
+            this.tbxLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label37.Location = new System.Drawing.Point(833, 3);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(76, 30);
+            this.label37.TabIndex = 11;
+            this.label37.Text = "叉2状态";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label36.Location = new System.Drawing.Point(758, 3);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(66, 30);
+            this.label36.TabIndex = 10;
+            this.label36.Text = "叉1状态";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label35.Location = new System.Drawing.Point(668, 3);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(81, 30);
+            this.label35.TabIndex = 9;
+            this.label35.Text = "叉2位置";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label34.Location = new System.Drawing.Point(573, 3);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(86, 30);
+            this.label34.TabIndex = 8;
+            this.label34.Text = "叉1位置";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label33.Location = new System.Drawing.Point(482, 3);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(82, 30);
+            this.label33.TabIndex = 7;
+            this.label33.Text = "任务号";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label32.Location = new System.Drawing.Point(391, 3);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(82, 30);
+            this.label32.TabIndex = 6;
+            this.label32.Text = "事件";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label31.Location = new System.Drawing.Point(336, 3);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(46, 30);
+            this.label31.TabIndex = 5;
+            this.label31.Text = "故障码";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label30.Location = new System.Drawing.Point(268, 3);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(59, 30);
+            this.label30.TabIndex = 4;
+            this.label30.Text = "是否在站点";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label29.Location = new System.Drawing.Point(199, 3);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(60, 30);
+            this.label29.TabIndex = 3;
+            this.label29.Text = "载货台位置";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label28.Location = new System.Drawing.Point(128, 3);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(62, 30);
+            this.label28.TabIndex = 2;
+            this.label28.Text = "层";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label27.Location = new System.Drawing.Point(71, 3);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(48, 30);
+            this.label27.TabIndex = 1;
+            this.label27.Text = "列";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label26.Location = new System.Drawing.Point(6, 3);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(56, 30);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "状态";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cbxState
+            // 
+            this.cbxState.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbxState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxState.FormattingEnabled = true;
+            this.cbxState.Location = new System.Drawing.Point(6, 39);
+            this.cbxState.Name = "cbxState";
+            this.cbxState.Size = new System.Drawing.Size(56, 20);
+            this.cbxState.TabIndex = 12;
+            // 
+            // tbxColumn
+            // 
+            this.tbxColumn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxColumn.Location = new System.Drawing.Point(71, 39);
+            this.tbxColumn.Name = "tbxColumn";
+            this.tbxColumn.Size = new System.Drawing.Size(48, 21);
+            this.tbxColumn.TabIndex = 13;
+            this.tbxColumn.Text = "001";
+            this.tbxColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnListen
+            // 
+            this.btnListen.Location = new System.Drawing.Point(214, 11);
+            this.btnListen.Name = "btnListen";
+            this.btnListen.Size = new System.Drawing.Size(75, 23);
+            this.btnListen.TabIndex = 48;
+            this.btnListen.Text = "启动监听";
+            this.btnListen.UseVisualStyleBackColor = true;
+            this.btnListen.Click += new System.EventHandler(this.btnListen_Click);
+            // 
+            // tbxPort
+            // 
+            this.tbxPort.Location = new System.Drawing.Point(141, 12);
+            this.tbxPort.Name = "tbxPort";
+            this.tbxPort.Size = new System.Drawing.Size(48, 21);
+            this.tbxPort.TabIndex = 46;
+            this.tbxPort.Text = "4000";
+            this.tbxPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxIP
+            // 
+            this.tbxIP.Location = new System.Drawing.Point(39, 12);
+            this.tbxIP.Name = "tbxIP";
+            this.tbxIP.Size = new System.Drawing.Size(96, 21);
+            this.tbxIP.TabIndex = 47;
+            this.tbxIP.Text = "127.0.0.1";
+            this.tbxIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(13, 16);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(17, 12);
+            this.label19.TabIndex = 45;
+            this.label19.Text = "IP";
+            // 
+            // tbxLog
+            // 
+            this.tbxLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxLog.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxLog.Location = new System.Drawing.Point(15, 144);
+            this.tbxLog.Multiline = true;
+            this.tbxLog.Name = "tbxLog";
+            this.tbxLog.ReadOnly = true;
+            this.tbxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbxLog.Size = new System.Drawing.Size(938, 381);
+            this.tbxLog.TabIndex = 50;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(863, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 48;
+            this.button1.Text = "立即完成";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(772, 16);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 48;
+            this.button2.Text = "立即运行";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(961, 537);
+            this.Controls.Add(this.tbxLog);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnListen);
+            this.Controls.Add(this.tbxPort);
+            this.Controls.Add(this.tbxIP);
+            this.Controls.Add(this.label19);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.groupBox1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnListen;
+        private System.Windows.Forms.TextBox tbxPort;
+        private System.Windows.Forms.TextBox tbxIP;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox tbxLevel;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox cbxState;
+        private System.Windows.Forms.TextBox tbxColumn;
+        private System.Windows.Forms.ComboBox cbxFork2Status;
+        private System.Windows.Forms.ComboBox cbxFork1Status;
+        private System.Windows.Forms.ComboBox cbxFork2HorizontalPosition;
+        private System.Windows.Forms.ComboBox cbxFork1HorizontalPosition;
+        private System.Windows.Forms.TextBox tbxTaskId;
+        private System.Windows.Forms.ComboBox cbxEvent;
+        private System.Windows.Forms.TextBox tbxErrorCode;
+        private System.Windows.Forms.ComboBox cbxAtStation;
+        private System.Windows.Forms.ComboBox cbxForkVerticalPosition;
+        private System.Windows.Forms.TextBox tbxLog;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+    }
+}
+

@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// 表示一个具体的设备动作
+    /// </summary>
+    [DataContract]
+    public class EquipmentAction
+    {
+        public EquipmentAction()
+        {
+            this.Warnings = new EquipmentActionWarning[0];
+        }
+
+        /// <summary>
+        /// 容器编码
+        /// </summary>
+        [DataMember]
+        public Int16 ContainerCode { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        /// <value>
+        /// 物理动作被创建的时间
+        /// </value>
+        [DataMember]
+        public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// 物理动作设备信息
+        /// </summary>
+        [DataMember]
+        public String DeviceName { get; set; }
+
+        /// <summary>
+        /// 设备任务号
+        /// </summary>
+        [DataMember]
+        public Int32 EquipmentTaskId { get; set; }
+
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        /// <value>
+        /// 接收到设备报的任务完成信号的时间.这个时间在极少数的情况下并不能体现真正的任务完成时间，比如在设备任务报完成期间程序被关闭。
+        /// </value>
+        [DataMember]
+        public DateTime? FinishedAt { get; set; }
+
+        [DataMember]
+        public Int32 Id { get; set; }
+
+        [DataMember]
+        public Int32 Ordering { get; set; }
+        /// <summary>
+        /// 发送时间.
+        /// </summary>
+        /// <value>
+        /// 物理动作被成功发送给设备的时间.
+        /// </value>
+        [DataMember]
+        public DateTime? SentAt { get; set; }
+
+        /// <summary>
+        /// 此动作在序列中的排序位置
+        /// </summary>
+        [DataMember]
+        public Int32? SequenceOrdering { get; set; }
+        /// <summary>
+        /// 动作当前状态
+        /// </summary>
+        [DataMember]
+        public EquipmentActionStatus Status { get; set; }
+        /// <summary>
+        /// 物理动作的报警信息
+        /// </summary>
+        [DataMember]
+        public EquipmentActionWarning[] Warnings { get;  set; }
+
+        public String ReadableDescription { get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("物理动作#{0}({1})", this.Id, this.EquipmentTaskId);
+        }
+    }
+}

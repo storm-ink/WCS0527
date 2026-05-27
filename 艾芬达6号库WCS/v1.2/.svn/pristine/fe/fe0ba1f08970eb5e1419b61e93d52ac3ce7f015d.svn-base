@@ -1,0 +1,321 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Net;
+using System.Configuration;
+using System.Xml;
+using System.IO;
+using 输送线模拟程序.TcpServer;
+using Wcs.DefaultImplementCollection.Conveyor;
+using System.Net.Sockets;
+using Wcs.Framework;
+namespace 输送线模拟程序.ConveyorServer
+{
+    public class ConveyorSimulation
+    {
+        private System.Threading.Thread _thread;
+        ConveyorClientProxy Client;
+        internal SimpleTcpServer TcpServer { get; private set; }
+        public ConveyorElement ConveyorElement { get; private set; }
+
+
+        /// <summary>
+        /// 在堆垛机客户端连入后引发。
+        /// </summary>
+        public event EventHandler ClientConnected;
+
+        /// <summary>
+        /// 在堆垛机客户端断开后引发。
+        /// </summary>
+        public event EventHandler ClientDisconnected;
+
+        public ILogger Logger { get; set; }
+
+        
+        public DefaultConveyorTcpProtocolDataReceiver ReceiverDecoder { get; set; }
+        public Dictionary<Type, NetTransferObject[]> Mapping { get; set; }
+        public ConveyorSimulation(ConveyorElement conveyorElement,ILogger logger)
+        {
+            this.ConveyorElement = conveyorElement;
+            this.Logger = logger;
+            this.ReceiverDecoder = (DefaultConveyorTcpProtocolDataReceiver)conveyorElement.DataReceiver;
+            this.ReceiverDecoder.DataReceived += ReceiverDecoder_DataReceived;
+            TcpServer = new SimpleTcpServer(conveyorElement.IPEndPoint);
+            TcpServer.Stopping += new EventHandler<StopingEventArgs>(TcpServer_Stopping);
+            TcpServer.ClientAccepted += new EventHandler<ClientAcceptedEventArgs>(TcpServer_ClientAccepted);
+            
+            this.Mapping = this.ReceiverDecoder.ReceiverEncoding.CreateFullMap();
+
+            _thread = new Thread(_timer_Elapsed);
+            _thread.IsBackground = true;
+            _thread.Start();
+
+            Logger.Info("{0} 模拟器已启动", conveyorElement.IPEndPoint);
+        }
+
+        void TcpServer_ClientAccepted(object sender, ClientAcceptedEventArgs e)
+        {
+            if (Client != null)
+            {
+                e.TcpClient.Close();
+                Logger.Info("拒绝连接，一次只能有一个上位机。");
+                return;
+            }
+
+            Client = new ConveyorClientProxy(e.TcpClient, this.ReceiverDecoder);
+            OnClientConnected(EventArgs.Empty);
+            Client.Closed += new EventHandler(Client_Closed);
+            Client.StartRead();
+            if (Client != null)
+            {
+                Logger.Info("{0} 已连接", Client.ClientAddress);
+            }
+        }
+
+
+        void Client_Closed(object sender, EventArgs e)
+        {
+            Logger.Info("{0} 已断开",Client.ClientAddress);
+            Client = null;
+            OnClientDisconnected(EventArgs.Empty);
+        }
+
+        void TcpServer_Stopping(object sender, EventArgs e)
+        {
+            if (Client != null)
+            {
+                Client.Close();
+            }
+            Logger.Info("{0} 模拟器已停止", this.ConveyorElement.IPEndPoint);
+        }
+
+
+        void _timer_Elapsed(object state)
+        {
+            while (true)
+            {
+                try
+                {
+                    if (Client != null)
+                    {
+                        if (this.Mapping == null)
+                        {
+                            this.Mapping = this.ReceiverDecoder.ReceiverEncoding.CreateFullMap();
+                        }
+
+                        _DB2 db2 = new _DB2();
+                        db2.Items = this.Mapping;
+                        var netPackage = this.ReceiverDecoder.ConvertToNetPacket(db2);
+                        byte[] bytes = netPackage.GetBytes();
+
+                        Client.SendResponseTelex(bytes);
+                    }
+                }
+                catch (ThreadAbortException threadAbortException)
+                {
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+
+                System.Threading.Thread.Sleep(10);
+            }
+
+            Logger.Info("{0} 模拟器已停止", this.ConveyorElement.IPEndPoint);
+        }
+
+        protected virtual void OnClientConnected(EventArgs e)
+        {
+            if (this.ClientConnected != null)
+            {
+                this.ClientConnected(this, e);
+            }
+        }
+        protected virtual void OnClientDisconnected(EventArgs e)
+        {
+            if (this.ClientDisconnected != null)
+            {
+                this.ClientDisconnected(this, e);
+            }
+        }
+
+
+        void ReceiverDecoder_DataReceived(object sender, DataReceiverReceivedEventArgs e)
+        {
+            _DB1 db1 = (_DB1)e.NetTransferObject;
+
+            this.Logger.Info("收到指令 {0}", db1.GetType());
+
+            //处理货位任务命令(db1);
+            处理主任务命令(db1);
+            处理结果消息命令(db1);
+        }
+
+        private void 处理结果消息命令(_DB1 db1)
+        {
+            var commands = db1.Get<ResultInfoCommand>();
+            if (commands == null || commands.Length == 0)
+            {
+                return;
+            }
+
+            var cmd = commands[0];
+            var cmdTarget = (ReportResultInfoBlock)this.Mapping[typeof(ReportResultInfoBlock)].FirstOrDefault(x=>((ReportResultInfoBlock)x).PosNo == cmd.PosNo);
+
+            Logger.Info("ReportResultInfoBlock {0}", cmdTarget);
+
+            cmdTarget.Result = cmd.Result;
+            cmdTarget.Description = cmd.Description;
+            cmdTarget.DataID = cmd.DataID;
+        }
+
+        void 处理货位任务命令(_DB1 db1)
+        {
+            var commands = db1.Get<ClearLocationTaskCommand>();
+            if (commands == null || commands.Length == 0)
+            {
+                return;
+            }
+
+            var cmd = commands[0];
+            var cmdTarget = (LocationInfoBlock)this.Mapping[typeof(LocationInfoBlock)].FirstOrDefault(x=>((LocationInfoBlock)x).PosNo == cmd.PosNo);
+            if (cmdTarget == null)
+            {
+                Logger.Info($"清除货位任务失败，未找到 PosNo = {cmd.PosNo} 的LocationInfoBlock");
+                return;
+            }
+
+            Logger.Info("清除货位任务 {0}", cmdTarget);
+
+            cmdTarget.TaskNo = 0;
+        }
+
+        void 处理主任务命令(_DB1 db1)
+        {
+            var commands = db1.Get<TaskCommand>();
+            if (commands == null || commands.Length == 0)
+            {
+                return;
+            }
+
+            var cmd = commands[0];
+            if (cmd.DBIndex < 1)
+            {
+                return;
+            }
+
+            var index = cmd.DBIndex - 1;
+            var cmdTarget = (TaskBlock)this.Mapping[typeof(TaskBlock)][index];
+
+            switch (cmd.HandShake)
+            {
+                case TaskHandShakes.New:
+                    cmdTarget.TaskNo = cmd.TaskNo;
+                    cmdTarget.To = cmd.To;
+                    //cmdTarget.IO_Data = cmd.IO_Data;
+                    cmdTarget.RotingNo = cmd.RotingNo;
+                    //cmdTarget.Spare = cmd.Spare;
+                    cmdTarget.From = cmd.From;
+                    cmdTarget.TaskState = TaskBlockTaskStatus.Waiting;
+                    cmdTarget.HandShake = TaskHandShakes.New;
+                    //cmdTarget.TUID = cmd.TUID;
+                    //cmdTarget.TU_Type = cmd.TU_Type;
+
+                    Logger.Info("添加任务 {0}", cmdTarget);
+                    break;
+                case TaskHandShakes.ApplyForDelete:
+                    Logger.Info("删除任务 {0}", cmdTarget);
+                    cmdTarget.HandShake = TaskHandShakes.Empty;
+                    cmdTarget.TaskNo = 0;
+                    cmdTarget.To = 0;
+                    //cmdTarget.IO_Data = 0;
+                    cmdTarget.RotingNo = 0;
+                    cmdTarget.From = 0;
+                    cmdTarget.TaskState = TaskBlockTaskStatus.Empty;
+                    //cmdTarget.TUID = 0;
+                    break;
+                default:
+                    Logger.Error(new InvalidOperationException(string.Format("无效的任务命令 {0}", cmd)));
+                    break;
+            }
+        }
+
+        void 处理变轨命令(_DB1 db1)
+        {
+            dynamic commands;
+            Type db1Type = getType("ChangeRailStatusCommand");
+            Type db2Type = getType("RailNetTransferObject");
+            if (db1Type == null || db2Type == null)
+            {
+                return;
+            }
+
+            if (!db1.Items.ContainsKey(db1Type) || !this.Mapping.ContainsKey(db2Type))
+            {
+                return;
+            }
+
+            commands = db1.Items[db1Type];
+
+            if (commands == null || commands.Length == 0)
+            {
+                return;
+            }
+
+            var cmd = commands[0];
+            if (cmd.DB3_Index < 1)
+            {
+                return;
+            }
+
+            var index = cmd.DB3_Index - 1;
+            dynamic cmdTarget = this.Mapping[db2Type][index];
+            cmdTarget.Status = cmd.Status;
+            cmdTarget.DataId = cmd.DataId;
+        }
+
+        Type getType(String name)
+        {
+            String path = Path.GetDirectoryName(typeof(ConveyorSimulation).Assembly.Location);
+            foreach (var item in Directory.GetFiles(path,"*.dll"))
+            {
+                try
+                {
+                    var ass = System.Reflection.Assembly.LoadFile(item);
+                    var t = ass.GetTypes().FirstOrDefault(x=>x.Name==name);
+                    if (t != null)
+                    {
+                        return t;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            foreach (var item in Directory.GetFiles(path, "*.exe"))
+            {
+                try
+                {
+                    var ass = System.Reflection.Assembly.LoadFile(item);
+                    var t = ass.GetTypes().FirstOrDefault(x => x.Name == name);
+                    if (t != null)
+                    {
+                        return t;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            return null;
+        }
+    }
+}

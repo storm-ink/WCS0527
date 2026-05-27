@@ -1,0 +1,452 @@
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Net;
+using System.Windows.Forms;
+using Gensong.MCS;
+
+namespace Gensong
+{
+    public partial class frmCRN : Form
+    {
+        Crane _crane;
+        TextBoxTraceListener _textBoxTraceListener;
+
+        IPEndPoint _ipEndPoint;
+        public frmCRN(IPEndPoint ipEndPoint)
+        {
+            InitializeComponent();
+
+            _ipEndPoint = ipEndPoint;
+            _textBoxTraceListener = new TextBoxTraceListener(this.tbxLog);
+            _textBoxTraceListener.Filter = new EventTypeFilter(SourceLevels.Information);
+
+            Logger.AddListener(_textBoxTraceListener);
+        }
+
+        private void frmCRN_Load(object sender, EventArgs e)
+        {
+            this.tbxIP.Text = "127.0.0.1";
+            //this.tbxIP.Text = Dns.GetHostEntry(String.Empty).AddressList.First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
+
+            tbxLA9.Text = Task.ReadGotId().ToString("GOT00000");
+
+            if (_ipEndPoint != null)
+            {
+                tbxIP.Text = _ipEndPoint.Address.ToString();
+                tbxPort.Text = _ipEndPoint.Port.ToString();
+                btnListen.PerformClick();
+            }
+        }
+        private void frmCRN_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_crane != null)
+            {
+                _crane.PositionChanged -= new EventHandler(_crane_PositionChanged);
+                _crane.StateChanged -= new EventHandler(_crane_Changed);
+                _crane.Fork.HPositionChanged -= new EventHandler(_fork_Changed);
+                _crane.Fork.VPositionChanged -= new EventHandler(_fork_Changed);
+                _crane.CraneEventOccurred -= new EventHandler(_crane_Changed);
+                _crane.ProcessingRequestTelex -= new EventHandler<ProcessingRequestTelexEventArgs>(_crane_ProcessingRequestTelex);
+                _crane.ClientConnected -= new EventHandler(_crane_ClientConnected);
+                _crane.ClientDisconnected -= new EventHandler(_crane_ClientDisconnected);
+
+                _crane.TcpServer.Stop();
+                _crane.TcpServer.Started -= new EventHandler(TcpServer_Started);
+                _crane.TcpServer.Stopped -= new EventHandler(TcpServer_Stopped);
+
+                if (_crane.Client != null)
+                    _crane.Client.RequestTelexReceived -= new EventHandler<RequestTelexReceivedEventArgs>(Client_TelexReceived);
+
+                if (_crane.Client != null)
+                    _crane.Client.Close();
+
+                if (_crane.TcpServer != null)
+                    _crane.TcpServer.Stop();
+            }
+
+            Logger.RemoveListener(_textBoxTraceListener);
+        }
+
+        private void btnListen_Click(object sender, EventArgs e)
+        {
+            if (btnListen.Text == "停止侦听")
+            {
+                _crane.TcpServer.Stop();
+            }
+            else
+            {
+                _crane = new Crane(tbxIP.Text, Int32.Parse(tbxPort.Text), new Position(1, 1), new Position(1, 1));
+                _crane.TimerInterval = Convert.ToDouble(numCraneTimerInterval.Value);
+                _crane.ClientConnected += new EventHandler(_crane_ClientConnected);
+                _crane.ClientDisconnected += new EventHandler(_crane_ClientDisconnected);
+                _crane.TcpServer.Started += new EventHandler(TcpServer_Started);
+                _crane.TcpServer.Stopped += new EventHandler(TcpServer_Stopped);
+
+                //_crane.PositionChanged += new EventHandler(_crane_Changed);
+                _crane.PositionChanged += new EventHandler(_crane_PositionChanged);
+                _crane.StateChanged += new EventHandler(_crane_Changed);
+                _crane.Fork.HPositionChanged += new EventHandler(_fork_Changed);
+                _crane.Fork.VPositionChanged += new EventHandler(_fork_Changed);
+                _crane.CraneEventOccurred += new EventHandler(_crane_Changed);
+
+                _crane.ProcessingRequestTelex += new EventHandler<ProcessingRequestTelexEventArgs>(_crane_ProcessingRequestTelex);
+                _crane.TcpServer.Start();
+            }
+        }
+        
+        void _crane_PositionChanged(object sender, EventArgs e)
+        {
+            Crane c = (Crane)sender;
+            Action a = () =>
+            {
+                tbxLA2.Text = c.Position.Col.ToString("000");
+                tbxLA3.Text = c.Position.Row.ToString("000");
+            };
+
+            this.Invoke(a);
+        }
+        private void _crane_Changed(object sender, EventArgs e)
+        {
+            Crane c = (Crane)sender;
+            Action a = () =>
+                {
+                    tbxLA1.Text = ((Int32)c.State).ToString("00");
+                    //tbxLA2.Text = c.Position.Column.ToString("000");
+                    //tbxLA3.Text = c.Position.Level.ToString("000");
+                    //tbxLA4.Text = ((Int32)c.Fork.HPosition).ToString("0");
+                    //tbxLA5.Text = ((Int32)c.Fork.VPosition).ToString("0");
+                    tbxLA6.Text = "0";
+                    tbxLA7.Text = c.LastErrorCode;
+                    tbxLA8.Text = ((Int32)c.LastEvent).ToString("0");
+                    tbxLA9.Text = c.CurrentTaskNo;
+
+
+                    tbxLB2.Text = c.CurrentTaskNo;
+                };
+
+            this.Invoke(a);
+        }
+
+        public void _fork_Changed(object sender, EventArgs e)
+        {
+            CraneFork cf = (CraneFork)sender;
+            Action a = () =>
+            {
+                tbxLA4.Text = ((Int32)cf.HPosition).ToString("0");
+                tbxLA5.Text = ((Int32)cf.VPosition).ToString("0");
+            };
+
+            this.Invoke(a);
+        }
+
+        void TcpServer_Started(object sender, EventArgs e)
+        {
+            Action action = () => { this.btnListen.Text = "停止侦听"; };
+            this.Invoke(action);
+        }
+        void TcpServer_Stopped(object sender, EventArgs e)
+        {
+            Action action = () => { this.btnListen.Text = "开始侦听"; };
+            this.Invoke(action);
+        }
+
+
+        private void ProcessHB(HB hb)
+        {
+            if (_crane.HasIncompletedAction)
+            {
+                Logger.Warning("当前有未完成的任务。正在执行的任务：{0}，堆垛机当前位置：{1}，hb 报文任务号：{2}", _crane.CurrentTaskNo, _crane.Position, hb.TaskId);
+                LB lb = new LB(ETaskState.E03, hb.TaskId);
+                Logger.Debug("回复报文: {0}", lb);
+                _crane.Client.SendResponseTelex(lb);
+                return;
+            }
+
+            {
+                LB lb = new LB(
+                    Util.PEnum<ETaskState>(tbxLB1.Text)
+                    , tbxLB2.Text
+                    );
+                _crane.Client.SendResponseTelex(lb);
+
+
+                if (lb.LBState != ETaskState.E01)
+                {
+                    Logger.Debug("堆垛机不执行任何动作，原因是已手工指定 LB 的接收任务状态为非 1 的值。");
+                    return;
+                }
+            }
+            switch (hb.HBCommand)
+            {
+                case HBCommand.E00:
+                    {
+                        //if (_crane.Position.Equals(hb.Position1) == false)
+                        //{
+                        //    String msg = String.Format("堆垛机位置 {0} 与报文起点位置 {1} 不一致。", _crane.Position, hb.Position1);
+                        //    _crane.Client.SendResponseTelex(new LB(ReceiveTaskState.Error, hb.taskNo));
+                        //    throw new InvalidOperationException(msg);
+                        //}
+
+                        _crane.CurrentTaskNo = hb.TaskId;
+                        _crane.MoveTo(hb.Position2);
+                    }
+                    break;
+                case HBCommand.E01:
+                    {
+                        if (_crane.IsLoaded)
+                        {
+                            _crane.Client.SendResponseTelex(new LB(ETaskState.E02, hb.TaskId));
+                            String msg = String.Format("堆垛机上有货。");
+                            throw new InvalidOperationException(msg);
+                        }
+                        _crane.CurrentTaskNo = hb.TaskId;
+
+
+                        _crane.Load(hb.LALeftRight2);
+                    }
+                    break;
+                case HBCommand.E02:
+                    {
+                        if (_crane.IsLoaded == false)
+                        {
+                            _crane.Client.SendResponseTelex(new LB(ETaskState.E02, hb.TaskId));
+                            String msg = String.Format("堆垛机上无货。");
+                            throw new InvalidOperationException(msg);
+                        }
+                        _crane.CurrentTaskNo = hb.TaskId;
+
+                        _crane.Unload(hb.LALeftRight2);
+                    }
+
+
+                    break;
+                case HBCommand.E11:
+                    {
+                        _crane.CurrentTaskNo = hb.TaskId;
+                        _crane.ExecuteTask(hb.Position1, hb.LALeftRight1, hb.Position2, hb.LALeftRight2);
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+        }
+        void _crane_ProcessingRequestTelex(object sender, ProcessingRequestTelexEventArgs e)
+        {
+            if (cbxUseUIToResponse.Checked == false)
+            {
+                return;
+            }
+
+            switch (e.Telex.Head)
+            {
+                case "HA":
+                    {
+                        Position pos = new Position(
+                            int.Parse(tbxLA2.Text)
+                            , int.Parse(tbxLA3.Text)
+                            );
+
+                        LA la = new LA(
+                            Util.PEnum<ECraneState>(tbxLA1.Text)
+                            , pos
+                            , Util.PEnum<ECraneLR>(tbxLA4.Text)
+                            , Util.PEnum<ECraneTL>(tbxLA5.Text)
+                            , tbxLA6.Text == "0"
+                            , tbxLA7.Text
+                            , Util.PEnum<ECraneEvent>(tbxLA8.Text)
+                            , tbxLA9.Text
+                            );
+                        _crane.Client.SendResponseTelex(la);
+                    }
+                    break;
+                case "HB":
+                    {
+                        ProcessHB((HB)e.Telex);
+                    }
+                    break;
+                default:
+                    // 返回到默认处理程序。
+                    return;
+            }
+            e.Handled = true;
+        }
+        void _crane_ClientDisconnected(object sender, EventArgs e)
+        {
+            Action action = () => { this.pbxWDB.Image = Properties.Resources.Unline; };
+            this.Invoke(action);
+        }
+        void _crane_ClientConnected(object sender, EventArgs e)
+        {
+            Action action = () => { this.pbxWDB.Image = Properties.Resources.Online; };
+            this.Invoke(action);
+            _crane.Client.RequestTelexReceived += new EventHandler<RequestTelexReceivedEventArgs>(Client_TelexReceived);
+        }
+        void Client_TelexReceived(object sender, RequestTelexReceivedEventArgs e)
+        {
+            try
+            {
+                if (ShouldPrint(e.Telex.Text))
+                {
+                    Logger.Info("收到报文, {0}", e.Telex.Text);
+                }
+                ShowTelex(e.Telex);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Logger.Error(ex.InnerException.Message);
+                }
+            }
+        }
+
+
+        [Obsolete("", true)]
+        private String GetRepliedTelex(RequestTelex receivedTelex)
+        {
+            Func<String> m = () =>
+                {
+                    switch (receivedTelex.Head)
+                    {
+                        case "HA":
+                            return String.Format("LA{0:00}{1:000}{2:000}{3:0}{4:0}{5:0}{6:0000}{7:0}{8:00000000}"
+                                , int.Parse(tbxLA1.Text)
+                                , int.Parse(tbxLA2.Text)
+                                , int.Parse(tbxLA3.Text)
+                                , int.Parse(tbxLA4.Text)
+                                , int.Parse(tbxLA5.Text)
+                                , int.Parse(tbxLA6.Text)
+                                , int.Parse(tbxLA7.Text)
+                                , int.Parse(tbxLA8.Text)
+                                , int.Parse(tbxLA9.Text)
+                                );
+                        case "HB":
+                            return String.Format("LB{0:0}{1:0000000}"
+                                , Int32.Parse(tbxLB1.Text)
+                                , Int32.Parse(tbxLB2.Text)
+                                );
+                        default:
+                            Logger.Warning("不认识的报文: {0}。", receivedTelex.Head);
+                            return null;
+                    }
+                };
+            return (String)this.Invoke(m);
+        }
+
+        public void ShowTelex(RequestTelex telex)
+        {
+            Action m = () =>
+                {
+                    switch (telex.Head)
+                    {
+                        case "HA":
+                            return;
+                        case "HB":
+                            tbxHB1.Text = telex.Body.Substring(0, 2);
+                            tbxHB2.Text = telex.Body.Substring(2, 3);
+                            tbxHB3.Text = telex.Body.Substring(5, 3);
+                            tbxHB4.Text = telex.Body.Substring(8, 2);
+                            tbxHB5.Text = telex.Body.Substring(10, 3);
+                            tbxHB6.Text = telex.Body.Substring(13, 3);
+                            tbxHB7.Text = telex.Body.Substring(16, 2);
+                            tbxHB8.Text = telex.Body.Substring(18, 8);
+                            return;
+
+                        default:
+                            //String msg = String.Format("不认识的报文: {0}。", telex.Text);
+                            //Logger.Warning(msg);
+                            return;
+                    }
+                };
+            this.Invoke(m);
+        }
+
+        private Boolean ShouldPrint(string message)
+        {
+            if (message.Contains("HA") || message.Contains("LA"))
+            {
+                return cbxPrintLA.Checked;
+            }
+            if (message.Contains("HB") || message.Contains("LB"))
+            {
+                return cbxPrintHB.Checked;
+            }
+            if (message.Contains("HP") || message.Contains("LP"))
+            {
+                return cbxPrintHP.Checked;
+            }
+
+            return true;
+        }
+
+        private void numCraneTimerInterval_ValueChanged(object sender, EventArgs e)
+        {
+            _crane.TimerInterval = (Double)numCraneTimerInterval.Value;
+        }
+    }
+
+    // 1、跑站点位置
+    //    当 HB 命令 = 00;      设置 LA 任务号 = HB 任务号
+    //    设置 LA 事件 = 1;
+    //    启动时间事件, 当前堆垛机位置(LA 列层) 跑到 HB 终点位置(列层)
+    //    到达终点后, 设置 LA 事件 = 6
+
+    // 2、取货动作
+    //    当 HB 命令 = 01;      设置 LA 任务号 = HB 任务号
+    //    HB 终点位置 排 = 1(左)            排 = 2(右)
+    //                设置 LA 事件 = 2      设置 LA 事件 = 2 
+    //                设置 LA 高低 = 2      设置 LA 高低 = 2
+    //                设置 LA 左右 = 2      设置 LA 左右 = 1
+    //                设置 LA 左右 = 3      设置 LA 左右 = 5
+    //                设置 LA 高低 = 0      设置 LA 高低 = 0
+    //                设置 LA 高低 = 1      设置 LA 高低 = 1
+    //                设置 LA 左右 = 2      设置 LA 左右 = 2
+    //                设置 LA 左右 = 1      设置 LA 左右 = 1
+    //                设置 LA 高低 = 0      设置 LA 高低 = 0
+    //                设置 LA 事件 = 6      设置 LA 事件 = 6 
+
+    // 3、放货动作
+    //    当 HB 命令 = 02;  设置 LA 任务号 = HB 任务号
+    //    HB 终点位置 排 = 1(左)            排 = 2(右)
+    //                设置 LA 事件 = 4      设置 LA 事件 = 4
+    //                设置 LA 高低 = 1 高    设置 LA 高低 = 1
+    //                设置 LA 左右 = 2      设置 LA 左右 = 4
+    //                设置 LA 左右 = 3      设置 LA 左右 = 5
+    //                设置 LA 高低 = 0 中     设置 LA 高低 = 0
+    //                设置 LA 高低 = 2 低    设置 LA 高低 = 2
+    //                设置 LA 左右 = 4      设置 LA 左右 = 2
+    //                设置 LA 左右 = 1      设置 LA 左右 = 1
+    //                设置 LA 高低 = 0 中     设置 LA 高低 = 0
+    //                设置 LA 事件 = 6      设置 LA 事件 = 6
+
+    // 4、任务动作
+    //    当 HB 命令 = 11;  设置 LA 任务号 = HB 任务号
+    //    设置 LA 事件 = 1;
+    //    启动时间事件, 当前堆垛机位置(LA 列层) 跑到 HB 起点位置(列层)
+    //    HB 起点位置 排 = 1(左)            排 = 2(右)
+    //                设置 LA 事件 = 2      设置 LA 事件 = 2
+    //                设置 LA 高低 = 2      设置 LA 高低 = 2
+    //                设置 LA 左右 = 2      设置 LA 左右 = 4
+    //                设置 LA 左右 = 3      设置 LA 左右 = 5
+    //                设置 LA 高低 = 0      设置 LA 高低 = 0
+    //                设置 LA 高低 = 1      设置 LA 高低 = 1
+    //                设置 LA 左右 = 4      设置 LA 左右 = 2
+    //                设置 LA 左右 = 1      设置 LA 左右 = 1
+    //                设置 LA 事件 = 3      设置 LA 事件 = 3
+    //    启动时间事件, 当前堆垛机位置(LA 列层) 跑到 HB 终点位置(列层)
+    //    HB 终点位置 排 = 1(左)            排 = 2(右)
+    //                设置 LA 事件 = 4      设置 LA 事件 = 4
+    //                设置 LA 高低 = 1      设置 LA 高低 = 1
+    //                设置 LA 左右 = 2      设置 LA 左右 = 4
+    //                设置 LA 左右 = 3      设置 LA 左右 = 5
+    //                设置 LA 高低 = 0      设置 LA 高低 = 0
+    //                设置 LA 高低 = 2      设置 LA 高低 = 2
+    //                设置 LA 左右 = 4      设置 LA 左右 = 2
+    //                设置 LA 左右 = 1      设置 LA 左右 = 1
+    //                设置 LA 高低 = 0      设置 LA 高低 = 0
+    //                设置 LA 事件 = 6      设置 LA 事件 = 6
+}

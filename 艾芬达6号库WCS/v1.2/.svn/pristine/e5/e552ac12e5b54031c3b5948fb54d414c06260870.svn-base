@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+
+namespace Wcs.Client.App
+{
+    public class SinglePlantformRailGuidedVehicleServiceClient : ClientBase<Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.ISinglePlantformRailGuidedVehicleService>, Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle.ISinglePlantformRailGuidedVehicleService
+    {
+        public SinglePlantformRailGuidedVehicleServiceClient(String configurationName)
+            : base(configurationName)
+        {
+        }
+        public object Call(string name, object[] args)
+        {
+            return Channel.Call(name, args);
+        }
+
+
+        public string[] AllOperations()
+        {
+            return Channel.AllOperations();
+        }
+
+
+        public Dictionary<string, Interfaces.SinglePlantformRailGuidedVehicle.StatusTransferObject> GetStatus()
+        {
+            return Channel.GetStatus();
+        }
+    }
+}

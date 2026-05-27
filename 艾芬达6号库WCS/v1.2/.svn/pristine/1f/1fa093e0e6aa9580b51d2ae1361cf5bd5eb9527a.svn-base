@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://www.gen-song.net/</licenseUrl>
+    <projectUrl>http://www.gen-song.net/Wcs</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags></tags>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\$id$.exe" target="content" />
+    <file src="bin\$configuration$\$id$.pdb" target="content" />
+    <file src="bin\$configuration$\$id$.exe.config" target="content" />
+    <file src="bin\$configuration$\install.ps1" target="tools\install.ps1" />
+  </files>
+</package>

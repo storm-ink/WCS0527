@@ -1,0 +1,23 @@
+<GhostDoc>
+  <SpellChecker>
+    <IncludeExtensions>
+    </IncludeExtensions>
+    <IgnoreExtensions>
+    </IgnoreExtensions>
+    <IgnoreFiles>
+    </IgnoreFiles>
+  </SpellChecker>
+  <HelpFile>
+    <OutputPath>I%3a%5c%e5%b7%a5%e4%bd%9c%5c%e9%a1%b9%e7%9b%ae%5cWcs2%5cWcs%5cbranches%5c003%5cHelp</OutputPath>
+    <SelectedProjects>Wcs.Framework</SelectedProjects>
+    <HtmlHelp1>True</HtmlHelp1>
+    <MSHelp2>False</MSHelp2>
+    <MSHelpViewer>False</MSHelpViewer>
+    <Website>False</Website>
+    <DocumentInternals>False</DocumentInternals>
+    <DocumentProtected>False</DocumentProtected>
+    <DocumentPrivates>False</DocumentPrivates>
+    <HeaderText>+</HeaderText>
+    <FooterHtml></FooterHtml>
+  </HelpFile>
+</GhostDoc>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<configuration>
+  <appSettings>
+  </appSettings>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="myHttpBinding" maxBufferSize="65535000" maxReceivedMessageSize="65535000" maxBufferPoolSize="65535000">
+          <readerQuotas maxArrayLength="65535000" maxBytesPerRead="65535000" maxStringContentLength="65535000" maxNameTableCharCount="65535000" maxDepth="65535000"/>
+        </binding>
+      </basicHttpBinding>
+    </bindings>
+    <services>
+      <service behaviorConfiguration="WcsServiceBehavior" name="DeviceServer.Services.SingleForkCraneService.CraneService">
+        <endpoint address="" binding="basicHttpBinding" bindingConfiguration="myHttpBinding" contract="DeviceServer.Services.SingleForkCraneService.ICraneService"/>
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://localhost:9991/CraneService"/>
+          </baseAddresses>
+        </host>
+      </service>
+      <service behaviorConfiguration="WcsServiceBehavior" name="DeviceServer.Services.SingleForkCraneService.CraneServiceProxy">
+        <endpoint address="" binding="basicHttpBinding" bindingConfiguration="myHttpBinding" contract="DeviceServer.Services.SingleForkCraneService.ICraneService"/>
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://localhost:9991/CraneServiceProxy"/>
+          </baseAddresses>
+        </host>
+      </service>
+    </services>
+    <client>
+      <endpoint address="http://localhost:9991/CraneService" binding="basicHttpBinding" bindingConfiguration="myHttpBinding" contract="DeviceServer.Services.SingleForkCraneService.ICraneService" name="DeviceServer.Services.SingleForkCraneService.CraneService"/>
+    </client>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="WcsServiceBehavior">
+          <serviceDebug includeExceptionDetailInFaults="True"/>
+          <serviceMetadata httpGetEnabled="False"/>
+          <dataContractSerializer maxItemsInObjectGraph="65536000"/>
+          <appErrorToMessage/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <extensions>
+      <behaviorExtensions>
+        <add name="appErrorToMessage" type="Matedata.WcfServiceOperationBehavior, Matedata, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+      </behaviorExtensions>
+    </extensions>
+  </system.serviceModel>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/></startup></configuration>

@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wcs.Framework.CraneControl" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wcs.Framework.CraneControl" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Wcs.Framework.Devices" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="SConfig">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Interval" type="xs:int" />
+      <xs:element minOccurs="0" name="LogDay" type="xs:int" />
+      <xs:element minOccurs="0" name="Project" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="arShelf" nillable="true" type="tns:ArrayOfSShelf" />
+      <xs:element minOccurs="0" name="dsAlarm" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SConfig" nillable="true" type="tns:SConfig" />
+  <xs:complexType name="ArrayOfSShelf">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SShelf" nillable="true" type="tns:SShelf" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSShelf" nillable="true" type="tns:ArrayOfSShelf" />
+  <xs:complexType name="SShelf">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaxC" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxL" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxR" type="xs:int" />
+      <xs:element minOccurs="0" name="MinC" type="xs:int" />
+      <xs:element minOccurs="0" name="MinL" type="xs:int" />
+      <xs:element minOccurs="0" name="MinR" type="xs:int" />
+      <xs:element minOccurs="0" name="PBit" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+            <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SShelf" nillable="true" type="tns:SShelf" />
+  <xs:complexType name="ArrayOfLA">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LA" nillable="true" type="tns:LA" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLA" nillable="true" type="tns:ArrayOfLA" />
+  <xs:complexType name="LA">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseTelex">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AtPosition" type="xs:boolean" />
+          <xs:element minOccurs="0" name="CName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Connected" type="xs:boolean" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Wcs.Framework.Devices" minOccurs="0" name="CraneWorkModeKeyInfo" nillable="true" type="q1:CraneWorkModeKeyInfo" />
+          <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ErrorInfo" nillable="true" type="xs:string" />
+          <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ErrorList" nillable="true" type="q2:ArrayOfstring" />
+          <xs:element minOccurs="0" name="Event" type="tns:ECraneEvent" />
+          <xs:element minOccurs="0" name="ForkLR" type="tns:ECraneLR" />
+          <xs:element minOccurs="0" name="ForkTL" type="tns:ECraneTL" />
+          <xs:element minOccurs="0" name="LockGuid" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LockUser" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Position" type="tns:Position" />
+          <xs:element minOccurs="0" name="SHB" nillable="true" type="tns:SHB" />
+          <xs:element minOccurs="0" name="State" type="tns:ECraneState" />
+          <xs:element minOccurs="0" name="TaskId" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LA" nillable="true" type="tns:LA" />
+  <xs:complexType name="ResponseTelex">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Head" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseTelex" nillable="true" type="tns:ResponseTelex" />
+  <xs:simpleType name="ECraneEvent">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E00" />
+      <xs:enumeration value="E01" />
+      <xs:enumeration value="E02" />
+      <xs:enumeration value="E03" />
+      <xs:enumeration value="E04" />
+      <xs:enumeration value="E05" />
+      <xs:enumeration value="E06" />
+      <xs:enumeration value="E07" />
+      <xs:enumeration value="E08" />
+      <xs:enumeration value="E09" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ECraneEvent" nillable="true" type="tns:ECraneEvent" />
+  <xs:simpleType name="ECraneLR">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E1">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="E2">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="E3">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="E4">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="E5">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ECraneLR" nillable="true" type="tns:ECraneLR" />
+  <xs:simpleType name="ECraneTL">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E0" />
+      <xs:enumeration value="E1" />
+      <xs:enumeration value="E2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ECraneTL" nillable="true" type="tns:ECraneTL" />
+  <xs:complexType name="Position">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MCol" type="xs:int" />
+      <xs:element minOccurs="0" name="MRow" type="xs:int" />
+      <xs:element minOccurs="0" name="UCol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="URow" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Position" nillable="true" type="tns:Position" />
+  <xs:complexType name="SHB">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Position1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Position2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TaskId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SHB" nillable="true" type="tns:SHB" />
+  <xs:simpleType name="ECraneState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E00" />
+      <xs:enumeration value="E01" />
+      <xs:enumeration value="E02" />
+      <xs:enumeration value="E03" />
+      <xs:enumeration value="E04" />
+      <xs:enumeration value="E05" />
+      <xs:enumeration value="E06" />
+      <xs:enumeration value="E07" />
+      <xs:enumeration value="E08" />
+      <xs:enumeration value="E09" />
+      <xs:enumeration value="E10" />
+      <xs:enumeration value="E11" />
+      <xs:enumeration value="E12" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ECraneState" nillable="true" type="tns:ECraneState" />
+  <xs:simpleType name="EForkLR">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="L">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="R">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="EForkLR" nillable="true" type="tns:EForkLR" />
+  <xs:simpleType name="HBCommand">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E00" />
+      <xs:enumeration value="E01" />
+      <xs:enumeration value="E02" />
+      <xs:enumeration value="E11">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="HBCommand" nillable="true" type="tns:HBCommand" />
+  <xs:simpleType name="EStep">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Go" />
+      <xs:enumeration value="Back" />
+      <xs:enumeration value="Up" />
+      <xs:enumeration value="Down" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="EStep" nillable="true" type="tns:EStep" />
+</xs:schema>

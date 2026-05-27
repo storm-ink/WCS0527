@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Wcs.Framework.Devices;
+
+namespace Wcs.Framework.Devices
+{
+    public class CraneWorkModeKeyInfo : NetTransferObject
+    {
+        /// <summary>
+        /// 堆垛机编号
+        /// </summary>
+        public UInt16 CraneNo { get; set; }
+        public Boolean IsManual { get; set; }
+        public Boolean IsBrake { get; set; }
+        public override object this[string name]
+        {
+            set
+            {
+                switch (name)
+                {
+                    case "CraneNo":
+                        this.CraneNo = Convert.ToUInt16(value);
+                        break;
+                    case "IsManual":
+                        this.IsManual = Convert.ToBoolean(value);
+                        break;
+                    case "IsBrake":
+                        this.IsBrake = Convert.ToBoolean(value);
+                        break;
+                    default:
+                        throw new NotImplementedException(String.Format("{0} 未实现对属性 {1} 的赋值操作", this.GetType(), name));
+                }
+            }
+        }
+    }
+}

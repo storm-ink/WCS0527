@@ -1,0 +1,90 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading;
+using ST = System.Timers;
+using Gensong.ServiceCrane;
+
+namespace Gensong
+{
+    /// <summary>堆垛机 通讯</summary>
+    [DataContract]
+    public partial class Crane
+    {
+        public Crane(string CName)
+        {
+            this.CName = CName;
+
+            ErrorList = new List<string>();
+        }
+        public event EventHandler<ResponseEvent> EResponseTelex;
+        public event EventHandler EConnected;
+        public event EventHandler EClosed;
+        [DataMember]
+        public string CName { get; private set; }
+        [DataMember]
+        public bool Enabled { get; private set; }
+        [DataMember]
+        public bool Connected { get; set; }
+        /// <summary>设置 堆垛机状态</summary>
+        public LA SetLA
+        {
+            set
+            {
+                if (value == null || value.Connected == false)
+                {
+                    Connected = false;
+                    if (EClosed != null) EClosed(this, null);
+                }
+                else
+                {
+                    LA = value;
+
+                    Connected = true;
+                    if (EConnected != null) EConnected(this, null);
+                    if (EResponseTelex != null) EResponseTelex(this, new ResponseEvent(LA));
+                }
+            }
+        }
+        public bool TcpClientConnected
+        {
+            get
+            {
+                return Connected;
+            }
+        }
+
+        [DataMember]
+        public string LockGuid { get; set; }
+        [DataMember]
+        public string LockUser { get; set; }
+
+        [DataMember]
+        public SHB SHB { get; private set; }
+        [DataMember]
+        public LA LA { get; set; }
+
+        /// <summary>堆垛机 错误信息</summary>
+        [DataMember]
+        public List<string> ErrorList { get; set; }
+        /// <summary>堆垛机相关工作模式切换信号</summary>
+        public CraneWorkModeKeyInfo CraneWorkModeKeyInfo { get; set; }
+    }
+    /// <summary>接收报文处理事件</summary>
+    public class ResponseEvent : EventArgs
+    {
+        /// <summary></summary>
+        public ResponseEvent(ResponseTelex rTelex)
+        {
+            this.Telex = rTelex;
+        }
+
+        /// <summary></summary>
+        public ResponseTelex Telex { get; private set; }
+    }
+}

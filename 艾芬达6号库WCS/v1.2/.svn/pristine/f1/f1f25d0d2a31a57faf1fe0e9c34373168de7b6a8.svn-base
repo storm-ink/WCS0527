@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Net;
+using System.ComponentModel;
+
+namespace Gensong
+{
+    public partial class Conveyor
+    {
+        private void ProcessRequestTelex(byte[] receivedTelex)
+        {
+            try
+            {
+                ProcessingRequestTelexEventArgs e = new ProcessingRequestTelexEventArgs(receivedTelex);
+                OnProcessingRequestTelex(e);
+                if (e.Handled)
+                {
+                    Logger.Debug("ProcessingRequestTelex 事件处理程序覆盖了堆垛机的报文处理过程。");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+        }
+
+    }
+}

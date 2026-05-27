@@ -1,0 +1,69 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Net;
+using System.ComponentModel;
+
+namespace Gensong
+{
+    public partial class Conveyor
+    {
+
+        /// <summary>
+        /// 在堆垛机客户端连入后引发。
+        /// </summary>
+        public event EventHandler ClientConnected;
+
+        /// <summary>
+        /// 在堆垛机客户端断开后引发。
+        /// </summary>
+        public event EventHandler ClientDisconnected;
+
+        /// <summary>
+        /// 在处理请求报文时引发。订阅方可以通过将 e.Handled 设为 true 来覆盖堆垛机自身的处理过程。
+        /// </summary>
+        public event EventHandler<ProcessingRequestTelexEventArgs> ProcessingRequestTelex;
+
+
+        protected virtual void OnClientConnected(EventArgs e)
+        {
+            if (this.ClientConnected != null)
+            {
+                this.ClientConnected(this, e);
+            }
+        }
+        protected virtual void OnClientDisconnected(EventArgs e)
+        {
+            if (this.ClientDisconnected != null)
+            {
+                this.ClientDisconnected(this, e);
+            }
+        }
+
+        protected virtual void OnProcessingRequestTelex(ProcessingRequestTelexEventArgs e)
+        {
+            if (this.ProcessingRequestTelex != null)
+            {
+                this.ProcessingRequestTelex(this, e);
+            }
+        }
+
+    }
+
+    public class ProcessingRequestTelexEventArgs : EventArgs
+    {
+        public ProcessingRequestTelexEventArgs(byte[] telex)
+        {
+            this.Handled = false;
+            this.Telex = telex;
+        }
+        public Boolean Handled { get; set; }
+        public byte[] Telex { get; private set; }
+    }
+
+
+}

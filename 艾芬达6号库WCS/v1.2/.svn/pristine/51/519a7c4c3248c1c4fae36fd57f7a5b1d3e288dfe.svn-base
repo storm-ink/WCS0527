@@ -1,0 +1,385 @@
+﻿using Gensong;
+using Lutai.RailGuidedVehicle;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApplication1
+{
+    public partial class Form1 : Form
+    {
+        RgvSimulation rs;
+        TextBoxTraceListener _textBoxTraceListener;
+        public Form1()
+        {
+            InitializeComponent(); 
+            
+            _textBoxTraceListener = new TextBoxTraceListener(this.tbxLog);
+            _textBoxTraceListener.Filter = new EventTypeFilter(SourceLevels.Information);
+
+            Logger.AddListener(_textBoxTraceListener);
+
+        }
+
+        private void btnListen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                rs = new RgvSimulation(tbxIP.Text,Convert.ToInt32(tbxPort.Text));
+                rs.TcpServer.ClientAccepted += TcpServer_ClientAccepted;
+                
+                rs.TcpServer.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        void Client_RequestTelexReceived(object sender, RequestTelexReceivedEventArgs e)
+        {
+            Logger.Info("收到报文 {0}", e.Telex.Telex);
+
+            this.Invoke(new Action(() =>
+            {
+                tbxTaskType.Text = e.Telex.Head;
+                if (e.Telex is HB)
+                {
+                    var hb = (HB)e.Telex;
+                    tbxReceivedTaskId.Text = hb.TaskId.PadLeft(8, '0');
+                    tbxReceivedContainerCode.Text = hb.ContainerCode.ToString("0000");
+                    tbxReceivedFromStation.Text = hb.FromStation.ToString("000");
+                    tbxReceivedToStation.Text = hb.ToStation.ToString("000");
+                    tbxReceivedTaskMode.Text = ((int)hb.TaskMode).ToString("0");
+                    tbxReceivedFromStationChainAction.Text = ((int)hb.FromStationChainAction).ToString("0");
+                    tbxReceivedToStationChainAction.Text = ((int)hb.ToStationChainAction).ToString("0");
+                }
+                else if (e.Telex is HS)
+                {
+                    var HS = (HS)e.Telex;
+                    tbxReceivedTaskId.Text = HS.TaskId.PadLeft(8, '0');
+                    tbxReceivedContainerCode.Text = HS.ContainerCode.ToString("0000");
+                    tbxReceivedFromStation.Text =0.ToString("000");
+                    tbxReceivedToStation.Text = HS.ToStation.ToString("000");
+                    tbxReceivedTaskMode.Text = ((int)HS.TaskMode).ToString("0");
+                    tbxReceivedFromStationChainAction.Text = 0.ToString("0");
+                }
+                else if (e.Telex is HP)
+                {
+                    tbxReceivedTaskId.Text = "0".PadLeft(8, '0');
+                    tbxReceivedContainerCode.Text = 0.ToString("0000");
+                    tbxReceivedFromStation.Text = 0.ToString("000");
+                    tbxReceivedToStation.Text = 0.ToString("000");
+                    tbxReceivedTaskMode.Text = 0.ToString("0");
+                    tbxReceivedFromStationChainAction.Text = 0.ToString("0");
+                }
+
+            }));
+
+
+            rs.ExecuteCommand(e.Telex);
+        }
+
+       
+
+        void TcpServer_ClientAccepted(object sender, ClientAcceptedEventArgs e)
+        {
+            rs.Client.RequestTelexReceived += Client_RequestTelexReceived;
+            Action a = new Action(回复状态);
+            ThreadPool.QueueUserWorkItem((stat) =>
+            {
+                while (rs.Client != null)
+                {
+                    Thread.Sleep(100);
+                    try
+                    {
+                        this.Invoke(a);
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                    }
+                }
+            });
+        }
+
+        void 回复状态()
+        {
+            Int32 position = 0;
+            if (!Int32.TryParse(tbxPositoin.Text, out position))
+            {
+                return;
+            }
+
+            Int32 station = 0;
+            if (!Int32.TryParse(tbxCurrentStation.Text, out station))
+            {
+                return;
+            }
+
+            Int32 atStation = 0;
+            if (!Int32.TryParse(tbxAtStation.Text, out atStation))
+            {
+                return;
+            }
+
+            Int32 errorCode = 0;
+            if (!Int32.TryParse(tbxErrorCode.Text, out errorCode))
+            {
+                return;
+            }
+
+            Int32 status = 0;
+            if (!Int32.TryParse(tbxStatus.Text, out status))
+            {
+                return;
+            }
+
+            Int32 evt = 0;
+            if (!Int32.TryParse(tbxEvent.Text, out evt))
+            {
+                return;
+            }
+
+            Int32 taskNumber = 0;
+            String taskCode;
+            if (!Int32.TryParse(tbxTaskId.Text, out taskNumber))
+            {
+                taskCode = tbxTaskId.Text.PadLeft(8, '0');
+            }
+            else
+            {
+               // taskCode = taskNumber.ToString("00000000");
+                taskCode = taskNumber.ToString();
+            }
+
+            Int32 containerCode = 0;
+            if (!Int32.TryParse(tbxContainerCode.Text, out containerCode))
+            {
+                return;
+            }
+
+            Int32 fromStation = 0;
+            if (!Int32.TryParse(tbxFromStation.Text, out fromStation))
+            {
+                return;
+            }
+
+            Int32 toStation = 0;
+            if (!Int32.TryParse(tbxEndStation.Text, out toStation))
+            {
+                return;
+            }
+
+            Int32 taskMode = 0;
+            if (!Int32.TryParse(tbxTaskMode.Text, out taskMode))
+            {
+                return;
+            }
+
+            String telex = String.Format("{0}{1}{2:0000000}{3:000}{4}{5:00}{6}{7}{8}{9:0000}{10:000}{11:000}{12}{13}",
+                (char)2,
+                "LA",
+                position,
+                station,
+                atStation,
+                errorCode,
+                status,
+                evt,
+                taskCode,
+                containerCode,
+                fromStation,
+                toStation,
+                taskMode,
+                (char)3
+                );
+            try
+            {
+                
+               rs.Client.SendResponseTelex(telex);
+            }
+            catch (Exception ex)
+            {
+                rs.Client = null;
+                Logger.Error(ex.ToString());
+            }
+        }
+
+        void 更新回复状态()
+        {
+            if (!tbxPositoin.Focused)
+            {
+                tbxPositoin.Text = rs.Position.ToString("0000000");
+            }
+
+            if (!tbxCurrentStation.Focused)
+            {
+                tbxCurrentStation.Text = ((int)rs.CurrentStaion).ToString("000");
+            }
+
+            if (!tbxAtStation.Focused)
+            {
+                tbxAtStation.Text = rs.AtStation ? "1" : "0";
+            }
+
+            if (!tbxErrorCode.Focused)
+            {
+                tbxErrorCode.Text = ((int)rs.ErrorCode).ToString("00");
+            }
+
+            if (!tbxStatus.Focused)
+            {
+                tbxStatus.Text = ((int)rs.Status).ToString("0");
+            }
+            if (!tbxEvent.Focused)
+            {
+                tbxEvent.Text = ((int)rs.Event).ToString("0");
+            }
+            if (!tbxTaskId.Focused)
+            {
+                tbxTaskId.Text = ("" + rs.TaskId).PadLeft(8, '0');
+            }
+            if (!tbxContainerCode.Focused)
+            {
+                tbxContainerCode.Text = ((int)rs.ContainerCode).ToString("0000");
+            }
+            if (!tbxFromStation.Focused)
+            {
+                tbxFromStation.Text = ((int)rs.FormStation).ToString("000");
+            }
+            if (!tbxEndStation.Focused)
+            {
+                tbxEndStation.Text = ((int)rs.ToStation).ToString("000");
+            }
+            if (!tbxTaskMode.Focused)
+            {
+                tbxTaskMode.Text = ((int)rs.TaskMode).ToString("0");
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (rs == null)
+            {
+                return;
+            }
+
+            更新回复状态();
+        }
+
+
+        private void tbxPositoin_TextChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.Position = Convert.ToInt32(tbxPositoin.Text);
+            }
+        }
+
+        private void tbxCurrentStation_TextChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.CurrentStaion = Convert.ToInt32(tbxCurrentStation.Text);
+            }
+        }
+
+        private void tbxAtStation_TextChanged(object sender, EventArgs e)
+        {
+
+            if (rs != null)
+            {
+                if (tbxAtStation.Text.Trim() == "0" || tbxAtStation.Text.Trim()=="")
+                {
+                    rs.AtStation=false;
+                }
+                else
+                {
+                     rs.AtStation=true;
+                }
+            }
+        }
+
+        private void tbxErrorCode_TextChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.ErrorCode = Convert.ToInt32(tbxErrorCode.Text);
+            }
+        }
+
+        private void tbxStatus_TextChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.Status = (RailGuidedVehicleStatus)Convert.ToInt32(tbxStatus.Text);
+            }
+        }
+
+        private void tbxEvent_TextChanged(object sender, EventArgs e)
+        {
+
+            if (rs != null)
+            {
+                rs.Event = (RailGuidedVehicleEvent)Convert.ToInt32(tbxEvent.Text);
+            }
+        }
+
+        private void tbxTaskId_TextChanged(object sender, EventArgs e)
+        {
+
+            if (rs != null)
+            {
+                rs.TaskId = tbxTaskId.Text.PadLeft(8, '0');
+            }
+        }
+
+        private void tbxContainerCode_TextChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.ContainerCode = Convert.ToInt32(tbxContainerCode.Text);
+            }
+        }
+
+        private void tbxFromStation_TextChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.FormStation = Convert.ToInt32(tbxFromStation.Text);
+            }
+        }
+
+        private void tbxEndStation_TextChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.ToStation = Convert.ToInt32(tbxEndStation.Text);
+            }
+        }
+
+        private void tbxTaskMode_TextChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.TaskMode = (RailGuidedVehicleTaskMode)Convert.ToInt32(tbxTaskMode.Text);
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rs != null)
+            {
+                rs.AutoExcute = checkBox1.Checked;
+            }
+        }
+    }
+}

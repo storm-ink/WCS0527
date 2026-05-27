@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// 位置描述信息
+    /// </summary>
+    [DataContract]
+    public class LocationInfo 
+    {
+        public LocationInfo()
+        {
+        }
+        public LocationInfo(string deviceName, string deviceCode, string userCode)
+            :this()
+        {
+            this.DeviceName = deviceName;
+            this.DeviceCode = deviceCode;
+            this.UserCode = userCode;
+        }
+        /// <summary>
+        /// 位置设备可识别的编码
+        /// </summary>
+        [DataMember]
+        public virtual String DeviceCode { get;  set; }
+        /// <summary>
+        /// 位置用户可识别的编码
+        /// </summary>
+        [DataMember]
+        public virtual String UserCode { get;  set; }
+        /// <summary>
+        /// 位置所属设备名称
+        /// </summary>
+        [DataMember]
+        public virtual String DeviceName { get;  set; }
+      
+        public override string ToString()
+        {
+            return this.UserCode;
+        }
+    }
+}

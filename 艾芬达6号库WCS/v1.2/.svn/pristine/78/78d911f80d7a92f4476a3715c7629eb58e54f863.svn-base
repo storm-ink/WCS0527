@@ -1,0 +1,106 @@
+﻿
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+using Gensong.ServiceLTWMS;
+
+namespace Gensong
+{
+    [DesignTimeVisible(false)]
+    public partial class ucNullTu : UserControl
+    {
+        public ucNullTu()
+        {
+            InitializeComponent();
+        }
+
+        LTWMSServiceClient wms;
+
+        private void btnPointIO_Click(object sender, System.EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            switch (btn.Text)
+            {
+                case "西1": btn.Text = "西2"; break;
+                case "西2": btn.Text = "东1"; break;
+                case "东1": btn.Text = "东2"; break;
+                case "东2": btn.Text = "西1"; break;
+            }
+                    
+        }
+
+        private void btnTuNum_Click(object sender, System.EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            if (btn == btnTuNumI) return;
+
+            btn.Text = frmInput.Show(btn.Text,
+                this.ParentForm.Left + 348, this.ParentForm.Top + 260, 100, 1);
+        }
+
+        private void btnStockI_Click(object sender, System.EventArgs e)
+        {
+            if (frmMsgbox.Show(string.Format("入库口: {0}  托盘数: {1}\r\n确定要空托盘入库吗?", btnPointI.Text, btnTuNumI.Text), 
+                Btn.YesNo) == DialogResult.No) return;
+
+            try
+            {
+                if (wms == null) wms = new LTWMSServiceClient();
+                string sInfo = wms.BlankPallentIn(Parse(btnPointI), int.Parse(btnTuNumI.Text));
+                frmMsgbox.Show(sInfo != null ? sInfo : "任务发送成功!");
+            }
+            catch (Exception ex)
+            {
+                frmMsgbox.Show(ex.Message);
+            }
+        }
+        private void btnStockO_Click(object sender, System.EventArgs e)
+        {
+            if (frmMsgbox.Show(string.Format("出库口: {0}  托盘数: {1}\r\n确定要空托盘出库吗?", btnPointO.Text, btnTuNumO.Text),
+                Btn.YesNo) == DialogResult.No) return;
+
+            try
+            {
+                if (wms == null) wms = new LTWMSServiceClient();
+                string sInfo = wms.BlankPallentOut(Parse(btnPointO), int.Parse(btnTuNumO.Text));
+                frmMsgbox.Show(sInfo != null ? sInfo : "任务发送成功!");
+            }
+            catch (Exception ex)
+            {
+                frmMsgbox.Show(ex.Message);
+            }
+        }
+
+        private string Parse(Button btn)
+        {
+            //ab-cde-fgh
+            //ab:
+            //  00:非货架
+            //  xx:货架
+            //cde:
+            //  c:1输送线,2穿梭车,3提升机,4拆盘机,5叠盘机
+            //  de:楼层或PLC编号
+            //fgh:货位号
+
+            /*00-101-003	西2
+00-101-001	西1
+00-101-006	东2
+00-101-007	东1*/
+
+
+            string sPoint = "00-101-";
+
+            switch (btn.Text)
+            {
+                case "西1": return sPoint + "001";
+                case "西2": return sPoint + "003";
+                case "东1": return sPoint + "007";
+                case "东2": return sPoint + "006";
+
+                default: return null;
+            }
+        }
+    }
+}

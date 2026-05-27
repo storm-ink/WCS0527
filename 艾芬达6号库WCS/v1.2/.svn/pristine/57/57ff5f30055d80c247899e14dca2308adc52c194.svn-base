@@ -1,0 +1,57 @@
+﻿
+using System;
+using System.Runtime.Serialization;
+
+namespace Gensong
+{
+    /// <summary>发送报文</summary>
+    [Serializable]
+    [DataContract]
+    public class RequestTelex
+    {
+        [DataMember]
+        public string Head { get; set; }
+        [DataMember]
+        public string Body { get; set; }
+
+        public string Text
+        {
+            get
+            {
+                return Head + Body;
+            }
+        }
+
+        public static RequestTelex Parse(string sTelex)
+        {
+            if (sTelex.Length < 2) return null;
+
+            switch (sTelex.Substring(0, 2))
+            {
+                case "HA": return HA.Instance;
+                case "HB": return ParseHB(sTelex);
+                case "HP": return HP.Instance;
+                case "HE": return HE.Instance;
+                case "HC": return HC.Instance;
+
+                default: return null;
+            }
+        }
+
+        internal static HB ParseHB(string sTelex)
+        {
+            string body = sTelex.Substring(2);
+
+            Position pS = new Position(int.Parse(body.Substring(2, 3)), int.Parse(body.Substring(5, 3)));
+            Position pE = new Position(int.Parse(body.Substring(10, 3)), int.Parse(body.Substring(13, 3)));
+
+            return new HB(
+                Util.PEnum<EForkLR>(body.Substring(0, 2)),
+                pS,
+                Util.PEnum<EForkLR>(body.Substring(8, 2)),
+                pE,
+                Util.PEnum<HBCommand>(body.Substring(16, 2)),
+                body.Substring(18, 8));
+        }
+    }
+}

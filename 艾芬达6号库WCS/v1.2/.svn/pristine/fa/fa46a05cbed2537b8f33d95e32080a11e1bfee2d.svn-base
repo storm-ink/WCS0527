@@ -1,0 +1,85 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+
+namespace Wcs.Client.Interfaces.SinglePlantformRailGuidedVehicle
+{
+
+    /// <summary>
+    ///  穿梭车状态报文 
+    /// </summary>
+    [DataContract]
+    public class StatusTransferObject
+    {
+        /// <summary>
+        /// 指示穿梭车当前是否在站点位置
+        /// </summary>
+        [DataMember]
+        public Boolean AtStation { get;  set; }
+
+        /// <summary>
+        /// 托盘条码
+        /// </summary>
+        [DataMember]
+        public UInt32 ContainerCode { get;  set; }
+
+        /// <summary>
+        /// 当前站台号
+        /// </summary>
+        [DataMember]
+        public Int32 CurrentStation { get;  set; }
+
+        /// <summary>
+        /// 错误码（默认为 0）
+        /// </summary>
+        [DataMember]
+        public Int32 ErrorCode { get;  set; }
+
+        /// <summary>
+        /// 穿梭车事件
+        /// </summary>
+        [DataMember]
+        public SinglePlantformRailGuidedVehicleEvent Event { get;  set; }
+
+        /// <summary>
+        /// 起点
+        /// </summary>
+        [DataMember]
+        public Int32 FromStation { get;  set; }
+
+        /// <summary>
+        /// 位置值
+        /// </summary>
+        [DataMember]
+        public Int32 Position { get;  set; }
+        /// <summary>
+        /// 穿梭车状态
+        /// </summary>
+        [DataMember]
+        public SinglePlantformRailGuidedVehicleStatus State { get;  set; }
+        /// <summary>
+        /// 当前任务号
+        /// </summary>
+        [DataMember]
+        public String TaskId { get;  set; }
+        /// <summary>
+        /// 任务模式
+        /// </summary>
+        [DataMember]
+        public SinglePlantformRailGuidedVehicleMode TaskMode { get;  set; }
+
+        /// <summary>
+        /// 目的的
+        /// </summary>
+        [DataMember]
+        public Int32 ToStation { get;  set; }
+
+        [DataMember]
+        public String ErrorName { get; set; }
+        [DataMember]
+        public String ErrorDescription { get; set; }
+    }
+}

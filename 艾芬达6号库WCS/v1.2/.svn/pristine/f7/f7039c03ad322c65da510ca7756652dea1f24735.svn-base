@@ -1,0 +1,138 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Client.Conveyor.Alarm>
+
+<table>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            输送线名称
+        </th>
+        <th>
+            货位号
+        </th>
+        <th>
+            是否手动
+        </th>
+        <th>
+            离线
+        </th>
+        <th>
+            电路保护<br />器断开
+        </th>
+        <th>
+            光电异常
+        </th>
+        <th>
+            运行超时
+        </th>
+        <th>
+           占位超时
+        </th>
+        <th>
+            有任务无货
+        </th>
+        <th>
+            X轴电机变<br />频器故障
+        </th>
+        <th>
+            Y轴电机变<br />频器故障
+        </th>
+        <th>
+            X轴电机正反<br />转接触器故障
+        </th>
+        <th>
+            X轴电机抱闸<br />接触器故障
+        </th>
+        <th>
+            Y轴电机正反<br />转接触器故障
+        </th>
+        <th>
+            Y轴电机抱闸<br />接触器故障
+        </th>
+        <th>
+            顶升电机正反<br />转接触器故障
+        </th>
+        <th>
+            顶升电机抱闸<br />接触器故障
+        </th>
+        <th>
+            预留
+        </th>
+        <th>
+            时间
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LogId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PosNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manual)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Isolator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Breaker)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Photocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunOvertime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OccupyOvertime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskNoGoods)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.X_MotorVAF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Y_MotorVAF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.X_MotorContactor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.X_MotorBraker)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Y_MotorContactor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Y_MotorBraker)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lift_MotorContactor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lift_MotorBraker)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Spare)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LongDate)
+        </td>
+    </tr>
+}
+
+</table>
+@if (Model.Count() > 0)
+{
+    @Html.PagedListPager(this.Model, pageIndex => Url.Action("Index", new { pageIndex }), new PagedList.Mvc.PagedListRenderOptions { DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共 {2} 个" })
+}

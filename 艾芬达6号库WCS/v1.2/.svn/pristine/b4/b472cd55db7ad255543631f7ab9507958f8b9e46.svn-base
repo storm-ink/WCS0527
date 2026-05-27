@@ -1,0 +1,109 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("区域")]
+    [Serializable]
+    public class Area : Element,IElementContainer
+    {
+        public Area(Editor editor)
+            : base(editor)
+        {
+            this.Name = "区域";
+            this.Font = new Font(System.Windows.Forms.Control.DefaultFont.FontFamily, 18.0f, FontStyle.Bold, GraphicsUnit.Pixel);
+            this.Color = Color.Red;
+            this.Visible = true;
+            this.ShowName = true;
+
+            this.Size = new SizeF(100, 30);
+            this.BackgroundColor = Color.WhiteSmoke;
+
+            var index = this.Editor.GetAllItems().Where(x => x is Area).Max(x => (Int32?)x.Index);
+            
+            this.Index=index.GetValueOrDefault(-1)+1;
+        }
+
+        public Area(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+
+            this.Visible = info.GetBoolean("Visible");
+            this.Color = (Color)info.GetValue("Color", typeof(Color));
+            this.Font = (Font)info.GetValue("Font", typeof(Font));
+            this.ShowName = info.GetBoolean("ShowName");
+        }
+
+        [Description("字体颜色"), Category("外观")]
+        public Color Color { get; set; }
+
+        [Description("字体"), Category("外观")]
+        public Font Font { get; set; }
+
+        [Description("是否可见"), Category("行为")]
+        [Browsable(true)]
+        public override  Boolean Visible { get; set; }
+
+        [Description("是否显示名称"), Category("行为")]
+        public Boolean ShowName { get; set; }
+
+        public override Element Clone()
+        {
+            Area area = new Area(this.Editor);
+            area.Visible = this.Visible;
+            area.Font = Font;
+            area.Color = Color;
+
+            CloneProperties(area);
+
+            return area;
+        }
+
+        public Boolean Contains(Element element)
+        {
+            return this.Rectangle.Contains(element.Rectangle);
+        }
+
+        public override void Draw(Graphics graphics)
+        {
+            if (!this.Visible)
+            {
+                return;
+            }
+            if (!Editor.IsDesign)
+            {
+                return;
+            }
+
+            base.Draw(graphics);
+
+            if (this.ShowName)
+            {
+                using (Brush brush = new SolidBrush(Color))
+                {
+                    graphics.DrawString(this.Name, Font, brush, this.Rectangle.Left, this.Rectangle.Top);
+                }
+            }
+        }
+
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+
+            info.AddValue("Visible", this.Visible);
+            info.AddValue("Color", this.Color);
+            info.AddValue("Font", this.Font);
+            info.AddValue("ShowName", this.ShowName);
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
+    }
+}

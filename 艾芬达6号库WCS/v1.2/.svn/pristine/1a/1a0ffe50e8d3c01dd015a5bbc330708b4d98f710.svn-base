@@ -1,0 +1,800 @@
+﻿namespace Gensong
+{
+    partial class frmCRN
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param str="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCRN));
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbxLA1 = new System.Windows.Forms.TextBox();
+            this.tbxLA2 = new System.Windows.Forms.TextBox();
+            this.tbxLA3 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbxLA4 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbxLA5 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbxLA6 = new System.Windows.Forms.TextBox();
+            this.tbxLA7 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbxLA8 = new System.Windows.Forms.TextBox();
+            this.tbxLA9 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbxHB1 = new System.Windows.Forms.TextBox();
+            this.tbxHB2 = new System.Windows.Forms.TextBox();
+            this.tbxHB3 = new System.Windows.Forms.TextBox();
+            this.tbxHB4 = new System.Windows.Forms.TextBox();
+            this.tbxHB5 = new System.Windows.Forms.TextBox();
+            this.tbxHB6 = new System.Windows.Forms.TextBox();
+            this.tbxHB7 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tbxHB8 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tbxLB1 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tbxLB2 = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.tbxIP = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbxPort = new System.Windows.Forms.TextBox();
+            this.btnListen = new System.Windows.Forms.Button();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.tbxLog = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.pbxWDB = new System.Windows.Forms.PictureBox();
+            this.cbxPrintLA = new System.Windows.Forms.CheckBox();
+            this.cbxPrintHB = new System.Windows.Forms.CheckBox();
+            this.cbxPrintHP = new System.Windows.Forms.CheckBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.numCraneTimerInterval = new System.Windows.Forms.NumericUpDown();
+            this.cbxUseUIToResponse = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWDB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCraneTimerInterval)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 70);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(17, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "LA";
+            // 
+            // tbxLA1
+            // 
+            this.tbxLA1.Location = new System.Drawing.Point(35, 66);
+            this.tbxLA1.MaxLength = 2;
+            this.tbxLA1.Name = "tbxLA1";
+            this.tbxLA1.Size = new System.Drawing.Size(28, 21);
+            this.tbxLA1.TabIndex = 1;
+            this.tbxLA1.Text = "02";
+            this.tbxLA1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxLA2
+            // 
+            this.tbxLA2.Location = new System.Drawing.Point(69, 66);
+            this.tbxLA2.MaxLength = 3;
+            this.tbxLA2.Name = "tbxLA2";
+            this.tbxLA2.Size = new System.Drawing.Size(33, 21);
+            this.tbxLA2.TabIndex = 1;
+            this.tbxLA2.Tag = "";
+            this.tbxLA2.Text = "001";
+            this.tbxLA2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxLA3
+            // 
+            this.tbxLA3.Location = new System.Drawing.Point(108, 66);
+            this.tbxLA3.MaxLength = 3;
+            this.tbxLA3.Name = "tbxLA3";
+            this.tbxLA3.Size = new System.Drawing.Size(33, 21);
+            this.tbxLA3.TabIndex = 1;
+            this.tbxLA3.Text = "001";
+            this.tbxLA3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(34, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "状态";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(76, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(17, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "列";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(115, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "层";
+            // 
+            // tbxLA4
+            // 
+            this.tbxLA4.Location = new System.Drawing.Point(147, 66);
+            this.tbxLA4.MaxLength = 1;
+            this.tbxLA4.Name = "tbxLA4";
+            this.tbxLA4.Size = new System.Drawing.Size(26, 21);
+            this.tbxLA4.TabIndex = 1;
+            this.tbxLA4.Text = "1";
+            this.tbxLA4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(145, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 12);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "左右";
+            // 
+            // tbxLA5
+            // 
+            this.tbxLA5.Location = new System.Drawing.Point(179, 66);
+            this.tbxLA5.MaxLength = 1;
+            this.tbxLA5.Name = "tbxLA5";
+            this.tbxLA5.Size = new System.Drawing.Size(26, 21);
+            this.tbxLA5.TabIndex = 1;
+            this.tbxLA5.Text = "1";
+            this.tbxLA5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(177, 48);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "高低";
+            // 
+            // tbxLA6
+            // 
+            this.tbxLA6.Location = new System.Drawing.Point(211, 66);
+            this.tbxLA6.MaxLength = 1;
+            this.tbxLA6.Name = "tbxLA6";
+            this.tbxLA6.Size = new System.Drawing.Size(26, 21);
+            this.tbxLA6.TabIndex = 1;
+            this.tbxLA6.Text = "0";
+            this.tbxLA6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxLA7
+            // 
+            this.tbxLA7.Location = new System.Drawing.Point(243, 66);
+            this.tbxLA7.MaxLength = 4;
+            this.tbxLA7.Name = "tbxLA7";
+            this.tbxLA7.Size = new System.Drawing.Size(44, 21);
+            this.tbxLA7.TabIndex = 1;
+            this.tbxLA7.Text = "0000";
+            this.tbxLA7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(244, 48);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(41, 12);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "错误码";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(209, 48);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 12);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "站点";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(291, 48);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 12);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "事件";
+            // 
+            // tbxLA8
+            // 
+            this.tbxLA8.Location = new System.Drawing.Point(293, 66);
+            this.tbxLA8.MaxLength = 1;
+            this.tbxLA8.Name = "tbxLA8";
+            this.tbxLA8.Size = new System.Drawing.Size(26, 21);
+            this.tbxLA8.TabIndex = 5;
+            this.tbxLA8.Text = "6";
+            this.tbxLA8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxLA9
+            // 
+            this.tbxLA9.Location = new System.Drawing.Point(325, 66);
+            this.tbxLA9.MaxLength = 8;
+            this.tbxLA9.Name = "tbxLA9";
+            this.tbxLA9.Size = new System.Drawing.Size(63, 21);
+            this.tbxLA9.TabIndex = 5;
+            this.tbxLA9.Text = "00000008";
+            this.tbxLA9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(335, 48);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 12);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "任务号";
+            // 
+            // textBox10
+            // 
+            this.textBox10.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox10.Dock = System.Windows.Forms.DockStyle.Right;
+            this.textBox10.Location = new System.Drawing.Point(396, 5);
+            this.textBox10.Multiline = true;
+            this.textBox10.Name = "textBox10";
+            this.textBox10.ReadOnly = true;
+            this.textBox10.Size = new System.Drawing.Size(258, 392);
+            this.textBox10.TabIndex = 7;
+            this.textBox10.Text = resources.GetString("textBox10.Text");
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 121);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(17, 12);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "HB";
+            // 
+            // tbxHB1
+            // 
+            this.tbxHB1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxHB1.Location = new System.Drawing.Point(35, 117);
+            this.tbxHB1.Name = "tbxHB1";
+            this.tbxHB1.ReadOnly = true;
+            this.tbxHB1.Size = new System.Drawing.Size(28, 21);
+            this.tbxHB1.TabIndex = 1;
+            this.tbxHB1.Text = "00";
+            this.tbxHB1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxHB2
+            // 
+            this.tbxHB2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxHB2.Location = new System.Drawing.Point(69, 117);
+            this.tbxHB2.Name = "tbxHB2";
+            this.tbxHB2.ReadOnly = true;
+            this.tbxHB2.Size = new System.Drawing.Size(33, 21);
+            this.tbxHB2.TabIndex = 1;
+            this.tbxHB2.Tag = "";
+            this.tbxHB2.Text = "000";
+            this.tbxHB2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxHB3
+            // 
+            this.tbxHB3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxHB3.Location = new System.Drawing.Point(108, 117);
+            this.tbxHB3.Name = "tbxHB3";
+            this.tbxHB3.ReadOnly = true;
+            this.tbxHB3.Size = new System.Drawing.Size(33, 21);
+            this.tbxHB3.TabIndex = 1;
+            this.tbxHB3.Text = "000";
+            this.tbxHB3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxHB4
+            // 
+            this.tbxHB4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxHB4.Location = new System.Drawing.Point(147, 117);
+            this.tbxHB4.Name = "tbxHB4";
+            this.tbxHB4.ReadOnly = true;
+            this.tbxHB4.Size = new System.Drawing.Size(28, 21);
+            this.tbxHB4.TabIndex = 1;
+            this.tbxHB4.Text = "00";
+            this.tbxHB4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxHB5
+            // 
+            this.tbxHB5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxHB5.Location = new System.Drawing.Point(181, 117);
+            this.tbxHB5.Name = "tbxHB5";
+            this.tbxHB5.ReadOnly = true;
+            this.tbxHB5.Size = new System.Drawing.Size(33, 21);
+            this.tbxHB5.TabIndex = 1;
+            this.tbxHB5.Text = "000";
+            this.tbxHB5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxHB6
+            // 
+            this.tbxHB6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxHB6.Location = new System.Drawing.Point(220, 117);
+            this.tbxHB6.Name = "tbxHB6";
+            this.tbxHB6.ReadOnly = true;
+            this.tbxHB6.Size = new System.Drawing.Size(33, 21);
+            this.tbxHB6.TabIndex = 1;
+            this.tbxHB6.Text = "000";
+            this.tbxHB6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbxHB7
+            // 
+            this.tbxHB7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxHB7.Location = new System.Drawing.Point(259, 117);
+            this.tbxHB7.Name = "tbxHB7";
+            this.tbxHB7.ReadOnly = true;
+            this.tbxHB7.Size = new System.Drawing.Size(28, 21);
+            this.tbxHB7.TabIndex = 1;
+            this.tbxHB7.Text = "00";
+            this.tbxHB7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(41, 99);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(17, 12);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "排";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(77, 99);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(17, 12);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "列";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(116, 99);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(17, 12);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "层";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(153, 99);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 12);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "排";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(189, 99);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(17, 12);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "列";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(259, 99);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(29, 12);
+            this.label17.TabIndex = 3;
+            this.label17.Text = "命令";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(228, 99);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(17, 12);
+            this.label18.TabIndex = 4;
+            this.label18.Text = "层";
+            // 
+            // tbxHB8
+            // 
+            this.tbxHB8.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxHB8.Location = new System.Drawing.Point(293, 117);
+            this.tbxHB8.Name = "tbxHB8";
+            this.tbxHB8.ReadOnly = true;
+            this.tbxHB8.Size = new System.Drawing.Size(63, 21);
+            this.tbxHB8.TabIndex = 5;
+            this.tbxHB8.Text = "00000008";
+            this.tbxHB8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(303, 99);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(41, 12);
+            this.label20.TabIndex = 6;
+            this.label20.Text = "任务号";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(9, 175);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(17, 12);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "LB";
+            // 
+            // tbxLB1
+            // 
+            this.tbxLB1.Location = new System.Drawing.Point(35, 171);
+            this.tbxLB1.MaxLength = 1;
+            this.tbxLB1.Name = "tbxLB1";
+            this.tbxLB1.Size = new System.Drawing.Size(28, 21);
+            this.tbxLB1.TabIndex = 1;
+            this.tbxLB1.Text = "1";
+            this.tbxLB1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(34, 153);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(29, 12);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "状态";
+            // 
+            // tbxLB2
+            // 
+            this.tbxLB2.Location = new System.Drawing.Point(69, 171);
+            this.tbxLB2.MaxLength = 8;
+            this.tbxLB2.Name = "tbxLB2";
+            this.tbxLB2.Size = new System.Drawing.Size(63, 21);
+            this.tbxLB2.TabIndex = 5;
+            this.tbxLB2.Text = "00000008";
+            this.tbxLB2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(79, 153);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(41, 12);
+            this.label30.TabIndex = 6;
+            this.label30.Text = "任务号";
+            // 
+            // tbxIP
+            // 
+            this.tbxIP.Location = new System.Drawing.Point(35, 9);
+            this.tbxIP.Name = "tbxIP";
+            this.tbxIP.Size = new System.Drawing.Size(96, 21);
+            this.tbxIP.TabIndex = 9;
+            this.tbxIP.Text = "127.0.0.1";
+            this.tbxIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(9, 13);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(17, 12);
+            this.label19.TabIndex = 8;
+            this.label19.Text = "IP";
+            // 
+            // tbxPort
+            // 
+            this.tbxPort.Location = new System.Drawing.Point(137, 9);
+            this.tbxPort.Name = "tbxPort";
+            this.tbxPort.Size = new System.Drawing.Size(48, 21);
+            this.tbxPort.TabIndex = 9;
+            this.tbxPort.Text = "4000";
+            this.tbxPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnListen
+            // 
+            this.btnListen.Location = new System.Drawing.Point(210, 8);
+            this.btnListen.Name = "btnListen";
+            this.btnListen.Size = new System.Drawing.Size(75, 23);
+            this.btnListen.TabIndex = 10;
+            this.btnListen.Text = "启动监听";
+            this.btnListen.UseVisualStyleBackColor = true;
+            this.btnListen.Click += new System.EventHandler(this.btnListen_Click);
+            // 
+            // splitter1
+            // 
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.splitter1.Enabled = false;
+            this.splitter1.Location = new System.Drawing.Point(393, 5);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 392);
+            this.splitter1.TabIndex = 11;
+            this.splitter1.TabStop = false;
+            // 
+            // tbxLog
+            // 
+            this.tbxLog.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tbxLog.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbxLog.Location = new System.Drawing.Point(5, 198);
+            this.tbxLog.Multiline = true;
+            this.tbxLog.Name = "tbxLog";
+            this.tbxLog.ReadOnly = true;
+            this.tbxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbxLog.Size = new System.Drawing.Size(388, 199);
+            this.tbxLog.TabIndex = 12;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(339, 13);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(41, 12);
+            this.label23.TabIndex = 13;
+            this.label23.Text = "上位机";
+            // 
+            // pbxWDB
+            // 
+            this.pbxWDB.AccessibleDescription = "0";
+            this.pbxWDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pbxWDB.Image = ((System.Drawing.Image)(resources.GetObject("pbxWDB.Image")));
+            this.pbxWDB.Location = new System.Drawing.Point(322, 11);
+            this.pbxWDB.Name = "pbxWDB";
+            this.pbxWDB.Size = new System.Drawing.Size(16, 16);
+            this.pbxWDB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbxWDB.TabIndex = 14;
+            this.pbxWDB.TabStop = false;
+            // 
+            // cbxPrintLA
+            // 
+            this.cbxPrintLA.AutoSize = true;
+            this.cbxPrintLA.Location = new System.Drawing.Point(173, 173);
+            this.cbxPrintLA.Name = "cbxPrintLA";
+            this.cbxPrintLA.Size = new System.Drawing.Size(36, 16);
+            this.cbxPrintLA.TabIndex = 15;
+            this.cbxPrintLA.Text = "LA";
+            this.cbxPrintLA.UseVisualStyleBackColor = true;
+            // 
+            // cbxPrintHB
+            // 
+            this.cbxPrintHB.AutoSize = true;
+            this.cbxPrintHB.Checked = true;
+            this.cbxPrintHB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxPrintHB.Location = new System.Drawing.Point(212, 173);
+            this.cbxPrintHB.Name = "cbxPrintHB";
+            this.cbxPrintHB.Size = new System.Drawing.Size(36, 16);
+            this.cbxPrintHB.TabIndex = 16;
+            this.cbxPrintHB.Text = "HB";
+            this.cbxPrintHB.UseVisualStyleBackColor = true;
+            // 
+            // cbxPrintHP
+            // 
+            this.cbxPrintHP.AutoSize = true;
+            this.cbxPrintHP.Location = new System.Drawing.Point(251, 173);
+            this.cbxPrintHP.Name = "cbxPrintHP";
+            this.cbxPrintHP.Size = new System.Drawing.Size(36, 16);
+            this.cbxPrintHP.TabIndex = 16;
+            this.cbxPrintHP.Text = "HP";
+            this.cbxPrintHP.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(340, 153);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(29, 12);
+            this.label24.TabIndex = 6;
+            this.label24.Text = "周期";
+            // 
+            // numCraneTimerInterval
+            // 
+            this.numCraneTimerInterval.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numCraneTimerInterval.Location = new System.Drawing.Point(337, 171);
+            this.numCraneTimerInterval.Maximum = new decimal(new int[] {
+            600000,
+            0,
+            0,
+            0});
+            this.numCraneTimerInterval.Minimum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numCraneTimerInterval.Name = "numCraneTimerInterval";
+            this.numCraneTimerInterval.Size = new System.Drawing.Size(50, 21);
+            this.numCraneTimerInterval.TabIndex = 18;
+            this.numCraneTimerInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numCraneTimerInterval.Value = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
+            this.numCraneTimerInterval.ValueChanged += new System.EventHandler(this.numCraneTimerInterval_ValueChanged);
+            // 
+            // cbxUseUIToResponse
+            // 
+            this.cbxUseUIToResponse.AutoSize = true;
+            this.cbxUseUIToResponse.Checked = true;
+            this.cbxUseUIToResponse.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxUseUIToResponse.Location = new System.Drawing.Point(173, 151);
+            this.cbxUseUIToResponse.Name = "cbxUseUIToResponse";
+            this.cbxUseUIToResponse.Size = new System.Drawing.Size(108, 16);
+            this.cbxUseUIToResponse.TabIndex = 19;
+            this.cbxUseUIToResponse.Text = "使用 UI 值回复";
+            this.cbxUseUIToResponse.UseVisualStyleBackColor = true;
+            // 
+            // frmCRN
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(659, 402);
+            this.Controls.Add(this.cbxUseUIToResponse);
+            this.Controls.Add(this.numCraneTimerInterval);
+            this.Controls.Add(this.cbxPrintHP);
+            this.Controls.Add(this.cbxPrintHB);
+            this.Controls.Add(this.cbxPrintLA);
+            this.Controls.Add(this.pbxWDB);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.tbxLog);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.btnListen);
+            this.Controls.Add(this.tbxPort);
+            this.Controls.Add(this.tbxIP);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.tbxLB2);
+            this.Controls.Add(this.tbxHB8);
+            this.Controls.Add(this.tbxLA9);
+            this.Controls.Add(this.tbxLA8);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.tbxHB7);
+            this.Controls.Add(this.tbxLA7);
+            this.Controls.Add(this.tbxHB6);
+            this.Controls.Add(this.tbxLA6);
+            this.Controls.Add(this.tbxHB5);
+            this.Controls.Add(this.tbxLA5);
+            this.Controls.Add(this.tbxHB4);
+            this.Controls.Add(this.tbxLA4);
+            this.Controls.Add(this.tbxHB3);
+            this.Controls.Add(this.tbxLA3);
+            this.Controls.Add(this.tbxHB2);
+            this.Controls.Add(this.tbxLA2);
+            this.Controls.Add(this.tbxLB1);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.tbxHB1);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.tbxLA1);
+            this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.Name = "frmCRN";
+            this.Padding = new System.Windows.Forms.Padding(5);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "CRN 堆垛机虚拟程序";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCRN_FormClosed);
+            this.Load += new System.EventHandler(this.frmCRN_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxWDB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCraneTimerInterval)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbxLA1;
+        private System.Windows.Forms.TextBox tbxLA2;
+        private System.Windows.Forms.TextBox tbxLA3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbxLA4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbxLA5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbxLA6;
+        private System.Windows.Forms.TextBox tbxLA7;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tbxLA8;
+        private System.Windows.Forms.TextBox tbxLA9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tbxHB1;
+        private System.Windows.Forms.TextBox tbxHB2;
+        private System.Windows.Forms.TextBox tbxHB3;
+        private System.Windows.Forms.TextBox tbxHB4;
+        private System.Windows.Forms.TextBox tbxHB5;
+        private System.Windows.Forms.TextBox tbxHB6;
+        private System.Windows.Forms.TextBox tbxHB7;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox tbxHB8;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox tbxLB1;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox tbxLB2;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox tbxIP;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox tbxPort;
+        private System.Windows.Forms.Button btnListen;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.TextBox tbxLog;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.PictureBox pbxWDB;
+        private System.Windows.Forms.CheckBox cbxPrintLA;
+        private System.Windows.Forms.CheckBox cbxPrintHB;
+        private System.Windows.Forms.CheckBox cbxPrintHP;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.NumericUpDown numCraneTimerInterval;
+        private System.Windows.Forms.CheckBox cbxUseUIToResponse;
+    }
+}
+

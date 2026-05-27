@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "刷新故障分析数据";
+}
+
+<h2>手动刷新故障分析数据</h2>
+<table class="edit-table">
+        <tr>
+             <th style="width:200px;">数据行数：</th>
+            <td id="_recordCount">@ViewBag.Count</td>
+        </tr>
+        <tr>
+             <th style="width:200px;">尾行状态时间：</th>
+            <td  id="_lastTime">
+                @if (ViewBag.LastWarning != null)
+                {
+                    @ViewBag.LastWarning.StartTime
+                }else{
+                    <text>无</text>
+                }
+            </td>
+        </tr>
+        <tr>
+             <th style="width:200px;">设备名称：</th>
+            <td><input type="text" value="" name="name" id="name" style="width:200px;" /></td>
+        </tr>
+        <tr>
+             <th style="width:200px;">批大小：</th>
+            <td><input type="number" value="1000" name="batchSize" id="batchSize" style="width:200px;" /></td>
+        </tr>
+        <tr>
+             <th style="width:200px;">结束时间：</th>
+            <td><input type="date" value="1000" name="endTime" id="endTime"  style="width:200px;"/></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" id="refreshBtn" value="刷新" /></td>
+        </tr>
+    </table>
+<div id="msg" style="width:100%; display:none; line-height:30px;background:rgb(247, 250, 164);text-align:center;margin-top:5px;">已刷新 0 条记录</div>
+<script type="text/javascript">
+    var refreshCount = 0;
+    var startTime = "";
+    $(document).ready(function () {
+        $('#refreshBtn').click(function () {
+            refreshCount = 0;
+            startTime = "";
+            process();
+        });
+    });
+
+    function process() {
+        $('#msg').show();
+
+        $.ajax({
+            url: "/RailGuidedVehicle/Warnings/Refresh",
+            method: 'post',
+            data: { name: $('#name').val(), batchSize: $('#batchSize').val(),startTime:startTime, endTime: $('#endTime').val()},
+            dataType: 'json',
+            success: function (data) {
+                refreshCount += data.RefreshCount;
+                startTime = data.LastTime;
+
+                var count = parseInt($('#_recordCount').text()) + data.RefreshCount;
+                $('#_recordCount').text(count);
+                $('#_lastTime').text(data.LastTime);
+
+                if (data.Finished) {
+                    $('#msg').text('刷新结束，共刷新了 ' + refreshCount + ' 条记录。');
+                } else {
+                    $('#msg').text('已刷新 ' + refreshCount + ' 条记录，请稍候...');
+
+                    setTimeout(process, 100);
+                }
+            },
+            error: function (data) {
+                $('#msg').text('发生错误，操作被终止。共刷新了 ' + refreshCount + ' 条记录。');
+            }
+        });
+    }
+</script>

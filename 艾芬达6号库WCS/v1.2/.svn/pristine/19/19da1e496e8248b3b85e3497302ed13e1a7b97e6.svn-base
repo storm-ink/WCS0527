@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <add key="should-log-HA-LA" value="false"/>
+  </appSettings>
+  <system.diagnostics>
+    <sources>
+      <source name="crn" switchName="crn_switch" switchType="System.Diagnostics.SourceSwitch">
+        <listeners>
+          <clear />
+          <add name="console">
+          </add>
+        </listeners>
+      </source>
+    </sources>
+    <switches>
+      <add name="crn_switch" value="All" />
+    </switches>
+    <sharedListeners>
+      <add name="console"
+          type="System.Diagnostics.ConsoleTraceListener"
+          initializeData="false"
+            traceOutputOptions="DateTime"
+            >
+            <filter type="System.Diagnostics.EventTypeFilter" initializeData="Information" />
+      </add>
+    </sharedListeners>    
+  </system.diagnostics>
+</configuration>

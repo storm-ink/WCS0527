@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WebUIService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IWebUIService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Wcs.Services.Wcf.WebUI" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IWebUIService_GetConveyorCurrentTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConveyorCurrentTasks" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetConveyorCurrentTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConveyorCurrentTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetConveyorStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConveyorStatus" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetConveyorStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConveyorStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetConveyorStatusFromLastReceivedPackage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConveyorStatusFromLastReceivedPackage" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetConveyorStatusFromLastReceivedPackage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConveyorStatusFromLastReceivedPackageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetCraneStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCraneStatus" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetCraneStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCraneStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasks" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetTaskDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaskDetails" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetTaskDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaskDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_SuspendTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:SuspendTask" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_SuspendTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SuspendTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_CompleteTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompleteTask" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_CompleteTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompleteTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_CancelTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelTask" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_CancelTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_ResumeTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResumeTask" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_ResumeTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResumeTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_ResumeTaskWithCurrentLocation_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResumeTaskWithCurrentLocation" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_ResumeTaskWithCurrentLocation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResumeTaskWithCurrentLocationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetDevicesConnectionStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevicesConnectionStatus" />
+  </wsdl:message>
+  <wsdl:message name="IWebUIService_GetDevicesConnectionStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevicesConnectionStatusResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IWebUIService">
+    <wsdl:operation name="GetConveyorCurrentTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/GetConveyorCurrentTasks" message="tns:IWebUIService_GetConveyorCurrentTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/GetConveyorCurrentTasksResponse" message="tns:IWebUIService_GetConveyorCurrentTasks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConveyorStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/GetConveyorStatus" message="tns:IWebUIService_GetConveyorStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/GetConveyorStatusResponse" message="tns:IWebUIService_GetConveyorStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConveyorStatusFromLastReceivedPackage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/GetConveyorStatusFromLastReceivedPackage" message="tns:IWebUIService_GetConveyorStatusFromLastReceivedPackage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/GetConveyorStatusFromLastReceivedPackageResponse" message="tns:IWebUIService_GetConveyorStatusFromLastReceivedPackage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCraneStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/GetCraneStatus" message="tns:IWebUIService_GetCraneStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/GetCraneStatusResponse" message="tns:IWebUIService_GetCraneStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/GetTasks" message="tns:IWebUIService_GetTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/GetTasksResponse" message="tns:IWebUIService_GetTasks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTaskDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/GetTaskDetails" message="tns:IWebUIService_GetTaskDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/GetTaskDetailsResponse" message="tns:IWebUIService_GetTaskDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SuspendTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/SuspendTask" message="tns:IWebUIService_SuspendTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/SuspendTaskResponse" message="tns:IWebUIService_SuspendTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompleteTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/CompleteTask" message="tns:IWebUIService_CompleteTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/CompleteTaskResponse" message="tns:IWebUIService_CompleteTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/CancelTask" message="tns:IWebUIService_CancelTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/CancelTaskResponse" message="tns:IWebUIService_CancelTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResumeTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/ResumeTask" message="tns:IWebUIService_ResumeTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/ResumeTaskResponse" message="tns:IWebUIService_ResumeTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResumeTaskWithCurrentLocation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/ResumeTaskWithCurrentLocation" message="tns:IWebUIService_ResumeTaskWithCurrentLocation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/ResumeTaskWithCurrentLocationResponse" message="tns:IWebUIService_ResumeTaskWithCurrentLocation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesConnectionStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebUIService/GetDevicesConnectionStatus" message="tns:IWebUIService_GetDevicesConnectionStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebUIService/GetDevicesConnectionStatusResponse" message="tns:IWebUIService_GetDevicesConnectionStatus_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IWebUIService" type="tns:IWebUIService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IWebUIService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetConveyorCurrentTasks">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/GetConveyorCurrentTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConveyorStatus">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/GetConveyorStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConveyorStatusFromLastReceivedPackage">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/GetConveyorStatusFromLastReceivedPackage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCraneStatus">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/GetCraneStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasks">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/GetTasks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaskDetails">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/GetTaskDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspendTask">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/SuspendTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompleteTask">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/CompleteTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelTask">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/CancelTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResumeTask">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/ResumeTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResumeTaskWithCurrentLocation">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/ResumeTaskWithCurrentLocation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesConnectionStatus">
+      <soap12:operation soapAction="http://tempuri.org/IWebUIService/GetDevicesConnectionStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebUIService">
+    <wsdl:port name="NetTcpBinding_IWebUIService" binding="tns:NetTcpBinding_IWebUIService">
+      <soap12:address location="net.tcp://localhost:9998/WebUIService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:9998/WebUIService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,83 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Conveyor
+{
+    /// <summary>
+    /// 任务块
+    /// </summary>
+    [System.ComponentModel.Description("任务块")]
+    [DataContract]
+    public class TaskNetTransferObject 
+    {
+        /// <summary>
+        /// 握手协议（为0时说明为地址为空，可以使用）
+        /// </summary>
+        [System.ComponentModel.Description("握手变量")]
+        [DataMember]
+        public TaskNetTransferObjectHandShake HandShake { get; set; }
+        /// <summary>
+        /// 任务号
+        /// </summary>
+        [System.ComponentModel.Description("任务号")]
+        [DataMember]
+        public UInt32 AssignmentID { get; set; }
+        /// <summary>
+        /// 托盘号
+        /// </summary>
+        [System.ComponentModel.Description("托盘号")]
+        [DataMember]
+        public UInt16 TU_ID { get; set; }
+        /// <summary>
+        /// 托盘类型
+        /// </summary>
+        [System.ComponentModel.Description("托盘类型")]
+        [DataMember]
+        public UInt16 TU_Type { get; set; }
+        /// <summary>
+        /// 业务数据
+        /// </summary>
+        [System.ComponentModel.Description("业务数据")]
+        [DataMember]
+        public UInt16 IO_Data { get; set; }
+        /// <summary>
+        /// 路径号
+        /// </summary>
+        [System.ComponentModel.Description("路径号")]
+        [DataMember]
+        public UInt16 RotingNo { get; set; }
+        /// <summary>
+        /// 起点位置
+        /// </summary>
+        [System.ComponentModel.Description("起点位置")]
+        [DataMember]
+        public UInt16 StartMotorNo { get; set; }
+        /// <summary>
+        /// 终点位置
+        /// </summary>
+        [System.ComponentModel.Description("终点位置")]
+        [DataMember]
+        public UInt16 DestinationNo { get; set; }
+        /// <summary>
+        /// 任务状态
+        /// </summary>
+        [System.ComponentModel.Description("任务状态")]
+        [DataMember]
+        public TaskNetTransferObjectStatus TaskStatus { get; set; }
+        /// <summary>
+        /// PLC读取任务后会填一下这个任务号，现在没用上好像
+        /// </summary>
+        [System.ComponentModel.Description("读取号")]
+        [DataMember]
+        public UInt32 ReadTask { get; set; }
+        /// <summary>
+        /// 预留字段
+        /// </summary>
+        [System.ComponentModel.Description("预留")]
+        [DataMember]
+        public UInt32 Spare { get; set; }
+    }
+}

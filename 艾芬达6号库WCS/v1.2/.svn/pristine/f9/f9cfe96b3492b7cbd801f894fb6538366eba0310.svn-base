@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel.Dispatcher;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Net;
+
+namespace Wcs.Client
+{
+    public class ContextSender: IClientMessageInspector
+    {
+        string nsName = "http://gen-song.net/ns/WcsServiceContext";
+        public void AfterReceiveReply(ref Message reply, object correlationState) { }
+        public object BeforeSendRequest(ref Message request, IClientChannel channel)
+        {
+            request.Headers.Add(MessageHeader.CreateHeader("username", nsName, UserName));
+            request.Headers.Add(MessageHeader.CreateHeader("password", nsName, Password));
+            request.Headers.Add(MessageHeader.CreateHeader("realname", nsName, RealName));
+            request.Headers.Add(MessageHeader.CreateHeader("clientip", nsName, Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString()));
+            
+            return null;
+       }
+
+        public static String UserName { get; set; }
+        public static String Password { get; set; }
+        public static String RealName { get; set; }
+   }
+}

@@ -1,0 +1,163 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Framework.Devices
+{
+    /// <summary>
+    /// 输送线网络数据包
+    /// </summary>
+    public class ConveyorNetPackage : NetPackage
+    {
+        DateTime _startAt;
+        DateTime _fetchAt;
+        public override byte[] FetchPackage()
+        {
+            lock (_bytes)
+            {
+                if (_bytes.Count < 8)
+                {
+                    return null;
+                }
+
+                int headerIndex = -1;
+                int endIndex = -1;
+                byte[] byteArray = _bytes.ToArray();
+                for (int i = 0; i < byteArray.Length; /*i += 1*/)
+                {
+                    if (headerIndex == -1)
+                    {
+                        while (i < byteArray.Length - 1 && byteArray[i] != 255)
+                        {
+                            i++;
+                        }
+
+                        if (byteArray.Skip(i).Count() < 8)
+                        {
+                            return null;
+                        }
+
+                        //8个字节如果都是f，那说明是开头(对应64位uint)
+                        if (BitConverter.ToUInt64(byteArray, i).ToString("x") == "".PadLeft(16, 'f'))
+                        {
+                            headerIndex = i;
+                            i += 8;
+                        }
+                    }
+                    else
+                    {
+                        while (i < byteArray.Length - 1 && byteArray[i] != 238)
+                        {
+                            i++;
+                        }
+
+                        if (byteArray.Skip(i).Count() < 8)
+                        {
+                            return null;
+                        }
+
+                        //8个字节如果都是e，那说明是开头(对应64位uint)
+                        if (BitConverter.ToUInt64(byteArray, i).ToString("x") == "".PadLeft(16, 'e'))
+                        {
+                            endIndex = i;
+                            i += 8;
+                        }
+                    }
+
+                    if (headerIndex != -1 && endIndex != -1)
+                    {
+                        int contentStartIndex = headerIndex + 8;
+                        int contentEndIndex = endIndex;
+                        byte[] result = byteArray.Skip(contentStartIndex)
+                            .Take(contentEndIndex - contentStartIndex)
+                            .ToArray();
+
+                        _bytes = byteArray.Skip(endIndex + 8).ToList();
+
+                        _fetchAt = DateTime.Now;
+                        if (_startAt != null)
+                        {
+                            // Console.WriteLine("received use {0} milliseconds", _fetchAt.Subtract(_startAt).TotalMilliseconds);
+                        }
+                        _startAt = DateTime.Now;
+                        return result;
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        public override byte[] CreateSendPackage(byte[] dataPart)
+        {
+            UInt32 _checksum = CreateChecksum(dataPart);
+
+            List<byte> result = new List<byte>();
+            //头
+            result.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF });
+            //数据
+            result.AddRange(dataPart);
+            //检验码
+            result.AddRange(BitConverter.GetBytes(_checksum));
+            //尾
+            result.AddRange(new byte[] { 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE });
+
+            return result.ToArray();
+        }
+
+        public bool CheckPackage(byte[] receivedBytes)
+        {
+            byte[] checksumBytes = receivedBytes.Skip(receivedBytes.Length - 4).ToArray();
+            uint checksum = BitConverter.ToUInt32(checksumBytes, 0);
+
+
+            UInt32 _checksum = CreateChecksum(receivedBytes.Take(receivedBytes.Length - 4).ToArray());
+
+            return checksum == _checksum;
+        }
+
+        public UInt32 CreateChecksum(byte[] packageDataPart)
+        {
+            UInt32 _checksum = 0;
+            for (int i = 0; i < packageDataPart.Length; i += 4)
+            {
+                byte[] bytes = new byte[4];
+                if (packageDataPart.Length > i)
+                {
+                    bytes[0] = packageDataPart[i];
+                }
+
+                if (packageDataPart.Length > i + 1)
+                {
+                    bytes[1] = packageDataPart[i + 1];
+                }
+                else
+                {
+                    bytes[1] = (byte)0;
+                }
+
+                if (packageDataPart.Length > i + 2)
+                {
+                    bytes[2] = packageDataPart[i + 2];
+                }
+                else
+                {
+                    bytes[2] = (byte)0;
+                }
+
+                if (packageDataPart.Length > i + 3)
+                {
+                    bytes[3] = packageDataPart[i + 3];
+                }
+                else
+                {
+                    bytes[3] = (byte)0;
+                }
+                _checksum = _checksum ^ BitConverter.ToUInt32(bytes, 0);
+            }
+
+            return _checksum;
+        }
+    }
+}

@@ -1,0 +1,149 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements.UIEditor
+{
+    public partial class frmCarsEditorUI : Form
+    {
+        public List<ShuttleCar> Cars { get; private set; }
+        Shuttle _shuttle;
+        BindingSource bindingSource;
+        public frmCarsEditorUI(List<ShuttleCar> cars,Shuttle shuttle)
+        {
+            InitializeComponent();
+            _shuttle = shuttle;
+            bindingSource = new BindingSource(cars, "");
+            lblCars.DataSource = bindingSource;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            ShuttleCar ps = new ShuttleCar();
+            bindingSource.Add(ps);
+            propertyGrid1.SelectedObject = ps;
+            lblCars.SelectedItem = ps;
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (lblCars.SelectedItem == null)
+            {
+                btnRemove.Enabled = false;
+                return;
+            }
+
+            bindingSource.Remove(lblCars.SelectedItem);
+        }
+
+        private void lblPath_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lblCars.SelectedItem != null)
+            {
+                propertyGrid1.SelectedObject = lblCars.SelectedItem;
+                btnRemove.Enabled = true;
+            }
+            else
+            {
+                btnRemove.Enabled = false;
+            }
+
+            if (lblCars.Items.Count == 1)
+            {
+                btnUP.Enabled =
+                    btnDown.Enabled = false;
+
+            }
+            else
+            {
+                if (lblCars.SelectedIndex == 0)
+                {
+                    btnUP.Enabled = false;
+                    btnDown.Enabled = true;
+                }
+                else if (lblCars.SelectedIndex == lblCars.Items.Count - 1)
+                {
+                    btnUP.Enabled = true;
+                    btnDown.Enabled = false;
+                }
+                else
+                {
+
+                    btnUP.Enabled = true;
+                    btnDown.Enabled = true;
+                }
+            }
+        }
+
+        private void btnUP_Click(object sender, EventArgs e)
+        {
+            if (lblCars.SelectedItem == null)
+            {
+                btnUP.Enabled = false;
+                btnDown.Enabled = false;
+                return;
+            }
+
+            int index = lblCars.SelectedIndex;
+            if (index == 0)
+            {
+                btnUP.Enabled = false;
+                return;
+            }
+
+            var item = lblCars.SelectedItem;
+            bindingSource.Remove(item);
+            bindingSource.Insert(index - 1, item);
+            propertyGrid1.SelectedObject = item;
+            lblCars.SelectedItem = item;
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            if (lblCars.SelectedItem == null)
+            {
+                btnUP.Enabled = false;
+                btnDown.Enabled = false;
+                return;
+            }
+
+            int index = lblCars.SelectedIndex;
+            if (index == lblCars.Items.Count-1)
+            {
+                btnDown.Enabled = false;
+                return;
+            }
+
+            var item = lblCars.SelectedItem;
+            bindingSource.Remove(item);
+            bindingSource.Insert(index + 1, item);
+            propertyGrid1.SelectedObject = item;
+            lblCars.SelectedItem = item;
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            var cars = bindingSource.Cast<ShuttleCar>().ToList();
+
+            if (cars.Any(x => x.IsEmpty))
+            {
+                MessageBox.Show("有未初始化的小车对象，请移除", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            this.Cars = cars;
+
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

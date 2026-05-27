@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Client.App.Elements
+{
+    public abstract class Transform
+    {
+        public Element Element { get; private set; }
+        public Transform(Element element)
+        {
+            this.Element = element;
+        }
+
+        public abstract float X(float x);
+        public abstract float Y(float y);
+        public abstract float W(float w);
+        public abstract float H(float h);
+    }
+}

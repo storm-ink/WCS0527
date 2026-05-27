@@ -1,0 +1,36 @@
+﻿@model List<Spiral.Base.WmsSetting>
+
+<table border="1" cellpadding="1" cellspacing="4">
+     
+    <tr>
+         
+         <th>
+           名称
+        </th>
+         <th>
+           值
+        </th>  
+        <th>
+
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+      
+       <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+
+                <a href="/Admin/WmsSettings/Edit?name=@item.Name">编辑</a>
+        </td>
+      
+    </tr>
+}
+
+</table>

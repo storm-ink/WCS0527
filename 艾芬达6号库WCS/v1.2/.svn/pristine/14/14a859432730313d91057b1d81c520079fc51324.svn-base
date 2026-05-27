@@ -1,0 +1,102 @@
+﻿using NLog;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.ServiceModel;
+using System.Text;
+using System.Xml;
+
+namespace Wcs.Client.Interfaces
+{
+    public abstract class AbstractClientService
+    {
+        protected Dictionary<MethodInfo, Object> _registeredCalls = new Dictionary<MethodInfo, Object>();
+        public AbstractClientService()
+        {
+            //if (!_loggers.Any(x => x.Key == this.GetType()))
+            //{
+            //    _loggers.Add(this.GetType(), LogManager.GetCurrentClassLogger());
+            //}
+
+            //_logger = _loggers[this.GetType()];
+
+            ReadCfg();
+        }
+
+        protected String CfgFileName
+        {
+            get
+            {
+                return System.IO.Path.Combine(
+                    new Uri(this.GetType().Assembly.CodeBase).AbsolutePath
+                    , this.GetType().Name) + ".xml";
+            }
+        }
+
+        /// <summary>
+        /// 调用已注册的方法
+        /// </summary>
+        /// <typeparam name="T">返回值类型</typeparam>
+        /// <param name="name">已注册的方法名称（不区分大小写）</param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected T InternalCall<T>(String name,Object[] args)
+        {
+            if(!_registeredCalls.Any(x=>String.Equals(x.Key.Name,name,StringComparison.CurrentCultureIgnoreCase)))
+            {                
+                throw new InvalidOperationException(string.Format("服务 {0} 未注册方法 {1}。", this.GetType(), name));
+            }
+
+            var call= _registeredCalls.Where(x => String.Equals(x.Key.Name,name,StringComparison.CurrentCultureIgnoreCase)).First();
+
+            if (call.Key.ReturnType == typeof(void))
+            {
+                call.Key.Invoke(call.Value, args);
+
+                return default(T);
+            }
+            else
+            {
+                return (T)call.Key.Invoke(call.Value, args);
+            }
+        }
+                 
+        /// <summary>
+        /// 注册指定实例所属类型的方法到服务当中
+        /// </summary>
+        /// <param name="hostInstance">实例</param>
+        /// <param name="name">方法名称(不区分大小写)</param>
+        protected void Register(Object hostInstance,String name)
+        {
+            var mi = hostInstance.GetType().GetMethod(name,BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            if (mi == null)
+            {
+                throw new InvalidOperationException(string.Format("在类型 {0} 中未找到名为 {1} 的方法", hostInstance.GetType(), name));
+            }
+
+            _registeredCalls.Add(mi, hostInstance);
+        }
+        void ReadCfg()
+        {
+            var fileName = CfgFileName;
+            if (!File.Exists(fileName))
+            {
+                return;
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(fileName);
+            foreach (XmlNode item in doc.SelectNodes("/calls/register"))
+            {
+                var name = item.Attributes["name"].Value.Trim();
+                var typeName = item.Attributes["type"].Value.Trim();
+                var type=Type.GetType(typeName);
+                var instance = type.Assembly.CreateInstance(type.AssemblyQualifiedName, true);
+
+                Register(instance, name);
+            }
+        }
+    }
+}

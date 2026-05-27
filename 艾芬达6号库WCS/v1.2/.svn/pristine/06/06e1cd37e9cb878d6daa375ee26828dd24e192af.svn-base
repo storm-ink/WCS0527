@@ -1,0 +1,42 @@
+﻿@* 
+为 Edit 和 Create 页面生成 js 代码，用于支持消息提示，返回列表页
+*@
+<script type="text/javascript">
+
+    function backToList() {
+        window.location.href = '@Url.Action("Index", new { isReturned = true })';
+//        successMsg('@GetSuccessMessage()', '');
+    }
+    function keepForm() {
+        alert('保持表单');
+    }
+    function clearForm() {
+        alert('清除表单');
+    }
+
+    function errorMsgShow(msg) {
+        errorNoty(msg);
+    }
+
+    function showTip() {
+        $('#form_container form :submit').attr('disabled', 'disabled');
+    }
+
+    function hideTip() {
+        setTimeout("$('#form_container form :submit').removeAttr('disabled');", 200);
+        
+    }
+    
+</script>
+
+@helper GetSuccessMessage()
+{
+    if (string.Equals((string)ViewContext.RouteData.Values["action"], "edit", StringComparison.OrdinalIgnoreCase))
+    {
+        @("更新成功")
+    }
+    else
+    {
+        @("添加成功")
+    }
+}

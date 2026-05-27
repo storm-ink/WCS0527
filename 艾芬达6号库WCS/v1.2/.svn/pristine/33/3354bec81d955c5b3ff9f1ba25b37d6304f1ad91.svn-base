@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App
+{
+    static class Program
+    {
+        /// <summary>
+        /// 应用程序的主入口点。
+        /// </summary>
+        [STAThread]
+        static void Main(String[] args)
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            if (args.Any(x => String.Equals("Debug", x, StringComparison.CurrentCultureIgnoreCase)))
+            {
+                NativeMethods.AllocConsole();
+            }
+
+            if (args.Length > 0 && !String.IsNullOrWhiteSpace(args[0]) && System.IO.File.Exists(args[0]))
+            {
+                Application.Run(new frmLanucher(args[0].Trim()));
+            }
+            else
+            {
+
+                Application.Run(new frmEditor());
+            }
+        }
+    }
+}

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F525C28B-586D-4608-A19E-7EA22D9EE78A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Gensong</RootNamespace>
+    <AssemblyName>CRN</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Resources\Logo.ico</ApplicationIcon>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="crane\actions\Crane.CraneAction.cs" />
+    <Compile Include="crane\actions\Crane.MoveCraneAction.cs" />
+    <Compile Include="crane\actions\Crane.LoadCraneAction.cs" />
+    <Compile Include="crane\actions\Crane.UnloadCraneAction.cs" />
+    <Compile Include="crane\actions\Crane.MacroCraneAction.cs" />
+    <Compile Include="crane\actions\CranePositionDifference.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="crane\Crane.evnets.cs" />
+    <Compile Include="crane\Crane.process_telex.cs" />
+    <Compile Include="ClientAcceptedEventArgs.cs" />
+    <Compile Include="crane\CraneFork.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="crane\network\CraneClientProxy.cs" />
+    <Compile Include="CRN\任务.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CRN\报文\Telex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CRN\报文\HA.cs" />
+    <Compile Include="CRN\报文\HB.cs" />
+    <Compile Include="CRN\报文\HC.cs" />
+    <Compile Include="CRN\报文\HE.cs" />
+    <Compile Include="CRN\报文\HP.cs" />
+    <Compile Include="CRN\报文\LA.cs" />
+    <Compile Include="CRN\报文\LB.cs" />
+    <Compile Include="CRN\接收.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CRN\站点.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="log\Logger.cs" />
+    <Compile Include="TcpServer.cs" />
+    <Compile Include="log\TextBoxTraceListener.cs" />
+    <Compile Include="crane\Crane.cs" />
+    <Compile Include="frmCRN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCRN.Designer.cs">
+      <DependentUpon>frmCRN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmCRN.resx">
+      <DependentUpon>frmCRN.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="crane\network\RequestTelexReceivedEventArgs.cs" />
+    <Compile Include="crane\network\RequestTelexBuilder.cs" />
+    <Compile Include="全局.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sound.png" />
+    <None Include="Resources\run.png" />
+    <None Include="Resources\red.ico" />
+    <None Include="Resources\nosound.png" />
+    <None Include="Resources\lock.png" />
+    <None Include="Resources\green.ico" />
+    <None Include="Resources\error.png" />
+    <None Include="Resources\disconnect.png" />
+    <None Include="Resources\connected.png" />
+    <None Include="Resources\alarm.png" />
+    <None Include="Resources\white.ico" />
+    <None Include="Resources\active.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

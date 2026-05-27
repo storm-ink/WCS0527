@@ -1,0 +1,173 @@
+﻿using System;
+using System.Diagnostics;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+
+namespace Gensong
+{ 
+    /// <summary>
+    /// 实现一个简单的 Tcp 服务器。
+    /// </summary>
+    public class TcpServer
+    {
+        IPEndPoint _endPoint;
+        TcpListener _tcpListener;
+        Boolean _stopCalled;
+
+        public TcpServer(String ip, Int32 port) : this(new IPEndPoint(System.Net.IPAddress.Parse(ip), port))
+        {
+        }
+        public TcpServer(IPEndPoint endPoint)
+        {
+            _endPoint = endPoint;
+
+
+            this.ClientAccepted += (sender, e) =>
+                {
+                    //IPEndPoint ep = (IPEndPoint)e.TcpClient.Client.RemoteEndPoint;
+                    Logger.Info("TcpServer: 客户端连入 {0}。", e.TcpClient.Client.RemoteEndPoint);
+                };
+
+            this.Error += (sender, e) =>
+            {
+                Logger.Error("TcpServer: 发生错误。");
+            };
+            this.Started += (sender, e) =>
+            {
+                Logger.Info("TcpServer: 已启动。");
+            };
+            this.Starting += (sender, e) =>
+            {
+                Logger.Info("TcpServer: 正在启动，侦听地址：{0}。", this.IPAddress);
+            };
+            this.Stopped += (sender, e) =>
+            {
+                Logger.Info("TcpServer: 已停止。");
+            };
+            this.Stopping += (sender, e) =>
+            {
+                Logger.Info("TcpServer: 正在停止。");
+            };
+
+        }
+
+        public IPEndPoint IPAddress
+        {
+            get
+            {
+                return _endPoint;
+            }
+        }
+
+        public void Start()
+        {
+            _stopCalled = false;
+            Thread t = new Thread(new ThreadStart(Listen));
+            t.Start();
+        }
+
+        public void Listen()
+        {
+            _tcpListener = new TcpListener(_endPoint);
+
+            try
+            {
+                OnStarting(EventArgs.Empty);
+                _tcpListener.Start();
+                OnStarted(EventArgs.Empty);
+
+                // 侦听循环
+                while (!_stopCalled)
+                {
+                    if (!_tcpListener.Pending())
+                    {
+                        Thread.Sleep(1);
+                        continue;
+                    }
+                    TcpClient tcpClient = _tcpListener.AcceptTcpClient();
+
+                    // 在新线程中引发事件
+                    ClientAcceptedEventArgs e = new ClientAcceptedEventArgs(tcpClient);
+                    ParameterizedThreadStart ts = new ParameterizedThreadStart(OnClientAccepted);
+                    Thread t = new Thread(ts);
+                    t.Start(new ClientAcceptedEventArgs(tcpClient));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+            finally
+            {
+                OnStopping(EventArgs.Empty);
+
+                _tcpListener.Stop();
+
+                OnStopped(EventArgs.Empty);
+            }
+        }
+        public void Stop()
+        {
+            _stopCalled = true;
+        }
+
+        public event EventHandler Starting;
+        public event EventHandler Started;
+        public event EventHandler Stopping;
+        public event EventHandler Stopped;
+        public event EventHandler Error;
+        public event EventHandler<ClientAcceptedEventArgs> ClientAccepted;
+
+        protected virtual void OnStarting(EventArgs e)
+        {
+            if (this.Starting != null)
+            {
+                this.Starting(this, e);
+            }
+        }
+        protected virtual void OnStarted(EventArgs e)
+        {
+            if (this.Started != null)
+            {
+                this.Started(this, e);
+            }
+        }
+
+        protected virtual void OnStopping(EventArgs e)
+        {
+            if (this.Stopping != null)
+            {
+                this.Stopping(this, e);
+            }
+        }
+        protected virtual void OnStopped(EventArgs e)
+        {
+            if (this.Stopped != null)
+            {
+                this.Stopped(this, e);
+            }
+        }
+
+        protected virtual void OnError(EventArgs e)
+        {
+            if (this.Error != null)
+            {
+                this.Error(this, e);
+            }
+        }
+        protected virtual void OnClientAccepted(ClientAcceptedEventArgs e)
+        {
+            if (this.ClientAccepted != null)
+            {
+                this.ClientAccepted(this, e);
+            }
+        }
+
+        private void OnClientAccepted(Object e)
+        {
+            OnClientAccepted((ClientAcceptedEventArgs)e);
+        }
+    }
+}

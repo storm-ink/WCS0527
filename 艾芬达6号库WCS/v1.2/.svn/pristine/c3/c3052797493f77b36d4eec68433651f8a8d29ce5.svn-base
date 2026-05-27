@@ -1,0 +1,134 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Net.Sockets;
+using System.Threading;
+using System.Diagnostics;
+using Wcs.DefaultImplementCollection.Conveyor;
+using System.Net;
+
+namespace 输送线模拟程序.ConveyorServer
+{
+    /// <summary>
+    /// 堆垛机客户端代理。堆垛机模拟程序通过此代理同客户端对话。
+    /// </summary>
+    public class ConveyorClientProxy
+    {
+        TcpClient _tcpClient;
+        Boolean _closeCalled;
+
+        public DefaultConveyorTcpProtocolDataReceiver ReceiverDecoder { get; set; }
+
+
+        public EndPoint ClientAddress { get; private set; }
+
+        public ConveyorClientProxy(TcpClient tcpClient, DefaultConveyorTcpProtocolDataReceiver receiverDecoder)
+        {
+            if (tcpClient == null)
+            {
+                throw new ArgumentNullException("tcpClient");
+            }
+            _tcpClient = tcpClient;
+            _tcpClient.ReceiveBufferSize = 0;
+            this.ReceiverDecoder = receiverDecoder;
+            this.Closed += (sender, e) =>
+            {
+                //Logger.Info("CraneClientProxy: 堆垛机客户端代理已关闭。");
+            };
+
+            ClientAddress = tcpClient.Client.LocalEndPoint;
+
+            //ReceiverDecoder=new DefaultConveyorTcpProtocolDataReceiver(
+        }
+
+        //public event EventHandler<RequestTelexReceivedEventArgs> RequestTelexReceived;
+        //protected virtual void OnRequestTelexReceived(RequestTelexReceivedEventArgs e)
+        //{
+        //    if (RequestTelexReceived != null)
+        //    {
+        //        RequestTelexReceived(this, e);
+        //    }
+        //}
+
+        /// <summary>
+        /// 将报文发给客户端。
+        /// </summary>
+        public void SendResponseTelex(byte[] telex)
+        {
+            if (telex == null)
+            {
+                throw new ArgumentNullException("telex");
+            }
+
+            if (_closeCalled)
+            {
+                throw new InvalidOperationException("此代理已关闭。");
+            }
+
+            NetworkStream networkStream = _tcpClient.GetStream();
+            networkStream.Write(telex, 0, telex.Length);
+        }
+
+        public void StartRead()
+        {
+            Thread t = new Thread(new ThreadStart(Read)); 
+            t.Start();
+        }
+
+        private void Read()
+        {
+            _closeCalled = false;
+
+            NetworkStream networkStream = _tcpClient.GetStream();
+            networkStream.ReadTimeout = System.Threading.Timeout.Infinite;
+            const int bufferSize = 1024;
+            byte[] buffer = new byte[bufferSize];
+
+            int numberRead = 0;
+            try
+            {
+                do
+                {
+                    numberRead = networkStream.Read(buffer, 0, bufferSize);
+                    if (numberRead == 0) break;
+
+                    ReceiverDecoder.AddBytes(buffer.Take(numberRead).ToArray());
+                    
+                    Thread.Sleep(1);
+                } while (!_closeCalled && _tcpClient.Connected);
+
+            }
+            catch (Exception ex)
+            {
+              
+            }
+
+            CloseInternal();
+            OnClosed(EventArgs.Empty);
+        }
+
+        internal void Close()
+        {
+            _closeCalled = true;
+            CloseInternal();
+        }
+
+        private void CloseInternal()
+        {
+            _tcpClient.Client.Close();
+            _tcpClient.Close();
+
+            ReceiverDecoder.Clear();
+        }
+        public event EventHandler Closed;
+
+        protected virtual void OnClosed(EventArgs e)
+        {
+            if (this.Closed != null)
+            {
+                this.Closed(this, e);
+            }
+        }
+    }
+}

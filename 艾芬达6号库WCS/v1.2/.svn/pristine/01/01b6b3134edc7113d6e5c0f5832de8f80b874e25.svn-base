@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <netPackageDecoders>
+    <netPackageDecoder type="Wcs.Framework.DefaultConveyorNetPackageDecoder, ConveyorSimulationApplication" name="netPackageDecoder1">
+      <collection type="Wcs.Framework.Devices.TaskBlock, ConveyorSimulationApplication" blockBytes="28" itemCount="100">
+        <property name="HandShake" index="0" size="2" type="UInt16" />
+        <property name="AssignmentID" index="2" size="4" type="UInt32" />
+        <property name="TU_ID" index="6" size="2" type="UInt16" />
+        <property name="TU_Type" index="8" size="2" type="UInt16" />
+        <property name="IO_Data" index="10" size="2" type="UInt16" />
+        <property name="RotingNo" index="12" size="2" type="UInt16" />
+        <property name="StartMotorNo" index="14" size="2" type="UInt16" />
+        <property name="DestinationNo" index="16" size="2" type="UInt16" />
+        <property name="TaskStatus" index="18" size="2" type="UInt16" />
+        <property name="ReadTask" index="20" size="4" type="UInt32" />
+        <property name="spare" index="24" size="4" type="UInt32" />
+      </collection>
+      <collection type="Wcs.Framework.Devices.LocationCurrentTask, ConveyorSimulationApplication" blockBytes="10" itemCount="200">
+        <property name="PosNo" index="0" size="2" type="UInt16" />
+        <property name="TaskNo" index="2" size="4" type="UInt32" />
+        <property name="TUID" index="6" size="2" type="UInt16" />
+        <property name="Str_Rcv_X" index="8.0" size="1" type="Boolean" />
+        <property name="Fnh_Rcv_X" index="8.1" size="1" type="Boolean" />
+        <property name="Rqs_Snt" index="8.2" size="1" type="Boolean" />
+        <property name="Rcv_Rdy" index="8.3" size="1" type="Boolean" />
+        <property name="Str_Rcv_Y" index="8.4" size="1" type="Boolean" />
+        <property name="Fnh_Rcv_Y" index="8.5" size="1" type="Boolean" />
+      </collection>
+      <collection type="Wcs.Framework.Devices.ConveyorLocationState, ConveyorSimulationApplication" blockBytes="4" itemCount="200">
+        <property name="PosNo" index="0" size="2" type="UInt16" />
+        <property name="Status" index="2" size="2" type="UInt16" />
+      </collection>
+      <collection type="Wcs.Framework.Devices.MachineAlarms, ConveyorSimulationApplication" blockBytes="6" itemCount="200">
+        <property name="PosNo" index="0" size="2" type="UInt16" />
+        <property name="Manual" index="2" size="1" type="Boolean" />
+        <property name="Isolator" index="2.1" size="1" type="Boolean" />
+        <property name="Breaker" index="2.2" size="1" type="Boolean" />
+        <property name="Photocell" index="2.3" size="1" type="Boolean" />
+        <property name="RunOvertime" index="2.4" size="1" type="Boolean" />
+        <property name="OccupyOvertime" index="2.5" size="1" type="Boolean" />
+        <property name="TaskNoGoods" index="2.6" size="1" type="Boolean" />
+        <property name="MotorUseStatus" index="3" size="1" type="Byte" />
+        <property name="X_MotorVAF" index="4" size="1" type="Boolean" />
+        <property name="Y_MotorVAF" index="4.1" size="1" type="Boolean" />
+        <property name="X_MotorContactor" index="4.2" size="1" type="Boolean" />
+        <property name="X_MotorBraker" index="4.3" size="1" type="Boolean" />
+        <property name="Y_MotorContactor" index="4.4" size="1" type="Boolean" />
+        <property name="Y_MotorBraker" index="4.5" size="1" type="Boolean" />
+        <property name="Lift_MotorContactor" index="4.6" size="1" type="Boolean" />
+        <property name="Lift_MotorBraker" index="4.7" size="1" type="Boolean" />
+        <property name="Spare" index="5" size="1" type="Byte" />
+      </collection>
+      <collection type="Wcs.Framework.Devices.OccupyStatus, ConveyorSimulationApplication" blockBytes="4" itemCount="200">
+        <property name="PosNo" index="0" size="2" type="UInt16" />
+        <property name="PhocllUseStatus" index="2" size="1" type="Byte" />
+        <property name="FroProPotocell" index="3" size="1" type="Boolean" />
+        <property name="FroPosPotocell" index="3.1" size="1" type="Boolean" />
+        <property name="FroSloPotocell" index="3.2" size="1" type="Boolean" />
+        <property name="AftProPotocell" index="3.3" size="1" type="Boolean" />
+        <property name="AftPosPotocell" index="3.4" size="1" type="Boolean" />
+        <property name="AftSloPotocell" index="3.5" size="1" type="Boolean" />
+        <property name="UpPotocell" index="3.6" size="1" type="Boolean" />
+        <property name="DownPotocell" index="3.7" size="1" type="Boolean" />
+      </collection>
+      <collection type="Wcs.Framework.Devices.OccupiedSignal, ConveyorSimulationApplication" blockBytes="14" itemCount="50">
+        <property name="PosNo" index="0" size="2" type="UInt16" />
+        <property name="HandShake" index="2" size="2" type="UInt16" />
+        <property name="AssignmentID" index="4" size="4" type="UInt32" />
+        <property name="TU_ID" index="8" size="2" type="UInt16" />
+        <property name="TU_Type" index="10" size="2" type="UInt16" />
+        <property name="IO_Data" index="12" size="2" type="UInt16" />
+      </collection>
+      <collection type="Wcs.Framework.Devices.CraneWorkModeKeyInfo, ConveyorSimulationApplication" blockBytes="4" itemCount="8">
+        <property name="CraneNo" index="0" size="2" type="UInt16" />
+        <property name="IsManual" index="2.0" size="1" type="Boolean" />
+        <property name="IsBrake" index="2.1" size="1" type="Boolean" />
+      </collection>
+    </netPackageDecoder>
+    <netPackageDecoder type="Wcs.Framework.DefaultConveyorNetPackageDecoder, ConveyorSimulationApplication" name="netPackageDecoder2">
+      <collection type="Wcs.Framework.Devices.SendTaskBlock, ConveyorSimulationApplication" blockBytes="24" itemCount="1">
+        <property name="HandShake" index="0" size="2" type="UInt16" />
+        <property name="AssignmentID" index="2" size="4" type="UInt32" />
+        <property name="TU_ID" index="6" size="2" type="UInt16" />
+        <property name="TU_Type" index="8" size="2" type="UInt16" />
+        <property name="IO_Data" index="10" size="2" type="UInt16" />
+        <property name="RotingNo" index="12" size="2" type="UInt16" />
+        <property name="StartMotorNo" index="14" size="2" type="UInt16" />
+        <property name="DestinationNo" index="16" size="2" type="UInt16" />
+        <property name="Index" index="18" size="2" type="UInt16" />
+        <property name="Spare" index="20" size="4" type="UInt32" />
+      </collection>
+      <collection type="Wcs.Framework.Devices.SendOccupiedSignal, ConveyorSimulationApplication" blockBytes="16" itemCount="1">
+        <property name="PosNo" index="0" size="2" type="UInt16" />
+        <property name="HandShake" index="2" size="2" type="UInt16" />
+        <property name="AssignmentID" index="4" size="4" type="UInt32" />
+        <property name="TU_ID" index="8" size="2" type="UInt16" />
+        <property name="TU_Type" index="10" size="2" type="UInt16" />
+        <property name="IO_Data" index="12" size="2" type="UInt16" />
+        <property name="Index" index="14" size="2" type="UInt16" />
+      </collection>
+      <collection type="Wcs.Framework.Devices.SendClearLocationCurrentTask, ConveyorSimulationApplication" blockBytes="10" itemCount="1">
+        <property name="PosNo" index="0" size="2" type="UInt16" />
+        <property name="TaskNo" index="2" size="4" type="UInt32" />
+        <property name="TUID" index="6" size="2" type="UInt16" />
+        <property name="Index" index="8" size="2" type="UInt16" />
+      </collection>
+      <!--<collection type="Wcs.Framework.Devices.SendRgvTaskBlock, ConveyorSimulationApplication" blockBytes="34" itemCount="6">
+        <property name="SC_No" index="0" size="2" type="UInt16" />
+        <property name="Chain1_TaskNo" index="2" size="4" type="UInt32" />
+        <property name="FromStation1" index="6" size="2" type="UInt16" />
+        <property name="ToStation1" index="8" size="2" type="UInt16" />
+        <property name="Chain1_FirstAction" index="10" size="2" type="UInt16" />
+        <property name="Chain1_SecondAction" index="12" size="2" type="UInt16" />
+        <property name="Chain2_TaskNo" index="14" size="4" type="UInt32" />
+        <property name="FromStation2" index="18" size="2" type="UInt16" />
+        <property name="ToStation2" index="20" size="2" type="UInt16" />
+        <property name="Chain2_FirstAction" index="22" size="2" type="UInt16" />
+        <property name="Chain2_SecondAction" index="24" size="2" type="UInt16" />
+        <property name="Command" index="26" size="2" type="UInt16" />
+        <property name="ClearTaskCommand" index="28" size="2" type="UInt16" />
+        <property name="Received" index="30" size="4" type="UInt32" />
+      </collection>-->
+    </netPackageDecoder>
+  </netPackageDecoders>
+  <!--
+  物理设备集合
+    堆垛机
+      name:设备名
+      no:编号
+      ip:主机地址
+      port:tcp端口
+    输送线
+      name:设备名
+      no:编号
+      ip:主机地址
+      port:tcp端口
+    穿梭车
+      name:设备名
+      no:编号
+      ip:主机地址
+      port:tcp端口  
+  -->
+  <devices>
+    <cranes>
+      <crane name="c001" no="1" ip="192.168.1.11" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000"/>
+      <crane name="c002" no="2" ip="192.168.1.12" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000"/>
+      <crane name="c003" no="3" ip="192.168.1.13" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000"/>
+      <crane name="c004" no="4" ip="192.168.1.14" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000"/>
+      <crane name="c005" no="5" ip="192.168.1.15" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000"/>
+      <crane name="c006" no="6" ip="192.168.1.16" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000"/>
+      <crane name="c007" no="7" ip="192.168.1.17" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000"/>
+      <crane name="c008" no="8" ip="192.168.1.18" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000"/>
+    </cranes>
+    <conveyors>
+      <conveyor name="conveyor1" no="1" ip="192.168.1.200" port="8000" senderDecoder="netPackageDecoder1" receiverDecoder="netPackageDecoder2" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000">
+        <locations>
+          <location id="1" />
+          <location id="2" />
+          <location id="5" />
+          <location id="6" />
+          <location id="7" />
+          <location id="8" />
+          <location id="11" />
+          <location id="12" />
+          <location id="13" />
+          <location id="14" />
+          <location id="17" />
+          <location id="18" />
+          <location id="19" />
+          <location id="20" />
+          <location id="21" />
+          <location id="22" />
+          <location id="23" />
+          <location id="24" />
+          <location id="25" />
+          <location id="26" />
+          <location id="27" />
+          <location id="30" />
+          <location id="31" />
+          <location id="32" />
+          <location id="33" />
+          <location id="36" />
+          <location id="37" />
+          <location id="38" />
+          <location id="39" />
+          <location id="42" />
+          <location id="43" />
+          <location id="44" />
+          <location id="45" />
+          <location id="46" />
+          <location id="47" />
+          <location id="48" />
+          <location id="49" />
+          <location id="50" />
+          <location id="51" />
+          <location id="52" />
+          <location id="53" />
+          <location id="54" />
+          <location id="55" />
+          <location id="56" />
+          <location id="57" />
+          <location id="58" />
+          <location id="59" />
+          <location id="60" />
+          <location id="61" />
+          <location id="62" />
+          <location id="63" />
+          <location id="64" />
+          <location id="65" />
+          <location id="66" />
+        </locations>
+      </conveyor>
+    </conveyors>
+    <rgvs>
+      <rgv name="rgv1" no="1" ip="192.168.1.90" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000">
+        <locations>
+          <location id="100" />
+        </locations>
+      </rgv>
+      <rgv name="rgv2" no="2" ip="192.168.1.91" port="4001" receiveTimeout="2000" connectTimeout="2000" sendTimeout="3000">
+        <locations>
+          <location id="101" />
+        </locations>
+      </rgv>
+    </rgvs>
+  </devices>
+  <routes>
+    <!--
+    id:路径编号
+    path:该路径经过的所有货位，默认所有的货位都属性指定的 device 对象，否则请按 deviceCode@deviceName的格式填写
+    direction:运动方向
+    adjoins:临接边
+    type:路径类型
+    device：控制路径的设备名称
+    enabled:是否启用
+    -->
+    <route id="1" path="17,100@rgv1,19,52" direction="In" adjoins="130" type="Normal" device="conveyor1" />
+    <route id="2" path="17,100@rgv1,20,53" direction="In" adjoins="132" type="Normal" device="conveyor1" />
+    <route id="3" path="17,100@rgv1,23,56" direction="In" adjoins="134" type="Normal" device="conveyor1" />
+    <route id="4" path="17,100@rgv1,24,57" direction="In" adjoins="136" type="Normal" device="conveyor1" />
+    <route id="5" path="30,101@rgv2,44,60" direction="In" adjoins="138" type="Normal" device="conveyor1" />
+    <route id="6" path="30,101@rgv2,45,61" direction="In" adjoins="140" type="Normal" device="conveyor1" />
+    <route id="7" path="30,101@rgv2,48,64" direction="In" adjoins="142" type="Normal" device="conveyor1" />
+    <route id="8" path="30,101@rgv2,49,65" direction="In" adjoins="144" type="Normal" device="conveyor1" />
+    <route id="9" path="5,100@rgv1,19,52" direction="In" adjoins="130" type="Normal" device="conveyor1" />
+    <route id="10" path="5,100@rgv1,20,53" direction="In" adjoins="132" type="Normal" device="conveyor1" />
+    <route id="11" path="5,100@rgv1,23,56" direction="In" adjoins="134" type="Normal" device="conveyor1" />
+    <route id="12" path="5,100@rgv1,24,57" direction="In" adjoins="136" type="Normal" device="conveyor1" />
+    <route id="13" path="42,101@rgv2,44,60" direction="In" adjoins="138" type="Normal" device="conveyor1" />
+    <route id="14" path="42,101@rgv2,45,61" direction="In" adjoins="140" type="Normal" device="conveyor1" />
+    <route id="15" path="42,101@rgv2,48,64" direction="In" adjoins="142" type="Normal" device="conveyor1" />
+    <route id="16" path="42,101@rgv2,49,65" direction="In" adjoins="144" type="Normal" device="conveyor1" />
+    <route id="17" path="18,100@rgv1,5,2,1" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="18" path="21,100@rgv1,5,2,1" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="19" path="22,100@rgv1,5,2,1" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="20" path="25,100@rgv1,5,2,1" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="21" path="43,101@rgv2,42,39,38" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="22" path="46,101@rgv2,42,39,38" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="23" path="47,101@rgv2,42,39,38" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="24" path="50,101@rgv2,42,39,38" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="25" path="18,100@rgv1,11,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="26" path="21,100@rgv1,11,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="27" path="22,100@rgv1,11,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="28" path="25,100@rgv1,11,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="29" path="43,101@rgv2,36,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="30" path="46,101@rgv2,36,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="31" path="47,101@rgv2,36,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="32" path="50,101@rgv2,36,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="33" path="18,100@rgv1,17,14,13" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="34" path="21,100@rgv1,17,14,13" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="35" path="22,100@rgv1,17,14,13" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="36" path="25,100@rgv1,17,14,13" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="37" path="43,101@rgv2,30,27,26" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="38" path="46,101@rgv2,30,27,26" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="39" path="47,101@rgv2,30,27,26" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="40" path="50,101@rgv2,30,27,26" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="41" path="14,12,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="42" path="2,6,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="43" path="27,31,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="44" path="39,37,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="45" path="30,100@rgv1,44,60" direction="In" adjoins="138" type="Normal" device="conveyor1" />
+    <route id="46" path="30,100@rgv1,45,61" direction="In" adjoins="140" type="Normal" device="conveyor1" />
+    <route id="47" path="30,100@rgv1,48,64" direction="In" adjoins="142" type="Normal" device="conveyor1" />
+    <route id="48" path="30,100@rgv1,49,65" direction="In" adjoins="144" type="Normal" device="conveyor1" />
+    <route id="49" path="42,100@rgv1,44,60" direction="In" adjoins="138" type="Normal" device="conveyor1" />
+    <route id="50" path="42,100@rgv1,45,61" direction="In" adjoins="140" type="Normal" device="conveyor1" />
+    <route id="51" path="42,100@rgv1,48,64" direction="In" adjoins="142" type="Normal" device="conveyor1" />
+    <route id="52" path="42,100@rgv1,49,65" direction="In" adjoins="144" type="Normal" device="conveyor1" />
+    <route id="53" path="43,100@rgv1,42,39,38" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="54" path="46,100@rgv1,42,39,38" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="55" path="47,100@rgv1,42,39,38" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="56" path="50,100@rgv1,42,39,38" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="57" path="43,100@rgv1,36,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="58" path="46,100@rgv1,36,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="59" path="47,100@rgv1,36,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="60" path="50,100@rgv1,36,33,32" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="61" path="43,100@rgv1,30,27,26" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="62" path="46,100@rgv1,30,27,26" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="63" path="47,100@rgv1,30,27,26" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="64" path="50,100@rgv1,30,27,26" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="65" path="17,101@rgv2,19,52" direction="In" adjoins="130" type="Normal" device="conveyor1" />
+    <route id="66" path="17,101@rgv2,20,53" direction="In" adjoins="132" type="Normal" device="conveyor1" />
+    <route id="67" path="17,101@rgv2,23,56" direction="In" adjoins="134" type="Normal" device="conveyor1" />
+    <route id="68" path="17,101@rgv2,24,57" direction="In" adjoins="136" type="Normal" device="conveyor1" />
+    <route id="69" path="5,101@rgv2,19,52" direction="In" adjoins="130" type="Normal" device="conveyor1" />
+    <route id="70" path="5,101@rgv2,20,53" direction="In" adjoins="132" type="Normal" device="conveyor1" />
+    <route id="71" path="5,101@rgv2,23,56" direction="In" adjoins="134" type="Normal" device="conveyor1" />
+    <route id="72" path="5,101@rgv2,24,57" direction="In" adjoins="136" type="Normal" device="conveyor1" />
+    <route id="73" path="18,101@rgv2,5,2,1" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="74" path="21,101@rgv2,5,2,1" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="75" path="22,101@rgv2,5,2,1" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="76" path="25,101@rgv2,5,2,1" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="77" path="18,101@rgv2,11,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="78" path="21,101@rgv2,11,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="79" path="22,101@rgv2,11,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="80" path="25,101@rgv2,11,8,7" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="81" path="18,101@rgv2,17,14,13" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="82" path="21,101@rgv2,17,14,13" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="83" path="22,101@rgv2,17,14,13" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="84" path="25,101@rgv2,17,14,13" direction="Out" adjoins="" type="Normal" device="conveyor1" />
+    <route id="85" path="14,17" direction="In" adjoins="1,2,3,4,65,66,67,68" type="Normal" device="conveyor1" />
+    <route id="86" path="27,30" direction="In" adjoins="5,6,7,8,45,46,47,48" type="Normal" device="conveyor1" />
+    <route id="87" path="2,5" direction="In" adjoins="9,10,11,12,69,70,71,72" type="Normal" device="conveyor1" />
+    <route id="88" path="39,42" direction="In" adjoins="13,14,15,16,49,50,51,52" type="Normal" device="conveyor1" />
+    <route id="89" path="51,18" direction="Out" adjoins="17,25,33,73,77,81,103,108" type="Normal,Counting" device="conveyor1" />
+    <route id="90" path="54,21" direction="Out" adjoins="18,26,34,74,78,82,104,109" type="Normal,Counting" device="conveyor1" />
+    <route id="91" path="55,22" direction="Out" adjoins="19,27,35,75,79,83,105,110" type="Normal,Counting" device="conveyor1" />
+    <route id="92" path="58,25" direction="Out" adjoins="20,28,36,76,80,84,106,111" type="Normal,Counting" device="conveyor1" />
+    <route id="93" path="59,43" direction="Out" adjoins="21,29,37,53,57,61,119,124" type="Normal,Counting" device="conveyor1" />
+    <route id="94" path="62,46" direction="Out" adjoins="22,30,38,54,58,62,120,125" type="Normal,Counting" device="conveyor1" />
+    <route id="95" path="63,47" direction="Out" adjoins="23,31,39,55,59,63,121,126" type="Normal,Counting" device="conveyor1" />
+    <route id="96" path="66,50" direction="Out" adjoins="24,32,40,56,60,64,122,127" type="Normal,Counting" device="conveyor1" />
+    <route id="97" path="2,6,8,11" direction="In" adjoins="99,100,101,102" type="Counting" device="conveyor1" />
+    <route id="98" path="14,12,8,11" direction="In" adjoins="99,100,101,102" type="Counting" device="conveyor1" />
+    <route id="99" path="11,100@rgv1,19,52" direction="In" adjoins="130" type="Counting" device="conveyor1" />
+    <route id="100" path="11,100@rgv1,20,53" direction="In" adjoins="132" type="Counting" device="conveyor1" />
+    <route id="101" path="11,100@rgv1,23,56" direction="In" adjoins="134" type="Counting" device="conveyor1" />
+    <route id="102" path="11,100@rgv1,24,57" direction="In" adjoins="136" type="Counting" device="conveyor1" />
+    <route id="103" path="18,100@rgv1,5" direction="Out" adjoins="" type="Counting" device="conveyor1" />
+    <route id="104" path="21,100@rgv1,5" direction="Out" adjoins="" type="Counting" device="conveyor1" />
+    <route id="105" path="22,100@rgv1,5" direction="Out" adjoins="" type="Counting" device="conveyor1" />
+    <route id="106" path="25,100@rgv1,5" direction="Out" adjoins="" type="Counting" device="conveyor1" />
+    <route id="107" path="5,2,1" direction="Out" adjoins="" type="Counting" notBlockUpWhenCross="2" device="conveyor1" />
+    <route id="108" path="18,100@rgv1,17" direction="Out" adjoins="112" type="Counting" device="conveyor1" />
+    <route id="109" path="21,100@rgv1,17" direction="Out" adjoins="112" type="Counting" device="conveyor1" />
+    <route id="110" path="22,100@rgv1,17" direction="Out" adjoins="112" type="Counting" device="conveyor1" />
+    <route id="111" path="25,100@rgv1,17" direction="Out" adjoins="112" type="Counting" device="conveyor1" />
+    <route id="112" path="17,14,13" direction="Out" adjoins="" type="Counting" notBlockUpWhenCross="14" device="conveyor1"/>
+    <route id="113" path="27,31,33,36" direction="In" adjoins="115,116,117,118" type="Counting" device="conveyor1" />
+    <route id="114" path="39,37,33,36" direction="In" adjoins="115,116,117,118" type="Counting" device="conveyor1" />
+    <route id="115" path="36,101@rgv2,44,60" direction="In" adjoins="138" type="Counting" device="conveyor1" />
+    <route id="116" path="36,101@rgv2,45,61" direction="In" adjoins="140" type="Counting" device="conveyor1" />
+    <route id="117" path="36,101@rgv2,48,64" direction="In" adjoins="142" type="Counting" device="conveyor1" />
+    <route id="118" path="36,101@rgv2,49,65" direction="In" adjoins="144" type="Counting" device="conveyor1" />
+    <route id="119" path="43,101@rgv2,30" direction="Out" adjoins="123" type="Counting" device="conveyor1" />
+    <route id="120" path="46,101@rgv2,30" direction="Out" adjoins="123" type="Counting" device="conveyor1" />
+    <route id="121" path="47,101@rgv2,30" direction="Out" adjoins="123" type="Counting" device="conveyor1" />
+    <route id="122" path="50,101@rgv2,30" direction="Out" adjoins="123" type="Counting" device="conveyor1" />
+    <route id="123" path="30,27,26" direction="Out" adjoins="" type="Counting" notBlockUpWhenCross="27" device="conveyor1" />
+    <route id="124" path="43,101@rgv2,42" direction="Out" adjoins="128" type="Counting" device="conveyor1" />
+    <route id="125" path="46,101@rgv2,42" direction="Out" adjoins="128" type="Counting" device="conveyor1" />
+    <route id="126" path="47,101@rgv2,42" direction="Out" adjoins="128" type="Counting" device="conveyor1" />
+    <route id="127" path="50,101@rgv2,42" direction="Out" adjoins="128" type="Counting" device="conveyor1" />
+    <route id="128" path="42,39,38" direction="Out" adjoins="" type="Counting" notBlockUpWhenCross="39" device="conveyor1" />
+    
+    <route id="129" path="*@C001,51@conveyor1" direction="Out" adjoins="89" type="Normal,Counting" device="C001" />
+    <route id="130" path="52@conveyor1,*@C001" direction="In" adjoins="" type="Normal,Counting" device="C001" />
+    
+    <route id="131" path="*@C002,54@conveyor1" direction="Out" adjoins="90" type="Normal,Counting" device="C002" />
+    <route id="132" path="53@conveyor1,*@C002" direction="In" adjoins="" type="Normal,Counting" device="C002" />
+    
+    <route id="133" path="*@C003,55@conveyor1" direction="Out" adjoins="91" type="Normal,Counting" device="C003" />
+    <route id="134" path="56@conveyor1,*@C003" direction="In" adjoins="" type="Normal,Counting" device="C003" />
+    
+    <route id="135" path="*@C004,58@conveyor1" direction="Out" adjoins="92" type="Normal,Counting" device="C004" />
+    <route id="136" path="57@conveyor1,*@C004" direction="In" adjoins="" type="Normal,Counting" device="C004" />
+    
+    <route id="137" path="*@C005,59@conveyor1" direction="Out" adjoins="93" type="Normal,Counting" device="C005" />
+    <route id="138" path="60@conveyor1,*@C005" direction="In" adjoins="" type="Normal,Counting" device="C005" />
+    
+    <route id="139" path="*@C006,62@conveyor1" direction="Out" adjoins="94" type="Normal,Counting" device="C006" />
+    <route id="140" path="61@conveyor1,*@C006" direction="In" adjoins="" type="Normal,Counting" device="C006" />
+    
+    <route id="141" path="*@C007,63@conveyor1" direction="Out" adjoins="95" type="Normal,Counting" device="C007" />
+    <route id="142" path="64@conveyor1,*@C007" direction="In" adjoins="" type="Normal,Counting" device="C007" />
+    
+    <route id="143" path="*@C008,66@conveyor1" direction="Out" adjoins="96" type="Normal,Counting" device="C008" />
+    <route id="144" path="65@conveyor1,*@C008" direction="In" adjoins="" type="Normal,Counting" device="C008" />
+    
+  </routes>
+</configuration>

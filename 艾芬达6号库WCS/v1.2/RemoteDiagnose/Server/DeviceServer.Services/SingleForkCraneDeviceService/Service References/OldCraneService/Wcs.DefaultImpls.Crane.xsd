@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.Crane" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.Crane" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="CraneEvent">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Initialized" />
+      <xs:enumeration value="BeginRunning" />
+      <xs:enumeration value="BeginPickup" />
+      <xs:enumeration value="EndPickup" />
+      <xs:enumeration value="BeginPutin" />
+      <xs:enumeration value="EndPutin" />
+      <xs:enumeration value="Finished" />
+      <xs:enumeration value="EmergencyStop" />
+      <xs:enumeration value="CompletedWithError" />
+      <xs:enumeration value="BackToTheOrigin" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CraneEvent" nillable="true" type="tns:CraneEvent" />
+  <xs:simpleType name="ForkHorizontalPosition">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Center">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Left">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LeftLimit">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Right">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RightLimit">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="E6">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="E7">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="E8">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="E9">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ForkHorizontalPosition" nillable="true" type="tns:ForkHorizontalPosition" />
+  <xs:simpleType name="ForkVerticalPosition">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Middle" />
+      <xs:enumeration value="Top" />
+      <xs:enumeration value="Bottom" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ForkVerticalPosition" nillable="true" type="tns:ForkVerticalPosition" />
+  <xs:simpleType name="CraneStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Initialized" />
+      <xs:enumeration value="BackToTheOrigin" />
+      <xs:enumeration value="无货待命" />
+      <xs:enumeration value="有货待命" />
+      <xs:enumeration value="无货运行" />
+      <xs:enumeration value="有货运行" />
+      <xs:enumeration value="Pickup" />
+      <xs:enumeration value="Putin" />
+      <xs:enumeration value="AlarmAndShutdown" />
+      <xs:enumeration value="ResetAlarm" />
+      <xs:enumeration value="奇怪的状态" />
+      <xs:enumeration value="Disconnected" />
+      <xs:enumeration value="ManualMode" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CraneStatus" nillable="true" type="tns:CraneStatus" />
+  <xs:simpleType name="ForkDirection">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Left">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Right">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Left2">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Right2">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ForkDirection" nillable="true" type="tns:ForkDirection" />
+</xs:schema>

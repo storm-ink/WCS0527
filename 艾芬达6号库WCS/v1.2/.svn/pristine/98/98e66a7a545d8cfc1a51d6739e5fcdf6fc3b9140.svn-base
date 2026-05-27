@@ -1,0 +1,266 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Gensong.CRN;
+using Gensong.MCS;
+
+namespace Gensong
+{
+    [DesignTimeVisible(false)]
+    public partial class ucTask : UserControl
+    {
+        public ucTask()
+        {
+            InitializeComponent();
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            //TaskItem item = bindingSource1.Current as TaskItem;
+            //if (item == null)
+            //{
+            //    return;
+            //}
+            //if (item.ExecuteState != ETaskExecuteState.Nosend)
+            //{
+            //    frmMsgbox.Show(string.Format("任务已下发，若要重新执行，请单击重新执行"));
+            //    return;
+            //}
+            //var config = Config.Get(crn.CName);
+            //if (config.Shelf.CheckCraneState(crn.LA).Length == 0)
+            //{
+            //    return;
+            //}
+
+            //Position mP1; config.Shelf.ParseUTMColRow(item.LoadFrom, out mP1);
+            //Position mP2; config.Shelf.ParseUTMColRow(item.UnloadTo, out mP2);
+
+            //crn.SendTask(item.LoadDirection, mP1, item.UnloadDirection, mP2);
+        }
+
+        private void btnFromLine_Click(object sender, EventArgs e)
+        {
+            btnFromLine.Text = frmInput.Show(btnFromLine.Text, this.ParentForm.Left + 340, this.ParentForm.Top + 210,
+                Config.Get(crn.CName).Shelf.iMaxL, Config.Get(crn.CName).Shelf.iMinL);
+        }
+
+        private void btnFromCol_Click(object sender, EventArgs e)
+        {
+            btnFromCol.Text = frmInput.Show(btnFromCol.Text, this.ParentForm.Left + 340, this.ParentForm.Top + 210,
+                Config.Get(crn.CName).Shelf.iMaxC, Config.Get(crn.CName).Shelf.iMinC);
+        }
+
+        private void btnFromRow_Click(object sender, EventArgs e)
+        {
+            btnFromRow.Text = frmInput.Show(btnFromRow.Text, this.ParentForm.Left + 340, this.ParentForm.Top + 210,
+                Config.Get(crn.CName).Shelf.iMaxR, Config.Get(crn.CName).Shelf.iMinR);
+        }
+
+        private void btnToLine_Click(object sender, EventArgs e)
+        {
+            btnToLine.Text = frmInput.Show(btnToLine.Text, this.ParentForm.Left + 340, this.ParentForm.Top + 210,
+                Config.Get(crn.CName).Shelf.iMaxL, Config.Get(crn.CName).Shelf.iMinL);
+        }
+
+        private void btnToCol_Click(object sender, EventArgs e)
+        {
+            btnToCol.Text = frmInput.Show(btnToCol.Text, this.ParentForm.Left + 340, this.ParentForm.Top + 210,
+                Config.Get(crn.CName).Shelf.iMaxC, Config.Get(crn.CName).Shelf.iMinC);
+
+        }
+
+        private void btnToRow_Click(object sender, EventArgs e)
+        {
+            btnToRow.Text = frmInput.Show(btnToRow.Text, this.ParentForm.Left + 340, this.ParentForm.Top + 210,
+                Config.Get(crn.CName).Shelf.iMaxR, Config.Get(crn.CName).Shelf.iMinR);
+
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(btnFromLine.Text)
+                || String.IsNullOrEmpty(btnFromCol.Text)
+                || String.IsNullOrEmpty(btnFromRow.Text)
+                || String.IsNullOrEmpty(btnToLine.Text)
+                || String.IsNullOrEmpty(btnToCol.Text)
+                || String.IsNullOrEmpty(btnToRow.Text)
+                )
+            {
+                return;
+            }
+            try
+            {
+                //TaskItem item = new TaskItem();
+                //item.TaskNo = Task.GetGotId;
+                //item.LoadDirection = Util.PEnum<EForkLR>(btnFromLine.Text);
+                //item.LoadFrom = new Position(Int32.Parse(btnFromCol.Text), Int32.Parse(btnFromRow.Text));
+                //item.UnloadDirection = Util.PEnum<EForkLR>(btnToLine.Text);
+                //item.UnloadTo = new Position(Int32.Parse(btnToCol.Text), Int32.Parse(btnToRow.Text));
+                //bindingSource1.Add(item);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnFinish_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRerun_Click(object sender, EventArgs e)
+        {
+            //TaskItem item = bindingSource1.Current as TaskItem;
+            //if (item == null) return;
+
+            //var config = Config.Get(crn.CName);
+            //if (config.Shelf.CheckCraneState(crn.LA) == false)
+            //{
+            //    return;
+            //}
+
+            //Position mP1; config.Shelf.ParseUTMColRow(item.LoadFrom, out mP1);
+            //Position mP2; config.Shelf.ParseUTMColRow(item.UnloadTo, out mP2);
+
+            //crn.SendTask(item.LoadDirection, mP1, item.UnloadDirection, mP2);
+        }
+
+        private void _craneProxy_ResponseTelexReceived(object sender, ResponseEvent e)
+        {
+            if (e.Telex is LA)
+            {
+                LA la = (LA)e.Telex;
+                Action m = () =>
+                {
+                    var taskItem = bindingSource1.List.Cast<TaskItem>().SingleOrDefault(x => x.TaskNo == la.TaskId);
+                    if (taskItem != null)
+                    {
+                        switch (la.Event)
+                        {
+                            case ECraneEvent.E01: taskItem.ExecuteState = ETaskExecuteState.Running; break;
+                            case ECraneEvent.E02: taskItem.ExecuteState = ETaskExecuteState.Geting; break;
+                            case ECraneEvent.E03: taskItem.ExecuteState = ETaskExecuteState.Getend; break;
+                            case ECraneEvent.E04: taskItem.ExecuteState = ETaskExecuteState.Seting; break;
+                            case ECraneEvent.E05: taskItem.ExecuteState = ETaskExecuteState.Setend; break;
+                            case ECraneEvent.E06: taskItem.ExecuteState = ETaskExecuteState.Finished; break;
+                            case ECraneEvent.E07: taskItem.ExecuteState = ETaskExecuteState.Stoped; break;
+                            case ECraneEvent.E08: taskItem.ExecuteState = ETaskExecuteState.FinishedError; break;
+                            default: break;
+                        }
+
+                        //dgvTask.Refresh();
+                    }
+                };
+                this.Invoke(m);
+            }
+        }
+
+        public class TaskItem
+        {
+            public TaskItem()
+            {
+                this.AddTime = DateTime.Now;
+                this.ExecuteState = ETaskExecuteState.Nosend;
+            }
+            public String TaskNo { get; set; }
+            public EForkLR LoadDirection { get; set; }
+            public Position LoadFrom { get; set; }
+            public String LoadPosition
+            {
+                get
+                {
+                    return String.Format("{0}, {1}, {2}"
+                        , LoadDirection
+                        , LoadFrom.MCol
+                        , LoadFrom.MRow
+                        );
+                }
+            }
+            public EForkLR UnloadDirection { get; set; }
+            public Position UnloadTo { get; set; }
+            public String UnloadPosition
+            {
+                get
+                {
+                    return String.Format("{0}, {1}, {2}"
+                        , UnloadDirection
+                        , UnloadTo.MCol
+                        , UnloadTo.MRow
+                        );
+                }
+            }
+
+            public ETaskExecuteState ExecuteState { get; set; }
+            public DateTime AddTime { get; set; }
+        }
+
+        /// <summary>任务执行状态</summary>
+        public enum ETaskExecuteState
+        {
+            /// <summary>未下发</summary>
+            Nosend,
+            /// <summary>正在运行</summary>
+            Running,
+
+            /// <summary>正在取货</summary>
+            Geting,
+            /// <summary>取货完成</summary>
+            Getend,
+            /// <summary>正在放货</summary>
+            Seting,
+            /// <summary>放货完成</summary>
+            Setend,
+
+            /// <summary>急停</summary>
+            Stoped,
+
+            /// <summary>正常完成</summary>
+            Finished,
+            /// <summary>错误完成</summary>
+            FinishedError
+        }
+
+
+
+        /// <summary>堆垛机 通讯</summary>
+        private Crane crn;
+        public Crane Crane
+        {
+            set
+            {
+                if (crn != null)
+                    crn.EResponseTelex -= new EventHandler<ResponseEvent>(_craneProxy_ResponseTelexReceived);
+
+                crn = value;
+
+                //bindingSource1.Clear();
+
+                //if (crn != null)
+                //    crn.EResponseTelex += new EventHandler<ResponseEvent>(_craneProxy_ResponseTelexReceived);
+            }
+        }
+
+        //public void CraneProxy(Crane craneProxy)
+        //{
+        //    if (Crane != null)
+        //    {
+        //        Crane.EResponseTelex -= new EventHandler<ResponseEvent>(_craneProxy_ResponseTelexReceived);
+        //    }
+
+        //    Crane = craneProxy;
+
+        //    bindingSource1.Clear();
+
+        //    if (Crane != null)
+        //    {
+        //        Crane.EResponseTelex += new EventHandler<ResponseEvent>(_craneProxy_ResponseTelexReceived);
+        //    }
+        //}
+    }
+}

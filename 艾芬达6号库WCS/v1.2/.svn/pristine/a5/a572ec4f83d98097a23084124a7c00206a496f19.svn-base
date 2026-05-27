@@ -1,0 +1,414 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Net;
+using System.Configuration;
+
+namespace Gensong
+{
+    public partial class Crane
+    {
+        private System.Timers.Timer _timer;
+        private Position _position;
+        internal CraneStateInternal _stateInternal;
+
+        /// <summary>
+        /// 堆垛机上是否有货。
+        /// </summary>
+        private Boolean _isLoaded;
+
+        /// <summary>
+        /// 获取一个值，指示堆垛机当前是否有货。
+        /// </summary>
+        internal Boolean IsLoaded
+        {
+            get
+            {
+                return _isLoaded;
+            }
+            private set
+            {
+                if (_isLoaded != value)
+                {
+                    _isLoaded = value;
+                    if (this.StateInternal == CraneStateInternal.Running || this.StateInternal == CraneStateInternal.Waiting)
+                    {
+                        OnStateChanged(EventArgs.Empty);
+                    }
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 堆垛机的状态。
+        /// </summary>
+        internal CraneStateInternal StateInternal
+        {
+            get
+            {
+                return _stateInternal;
+            }
+            private set
+            {
+                if (_stateInternal != value)
+                {
+                    _stateInternal = value;
+                    OnStateChanged(EventArgs.Empty);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 当前执行的动作，一次只能有一个动作。
+        /// </summary>
+        private CraneAction _currentAction;
+        private ECraneEvent _lastEvent;
+
+
+        public ECraneState State
+        {
+            get
+            {
+                switch (StateInternal)
+                {
+                    case CraneStateInternal.Initialized:
+                        return ECraneState.E00;
+                    case CraneStateInternal.MovingToOrigin:
+                        return ECraneState.E01;
+                    case CraneStateInternal.Waiting:
+                        return IsLoaded ? ECraneState.E03 : ECraneState.E02;
+                    case CraneStateInternal.Running:
+                        return IsLoaded ? ECraneState.E05 : ECraneState.E04;
+                    case CraneStateInternal.Loading:
+                        return ECraneState.E06;
+                    case CraneStateInternal.Unloading:
+                        return ECraneState.E07;
+                    case CraneStateInternal.Down:
+                        return ECraneState.E08;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// 获取此堆垛机的 TcpServer。
+        /// </summary>
+        internal TcpServer TcpServer { get; private set; }
+
+        /// <summary>
+        /// 获取连接到此堆垛机的客户端代理。
+        /// </summary>
+        public CraneClientProxy Client { get; private set; }
+
+        /// <summary>
+        /// 货叉。
+        /// </summary>
+        public CraneFork Fork { get; private set; }
+
+        /// <summary>
+        /// 堆垛机事件。
+        /// </summary>
+        public ECraneEvent LastEvent
+        {
+            get
+            {
+                return _lastEvent;
+            }
+            private set
+            {
+                if (_lastEvent != value)
+                {
+                    _lastEvent = value;
+                    OnCraneEventOccurred(EventArgs.Empty);
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// 获取此堆垛机的原点位置。
+        /// </summary>
+        public Position Origin { get; private set; }
+
+        public Position Position
+        {
+            get
+            {
+                return _position;
+            }
+            internal set
+            {
+                if (_position.Equals(value) == false)
+                {
+                    _position = value;
+                    OnPositionChanged(EventArgs.Empty);
+                }
+            }
+        }
+
+        public String LastErrorCode { get; internal set; }
+        public String CurrentTaskNo { get; internal set; }
+
+        /// <summary>
+        /// 获取一个值，指示堆垛机当前是否有未完成的动作。
+        /// </summary>
+        public Boolean HasIncompletedAction
+        {
+            get
+            {
+                return _currentAction != null
+                    && _currentAction.IsCompleted == false;
+            }
+        }
+
+        /// <summary>
+        /// 获取或设置堆垛机内部 Timer 的 Interval 属性。
+        /// </summary>
+        public Double TimerInterval
+        {
+            get
+            {
+                return _timer.Interval;
+            }
+            set
+            {
+                _timer.Interval = value;
+            }
+        }
+
+        public Crane(String ip, Int32 port, Position origin, Position initialPosition)
+            : this(new TcpServer(ip, port), origin, initialPosition)
+        {
+        }
+
+
+        internal Crane(TcpServer tcpServer, Position origin, Position initialPosition)
+        {
+            this.CurrentTaskNo = "GOT00001";
+            this.LastErrorCode = "0000";
+
+            TcpServer = tcpServer;
+            TcpServer.Stopping += new EventHandler(TcpServer_Stopping);
+            TcpServer.ClientAccepted += new EventHandler<ClientAcceptedEventArgs>(TcpServer_ClientAccepted);
+
+            Fork = new CraneFork(this);
+            Origin = origin;
+            _position = initialPosition;
+            this.ActionBroken += new EventHandler(Crane_ActionBroken);
+
+            const double defaultInterval = 1000;
+            _timer = new System.Timers.Timer(defaultInterval);
+            _timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
+            _timer.Start();
+        }
+
+        void TcpServer_ClientAccepted(object sender, ClientAcceptedEventArgs e)
+        {
+            if (Client != null)
+            {
+                e.TcpClient.Close();
+                Logger.Info("拒绝连接，一次只能有一个上位机。");
+                return;
+            }
+
+            Client = new CraneClientProxy(e.TcpClient, Encoding.ASCII);
+            OnClientConnected(EventArgs.Empty);
+            Client.Closed += new EventHandler(Client_Closed);
+            Client.RequestTelexReceived += new EventHandler<RequestTelexReceivedEventArgs>(Client_TelexReceived);
+            Client.StartRead();
+        }
+
+        void Client_TelexReceived(object sender, RequestTelexReceivedEventArgs e)
+        {
+
+            if (Logger.ShouldLog(e.Telex))
+            {
+                Logger.Info("收到报文, {0}", e.Telex.Text);
+            }
+            try
+            {
+                ProcessRequestTelex(e.Telex);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+        }
+
+        void Client_Closed(object sender, EventArgs e)
+        {
+            Client = null;
+            OnClientDisconnected(EventArgs.Empty);
+        }
+
+        void TcpServer_Stopping(object sender, EventArgs e)
+        {
+            if (Client != null)
+            {
+                Client.Close();
+            }
+        }
+
+        void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (_currentAction != null && _currentAction.IsCompleted == false)
+            {
+                _currentAction.ExecuteStep();
+            }
+        }
+
+        void action_Completed(object sender, EventArgs e)
+        {
+            OnActionCompleted(EventArgs.Empty);
+            _currentAction = null;
+        }
+
+        void Crane_ActionBroken(object sender, EventArgs e)
+        {
+            this.LastEvent = ECraneEvent.E07;
+            this.StateInternal = CraneStateInternal.Waiting;
+        }
+
+        public void MoveTo(Position destination)
+        {
+            if (HasIncompletedAction)
+            {
+                throw new InvalidOperationException("当前有一个未完成的动作。");
+            }
+            if (this.Position.Equals(destination))
+            {
+                Logger.Warning("堆垛机已处在 {0} 的位置", destination);
+                return;
+            }
+
+            CraneAction action = new MoveCraneAction(this, destination, false);
+            action.Starting += new EventHandler(action_Starting);
+            action.Completed += new EventHandler(action_Completed);
+
+            _currentAction = action;
+        }
+
+        public void MoveToOrigin()
+        {
+            if (HasIncompletedAction)
+            {
+                throw new InvalidOperationException("当前有一个未完成的动作。");
+            }
+
+            if (this.Position.Equals(this.Origin))
+            {
+                Logger.Warning("堆垛机已在原点");
+                return;
+            }
+            CraneAction action = new MoveCraneAction(this, this.Origin, false);
+            action.Starting += (sender, e) => { this.StateInternal = CraneStateInternal.MovingToOrigin; };
+            action.Starting += new EventHandler(action_Starting);
+            action.Completed += new EventHandler(action_Completed);
+
+            _currentAction = action;
+        }
+
+        void action_Starting(object sender, EventArgs e)
+        {
+            OnActionStarting(e);
+        }
+
+        public void BreakCurrentAction()
+        {
+            if (HasIncompletedAction)
+            {
+                _currentAction = null;
+                OnActionBroken(EventArgs.Empty);
+            }
+            this.StateInternal = CraneStateInternal.Down;
+            this.LastEvent = ECraneEvent.E07;
+        }
+
+        public void Load(EForkLR direction)
+        {
+            if (HasIncompletedAction)
+            {
+                throw new InvalidOperationException("当前有一个未完成的动作。");
+            }
+
+            CraneAction action = new LoadCraneAction(this, direction, false);
+            action.Starting += new EventHandler(action_Starting);
+            action.Completed += new EventHandler(action_Completed);
+            _currentAction = action;
+
+        }
+
+        public void Unload(EForkLR direction)
+        {
+            if (HasIncompletedAction)
+            {
+                throw new InvalidOperationException("当前有一个未完成的动作。");
+            }
+
+            CraneAction action = new UnloadCraneAction(this, direction, false);
+            action.Starting += new EventHandler(action_Starting);
+            action.Completed += new EventHandler(action_Completed);
+            _currentAction = action;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loadFrom">表示一个点，堆垛机将移动到这一点，并在此取货。</param>
+        /// <param name="unloadTo">表示一个点，堆垛机将移动到这一点，并在此放货。</param>
+        public void ExecuteTask(Position loadFrom, EForkLR loadDirection, Position unloadTo, EForkLR unloadDirection)
+        {
+            if (HasIncompletedAction)
+            {
+                throw new InvalidOperationException("当前有一个未完成的动作。");
+            }
+            MacroCraneAction action = new MacroCraneAction(this, false);
+
+            if (this.Position.Equals(loadFrom) == false)
+            {
+                MoveCraneAction move = new MoveCraneAction(this, loadFrom, true);
+                action.AppendSubAction(move);
+            }
+            LoadCraneAction load = new LoadCraneAction(this, loadDirection, true);
+            action.AppendSubAction(load);
+
+            if (unloadTo.Equals(loadFrom) == false)
+            {
+                MoveCraneAction move = new MoveCraneAction(this, unloadTo, true);
+                action.AppendSubAction(move);
+            }
+
+            UnloadCraneAction unload = new UnloadCraneAction(this, unloadDirection, true);
+            action.AppendSubAction(unload);
+
+            action.Starting += new EventHandler(action_Starting);
+            action.Completed += new EventHandler(action_Completed);
+
+            _currentAction = action;
+        }
+
+
+        /// <summary>
+        /// 原始报文将堆垛机运行状态和有货无货状态混在一起，所以引入这个枚举。
+        /// </summary>
+        public enum CraneStateInternal
+        {
+            Initialized,
+            MovingToOrigin,
+            Waiting,
+            Running,
+            Loading,
+            Unloading,
+            Down
+        }
+    }
+}

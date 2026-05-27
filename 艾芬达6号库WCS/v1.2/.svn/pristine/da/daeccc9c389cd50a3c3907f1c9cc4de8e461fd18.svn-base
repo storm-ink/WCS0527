@@ -1,0 +1,140 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace Gensong
+{
+    public partial class Crane
+    {
+        /// <summary>
+        /// 表示取货动作。
+        /// </summary>
+        private class LoadCraneAction : CraneAction
+        {
+            Queue<Action> _steps = new Queue<Action>();
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="crane"></param>
+            /// <param name="direction">从哪一排取货。</param>
+            public LoadCraneAction(Crane crane, EForkLR direction, Boolean isChildActin)
+                : base(crane, isChildActin)
+            {
+                Direction = direction;
+                this.Starting += new EventHandler(LoadCraneAction_Starting);
+                this.Completed += new EventHandler(LoadCraneAction_Completed);
+                //this.Broken += new EventHandler(LoadCraneAction_Broken);
+                switch (direction)
+                {
+                    case EForkLR.L:
+                        {
+                            Action step1 = () => { crane.Fork.VPosition = ECraneTL.E2; };
+                            Action step2 = () => { crane.Fork.HPosition = ECraneLR.E2; };
+                            Action step3 = () => { crane.Fork.HPosition = ECraneLR.E3; };
+                            Action step4 = () => { crane.Fork.VPosition = ECraneTL.E0; };
+                            Action step5 = () => { crane.Fork.VPosition = ECraneTL.E1; }; 
+                            Action step6 = () => { crane.Fork.HPosition = ECraneLR.E2; };
+                            Action step7 = () => { crane.Fork.HPosition = ECraneLR.E1; };
+                            Action step8 = () => { crane.Fork.VPosition = ECraneTL.E0; };
+                            Action step9 = () => { crane.Fork.VPosition = ECraneTL.E2; };
+
+                            _steps.Enqueue(step1);
+                            _steps.Enqueue(step2);
+                            _steps.Enqueue(step3);
+                            _steps.Enqueue(step4);
+                            _steps.Enqueue(step5);
+                            _steps.Enqueue(step6);
+                            _steps.Enqueue(step7);
+                            _steps.Enqueue(step8);
+                            _steps.Enqueue(step9);
+
+                        }
+                        break;
+                    case EForkLR.R:
+                        {
+                            Action step1 = () => { crane.Fork.VPosition = ECraneTL.E2; };
+                            Action step2 = () => { crane.Fork.HPosition = ECraneLR.E4; };
+                            Action step3 = () => { crane.Fork.HPosition = ECraneLR.E5; };
+                            Action step4 = () => { crane.Fork.VPosition = ECraneTL.E0; };
+                            Action step5 = () => { crane.Fork.VPosition = ECraneTL.E1; }; 
+                            Action step6 = () => { crane.Fork.HPosition = ECraneLR.E4; };
+                            Action step7 = () => { crane.Fork.HPosition = ECraneLR.E1; };
+                            Action step8 = () => { crane.Fork.VPosition = ECraneTL.E0; };
+                            Action step9 = () => { crane.Fork.VPosition = ECraneTL.E2; };
+
+                            _steps.Enqueue(step1);
+                            _steps.Enqueue(step2);
+                            _steps.Enqueue(step3);
+                            _steps.Enqueue(step4);
+                            _steps.Enqueue(step5);
+                            _steps.Enqueue(step6);
+                            _steps.Enqueue(step7);
+                            _steps.Enqueue(step8);
+                            _steps.Enqueue(step9);
+                        }
+
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            //void LoadCraneAction_Broken(object sender, EventArgs e)
+            //{
+            //    _steps.Clear();
+            //}
+
+            void LoadCraneAction_Starting(object sender, EventArgs e)
+            {
+                this.Crane.LastEvent = ECraneEvent.E02;
+                this.Crane.StateInternal = CraneStateInternal.Loading;
+            }
+
+            void LoadCraneAction_Completed(object sender, EventArgs e)
+            {
+                this.Crane.IsLoaded = true;
+                this.Crane.LastEvent = ECraneEvent.E03;
+                if (this.IsChildAction == false)
+                {
+                    this.Crane.LastEvent = ECraneEvent.E06;
+                    this.Crane.StateInternal = CraneStateInternal.Waiting;
+                }
+            }
+            public EForkLR Direction { get; private set; }
+
+            public override void ExecuteStep()
+            {
+                Logger.Debug("LoadCraneAction.ExecuteStep");
+
+                //if (this.WasBroken)
+                //{
+                //    throw new InvalidOperationException("取货动作已被打断。");
+                //}
+
+                if (_steps.Count == 0)
+                {
+                    throw new InvalidOperationException("取货动作已在上一步完成。");
+                }
+
+                if (IsStarted == false)
+                {
+                    OnStarting(EventArgs.Empty);
+                    IsStarted = true;
+                }
+                Action step = _steps.Dequeue();
+                step();
+                if (_steps.Count == 0)
+                {
+                    OnCompleted(EventArgs.Empty);
+                }
+
+            }
+
+        }
+    }
+}

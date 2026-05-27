@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CraneService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Wcs.Framework.CraneControl" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Wcs.Framework.Devices" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICrane_ReadConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadConfig" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_ReadConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_ReadLA_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadLA" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_ReadLA_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadLAResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendHP_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendHP" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendHP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendHPResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendHE_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendHE" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendHE_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendHEResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendHC_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendHC" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendHC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendHCResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendHB_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendHB" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendHB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendHBResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendPoint_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendPoint" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendPoint_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendPointResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendMove_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMove" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendMove_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMoveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendGetPut_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendGetPut" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendGetPut_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendGetPutResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendStep_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendStep" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_SendStep_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendStepResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_OnLock_InputMessage">
+    <wsdl:part name="parameters" element="tns:OnLock" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_OnLock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OnLockResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_UnLock_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnLock" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_UnLock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnLockResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_DeLock_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeLock" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_DeLock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeLockResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_CraneLock_InputMessage">
+    <wsdl:part name="parameters" element="tns:CraneLock" />
+  </wsdl:message>
+  <wsdl:message name="ICrane_CraneLock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CraneLockResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICrane">
+    <wsdl:operation name="ReadConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/ReadConfig" message="tns:ICrane_ReadConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/ReadConfigResponse" message="tns:ICrane_ReadConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadLA">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/ReadLA" message="tns:ICrane_ReadLA_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/ReadLAResponse" message="tns:ICrane_ReadLA_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHP">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/SendHP" message="tns:ICrane_SendHP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/SendHPResponse" message="tns:ICrane_SendHP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHE">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/SendHE" message="tns:ICrane_SendHE_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/SendHEResponse" message="tns:ICrane_SendHE_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHC">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/SendHC" message="tns:ICrane_SendHC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/SendHCResponse" message="tns:ICrane_SendHC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHB">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/SendHB" message="tns:ICrane_SendHB_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/SendHBResponse" message="tns:ICrane_SendHB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPoint">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/SendPoint" message="tns:ICrane_SendPoint_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/SendPointResponse" message="tns:ICrane_SendPoint_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMove">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/SendMove" message="tns:ICrane_SendMove_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/SendMoveResponse" message="tns:ICrane_SendMove_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendGetPut">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/SendGetPut" message="tns:ICrane_SendGetPut_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/SendGetPutResponse" message="tns:ICrane_SendGetPut_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendStep">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/SendStep" message="tns:ICrane_SendStep_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/SendStepResponse" message="tns:ICrane_SendStep_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnLock">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/OnLock" message="tns:ICrane_OnLock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/OnLockResponse" message="tns:ICrane_OnLock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnLock">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/UnLock" message="tns:ICrane_UnLock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/UnLockResponse" message="tns:ICrane_UnLock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeLock">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/DeLock" message="tns:ICrane_DeLock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/DeLockResponse" message="tns:ICrane_DeLock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CraneLock">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICrane/CraneLock" message="tns:ICrane_CraneLock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICrane/CraneLockResponse" message="tns:ICrane_CraneLock_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICrane" type="tns:ICrane">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReadConfig">
+      <soap:operation soapAction="http://tempuri.org/ICrane/ReadConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadLA">
+      <soap:operation soapAction="http://tempuri.org/ICrane/ReadLA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHP">
+      <soap:operation soapAction="http://tempuri.org/ICrane/SendHP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHE">
+      <soap:operation soapAction="http://tempuri.org/ICrane/SendHE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHC">
+      <soap:operation soapAction="http://tempuri.org/ICrane/SendHC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHB">
+      <soap:operation soapAction="http://tempuri.org/ICrane/SendHB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPoint">
+      <soap:operation soapAction="http://tempuri.org/ICrane/SendPoint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMove">
+      <soap:operation soapAction="http://tempuri.org/ICrane/SendMove" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendGetPut">
+      <soap:operation soapAction="http://tempuri.org/ICrane/SendGetPut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendStep">
+      <soap:operation soapAction="http://tempuri.org/ICrane/SendStep" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnLock">
+      <soap:operation soapAction="http://tempuri.org/ICrane/OnLock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnLock">
+      <soap:operation soapAction="http://tempuri.org/ICrane/UnLock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeLock">
+      <soap:operation soapAction="http://tempuri.org/ICrane/DeLock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CraneLock">
+      <soap:operation soapAction="http://tempuri.org/ICrane/CraneLock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CraneService">
+    <wsdl:port name="BasicHttpBinding_ICrane" binding="tns:BasicHttpBinding_ICrane">
+      <soap:address location="http://localhost:9991/CraneService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

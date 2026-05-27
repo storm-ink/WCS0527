@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Client" namespace="Client.Conveyor" auto-import="false">
+  <class name="AppearanceInspection" table="`ConveyorAppearanceInspections`"  schema-action="none" batch-size="500">
+    <id name="Id" column="`Id`" type="Int32">
+      <generator class="increment">
+      </generator>
+    </id>
+    <version name="Version" type="Int32" column="`Version`" unsaved-value="0" />
+    <property name="LogId" type="Int32" column="`LogId`" not-null="true" />
+    <property name="ProjectId" type="Int32" column="`ProjectId`" not-null="true" />
+    <property name="CreatedAt" type="DateTime2" not-null="true">
+      <column name="`CreatedAt`" sql-type="DateTime2" />
+    </property>
+    <property name="LongDate" type="DateTime2">
+      <column name="`LongDate`" sql-type="DateTime2" />
+    </property>
+    <property name="Name" column="`Name`" type="String" not-null="true" />
+    
+    <property name="No" column="`No`" type="Int32" />
+    <property name="Result" column="`Result`" type="AppearanceInspectionResult" />
+    <property name="Left_Over" column="`Left_Over`" type="Boolean" />
+    <property name="Right_Over" column="`Right_Over`" type="Boolean" />
+    <property name="Front_Over" column="`Front_Over`" type="Boolean" />
+    <property name="Back_Over" column="`Back_Over`" type="Boolean" />
+    <property name="Too_High" column="`Too_High`" type="Boolean" />
+  </class>
+  <database-object>
+    <create>
+      <![CDATA[      
+      CREATE TABLE [dbo].[ConveyorAppearanceInspections](
+	      [Id] [int] NOT NULL PRIMARY KEY NONCLUSTERED,
+        [LogId] [int] NOT NULL,
+	      [ProjectId] [int] NOT NULL,
+        [CreatedAt] [datetime2](7) NULL,
+        [LongDate] [datetime2](7) NULL,
+        [Version] [int] NOT NULL,
+	      [Name] [nvarchar](255) NOT NULL,
+        
+	      [No] [int] NULL,
+	      [Result] [int] NULL,
+	      [Left_Over] [bit] NULL,
+	      [Right_Over] [bit] NULL,
+	      [Front_Over] [bit] NULL,
+	      [Back_Over] [bit] NULL,
+	      [Too_High] [bit] NULL
+      ) ON [PRIMARY]
+      ]]>
+    </create>
+    <drop>
+      <![CDATA[
+      IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ConveyorAppearanceInspections]') AND type in (N'U'))
+      DROP TABLE [dbo].[ConveyorAppearanceInspections]
+      ]]>
+    </drop>
+  </database-object>
+  <database-object>
+    <create>
+      <![CDATA[
+            CREATE CLUSTERED INDEX [IX_ConveyorAppearanceInspections_LongDate] ON dbo.[ConveyorAppearanceInspections]
+            (
+            LongDate
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+
+    </drop>
+  </database-object>
+</hibernate-mapping>

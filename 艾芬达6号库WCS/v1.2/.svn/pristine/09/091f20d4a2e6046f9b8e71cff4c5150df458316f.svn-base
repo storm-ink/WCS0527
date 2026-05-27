@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UnitTestProject1
+{
+    public class applicationStartupClass1: Wcs.Framework.ApplicationStartup
+    {
+        public applicationStartupClass1(Wcs.Framework.Cfg.StartupElement element)
+            : base(element) 
+        { 
+
+        }
+        public override void Run(Wcs.IWcsApplication application)
+        {
+            Console.WriteLine("proc");
+        }
+    }
+}

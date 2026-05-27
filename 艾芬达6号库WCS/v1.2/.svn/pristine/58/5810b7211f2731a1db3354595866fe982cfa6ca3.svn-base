@@ -1,0 +1,299 @@
+﻿using Gensong;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+
+namespace 双货叉堆垛机测试程序
+{
+    public partial class Form1 : Form
+    {
+        System.Net.Sockets.TcpClient _client;
+        TextBoxTraceListener _textBoxTraceListener;
+        TcpServer _tcpServer;
+        public Form1()
+        {
+            Control.CheckForIllegalCrossThreadCalls = false;
+
+            InitializeComponent();
+
+            _textBoxTraceListener = new TextBoxTraceListener(this.tbxLog);
+            _textBoxTraceListener.Filter = new EventTypeFilter(SourceLevels.Information);
+
+            Logger.AddListener(_textBoxTraceListener);
+
+            bind();
+        }
+
+        private void btnListen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_tcpServer == null)
+                {
+                    _tcpServer = new TcpServer(tbxIP.Text, Convert.ToInt32(tbxPort.Text));
+                    _tcpServer.ClientAccepted += TcpServer_ClientAccepted;
+
+                    _tcpServer.Start();
+                    _tcpServer.Started += _tcpServer_Started;
+                    _tcpServer.Stopped += _tcpServer_Stopped;
+                }
+                else
+                {
+                    _tcpServer.Stop();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        void _tcpServer_Stopped(object sender, EventArgs e)
+        {
+            var mi = new MethodInvoker(() =>
+            {
+                tbxIP.Enabled =
+                tbxPort.Enabled = true;
+                btnListen.Text = "启动监听";
+            });
+            this.Invoke(mi);
+        }
+
+        void _tcpServer_Started(object sender, EventArgs e)
+        {
+            var mi = new MethodInvoker(() =>
+            {
+                tbxIP.Enabled =
+                tbxPort.Enabled = false;
+                btnListen.Text = "停止监听";
+            });
+
+            this.Invoke(mi);
+        }
+
+        void TcpServer_ClientAccepted(object sender, ClientAcceptedEventArgs e)
+        {
+            StringBuilder sb=new StringBuilder();
+            _client = e.TcpClient;
+            byte[] buffer = new byte[1024];
+            var stream = _client.GetStream();
+            try
+            {
+                while (true)
+                {
+                    var acceptTotals = stream.Read(buffer, 0, buffer.Length);
+                    if (acceptTotals == 0)
+                    {
+                        _client = null;
+                        break;
+                    }
+
+                    sb.Append(System.Text.Encoding.ASCII.GetString(buffer, 0, acceptTotals));
+
+                    var telexs = FetchTelexes(sb);
+                    foreach (var item in telexs)
+                    {
+                        if (item.StartsWith("HB"))
+                        {
+                            var taskId = item.Substring(item.Length - 8);
+                            Logger.Info("{0} 收到任务 {1}",DateTime.Now, taskId);
+                            tbxTaskId.Text = taskId;
+                        }
+
+                        if (item.StartsWith("HA"))
+                        {
+                            回复状态(_client);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _client = null;
+                Logger.Error(ex.ToString());
+            }
+        }
+
+        void 回复状态(System.Net.Sockets.TcpClient client)
+        {
+            
+            try
+            {
+                String telex = String.Format("{0}{1}{2:00}{3:000}{4:000}{5}{6}{7:0000}{8}{9}{10}{11}{12}{13}{14}{15}", (char)2, "LA"
+                    , Convert.ToInt32(cbxState.SelectedValue)
+                    , Convert.ToInt32(tbxColumn.Text)
+                    , Convert.ToInt32(tbxLevel.Text)
+                    , Convert.ToInt32(cbxForkVerticalPosition.SelectedValue)
+                    , Convert.ToInt32(cbxAtStation.SelectedValue)
+                    , Convert.ToInt32(tbxErrorCode.Text)
+                    , Convert.ToInt32(cbxEvent.SelectedValue)
+                    , tbxTaskId.Text.Trim().PadLeft(8, '0')
+                    , Convert.ToInt32(cbxFork1HorizontalPosition.SelectedValue)
+                    , Convert.ToInt32(cbxFork2HorizontalPosition.SelectedValue)
+                    , Convert.ToInt32(cbxFork1Status.SelectedValue)
+                    , Convert.ToInt32(cbxFork2Status.SelectedValue)
+                    ,0//备用位
+                    , (char)3
+                    );
+
+                var bytes = System.Text.Encoding.ASCII.GetBytes(telex);
+
+                _client.GetStream().Write(bytes, 0, bytes.Length);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+        }
+
+        void bind()
+        {
+            Dictionary<String, Int32> status = new Dictionary<string, int>();
+            status.Add("初始化", 0);
+            status.Add("回原点", 1);
+            status.Add("无货待命", 2);
+            status.Add("有货待命", 3);
+            status.Add("无货运行", 4);
+            status.Add("有货运行", 5);
+            status.Add("取货", 6);
+            status.Add("放货", 7);
+            status.Add("报警停机", 8);
+            status.Add("报警复位", 9);
+            status.Add("???", 10);
+            status.Add("未连接", 11);
+            status.Add("手动操作", 12);
+            cbxState.ValueMember = "Value";
+            cbxState.DisplayMember = "Key";
+            cbxState.DataSource = status.ToList();
+
+            cbxState.SelectedIndex = 2;
+
+
+            Dictionary<String, Int32> forkVerticalPosition = new Dictionary<string, int>();
+            forkVerticalPosition.Add("中位", 0);
+            forkVerticalPosition.Add("高位", 1);
+            forkVerticalPosition.Add("低位", 2);
+            forkVerticalPosition.Add("未知", 3);
+            cbxForkVerticalPosition.ValueMember = "Value";
+            cbxForkVerticalPosition.DisplayMember = "Key";
+            cbxForkVerticalPosition.DataSource = forkVerticalPosition.ToList();
+            cbxForkVerticalPosition.SelectedIndex = 0;
+
+            Dictionary<String, Int32> atStation = new Dictionary<string, int>();
+            atStation.Add("是", 0);
+            atStation.Add("否", 1);
+            cbxAtStation.ValueMember = "Value";
+            cbxAtStation.DisplayMember = "Key";
+            cbxAtStation.DataSource = atStation.ToList();
+            cbxAtStation.SelectedIndex = 0;
+
+            Dictionary<String, Int32> events = new Dictionary<string, int>();
+            events.Add("初始化", 0);
+            events.Add("开始运行", 1);
+            events.Add("开始取货", 2);
+            events.Add("取货完成", 3);
+            events.Add("开始放货", 4);
+            events.Add("放货完成", 5);
+            events.Add("完成", 6);
+            events.Add("急停", 7);
+            events.Add("出错完成", 8);
+            events.Add("回原点", 9);
+            cbxEvent.ValueMember = "Value";
+            cbxEvent.DisplayMember = "Key";
+            cbxEvent.DataSource = events.ToList();
+            cbxEvent.SelectedIndex = 6;
+
+
+            Dictionary<String, Int32> forkHorizontalPosition = new Dictionary<string, int>();
+            forkHorizontalPosition.Add("未知", 0);
+            forkHorizontalPosition.Add("中位", 1);
+            forkHorizontalPosition.Add("左", 2);
+            forkHorizontalPosition.Add("左极限", 3);
+            forkHorizontalPosition.Add("右", 4);
+            forkHorizontalPosition.Add("右极限", 5);
+            forkHorizontalPosition.Add("左（外）", 6);
+            forkHorizontalPosition.Add("左（外）极限", 7);
+            forkHorizontalPosition.Add("右（外）", 8);
+            forkHorizontalPosition.Add("右（外）极限", 9);
+            cbxFork1HorizontalPosition.ValueMember = "Value";
+            cbxFork1HorizontalPosition.DisplayMember = "Key";
+            cbxFork1HorizontalPosition.DataSource = forkHorizontalPosition.ToList();
+            cbxFork1HorizontalPosition.SelectedIndex = 1;
+
+            cbxFork2HorizontalPosition.ValueMember = "Value";
+            cbxFork2HorizontalPosition.DisplayMember = "Key";
+            cbxFork2HorizontalPosition.DataSource = forkHorizontalPosition.ToList();
+            cbxFork2HorizontalPosition.SelectedIndex = 1;
+
+            Dictionary<String, Int32> forkStatus = new Dictionary<string, int>();
+            forkStatus.Add("初始化", 0);
+            forkStatus.Add("无货待命", 1);
+            forkStatus.Add("有货待命", 2);
+            forkStatus.Add("故障", 3);
+            cbxFork1Status.ValueMember = "Value";
+            cbxFork1Status.DisplayMember = "Key";
+            cbxFork1Status.DataSource = forkStatus.ToList();
+            cbxFork1Status.SelectedIndex = 1;
+
+            cbxFork2Status.ValueMember = "Value";
+            cbxFork2Status.DisplayMember = "Key";
+            cbxFork2Status.DataSource = forkStatus.ToList();
+            cbxFork2Status.SelectedIndex = 1;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
+            Application.Exit();
+        }
+
+        List<String> FetchTelexes(StringBuilder strb)
+        {
+            List<String> result = new List<String>();
+
+            MatchCollection mc = Regex.Matches(strb.ToString(), @"\u0002([^\u0002\u0003]*)\u0003");
+
+            Logger.Debug("{0} match(es)", mc.Count);
+
+            foreach (Match match in mc)
+            {
+                string text = match.Groups[1].Value;
+                if (string.IsNullOrEmpty(text)) continue;
+
+                result.Add(text);
+            }
+
+            if (mc.Count > 0)
+            {
+                Match last = mc.Cast<Match>().Last();
+                strb.Remove(0, last.Index + last.Value.Length);
+                Logger.Debug("inner value: {0}", strb.ToString());
+            }
+
+            return result;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            cbxState.SelectedIndex = 4;
+            cbxEvent.SelectedIndex = 4;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cbxState.SelectedIndex = 2;
+            cbxEvent.SelectedIndex = 6;
+
+            cbxFork1Status.SelectedIndex = 1;
+
+            cbxFork2Status.SelectedIndex = 1;
+        }
+    }
+}

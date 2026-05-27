@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wcs.Framework.Devices" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wcs.Framework.Devices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="CraneWorkModeKeyInfo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:NetTransferObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CraneNo" type="xs:unsignedShort" />
+          <xs:element minOccurs="0" name="IsBrake" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsManual" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CraneWorkModeKeyInfo" nillable="true" type="tns:CraneWorkModeKeyInfo" />
+  <xs:complexType name="NetTransferObject">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ComparableOfNetTransferObject2CUHSWHX">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="NetTransferObject" nillable="true" type="tns:NetTransferObject" />
+  <xs:complexType name="ComparableOfNetTransferObject2CUHSWHX">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ComparableOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wcs.Framework.Devices" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NetTransferObject" Namespace="http://schemas.datacontract.org/2004/07/Wcs.Framework.Devices" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ComparableOfNetTransferObject2CUHSWHX" nillable="true" type="tns:ComparableOfNetTransferObject2CUHSWHX" />
+</xs:schema>

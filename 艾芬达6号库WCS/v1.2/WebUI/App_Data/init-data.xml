@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<init-data>
+
+  <!-- 角色，在这里添加的角色均为内置角色，不能删除 -->
+  <roles>
+    <role parentId="-1"  roleCode="01"   roleName="系统管理员" />
+    <role parentId="1"  roleCode="0101"  roleName="操作员" />
+  </roles>
+
+  <!-- 用户，在这里添加的用户均为内置用户，不能删除 -->
+  <users>
+
+    <user userName="admin" password="123456" roles="01" realName="管理员">
+      <profile>
+      </profile>
+    </user>
+
+  </users>
+
+  <!-- 仓库 -->
+  <warehouses>
+    <warehouse name="玫德科技园仓库">
+
+      <!-- 出入库口 -->
+      <mouths>
+      </mouths>
+
+      <!-- 暂存区 -->
+      <plainLocations>
+        <plainLocation userCode="00-001-1101" wcsCode="00-001-1101" type="FixedPostion" />
+        <plainLocation userCode="00-001-1103" wcsCode="00-001-1103" type="FixedPostion" />
+        <plainLocation userCode="00-001-1509" wcsCode="00-001-1509" type="FixedPostion" />
+        <plainLocation userCode="00-001-1108" wcsCode="00-001-1108" type="ShippingAreaExit" />
+
+        <plainLocation userCode="09-001-0001" wcsCode="09-001-0001" type="FixedPostion" />
+        <plainLocation userCode="酸洗机缓冲位" wcsCode="酸洗机缓冲位" type="FixedPostion" />
+        <plainLocation userCode="酸洗区入立库申请位" wcsCode="酸洗区入立库申请位" type="FixedPostion" />
+        <plainLocation userCode="酸洗区去加工申请位" wcsCode="酸洗区去加工申请位" type="FixedPostion" />
+        <plainLocation userCode="白件加工区底开式料桶接料位" wcsCode="白件加工区底开式料桶接料位" type="FixedPostion" />
+        <plainLocation userCode="黑件加工区底开式料桶接料位" wcsCode="黑件加工区底开式料桶接料位" type="FixedPostion" />
+        <plainLocation userCode="临时发货区" wcsCode="临时发货区" type="FixedPostion" />
+        
+        <plainLocation userCode="暂存区" wcsCode="暂存区" type="KeepingArea" />
+
+      </plainLocations>
+
+      <!-- 库区 -->
+      <areas>
+
+        <area name="半成品区" code="10001">
+
+          <!-- 货架 -->
+          <racks>
+            <!-- exits 货架的出口的用户编码，逗号分隔 -->
+            <!-- entrances 货架的入口的用户编码，逗号分隔 -->
+            <rack wcsCode="01" userCode="01" columns="60" levels="13" exits="00-001-1103,00-001-1108" entrances="00-001-1101,00-001-1509,09-001-0001" />
+            <rack wcsCode="02" userCode="02" columns="60" levels="13" exits="00-001-1103,00-001-1108" entrances="00-001-1101,00-001-1509,09-001-0001" />
+                                                                                                                                       
+            <rack wcsCode="03" userCode="03" columns="60" levels="13" exits="00-001-1103,00-001-1108" entrances="00-001-1101,00-001-1509,09-001-0001" />
+            <rack wcsCode="04" userCode="04" columns="60" levels="13" exits="00-001-1103,00-001-1108" entrances="00-001-1101,00-001-1509,09-001-0001" />
+                                                                                                                                       
+            <rack wcsCode="05" userCode="05" columns="60" levels="13" exits="00-001-1103,00-001-1108" entrances="00-001-1101,00-001-1509,09-001-0001" />
+            <rack wcsCode="06" userCode="06" columns="60" levels="13" exits="00-001-1103,00-001-1108" entrances="00-001-1101,00-001-1509,09-001-0001" />
+            
+            <rack wcsCode="07" userCode="07" columns="60" levels="13" exits="00-001-1108" entrances="00-001-1509" />
+            <rack wcsCode="08" userCode="08" columns="60" levels="13" exits="00-001-1108" entrances="00-001-1509" />
+            
+            <rack wcsCode="09" userCode="09" columns="60" levels="13" exits="00-001-1108" entrances="00-001-1509" />
+            <rack wcsCode="10" userCode="10" columns="60" levels="13" exits="00-001-1108" entrances="00-001-1509" />
+            
+            <rack wcsCode="11" userCode="11" columns="60" levels="13" exits="00-001-1108" entrances="00-001-1509" />
+            <rack wcsCode="12" userCode="12" columns="60" levels="13" exits="00-001-1108" entrances="00-001-1509" />
+
+            <rack wcsCode="13" userCode="13" columns="60" levels="13" exits="00-001-1108" entrances="00-001-1509" />
+            <rack wcsCode="14" userCode="14" columns="60" levels="13" exits="00-001-1108" entrances="00-001-1509" />
+
+          </racks>
+        </area>
+
+      </areas>
+    </warehouse>
+  </warehouses>
+
+  <bizTypes>
+    <bizType code="YWLX001" name="业务类型001" />
+    <bizType code="YWLX002" name="业务类型002" />
+  </bizTypes>
+
+</init-data>

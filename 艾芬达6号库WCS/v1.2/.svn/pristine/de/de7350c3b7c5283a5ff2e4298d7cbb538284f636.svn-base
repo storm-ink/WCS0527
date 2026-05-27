@@ -1,0 +1,325 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.Interfaces.Task;
+
+namespace Wcs.Client.App.Elements.Forms
+{
+    public partial class frmConveyorLocationUI : Form
+    {
+        ConveyorLocation m_ConveyorLocation;
+        static Bitmap _greenBall = new Bitmap(new System.IO.MemoryStream(Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeUlEQVQ4jaWSoXLcMBRFT9sAgcz0gQCxGpbFYWXVH9T9g/2EwMCAfEA/YWGhYUCAygK9bKHKBApuZgIeWFBge+3JJqR9MyKWz7nXsuA/593LB5s+mSABG5wWACfL1ePkfD3oTUHXp9aCbS1ySQQLIAdVoQIq+oVznW+G4UTQ9altomX7zEcmcEpHLnChCtrzG9HNkvcA3c9kFmzLGvY1PDUJgqhPwI9029pRACRruHwTlpAAjRKZvk7nxBkAgQ0mkAHrVI2waxGPb9BgHdCfTd+ZNG3MiUXlKMLhePQ+K7Q0kAtzmxILZQVODTFWktXMDbJq+VYYKy9VR/hEUg2wvByisy2VBV4lExjJeUUwAU6/CESmsEOcpr+AcbBqO4IywAeAkqvHL83eD+G7DgQPTjgH5mXAxQjHh+aJP9YNd/tyFADUXEvTNo/mXHEg6jwQLnwUPBsMAbuPO5N1j3evXOV52pvGgERgQxgvC5Bx24LycFte+xn/Pn8BpgfaIL16PmsAAAAASUVORK5CYII=")));
+        static Bitmap _yellowBall = new Bitmap(new System.IO.MemoryStream(Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABd0lEQVQ4jaWTLY7cQBCFvyQLKtJILhAQEGkaBAT6CLM3MAwcGBYfIUcwDNwj+AgLAhYaBgT0SAEGAc+sYIDb3p6JgvZJlsolva9f/xS8UK9uG/mcEuY9RkdwLO0L0qjQ0I7K/wXkL+mMp8GTN7jTuANimQVZ5J95IdS3ox42z5tq5TMf2+HYfmrsnWNmgCDALDAL3h4w/nB//sD8/VdMAK/32J4GT6kBIFQ+dshaA+9pgGE6eQK4K+0e94YQSwC2QpoKtkig8g8N0AN9AXjnBkjPB7KZQoBQlcINJLodIHTcIwegXG2hJKrlwLze0Jogyuq7uTJaVVfasm6Ai+Yqha0xd9l1r+z0UgE0EnytE+6FgZtfp5kFMEK5RoKBYLmKbYA57r6C/BmgmUXBsAPaR2UF/S3E/QYI5EmLxLduWp/0/hIffsf02W2O4J47zA5gB4PDesjKMD+t5tMPDZvvn2F6bD1h9G50UIbJuCgYCYbT0/UwvVh/AUe8sqJxskEzAAAAAElFTkSuQmCC")));
+        static Bitmap _emptyBitmap = new Bitmap(new System.IO.MemoryStream(Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABb0lEQVQ4jaWTLZbbQBCEv4RETA3NVjDMgmHREXIEwUBBQ8OFOoJgoI8wYYZjZjhmhiXWixwgWT+2g7bfG9Kvq6aqpwY+WV8eGyEEk1OBfuFUOMgV5BxwhaZp9F+CcAwlTmsb+1lYQW45AJfrhZQS6Zz+ytU0TROfpIRjLGOMSa7bqnw4ct1SSrfDn0Nq39vyjvsKEI/RDLrie/GWf8tn1g/o6em9Bwczo/xRvmF07XtrE4FclW1s+wqMzy25IINiU2yBaiIAajN7DR6WiCQQSMLMIKNeElR5lr8Go5UKGKwA5UxwH/hg8vsIAiADwyCbW/cdhIsuA3hRr24nA4YkxCVBp+siH4/Ss+UxkhJydbMFEdI5neSalrYCM0g3DFykczoZFiaC+netpFTHY+zlq6ROYLJB1ThTN7sh0qsot21bWmZdURRb2xhmhmWGJNI1Ec/xJKne7/ZTlJ8+05iwanznamyH0XPY7/bPEj9T/wDbbOsPTs7GwgAAAABJRU5ErkJggg==")));
+        public frmConveyorLocationUI(ConveyorLocation conveyorLocation) //Point pnt, 
+        {
+            m_ConveyorLocation = conveyorLocation;
+            InitializeComponent();
+
+            dgvAlarm.RowCount =
+                dgvMachines.RowCount =
+                dgvOccupy.RowCount = 1;
+
+            timer1_Tick(null, EventArgs.Empty);
+        }
+
+        void setAlarms()
+        {
+            if (m_ConveyorLocation.Alarm == null)
+            {
+                dgvAlarm.Rows[0].Cells[0].Value = 
+                dgvAlarm.Rows[0].Cells[1].Value = 
+                dgvAlarm.Rows[0].Cells[2].Value =
+                dgvAlarm.Rows[0].Cells[3].Value =
+                dgvAlarm.Rows[0].Cells[4].Value = 
+                dgvAlarm.Rows[0].Cells[5].Value = 
+                dgvAlarm.Rows[0].Cells[6].Value = _emptyBitmap;
+                return;
+            }
+
+            dgvAlarm.Rows[0].Cells[0].Value = m_ConveyorLocation.Alarm.Manual ? _yellowBall : _greenBall;
+            dgvAlarm.Rows[0].Cells[1].Value = m_ConveyorLocation.Alarm.Isolator ? _yellowBall : _greenBall;
+            dgvAlarm.Rows[0].Cells[2].Value = m_ConveyorLocation.Alarm.Breaker ? _yellowBall : _greenBall;
+            dgvAlarm.Rows[0].Cells[3].Value = m_ConveyorLocation.Alarm.Photocell ? _yellowBall : _greenBall;
+            dgvAlarm.Rows[0].Cells[4].Value = m_ConveyorLocation.Alarm.RunOvertime ? _yellowBall : _greenBall;
+            dgvAlarm.Rows[0].Cells[5].Value = m_ConveyorLocation.Alarm.OccupyOvertime ? _yellowBall : _greenBall;
+            dgvAlarm.Rows[0].Cells[6].Value = m_ConveyorLocation.Alarm.TaskNoGoods ? _yellowBall : _greenBall;
+        }
+
+        void setMachines()
+        {
+            if (m_ConveyorLocation.Alarm == null)
+            {
+                dgvMachines.Rows[0].Cells[0].Value =
+                dgvMachines.Rows[0].Cells[1].Value =
+                dgvMachines.Rows[0].Cells[2].Value =
+                dgvMachines.Rows[0].Cells[3].Value =
+                dgvMachines.Rows[0].Cells[4].Value =
+                dgvMachines.Rows[0].Cells[5].Value =
+                dgvMachines.Rows[0].Cells[6].Value =
+                dgvMachines.Rows[0].Cells[7].Value = _emptyBitmap;
+                return;
+            }
+
+
+            dgvMachines.Rows[0].Cells[0].Value = m_ConveyorLocation.Alarm.X_MotorVAF ? _yellowBall : _greenBall;
+            dgvMachines.Rows[0].Cells[3].Value = m_ConveyorLocation.Alarm.Y_MotorVAF ? _yellowBall : _greenBall;
+            dgvMachines.Rows[0].Cells[1].Value = m_ConveyorLocation.Alarm.X_MotorContactor ? _yellowBall : _greenBall;
+            dgvMachines.Rows[0].Cells[2].Value = m_ConveyorLocation.Alarm.X_MotorBraker ? _yellowBall : _greenBall;
+            dgvMachines.Rows[0].Cells[4].Value = m_ConveyorLocation.Alarm.Y_MotorContactor ? _yellowBall : _greenBall;
+            dgvMachines.Rows[0].Cells[5].Value = m_ConveyorLocation.Alarm.Y_MotorBraker ? _yellowBall : _greenBall; 
+            dgvMachines.Rows[0].Cells[6].Value = m_ConveyorLocation.Alarm.Lift_MotorContactor ? _yellowBall : _greenBall; 
+            dgvMachines.Rows[0].Cells[7].Value = m_ConveyorLocation.Alarm.Lift_MotorBraker ? _yellowBall : _greenBall; 
+
+        }
+
+        void setOccpuy()
+        {
+            //m_ConveyorLocation.Occupy
+            if (m_ConveyorLocation.Occupy == null)
+            {
+                dgvOccupy.Rows[0].Cells[0].Value =
+                dgvOccupy.Rows[0].Cells[1].Value =
+                dgvOccupy.Rows[0].Cells[2].Value =
+                dgvOccupy.Rows[0].Cells[3].Value =
+                dgvOccupy.Rows[0].Cells[4].Value =
+                dgvOccupy.Rows[0].Cells[5].Value =
+                dgvOccupy.Rows[0].Cells[6].Value =
+                dgvOccupy.Rows[0].Cells[7].Value = _emptyBitmap;
+                return;
+            }
+
+            dgvOccupy.Rows[0].Cells[0].Value = m_ConveyorLocation.Occupy.FroProPotocell ? _yellowBall : _greenBall;
+            dgvOccupy.Rows[0].Cells[3].Value = m_ConveyorLocation.Occupy.FroPosPotocell ? _yellowBall : _greenBall;
+            dgvOccupy.Rows[0].Cells[1].Value = m_ConveyorLocation.Occupy.FroSloPotocell ? _yellowBall : _greenBall;
+            dgvOccupy.Rows[0].Cells[2].Value = m_ConveyorLocation.Occupy.AftProPotocell ? _yellowBall : _greenBall;
+            dgvOccupy.Rows[0].Cells[4].Value = m_ConveyorLocation.Occupy.AftPosPotocell ? _yellowBall : _greenBall;
+            dgvOccupy.Rows[0].Cells[5].Value = m_ConveyorLocation.Occupy.AftSloPotocell ? _yellowBall : _greenBall;
+            dgvOccupy.Rows[0].Cells[6].Value = m_ConveyorLocation.Occupy.DownPotocell ? _yellowBall : _greenBall;
+            dgvOccupy.Rows[0].Cells[7].Value = m_ConveyorLocation.Occupy.UpPotocell ? _yellowBall : _greenBall;
+        }
+
+        void setStatus()
+        {
+            lblPosNo.Text = m_ConveyorLocation.PosNo.ToString();
+
+            if (m_ConveyorLocation.LocationTask == null)
+            {
+                lblEquipmentTaskId.Text = "-";
+                lblDeleteEquipmentTask.Visible = false;
+            }
+            else
+            {
+                lblEquipmentTaskId.Text = m_ConveyorLocation.LocationTask.TaskNo.ToString();
+
+                if (m_ConveyorLocation.LocationTask.TaskNo != 0)
+                {
+                    lblDeleteEquipmentTask.Visible = true;
+                }
+                else
+                {
+                    lblDeleteEquipmentTask.Visible = false;
+                }
+            }
+
+            if (m_ConveyorLocation.Status == null)
+            {
+                lblState.Text = "未连接";
+            }
+            else
+            {
+                switch (m_ConveyorLocation.Status.Status)
+                {
+                    case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Initialize:
+
+                        lblState.Text = "初始化";
+                        break;
+                    case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Warning:
+                        
+                        lblState.Text = "报警";
+                        break;
+                    case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Offline:
+                        
+                        lblState.Text = "离线";
+                        break;
+                    case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Manual:
+                        
+                        lblState.Text = "手动";
+                        break;
+                    case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Stopped:
+                        
+                        lblState.Text = "停止";
+                        break;
+                    case Wcs.Client.Interfaces.Conveyor.LocationNetTransferObjectStatus.Running:
+                        
+                        lblState.Text = "运行";
+                        break;
+                    default:
+
+                        lblState.Text = m_ConveyorLocation.Status.Status.ToString();
+                        break;
+                }
+            }
+        }
+
+        void setTaskInfo()
+        {
+            Task task = null;
+            if (m_ConveyorLocation.LocationTask != null && m_ConveyorLocation.LocationTask.TaskNo != 0)
+            {
+                task = m_ConveyorLocation.Editor.TaskDataSource.GetTaskByEquipmentTaskId(Convert.ToInt32(m_ConveyorLocation.LocationTask.TaskNo));
+            }
+
+            if (task == null)
+            {
+                gbTaskInfo.Visible = false;
+            }
+            else
+            {
+                lblTaskCode.Text = task.TaskCode;
+                switch (task.BizType)
+                {
+                    case TaskBizType.Normal:
+                        lblBizType.Text = "普通业务";
+                        break;
+                    case TaskBizType.Counting:
+                        lblBizType.Text = "盘点";
+                        break;
+                    default:
+                        lblBizType.Text = task.TaskType.ToString();
+                        break;
+                }
+                lblContainerCodes.Text = String.Join(",", task.ContainerCodes);
+                lblCreatedAt.Text = task.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
+                lblEndLocation.Text = task.EndLocation.ToString();
+                switch (task.Source)
+                {
+                    case TaskSource.Unknow:
+                        lblSource.Text = "未知";
+                        break;
+                    case TaskSource.Wms:
+                        lblSource.Text = task.Source.ToString();
+                        break;
+                    case TaskSource.Wcs:
+                        lblSource.Text = task.Source.ToString();
+                        break;
+                    default:
+                        lblSource.Text = task.Source.ToString();
+                        break;
+                }
+                lblStartLocation.Text = task.StartLocation.ToString();
+                lblTaskType.Text = String.IsNullOrWhiteSpace(task.TaskType) ? "<空>" : task.TaskType;
+
+                if (task.Status != TaskStatus.Cancelled && task.Status != TaskStatus.Completed && task.Status != TaskStatus.Suspend && task.Status != TaskStatus.Error)
+                {
+                    lblSuspendTask.Visible = false;
+                }
+                else
+                {
+                    lblSuspendTask.Visible = true;
+                }
+
+                gbTaskInfo.Visible = true;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (this.IsDisposed || this.Disposing)
+            {
+                timer1.Stop();
+                return;
+            }
+
+            try
+            {
+                setAlarms();
+                setMachines();
+                setOccpuy();
+                setStatus();
+                setTaskInfo();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        private void btnReturn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void lblDeleteEquipmentTask_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if(m_ConveyorLocation.LocationTask==null || m_ConveyorLocation.LocationTask.TaskNo==0)
+            {
+                return ;
+            }
+
+            if(MessageBox.Show(String.Format("确定要删除货位 {0} 上的任务 {1} 吗？",m_ConveyorLocation.PosNo,m_ConveyorLocation.LocationTask.TaskNo),Application.ProductName,MessageBoxButtons.YesNo,MessageBoxIcon.Question)!=System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                m_ConveyorLocation.DataSource.DeleteLocationTask(m_ConveyorLocation.PosNo, Convert.ToInt32(m_ConveyorLocation.LocationTask.TaskNo));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void lblSuspendTask_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (m_ConveyorLocation.LocationTask == null || m_ConveyorLocation.LocationTask.TaskNo == 0)
+            {
+                return;
+            }
+
+            var task = m_ConveyorLocation.Editor.TaskDataSource.GetTaskByEquipmentTaskId(Convert.ToInt32(m_ConveyorLocation.LocationTask.TaskNo));
+            if (task == null)
+            {
+                return;
+            }
+
+            if (MessageBox.Show(String.Format("确定要暂停任务 {0} 吗？", task.TaskCode)) != System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                m_ConveyorLocation.Editor.TaskDataSource.SuspendTask(task.TaskCode);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void frmConveyorLocationUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void gbTaskInfo_VisibleChanged(object sender, EventArgs e)
+        {
+            if (gbTaskInfo.Visible)
+            {
+                this.Height = 542;
+            }
+            else
+            {
+                this.Height = 429;
+            }
+        }
+    }
+}

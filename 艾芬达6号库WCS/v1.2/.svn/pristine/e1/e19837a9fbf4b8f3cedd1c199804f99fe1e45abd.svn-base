@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+
+namespace Wcs.Client.App
+{
+    public class WcfClient : ClientBase<Wcs.Client.Interfaces.IClientService>, Wcs.Client.Interfaces.IClientService
+    {
+        public object Call(string name, object[] args)
+        {
+            return Channel.Call(name, args);
+        }
+
+
+        public string[] AllOperations()
+        {
+            return Channel.AllOperations();
+        }
+    }
+}

@@ -1,0 +1,19 @@
+﻿@{
+    Layout = null;
+    }
+
+@if (Request.IsAuthenticated) {
+    <div>
+    <span>
+        你好，@Html.ActionLink(User.Identity.Name, "Index", "User", routeValues: null, htmlAttributes: new { @class = "username", title = "管理" })!
+        </span>
+      <span>  @using (Html.BeginForm("LoginOFF", "User", FormMethod.Post, new { id = "logoutForm" })) {
+               <input type="submit" value="注销" /> }
+   </span>
+   </div>
+} else {
+    <ul>
+@*        <li>@Html.ActionLink("注册", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+*@        <li>@Html.ActionLink("登录", "UserLogin", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

@@ -1,0 +1,910 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>设备运行状态概要图-实时数据请勿随意操作任务</title>
+	<!--http://vadikom.com/demos/poshytip/#download-->
+    <script src="/Scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+	<script src="/Scripts/ui/jquery-ui.js" type="text/javascript"></script>
+	
+	<script src="/Scripts/poshytip/jquery.poshytip.js" type="text/javascript"></script>
+	<script src="/Scripts/qTip2/jquery.qtip.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.lockfixed.js" type="text/javascript"></script>
+	<script src="/Scripts/userData.js" type="text/javascript"></script>
+	<script src="/Scripts/conveyor.js" type="text/javascript"></script>
+	<script src="/Scripts/tasks.js" type="text/javascript"></script>
+	
+	<link rel="stylesheet" href="/Scripts/ui/themes/base/jquery.ui.all.css" type="text/css" />
+	<link rel="stylesheet" href="/Scripts/poshytip/tip-yellow/tip-yellow.css" type="text/css" />
+	<link rel="stylesheet" href="/Scripts/poshytip/tip-violet/tip-violet.css" type="text/css" />
+	<link rel="stylesheet" href="/Scripts/poshytip/tip-darkgray/tip-darkgray.css" type="text/css" />
+	<link rel="stylesheet" href="/Scripts/poshytip/tip-skyblue/tip-skyblue.css" type="text/css" />
+	<link rel="stylesheet" href="/Scripts/poshytip/tip-yellowsimple/tip-yellowsimple.css" type="text/css" />
+	<link rel="stylesheet" href="/Scripts/poshytip/tip-twitter/tip-twitter.css" type="text/css" />
+	<link rel="stylesheet" href="/Scripts/poshytip/tip-green/tip-green.css" type="text/css" />
+	
+	<link rel="stylesheet" href="/Scripts/qTip2/jquery.qtip.min.css" type="text/css" />
+    <script type="text/javascript">
+	//$.parseJSON(data): Array[100]
+        $(document).ready(function () {
+            utils.moduleManager.add(new taskManager('#tasks'));
+            utils.moduleManager.add(new conveyorArea('#zyqhm', '煮油区'));
+            utils.moduleManager.add(new conveyorArea(['#bzqhm1', '#bzqhm2'], '包装区'));
+			utils.moduleManager.add(new conveyorArea(['#pkqhm1','#pkqhm2','#pkqhm3','#pkqhm4'], '平口区'));
+			utils.moduleManager.add(new conveyorStyleManager());
+			utils.moduleManager.add(new devicesStatusManager('#sbzthm1'));
+            utils.moduleManager.init();
+
+            for (var i = 0; i < utils.moduleManager.modules.length; i++) {
+                var item = $('<input type="checkbox" value="' + utils.moduleManager.modules[i].getHashCode() + '" name="' + utils.moduleManager.modules[i].getHashCode() + '"/><label for="' + utils.moduleManager.modules[i].getHashCode() + '">' + utils.moduleManager.modules[i].getDisplayName() + '</label><br />');
+                $($(item)[0]).click(function () {
+                    if ($('input[name='+$(this).attr('name')+']:checked').length>0) {
+                        utils.moduleManager.enable($(this).val());
+                    } else {
+                        utils.moduleManager.disable($(this).val());
+                    }
+                });
+
+                if (utils.moduleManager.modules[i].isEnabled) {
+                    $($(item)[0]).attr('checked', 'checked');
+                }
+                $("#rightMenu").append(item);
+            }
+			
+			for(var prop in utils.colors){
+				var p=utils.colors[prop];
+				var ele = $('<div style="width:100%;display:block;height:15px;"><span style="width:15px;height:15px;display:block;float:left;clear:none;border:1px solid #ccc;"></span><span style="float:left;clear:none;padding-right:3px;">'+prop+'</span>');
+				if(typeof(p)=='string'){
+					$(ele).children('span:eq(0)').css('background-color',p);
+				}else{
+					if(p.color){
+					$(ele).children('span:eq(0)').css('background-color',p.color);
+					}
+					if(p.alpha){
+						$(ele).children('span:eq(0)').css('opacity',p.alpha);
+					}
+				}
+				$("#rightMenu").append(ele);
+			}
+			
+            $.lockfixed("#rightMenu", { offset: { top: 10, bottom: 100} });
+
+
+            $("#tasks").draggable({
+                handle: 'tr:nth-child(1)',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('tasks_left', ui.position.left);
+                    USERDATA.set('tasks_top', ui.position.top);
+                }
+            });
+            $("#zyqhm").draggable({
+                handle: 'label.dropbox',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('zyqhm_left', ui.position.left);
+                    USERDATA.set('zyqhm_top', ui.position.top);
+                }
+            });
+
+            $("#bzqhm1").draggable({
+                handle: 'label.dropbox',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('bzqhm1_left', ui.position.left);
+                    USERDATA.set('bzqhm1_top', ui.position.top);
+                }
+            });
+
+            $("#bzqhm2").draggable({
+                handle: 'label.dropbox',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('bzqhm2_left', ui.position.left);
+                    USERDATA.set('bzqhm2_top', ui.position.top);
+                }
+            });
+			
+            $("#pkqhm1").draggable({
+                handle: 'label.dropbox',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('pkqhm1_left', ui.position.left);
+                    USERDATA.set('pkqhm1_top', ui.position.top);
+                }
+            });
+			
+			$("#pkqhm2").draggable({
+                handle: 'label.dropbox',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('pkqhm2_left', ui.position.left);
+                    USERDATA.set('pkqhm2_top', ui.position.top);
+                }
+            });
+			
+			$("#pkqhm3").draggable({
+                handle: 'label.dropbox',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('pkqhm3_left', ui.position.left);
+                    USERDATA.set('pkqhm3_top', ui.position.top);
+                }
+            });
+			
+			$("#pkqhm4").draggable({
+                handle: 'label.dropbox',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('pkqhm4_left', ui.position.left);
+                    USERDATA.set('pkqhm4_top', ui.position.top);
+                }
+            });
+			
+			$("#sbzthm1").draggable({
+                handle: 'label.dropbox',
+                cursor: 'move',
+                stop: function (event, ui) {
+                    USERDATA.set('sbzthm1_left', ui.position.left);
+                    USERDATA.set('sbzthm1_top', ui.position.top);
+                }
+            });
+
+            //加载任务列表位置
+            $("#tasks").css('position', 'relative');
+            if (USERDATA.get('tasks_left')) {
+                $("#tasks").css('left', USERDATA.get('tasks_left') + 'px');
+            }
+            if (USERDATA.get('tasks_top')) {
+                $("#tasks").css('top', USERDATA.get('tasks_top') + 'px');
+            }
+            //加载煮油区位置
+            $("#zyqhm").css('position', 'relative');
+            if (USERDATA.get('zyqhm_left')) {
+                $("#zyqhm").css('left', USERDATA.get('zyqhm_left') + 'px');
+            }
+            if (USERDATA.get('zyqhm_top')) {
+                $("#zyqhm").css('top', USERDATA.get('zyqhm_top') + 'px');
+            }
+
+            //加载包装区位置
+            $("#bzqhm1").css('position', 'relative');
+            if (USERDATA.get('bzqhm1_left')) {
+                $("#bzqhm1").css('left', USERDATA.get('bzqhm1_left') + 'px');
+            }
+            if (USERDATA.get('bzqhm1_top')) {
+                $("#bzqhm1").css('top', USERDATA.get('bzqhm1_top') + 'px');
+            }
+
+            $("#bzqhm2").css('position', 'relative');
+            if (USERDATA.get('bzqhm2_left')) {
+                $("#bzqhm2").css('left', USERDATA.get('bzqhm2_left') + 'px');
+            }
+            if (USERDATA.get('bzqhm2_top')) {
+                $("#bzqhm2").css('top', USERDATA.get('bzqhm2_top') + 'px');
+            }
+			
+			//加载平口区位置
+            $("#pkqhm1").css('position', 'relative');
+            if (USERDATA.get('pkqhm1_left')) {
+                $("#pkqhm1").css('left', USERDATA.get('pkqhm1_left') + 'px');
+            }
+            if (USERDATA.get('pkqhm1_top')) {
+                $("#pkqhm1").css('top', USERDATA.get('pkqhm1_top') + 'px');
+            }
+			
+            $("#pkqhm2").css('position', 'relative');
+            if (USERDATA.get('pkqhm2_left')) {
+                $("#pkqhm2").css('left', USERDATA.get('pkqhm2_left') + 'px');
+            }
+            if (USERDATA.get('pkqhm2_top')) {
+                $("#pkqhm2").css('top', USERDATA.get('pkqhm2_top') + 'px');
+            }
+			
+			 $("#pkqhm3").css('position', 'relative');
+            if (USERDATA.get('pkqhm3_left')) {
+                $("#pkqhm3").css('left', USERDATA.get('pkqhm3_left') + 'px');
+            }
+            if (USERDATA.get('pkqhm3_top')) {
+                $("#pkqhm3").css('top', USERDATA.get('pkqhm3_top') + 'px');
+            }
+			
+			$("#pkqhm4").css('position', 'relative');
+            if (USERDATA.get('pkqhm4_left')) {
+                $("#pkqhm4").css('left', USERDATA.get('pkqhm4_left') + 'px');
+            }
+            if (USERDATA.get('pkqhm4_top')) {
+                $("#pkqhm4").css('top', USERDATA.get('pkqhm4_top') + 'px');
+            }
+			
+			//加载设备状态位置
+			$("#sbzthm1").css('position', 'relative');
+            if (USERDATA.get('sbzthm1_left')) {
+                $("#sbzthm1").css('left', USERDATA.get('sbzthm1_left') + 'px');
+            }
+            if (USERDATA.get('sbzthm1_top')) {
+                $("#sbzthm1").css('top', USERDATA.get('sbzthm1_top') + 'px');
+            }
+			
+			
+        });
+	
+    </script>
+	<style type="text/css">
+	
+	html{-webkit-text-size-adjust:none;}
+	body{padding:0px;margin:0px;padding-top:100px;-webkit-text-size-adjust:none;}
+	div,span,table,tr,td{padding:0px;margin:0px;clear:both;}
+	.conveyor{/*position:absolute;*/color:#000000;font-size:12px;display:block;}
+	.qtip fieldset{-webkit-text-size-adjust:none;font-size:10px;color:#666;font-weight:normal; font-family:Arial, Helvetica, sans-serif;white-space: nowrap;line-height:120%;}
+	.qtip{-webkit-text-size-adjust:none;max-width:none;}
+	.fieldset{line-height:130%;}
+	#tasks{font-size:12px;}
+	#tasks tr td{padding:5px;}
+	
+	.dialog{font:"宋体";font-size:12px;color:#000;display:none;}
+	.dialog table tr td{padding:5px;}
+	.dialog .title{color:#333333;width:60px;}
+	.ui-dialog{font-size:12px;}
+	.ui-widget .ui-widget{font-size:12px;}
+	.ui-dialog .ui-dialog-titlebar{padding:2px 10px;}
+	.ui-dialog-title{font-size:13px;}
+	
+	.movement{cursor:pointer;}
+	.action{display:none;color:#666;}
+	
+	#selectTaskCurrentLocation {margin:10px 0px 10px 10px;}
+	.pathNormal{padding:5px;width:60px;height:20px;background-color:#FFFFFF; white-space:nowrap; cursor:pointer;}
+	.pathSelected{padding:5px;width:60px;height:20px;background-color:green; white-space:nowrap; cursor:pointer;}
+	
+	#selectCompleteTask{display:none;}
+	#selectCompleteTask tr td{height:30px;}
+	
+	.highLight{background-color:greenyellow;}
+	.highLight td{background-color:greenyellow;}
+	
+	.taskStateNormal{color:#000;}
+	.taskStateSuspend{color:Red;}
+	.taskStateExecute{color:green;}
+	
+	 .routeMask{position:relative;background-color:green;}
+	#rightMenu{float:right;width:100px;border:1px solid #ccc;position: absolute;top:0;right:10px;font-size:12px;line-height:150%;padding:5px;}
+	.qtip-title{cursor:move;}
+	</style>
+</head>
+<body>
+<table id="zyqhm" border="0" align="center" cellpadding="0" cellspacing="0" style="border:0px dotted #ccc;margin:auto;">
+  <tr>
+    <td height="40" colspan="4"><label class="dropbox" style="width:50px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">煮油区</label></td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1436' direction="up,down">1436</td>
+    <td width="30" height="40">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="30" height="40" locationId='1402' direction="right">1402</td>
+    <td width="30" height="40" locationId='1403' direction="right">1403</td>
+    <td width="30" height="40" locationId='1404' direction="down">1404</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1409' direction="down">1409</td>
+    <td width="30" height="40" locationId='1408' direction="left">1408</td>
+    <td width="30" height="40" locationId='1407' direction="left">1407</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1412' direction="right">1412</td>
+    <td width="30" height="40" locationId='1413' direction="right">1413</td>
+    <td width="30" height="40" locationId='1414' direction="down">1414</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1419' direction="down">1419</td>
+    <td width="30" height="40" locationId='1418' direction="left">1418</td>
+    <td width="30" height="40" locationId='1417' direction="left">1417</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1422' direction="right">1422</td>
+    <td width="30" height="40" locationId='1423' direction="right">1423</td>
+    <td width="30" height="40" locationId='1424' direction="down">1424</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1432' direction="right">1432</td>
+    <td width="30" height="40" locationId='1433' direction="left,right">1433</td>
+    <td width="30" height="40" rowspan="2" locationId='1434' direction="up,down">1434</td>
+    <td width="30" height="40" locationId='1433' direction="left,right">1435</td>
+  </tr>
+  <tr>
+    <td width="30" height="40" locationId='1401' direction="up">1401</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1405' direction="down">1405</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1410' direction="down">1410</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1406' direction="up">1406</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1411' direction="up">1411</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1415' direction="down">1415</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1420' direction="down">1420</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1416' direction="up">1416</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1421' direction="up">1421</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1425' direction="down">1425</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationId='1431' direction="up">1431</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+  </tr>
+</table>
+
+<table id="bzqhm1" border="0" align="center" cellpadding="0" cellspacing="0" style="border:0px dotted #ccc;margin:auto;">
+<thead>
+	<tr>
+	<td colspan="24"><label class="dropbox" style="width:50px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">包装区1</label></td>
+	</tr>
+</thead>
+  <tr>
+    <td height="40" locationId="1506" direction="down">1506</td>
+    <td>&nbsp;</td>
+    <td width="30" rowspan="2" locationId="1505" direction="up">1505</td>
+    <td>&nbsp;</td>
+    <td locationId="1508" direction="up">1508</td>
+    <td>&nbsp;</td>
+    <td locationId="1511" direction="up">1511</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1512" direction="up,down">1512</td>
+    <td>&nbsp;</td>
+    <td width="15">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1516" direction="up,down">1516</td>
+    <td>&nbsp;</td>
+    <td width="30" rowspan="2" locationId="1521" direction="up,down">1521</td>
+    <td>&nbsp;</td>
+    <td width="30" rowspan="2" locationid="1523" direction="up">1523</td>
+    <td>&nbsp;</td>
+    <td locationid="1524" direction="up,down">1524</td>
+    <td>&nbsp;</td>
+    <td width="15">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1528" direction="up,down">1528</td>
+  </tr>
+  <tr>
+    <td width="30" height="40" bgcolor="#FF0000">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" bgcolor="#FF0000">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" locationId="1510" direction="up">1510</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" locationId="1513" direction="up,down,left,right">1513</td>
+    <td width="30" locationId="1514" direction="left,right">1514</td>
+    <td width="15">&nbsp;</td>
+    <td width="30" locationId="1518" direction="left,right">1518</td>
+    <td width="30" locationId="1517" direction="up,down,left,right">1517</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" locationid="1525" direction="up,down,left,right">1525</td>
+    <td width="30" locationid="1526" direction="left,right">1526</td>
+    <td width="15">&nbsp;</td>
+    <td width="30" locationid="1530" direction="left,right">1530</td>
+    <td width="30" locationid="1529" direction="up,down,left,right">1529</td>
+  </tr>
+  <tr>
+    <td width="30" height="40" locationId="1502" direction="right">1502</td>
+    <td width="30" locationId="1503" direction="right">1503</td>
+    <td width="30" locationId="1504" direction="up">1504</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" rowspan="2" locationId="1507" direction="up,down">1507</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" rowspan="2" locationId="1509" direction="up">1509</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" locationId="1515" direction="up,down">1515</td>
+    <td width="15">&nbsp;</td>
+    <td width="30" locationId="1519" direction="up,down">1519</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" rowspan="2" locationId="1520" direction="up,down">1520</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" rowspan="2" locationid="1522" direction="up">1522</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" locationid="1527" direction="up,down">1527</td>
+    <td width="15">&nbsp;</td>
+    <td width="30" locationid="1531" direction="up,down">1531</td>
+    <td width="30">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="40">1207</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1581" direction="up,down">1581</td>
+    <td width="15">&nbsp;</td>
+    <td locationId="1582" direction="up,down">1582</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1583" direction="up,down">1583</td>
+    <td width="15">&nbsp;</td>
+    <td locationid="1584" direction="up,down">1584</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="40">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1507" direction="up,down">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1509" direction="up">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1560" direction="up,down">1560</td>
+    <td>&nbsp;</td>
+    <td locationId="1562" direction="up,down">1562</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1520" direction="up,down">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1522" direction="up">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1564" direction="up,down">1564</td>
+    <td>&nbsp;</td>
+    <td locationid="1566" direction="up,down">1566</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="40">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1507" direction="up,down">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1509" direction="up">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><font style="font-size:10px;">1号倒<br />
+    料机</font></td>
+    <td>&nbsp;</td>
+    <td><font style="font-size:10px;">2号倒<br />
+    料机</font></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationId="1520" direction="up,down">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1522" direction="up">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><font style="font-size:10px;">3号倒<br />
+      料机</font></td>
+    <td>&nbsp;</td>
+    <td><font style="font-size:10px;">4号倒<br />
+料机</font></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table id="bzqhm2" border="0" align="center" cellpadding="0" cellspacing="0" style="border:0px dotted #ccc;margin:auto;">
+  <thead>
+    <tr>
+      <td colspan="16"><label class="dropbox" style="width:50px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">包装区2</label></td>
+    </tr>
+  </thead>
+  <tr>
+    <td width="30" rowspan="2" locationid="1533" direction="up,down">1533</td>
+    <td height="40" locationid="1534" direction="up,down">1534</td>
+    <td>&nbsp;</td>
+    <td width="15">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1538" direction="up,down">1538</td>
+    <td>&nbsp;</td>
+    <td width="30" rowspan="2" locationid="1543" direction="up,down">1543</td>
+    <td>&nbsp;</td>
+    <td width="30" rowspan="2" locationid="1545" direction="up">1545</td>
+    <td>&nbsp;</td>
+    <td locationid="1546" direction="up,down">1546</td>
+    <td>&nbsp;</td>
+    <td width="15">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1550" direction="up,down">1550</td>
+  </tr>
+  <tr>
+    <td width="30" height="40" locationid="1535" direction="up,down,left,right">1535</td>
+    <td width="30" locationid="1536" direction="left,right">1536</td>
+    <td width="15">&nbsp;</td>
+    <td width="30" locationid="1540" direction="left,right">1540</td>
+    <td width="30" locationid="1539" direction="up,down,left,right">1539</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" locationid="1547" direction="up,down,left,right">1547</td>
+    <td width="30" locationid="1548" direction="left,right">1548</td>
+    <td width="15">&nbsp;</td>
+    <td width="30" locationid="1552" direction="left,right">1552</td>
+    <td width="30" locationid="1551" direction="up,down,left,right">1551</td>
+  </tr>
+  <tr>
+    <td width="30" rowspan="2" locationid="1532" direction="up,down">1532</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" locationid="1537" direction="up,down">1537</td>
+    <td width="15">&nbsp;</td>
+    <td width="30" locationid="1541" direction="up,down">1541</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" rowspan="2" locationid="1542" direction="up,down">1542</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" rowspan="2" locationid="1544" direction="up">1544</td>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" locationid="1549" direction="up,down">1549</td>
+    <td width="15">&nbsp;</td>
+    <td width="30" locationid="1553" direction="up,down">1553</td>
+    <td width="30">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="40">&nbsp;</td>
+    <td locationid="1585" direction="up,down">1585</td>
+    <td width="15">&nbsp;</td>
+    <td locationid="1586" direction="up,down">1586</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1587" direction="up,down">1587</td>
+    <td width="15">&nbsp;</td>
+    <td  locationid="1588" direction="up">1588</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td height="40">&nbsp;</td>
+    <td locationid="1568" direction="up,down">1568</td>
+    <td>&nbsp;</td>
+    <td locationid="1570" direction="up,down">1570</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td >&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td locationid="1573" direction="up,down">1573</td>
+    <td>&nbsp;</td>
+    <td locationid="1574" direction="up">1574</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td height="40">&nbsp;</td>
+    <td><font style="font-size:10px;">5号倒<br />
+料机</font></td>
+    <td>&nbsp;</td>
+    <td><font style="font-size:10px;">6号倒<br />
+料机</font></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><font style="font-size:10px;">7号倒<br />
+料机</font></td>
+    <td>&nbsp;</td>
+    <td><font style="font-size:10px;">8号倒<br />
+      料机</font></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table border="0" align="center" cellpadding="0" cellspacing="0" id="pkqhm1">
+  <thead>
+    <tr>
+      <td colspan="21"><label class="dropbox" style="width:110px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">平口区1-立库区域</label></td>
+    </tr>
+  </thead>
+  <tr>
+    <td width="30" height="40" locationId="1124" direction="down">1124</td>
+    <td width="30" rowspan="2" align="center">一号堆垛机</td>
+    <td width="30" height="40" locationId="1127" direction="up">1127</td>
+    <td width="30" height="40" locationId="1128" direction="down">1128</td>
+    <td width="30" rowspan="2" align="center">二号堆垛机</td>
+    <td width="30" height="40" locationId="1131" direction="up">1131</td>
+    <td width="30" height="40" locationId="1132" direction="down">1132</td>
+    <td width="30" rowspan="2" align="center">三号堆垛机</td>
+    <td width="30" height="40" locationId="1135" direction="up">1135</td>
+    <td width="30" height="40" locationId="1136" direction="down">1136</td>
+    <td width="30" rowspan="2" align="center">四号堆垛机</td>
+    <td width="30" height="40" locationId="1139" direction="up">1139</td>
+    <td width="30" height="40" locationId="1140" direction="down">1140</td>
+    <td width="30" rowspan="2" align="center">五号堆垛机</td>
+    <td width="30" height="40" locationId="1143" direction="up">1143</td>
+    <td width="30" height="40" locationId="1144" direction="down">1144</td>
+    <td width="30" rowspan="2" align="center">六号堆垛机</td>
+    <td width="30" height="40" locationId="1147" direction="up">1147</td>
+    <td width="30" height="40" locationId="1148" direction="down">1148</td>
+    <td width="30" rowspan="2" align="center">七号堆垛机</td>
+    <td width="30" height="40" locationId="1151" direction="up">1151</td>
+  </tr>
+  <tr>
+    <td width="30" height="40" locationId="1125" direction="down">1125</td>
+    <td width="30" height="40" locationId="1126" direction="up">1126</td>
+    <td width="30" height="40" locationId="1129" direction="down">1129</td>
+    <td width="30" height="40" locationId="1130" direction="up">1130</td>
+    <td width="30" height="40" locationId="1133" direction="down">1133</td>
+    <td width="30" height="40" locationId="1134" direction="up">1134</td>
+    <td width="30" height="40" locationId="1137" direction="down">1137</td>
+    <td width="30" height="40" locationId="1138" direction="up">1138</td>
+    <td width="30" height="40" locationId="1141" direction="down">1141</td>
+    <td width="30" height="40" locationId="1142" direction="up">1142</td>
+    <td width="30" height="40" locationId="1145" direction="down">1145</td>
+    <td width="30" height="40" locationId="1146" direction="up">1146</td>
+    <td width="30" height="40" locationId="1149" direction="down">1149</td>
+    <td width="30" height="40" locationId="1150" direction="up">1150</td>
+  </tr>
+</table>
+<table border="0" align="center" cellpadding="0" cellspacing="0" id="pkqhm2">
+  <thead>
+    <tr>
+      <td colspan="7"><label class="dropbox" style="width:120px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">平口区2-平口出入口</label></td>
+    </tr>
+  </thead>
+  <tr>
+    <td locationid="2108" direction="down">2108</td>
+    <td>&nbsp;</td>
+    <td height="40">&nbsp;</td>
+    <td height="40" locationid="2113" direction="up">2113</td>
+    <td height="40">&nbsp;</td>
+    <td height="40">&nbsp;</td>
+    <td height="40">&nbsp;</td>
+  </tr>
+  <tr>
+    <td locationid="2109" direction="down">2109</td>
+    <td>&nbsp;</td>
+    <td height="40">&nbsp;</td>
+    <td width="30" rowspan="2" locationid="1182" direction="up,down">1182</td>
+    <td height="40">&nbsp;</td>
+    <td height="40">&nbsp;</td>
+    <td height="40">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="30" locationid="2110" direction="right">2110</td>
+    <td width="30" locationid="2111" direction="right">2111</td>
+    <td width="30" height="40" locationid="2112" direction="right">2112</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1102" direction="up,down">1102</td>
+    <td width="30" height="40" locationid="1103" direction="right">1103</td>
+    <td width="30" height="40" locationid="1104" direction="down">1104</td>
+    <td width="30" height="40">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="30">&nbsp;</td>
+    <td width="30">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1101" direction="up">1101</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1105" direction="down">1105</td>
+    <td width="30" height="40">&nbsp;</td>
+  </tr>
+</table>
+<table border="0" align="center" cellpadding="0" cellspacing="0" id="pkqhm3">
+  <thead>
+    <tr>
+      <td colspan="13"><label class="dropbox" style="width:120px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">平口区3-发货区域</label></td>
+    </tr>
+  </thead>
+  <tr>
+    <td width="30" height="40" locationid="1106" direction="down">1106</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1112" direction="up">1112</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1114" direction="down">1114</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" rowspan="3" locationid="1117" direction="up">1117</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1118" direction="down">1118</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1120" direction="down">1120</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1122" direction="down">1122</td>
+  </tr>
+  <tr>
+    <td width="30" height="40" locationid="1107" direction="down">1107</td>
+    <td width="30" height="40" locationid="1106" direction="right">1109</td>
+    <td width="30" height="40" locationid="1111" direction="up">1111</td>
+    <td width="30" height="40" locationid="1113" direction="left">1113</td>
+    <td width="30" height="40" locationid="1115" direction="down">1115</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1119" direction="down">1119</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1121" direction="down">1121</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1123" direction="down">1123</td>
+  </tr>
+  <tr>
+    <td width="30" height="40" locationid="1108" direction="down">1108</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1110" direction="up">1110</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1116" direction="down">1116</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+  </tr>
+</table>
+<table border="0" align="center" cellpadding="0" cellspacing="0" id="pkqhm4">
+  <thead>
+    <tr>
+      <td colspan="15"><label class="dropbox" style="width:120px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">平口区4-二楼平台</label></td>
+    </tr>
+  </thead>
+  <tr>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="1181" direction="up">1181</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2115" direction="down">2115</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2114" direction="up">2124</td>
+    <td width="30" height="40" locationid="2118" direction="down">2118</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2125" direction="up">2125</td>
+    <td width="30" height="40" locationid="2121" direction="down">2121</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2126" direction="up">2126</td>
+  </tr>
+  <tr>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2114" direction="up">2114</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2116" direction="down">2116</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2117" direction="up">2117</td>
+    <td width="30" height="40" locationid="2119" direction="down">2119</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2120" direction="up">2120</td>
+    <td width="30" height="40" locationid="2122" direction="down">2122</td>
+    <td width="30" height="40">&nbsp;</td>
+    <td width="30" height="40" locationid="2123" direction="up">2123</td>
+  </tr>
+  <tr>
+    <td height="40" colspan="15" locationid="2191" direction="left,right">2191</td>
+  </tr>
+</table>
+<table border="0" align="center" cellpadding="0" cellspacing="0" id="sbzthm1">
+  <tr>
+    <td height="40" colspan="7"><label class="dropbox" style="width:120px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">输送线状态</label></td>
+  </tr>
+  <tr>
+    <td height="40"><canvas deviceName="平口区"></canvas></td>
+    <td height="40"><canvas deviceName="包装区"></canvas></td>
+    <td height="40"><canvas deviceName="煮油区"></canvas></td>
+    <td height="40"><canvas deviceName="抛丸区"></canvas></td>
+    <td height="40"><canvas deviceName="酸洗区"></canvas></td>
+    <td height="40"><canvas deviceName="打压区"></canvas></td>
+    <td height="40">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="40" colspan="7"><label class="dropbox" style="width:120px;height:20px;background-color:#FFFFCC;font-size:10px; text-align:center;display:block; cursor:move; position:relative; margin-top:-5px; font-weight:bold;color:#FF0000; line-height:20px;">态堆垛机状态</label></td>
+  </tr>
+  <tr>
+    <td width="30" height="40"><canvas deviceName="C001"></canvas></td>
+    <td width="30" height="40"><canvas deviceName="C002"></canvas></td>
+    <td width="30" height="40"><canvas deviceName="C003"></canvas></td>
+    <td width="30" height="40"><canvas deviceName="C004"></canvas></td>
+    <td width="30" height="40"><canvas deviceName="C005"></canvas></td>
+    <td width="30" height="40"><canvas deviceName="C006"></canvas></td>
+    <td width="30" height="40"><canvas deviceName="C007"></canvas></td>
+  </tr>
+</table>
+<table id="tasks"  border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC" style="margin-top:20px;">
+  <tr style="cursor:move;">
+  	<td>#</td>
+    <td>任务号</td>
+    <td>起点</td>
+    <td>终点</td>
+    <td>状态</td>
+    <td>容器编码</td>
+    <td>当前位置</td>
+  </tr>
+  <tr>
+  <td class="datarow loading" colspan="7" bgcolor="#fff"><img src="/images/loading.gif" alt="" /></td>
+  </tr>
+</table>
+<div class="dialog">
+<fieldset>
+<legend>主任务信息</legend>
+
+<table border="0" cellpadding="3" cellspacing="0">
+  <tr>
+    <td width="64" class="title">任务号</td>
+    <td width="170"><label class="taskNo"></label></td>
+    <td width="64" class="title">起始位置</td>
+    <td width="170"><label class="startLocation"></label></td>
+    <td width="64" class="title">结束位置</td>
+    <td width="170"><label class="endLocation"></label></td>
+  </tr>
+  <tr>
+    <td class="title">业务类型</td>
+    <td><label class="bzType"></label></td>
+    <td class="title">容器编码</td>
+    <td><label class="containerCodes"></label></td>
+    <td class="title">任务状态</td>
+    <td><label class="status"></label></td>
+  </tr>
+  <tr>
+    <td class="title">描述信息</td>
+    <td colspan="5"><label class="description"></label></td>
+    </tr>
+</table>
+</fieldset>
+<table class="movements" width="750" border="0" cellpadding="3" cellspacing="1" bgcolor="#CCCCCC" style="margin-top:10px;margin-bottom:10px;">
+  <tr>
+    <td class="title" style="width:auto;">编号</td>
+    <td class="title" style="width:auto;">起始位置</td>
+    <td class="title" style="width:auto;">结束位置</td>
+    <td class="title" style="width:auto;">路经</td>
+    <td class="title" style="width:auto;">状态</td>
+  </tr>
+</table>
+
+</div>
+
+<div id="selectTaskCurrentLocation">
+<table cellpadding="0" cellspacing="1" bgcolor="#CCCCCC" border="0">
+<tr>
+</tr>
+</table>
+</div>
+
+<div id="selectCompleteTask">
+<table cellpadding="0" cellspacing="0" bgcolor="#CCCCCC" border="0">
+</table>
+</div>
+
+<div id="rightMenu">
+</div>
+</body>
+</html>

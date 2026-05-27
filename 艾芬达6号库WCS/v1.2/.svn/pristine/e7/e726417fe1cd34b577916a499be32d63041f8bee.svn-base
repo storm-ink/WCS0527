@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog"/>
+  </configSections>
+  <nlog throwExceptions="true">
+    <targets async="true">
+      <target name="database" type="Database" connectionString="Data Source=.;Initial Catalog=wcs_logs;User Id=sa;Password=gen@song123;Enlist=False"
+                commandText="INSERT INTO [dbo].[Logs] ([LongDate],[Level],[ThreadId] ,[Logger],[Message],[Exception],[Sender],[MachineName],[ProcessName])
+              VALUES 
+              (@LongDate ,@Level ,@ThreadId ,@Logger ,@Message ,@Exception,@Sender,@MachineName, @ProcessName)">
+        <parameter name="@LongDate" layout="${date:format=yyyy-MM-dd HH\:mm\:ss.fff}" />
+        <parameter name="@Level" layout="${level}" />
+        <parameter name="@MachineName" layout="${machineName}" />
+        <parameter name="@ProcessName" layout="${processname}" />
+        <parameter name="@ProcessId" layout="${processid}" />
+        <parameter name="@ThreadId" layout="${threadid}" />
+        <parameter name="@Logger" layout="${logger}" />
+        <parameter name="@Message" layout="${message}" />
+        <parameter name="@Exception" layout="${exception:format=tostring}" />
+        <parameter name="@Sender" layout="${event-context:sender}" />
+      </target>
+    </targets>
+    <rules>
+
+      <logger name="*" minlevel="Trace" writeTo="database" />
+
+    </rules>
+  </nlog>
+
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0" />
+  </startup>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="NLog" publicKeyToken="5120e14c03d0593c" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.1.0.0" newVersion="3.1.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="myHttpBinding" maxBufferPoolSize="65535000" maxBufferSize="65535000"
+          maxReceivedMessageSize="65535000">
+          <readerQuotas maxDepth="65535000" maxStringContentLength="65535000"
+            maxArrayLength="65535000" maxBytesPerRead="65535000" maxNameTableCharCount="65535000" />
+        </binding>
+        <binding name="BasicHttpBinding_ICraneService" maxBufferPoolSize="65535000" maxBufferSize="65535000"
+          maxReceivedMessageSize="65535000">
+          <readerQuotas maxDepth="65535000" maxStringContentLength="65535000"
+            maxArrayLength="65535000" maxBytesPerRead="65535000" maxNameTableCharCount="65535000" />
+        </binding>
+      </basicHttpBinding>
+    </bindings>
+    <client>
+      <endpoint address="http://10.12.96.58:9991/CraneService" binding="basicHttpBinding"
+        bindingConfiguration="BasicHttpBinding_ICraneService" contract="DeviceServer.Services.SingleForkCraneDeviceService.OldCraneService.ICraneService"
+        name="BasicHttpBinding_ICraneService" />
+    </client>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="WcsServiceBehavior">
+          <serviceDebug includeExceptionDetailInFaults="True"/>
+          <serviceMetadata httpGetEnabled="False"/>
+          <dataContractSerializer maxItemsInObjectGraph="65536000"/>
+          <appErrorToMessage/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <extensions>
+      <behaviorExtensions>
+        <add name="appErrorToMessage" type="Matedata.WcfServiceOperationBehavior, Matedata, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+      </behaviorExtensions>
+    </extensions>
+  </system.serviceModel>
+  
+</configuration>

@@ -1,0 +1,145 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Net.Sockets;
+using System.Threading;
+using System.Diagnostics;
+
+namespace Gensong
+{
+    /// <summary>
+    /// 堆垛机客户端代理。堆垛机模拟程序通过此代理同客户端对话。
+    /// </summary>
+    public class CraneClientProxy
+    {
+        TcpClient _tcpClient;
+        Encoding _encoding;
+        RequestTelexBuilder _telexBuider;
+        Boolean _closeCalled;
+
+        public CraneClientProxy(TcpClient tcpClient, Encoding encoding)
+        {
+            if (tcpClient == null)
+            {
+                throw new ArgumentNullException("tcpClient");
+            }
+            if (encoding == null)
+            {
+                throw new ArgumentNullException("encoding");
+            }
+            _tcpClient = tcpClient;
+            _encoding = encoding;
+            _telexBuider = new RequestTelexBuilder();
+
+            Logger.Info("CraneClientProxy: 新实例, 远程地址 {0}", tcpClient.Client.RemoteEndPoint);
+
+            this.Closed += (sender, e) =>
+            {
+                Logger.Info("CraneClientProxy: 堆垛机客户端代理已关闭。");
+            };
+        }
+
+        public event EventHandler<RequestTelexReceivedEventArgs> RequestTelexReceived;
+        protected virtual void OnRequestTelexReceived(RequestTelexReceivedEventArgs e)
+        {
+            if (RequestTelexReceived != null)
+            {
+                RequestTelexReceived(this, e);
+            }
+        }
+
+        /// <summary>
+        /// 将报文发给客户端。
+        /// </summary>
+        /// <param str="str">不带开始字符和结束字符的报文数据。</param>
+        public void SendResponseTelex(ResponseTelex telex)
+        {
+            if (telex == null)
+            {
+                throw new ArgumentNullException("telex");
+            }
+
+            if (_closeCalled)
+            {
+                throw new InvalidOperationException("此代理已关闭。");
+            }
+
+            String text = RequestTelexBuilder.WrapTelex(telex.Text);
+
+            NetworkStream networkStream = _tcpClient.GetStream();
+            byte[] buffer = _encoding.GetBytes(text);
+            networkStream.Write(buffer, 0, buffer.Length);
+        }
+
+        public void StartRead()
+        {
+            Thread t = new Thread(new ThreadStart(Read)); t.Start();
+        }
+        private void Read()
+        {
+            //Logger.Info("CraneClientProxy: 开始读取远程数据");
+
+            _closeCalled = false;
+
+            NetworkStream networkStream = _tcpClient.GetStream();
+            networkStream.ReadTimeout = System.Threading.Timeout.Infinite;
+            const int bufferSize = 1024;
+            byte[] buffer = new byte[bufferSize];
+
+            int numberRead = 0;
+            try
+            {
+                do
+                {
+                    numberRead = networkStream.Read(buffer, 0, bufferSize);
+                    if (numberRead == 0) break;
+
+                    String msg = _encoding.GetString(buffer, 0, numberRead);
+                    if (!String.IsNullOrEmpty(msg))
+                    {
+                        msg = RequestTelexBuilder.ToMachineTelex(msg);
+                        _telexBuider.Append(msg);
+                        List<RequestTelex> telexes = _telexBuider.FetchTelexes();
+
+                        foreach (RequestTelex telex in telexes)
+                        {
+                            OnRequestTelexReceived(new RequestTelexReceivedEventArgs(telex));
+                        }
+                    }
+
+                    Thread.Sleep(1);
+                } while (!_closeCalled && _tcpClient.Connected);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+
+            CloseInternal();
+            OnClosed(EventArgs.Empty);
+        }
+
+        internal void Close()
+        {
+            _closeCalled = true;
+            CloseInternal();
+        }
+
+        private void CloseInternal()
+        {
+            _tcpClient.Client.Close();
+            _tcpClient.Close();
+        }
+        public event EventHandler Closed;
+
+        protected virtual void OnClosed(EventArgs e)
+        {
+            if (this.Closed != null)
+            {
+                this.Closed(this, e);
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.App
+{
+    public static class SerializationInfoExtends
+    {
+        public static bool ContainsKey(this SerializationInfo info, String key)
+        {
+            var enm = info.GetEnumerator();
+            while (enm.MoveNext())
+            {
+                if (String.Equals(enm.Current.Name, key, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static T GetValueOrDefault<T>(this SerializationInfo info,String key,T defaultValue)
+        {
+            if (info.ContainsKey(key))
+            {
+                return (T)info.GetValue(key, typeof(T));
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+    }
+}

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RailGuidedVehicleDeviceServiceProxy" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IRailGuidedVehicleService_GetDiagnoseMatedatas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDiagnoseMatedatas" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_GetDiagnoseMatedatas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDiagnoseMatedatasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_Diagnose_InputMessage">
+    <wsdl:part name="parameters" element="tns:Diagnose" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_Diagnose_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DiagnoseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_GetAllStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStatus" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_GetAllStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_Move_InputMessage">
+    <wsdl:part name="parameters" element="tns:Move" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_Move_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MoveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_Picking_InputMessage">
+    <wsdl:part name="parameters" element="tns:Picking" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_Picking_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PickingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_Putting_InputMessage">
+    <wsdl:part name="parameters" element="tns:Putting" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_Putting_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PuttingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_ClearTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:ClearTask" />
+  </wsdl:message>
+  <wsdl:message name="IRailGuidedVehicleService_ClearTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ClearTaskResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IRailGuidedVehicleService">
+    <wsdl:operation name="GetDiagnoseMatedatas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatedataService/GetDiagnoseMatedatas" message="tns:IRailGuidedVehicleService_GetDiagnoseMatedatas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatedataService/GetDiagnoseMatedatasResponse" message="tns:IRailGuidedVehicleService_GetDiagnoseMatedatas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Diagnose">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/Diagnose" message="tns:IRailGuidedVehicleService_Diagnose_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/DiagnoseResponse" message="tns:IRailGuidedVehicleService_Diagnose_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/GetAllStatus" message="tns:IRailGuidedVehicleService_GetAllStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/GetAllStatusResponse" message="tns:IRailGuidedVehicleService_GetAllStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Move">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/Move" message="tns:IRailGuidedVehicleService_Move_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/MoveResponse" message="tns:IRailGuidedVehicleService_Move_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Picking">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/Picking" message="tns:IRailGuidedVehicleService_Picking_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/PickingResponse" message="tns:IRailGuidedVehicleService_Picking_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Putting">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/Putting" message="tns:IRailGuidedVehicleService_Putting_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/PuttingResponse" message="tns:IRailGuidedVehicleService_Putting_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/ClearTask" message="tns:IRailGuidedVehicleService_ClearTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRailGuidedVehicleService/ClearTaskResponse" message="tns:IRailGuidedVehicleService_ClearTask_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IRailGuidedVehicleService" type="tns:IRailGuidedVehicleService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDiagnoseMatedatas">
+      <soap:operation soapAction="http://tempuri.org/IMatedataService/GetDiagnoseMatedatas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Diagnose">
+      <soap:operation soapAction="http://tempuri.org/IRailGuidedVehicleService/Diagnose" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStatus">
+      <soap:operation soapAction="http://tempuri.org/IRailGuidedVehicleService/GetAllStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Move">
+      <soap:operation soapAction="http://tempuri.org/IRailGuidedVehicleService/Move" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Picking">
+      <soap:operation soapAction="http://tempuri.org/IRailGuidedVehicleService/Picking" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Putting">
+      <soap:operation soapAction="http://tempuri.org/IRailGuidedVehicleService/Putting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearTask">
+      <soap:operation soapAction="http://tempuri.org/IRailGuidedVehicleService/ClearTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RailGuidedVehicleDeviceServiceProxy">
+    <wsdl:port name="BasicHttpBinding_IRailGuidedVehicleService" binding="tns:BasicHttpBinding_IRailGuidedVehicleService">
+      <soap:address location="http://localhost:9991/RailGuidedVehicleDeviceServiceProxy" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

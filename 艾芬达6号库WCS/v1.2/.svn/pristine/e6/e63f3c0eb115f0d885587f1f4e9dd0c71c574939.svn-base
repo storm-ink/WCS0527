@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.TwoForksCrane" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wcs.DefaultImpls.TwoForksCrane" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="ForkStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="初始化" />
+      <xs:enumeration value="无货待命" />
+      <xs:enumeration value="有货待命" />
+      <xs:enumeration value="故障" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ForkStatus" nillable="true" type="tns:ForkStatus" />
+</xs:schema>

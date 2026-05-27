@@ -1,0 +1,646 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2C6225CC-6960-4964-9DCD-048B4B607BD1}|v1.2\\Wcs.Framework\\Wcs.Framework.csproj|c:\\users\\sineva_cl\\desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93wcs_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93wcs\\v1.2\\wcs.framework\\\u8BBE\u5907\u76F8\u5173\\tcpprotocoltaskabledevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C6225CC-6960-4964-9DCD-048B4B607BD1}|v1.2\\Wcs.Framework\\Wcs.Framework.csproj|solutionrelative:v1.2\\wcs.framework\\\u8BBE\u5907\u76F8\u5173\\tcpprotocoltaskabledevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\wcs.app.exe.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\wcs.app.exe.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\settings.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\settings.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\routes.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\routes.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C6225CC-6960-4964-9DCD-048B4B607BD1}|v1.2\\Wcs.Framework\\Wcs.Framework.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\wcs.framework\\\u4EFB\u52A1\u76F8\u5173\\equipmentactionscheduler\\equipmentactionscheduler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C6225CC-6960-4964-9DCD-048B4B607BD1}|v1.2\\Wcs.Framework\\Wcs.Framework.csproj|solutionrelative:v1.2\\wcs.framework\\\u4EFB\u52A1\u76F8\u5173\\equipmentactionscheduler\\equipmentactionscheduler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\sinevaagvdevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\sinevaagvdevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\\u4E2D\u95F4\u5E93\\gsagvdatabasehand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\\u4E2D\u95F4\u5E93\\gsagvdatabasehand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C6225CC-6960-4964-9DCD-048B4B607BD1}|v1.2\\Wcs.Framework\\Wcs.Framework.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\wcs.framework\\\u8BBE\u5907\u76F8\u5173\\taskabledevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C6225CC-6960-4964-9DCD-048B4B607BD1}|v1.2\\Wcs.Framework\\Wcs.Framework.csproj|solutionrelative:v1.2\\wcs.framework\\\u8BBE\u5907\u76F8\u5173\\taskabledevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\agvsubsystemlocation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\agvsubsystemlocation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\\u66F4\u6539\u8BF4\u660E.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:\u66F4\u6539\u8BF4\u660E.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{695AD921-EBC8-42B1-9FD8-11475893120B}|v1.2\\Wcs.DefaultImplementCollection.Robot\\Wcs.DefaultImplementCollection.Robot.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\wcs.defaultimplementcollection.robot\\task\\robottransferaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{695AD921-EBC8-42B1-9FD8-11475893120B}|v1.2\\Wcs.DefaultImplementCollection.Robot\\Wcs.DefaultImplementCollection.Robot.csproj|solutionrelative:v1.2\\wcs.defaultimplementcollection.robot\\task\\robottransferaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{695AD921-EBC8-42B1-9FD8-11475893120B}|v1.2\\Wcs.DefaultImplementCollection.Robot\\Wcs.DefaultImplementCollection.Robot.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\wcs.defaultimplementcollection.robot\\robotdevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{695AD921-EBC8-42B1-9FD8-11475893120B}|v1.2\\Wcs.DefaultImplementCollection.Robot\\Wcs.DefaultImplementCollection.Robot.csproj|solutionrelative:v1.2\\wcs.defaultimplementcollection.robot\\robotdevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{695AD921-EBC8-42B1-9FD8-11475893120B}|v1.2\\Wcs.DefaultImplementCollection.Robot\\Wcs.DefaultImplementCollection.Robot.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\wcs.defaultimplementcollection.robot\\equipmentstateactionpattern\\restorerobotstatemanagerapplicationstartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{695AD921-EBC8-42B1-9FD8-11475893120B}|v1.2\\Wcs.DefaultImplementCollection.Robot\\Wcs.DefaultImplementCollection.Robot.csproj|solutionrelative:v1.2\\wcs.defaultimplementcollection.robot\\equipmentstateactionpattern\\restorerobotstatemanagerapplicationstartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{695AD921-EBC8-42B1-9FD8-11475893120B}|v1.2\\Wcs.DefaultImplementCollection.Robot\\Wcs.DefaultImplementCollection.Robot.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\wcs.defaultimplementcollection.robot\\commands\\addautomatictransferwithstepbystepcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{695AD921-EBC8-42B1-9FD8-11475893120B}|v1.2\\Wcs.DefaultImplementCollection.Robot\\Wcs.DefaultImplementCollection.Robot.csproj|solutionrelative:v1.2\\wcs.defaultimplementcollection.robot\\commands\\addautomatictransferwithstepbystepcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\startups.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\startups.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\webapistartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\webapistartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u8F93\u9001\u7EBF\\\u7ACB\u5E93cv\u4F4D\u7F6E.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\\u8F93\u9001\u7EBF\\\u7ACB\u5E93cv\u4F4D\u7F6E.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\agv\\agv\u7AD9\u70B9.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u7CFB\u7EDF\u914D\u7F6E\\agv\\agv\u7AD9\u70B9.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\sinevarobottaskcompletedeventhandlerstartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\\u542F\u52A8\u7A0B\u5E8F\\sinevarobottaskcompletedeventhandlerstartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\agvsubsystemlocationwildcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\agvsubsystemlocationwildcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\task\\extensions.hbm.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\task\\extensions.hbm.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\task\\sinevaagvsubsystemlogicmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\task\\sinevaagvsubsystemlogicmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.Framework\\EventBus\\ActionDelegatedEventHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\zhqxc\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{3D530F1E-25B2-4A08-8EE3-069500903CC7}|ZHQXC\\ZHQXC.csproj|solutionrelative:zhqxc\\nlog.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\task\\sinevaagvsubsystemaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\task\\sinevaagvsubsystemaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\task\\gsagvhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\task\\gsagvhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\configuration\\agvsubsystemlocationelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\configuration\\agvsubsystemlocationelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\configuration\\agvsubsystemlocationcollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\configuration\\agvsubsystemlocationcollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\\u4E1A\u52A1\u4EE3\u7801 - \u526F\u672C\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTaskHandHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTaskHandHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferByStepMovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferMovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u8FC7\u6EE4\u5668\\RobotBusyEquipmentActionSchedulerFilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\http\\agvhttpapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\http\\agvhttpapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\agvnoopdatareceiverelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\agvnoopdatareceiverelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\wcs.defaultimplementcollection.agv\\agvnoopdatareceiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}|Wcs.DefaultImplementCollection.AGV\\Wcs.DefaultImplementCollection.AGV.csproj|solutionrelative:wcs.defaultimplementcollection.agv\\agvnoopdatareceiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\QueryTaskCountCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\CancleTaskCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\AddTaskCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "extensions.hbm.xml",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Task\\extensions.hbm.xml",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\Task\\extensions.hbm.xml",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Task\\extensions.hbm.xml",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\Task\\extensions.hbm.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-05-27T07:02:42.797Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "\u66F4\u6539\u8BF4\u660E.md",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\\u66F4\u6539\u8BF4\u660E.md",
+              "RelativeDocumentMoniker": "\u66F4\u6539\u8BF4\u660E.md",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\\u66F4\u6539\u8BF4\u660E.md",
+              "RelativeToolTip": "\u66F4\u6539\u8BF4\u660E.md",
+              "ViewState": "AgIAAP8AAAAAAAAAAAAAABABAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-05-26T08:01:49.459Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TcpProtocolTaskableDevice.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.Framework\\\u8BBE\u5907\u76F8\u5173\\TcpProtocolTaskableDevice.cs",
+              "RelativeDocumentMoniker": "v1.2\\Wcs.Framework\\\u8BBE\u5907\u76F8\u5173\\TcpProtocolTaskableDevice.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.Framework\\\u8BBE\u5907\u76F8\u5173\\TcpProtocolTaskableDevice.cs",
+              "RelativeToolTip": "v1.2\\Wcs.Framework\\\u8BBE\u5907\u76F8\u5173\\TcpProtocolTaskableDevice.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAwCgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T03:02:06.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ActionDelegatedEventHandler.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.Framework\\EventBus\\ActionDelegatedEventHandler.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.Framework\\EventBus\\ActionDelegatedEventHandler.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAIA0wCsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:24:48.019Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "PreTaskHandHelper.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTaskHandHelper.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTaskHandHelper.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:46:13.276Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "PreTask.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTask.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTask.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:46:08.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "PreTaskHandHelper.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\\u4E1A\u52A1\u4EE3\u7801 - \u526F\u672C\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTaskHandHelper.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\\u4E1A\u52A1\u4EE3\u7801 - \u526F\u672C\\v1.2 - \u914D\u5408\u8C03\u8BD5\\Wcs.FrameworkExtend\\PreTaskHandHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:59:01.227Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "RobotTransferByStepMovement.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferByStepMovement.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferByStepMovement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:20:28.615Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "RobotTransferMovement.cs",
+              "DocumentMoniker": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferMovement.cs",
+              "ToolTip": "D:\\\u674E\u8D85\\WCS_\u5728\u624B\u9879\u76EE\\\u827E\u82AC\u8FBE6\u002610\u5E93\\v1.2 - \u526F\u672C\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferMovement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:20:26.352Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "RobotBusyEquipmentActionSchedulerFilter.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u8FC7\u6EE4\u5668\\RobotBusyEquipmentActionSchedulerFilter.cs",
+              "RelativeDocumentMoniker": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u8FC7\u6EE4\u5668\\RobotBusyEquipmentActionSchedulerFilter.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u8FC7\u6EE4\u5668\\RobotBusyEquipmentActionSchedulerFilter.cs",
+              "RelativeToolTip": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u8FC7\u6EE4\u5668\\RobotBusyEquipmentActionSchedulerFilter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.015Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "QueryTaskCountCommand.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\QueryTaskCountCommand.cs",
+              "RelativeDocumentMoniker": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\QueryTaskCountCommand.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\QueryTaskCountCommand.cs",
+              "RelativeToolTip": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\QueryTaskCountCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.019Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "CancleTaskCommand.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\CancleTaskCommand.cs",
+              "RelativeDocumentMoniker": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\CancleTaskCommand.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\CancleTaskCommand.cs",
+              "RelativeToolTip": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\CancleTaskCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "AddTaskCommand.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\AddTaskCommand.cs",
+              "RelativeDocumentMoniker": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\AddTaskCommand.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\AddTaskCommand.cs",
+              "RelativeToolTip": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Commands\\AddTaskCommand.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.029Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Wcs.App.exe.config",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\Wcs.App.exe.config",
+              "RelativeDocumentMoniker": "ZHQXC\\Wcs.App.exe.config",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\Wcs.App.exe.config",
+              "RelativeToolTip": "ZHQXC\\Wcs.App.exe.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-05-27T07:02:42.798Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SinevaAGVDevice.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\SinevaAGVDevice.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\SinevaAGVDevice.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\SinevaAGVDevice.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\SinevaAGVDevice.cs",
+              "ViewState": "AgIAANcAAAAAAAAAAAAAAOgAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:42.801Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "AgvHttpApiClient.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Http\\AgvHttpApiClient.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\Http\\AgvHttpApiClient.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Http\\AgvHttpApiClient.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\Http\\AgvHttpApiClient.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACoAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:42.825Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AGVSubSystemLocation.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\AGVSubSystemLocation.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\AGVSubSystemLocation.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\AGVSubSystemLocation.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\AGVSubSystemLocation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:42.827Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "AgvNoOpDataReceiverElement.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\AgvNoOpDataReceiverElement.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\AgvNoOpDataReceiverElement.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\AgvNoOpDataReceiverElement.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\AgvNoOpDataReceiverElement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:42.846Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "routes.xml",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\routes.xml",
+              "RelativeDocumentMoniker": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\routes.xml",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\routes.xml",
+              "RelativeToolTip": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\routes.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAADpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-05-27T07:02:42.848Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "settings.xml",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\settings.xml",
+              "RelativeDocumentMoniker": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\settings.xml",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\settings.xml",
+              "RelativeToolTip": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\settings.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-05-27T07:02:42.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TaskableDevice.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.Framework\\\u8BBE\u5907\u76F8\u5173\\TaskableDevice.cs",
+              "RelativeDocumentMoniker": "v1.2\\Wcs.Framework\\\u8BBE\u5907\u76F8\u5173\\TaskableDevice.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.Framework\\\u8BBE\u5907\u76F8\u5173\\TaskableDevice.cs",
+              "RelativeToolTip": "v1.2\\Wcs.Framework\\\u8BBE\u5907\u76F8\u5173\\TaskableDevice.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAtwE8AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T03:02:16.368Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EquipmentActionScheduler.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.Framework\\\u4EFB\u52A1\u76F8\u5173\\EquipmentActionScheduler\\EquipmentActionScheduler.cs",
+              "RelativeDocumentMoniker": "v1.2\\Wcs.Framework\\\u4EFB\u52A1\u76F8\u5173\\EquipmentActionScheduler\\EquipmentActionScheduler.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.Framework\\\u4EFB\u52A1\u76F8\u5173\\EquipmentActionScheduler\\EquipmentActionScheduler.cs",
+              "RelativeToolTip": "v1.2\\Wcs.Framework\\\u4EFB\u52A1\u76F8\u5173\\EquipmentActionScheduler\\EquipmentActionScheduler.cs",
+              "ViewState": "AgIAAOIBAAAAAAAAAAAAAPQBAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T03:02:23.769Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GSAGVDatabaseHand.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\\u4E2D\u95F4\u5E93\\GSAGVDatabaseHand.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\\u4E2D\u95F4\u5E93\\GSAGVDatabaseHand.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\\u4E2D\u95F4\u5E93\\GSAGVDatabaseHand.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\\u4E2D\u95F4\u5E93\\GSAGVDatabaseHand.cs",
+              "ViewState": "AgIAAJcCAAAAAAAAAAAYwJ0CAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:42.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "AgvNoOpDataReceiver.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\AgvNoOpDataReceiver.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\AgvNoOpDataReceiver.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\AgvNoOpDataReceiver.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\AgvNoOpDataReceiver.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAA7wBkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:42.891Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RobotTransferAction.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferAction.cs",
+              "RelativeDocumentMoniker": "v1.2\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferAction.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferAction.cs",
+              "RelativeToolTip": "v1.2\\Wcs.DefaultImplementCollection.Robot\\Task\\RobotTransferAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T07:44:10.924Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RobotDevice.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.DefaultImplementCollection.Robot\\RobotDevice.cs",
+              "RelativeDocumentMoniker": "v1.2\\Wcs.DefaultImplementCollection.Robot\\RobotDevice.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.DefaultImplementCollection.Robot\\RobotDevice.cs",
+              "RelativeToolTip": "v1.2\\Wcs.DefaultImplementCollection.Robot\\RobotDevice.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T07:44:05.17Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "RestoreRobotStateManagerApplicationStartup.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.DefaultImplementCollection.Robot\\EquipmentStateActionPattern\\RestoreRobotStateManagerApplicationStartup.cs",
+              "RelativeDocumentMoniker": "v1.2\\Wcs.DefaultImplementCollection.Robot\\EquipmentStateActionPattern\\RestoreRobotStateManagerApplicationStartup.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.DefaultImplementCollection.Robot\\EquipmentStateActionPattern\\RestoreRobotStateManagerApplicationStartup.cs",
+              "RelativeToolTip": "v1.2\\Wcs.DefaultImplementCollection.Robot\\EquipmentStateActionPattern\\RestoreRobotStateManagerApplicationStartup.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAtwCQAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T07:38:35.104Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AddAutomaticTransferWithStepByStepCommand.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.DefaultImplementCollection.Robot\\Commands\\AddAutomaticTransferWithStepByStepCommand.cs",
+              "RelativeDocumentMoniker": "v1.2\\Wcs.DefaultImplementCollection.Robot\\Commands\\AddAutomaticTransferWithStepByStepCommand.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\v1.2\\Wcs.DefaultImplementCollection.Robot\\Commands\\AddAutomaticTransferWithStepByStepCommand.cs",
+              "RelativeToolTip": "v1.2\\Wcs.DefaultImplementCollection.Robot\\Commands\\AddAutomaticTransferWithStepByStepCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T07:38:13.698Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "startups.xml",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\startups.xml",
+              "RelativeDocumentMoniker": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\startups.xml",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\startups.xml",
+              "RelativeToolTip": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u57FA\u672C\u914D\u7F6E\\startups.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-05-27T07:02:42.994Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "WEBAPIStartUp.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\WEBAPIStartUp.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\WEBAPIStartUp.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\WEBAPIStartUp.cs",
+              "RelativeToolTip": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\WEBAPIStartUp.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:42.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "\u7ACB\u5E93CV\u4F4D\u7F6E.xml",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u8F93\u9001\u7EBF\\\u7ACB\u5E93CV\u4F4D\u7F6E.xml",
+              "RelativeDocumentMoniker": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u8F93\u9001\u7EBF\\\u7ACB\u5E93CV\u4F4D\u7F6E.xml",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u8F93\u9001\u7EBF\\\u7ACB\u5E93CV\u4F4D\u7F6E.xml",
+              "RelativeToolTip": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\\u8F93\u9001\u7EBF\\\u7ACB\u5E93CV\u4F4D\u7F6E.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-05-27T07:02:42.997Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AGV\u7AD9\u70B9.xml",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\AGV\\AGV\u7AD9\u70B9.xml",
+              "RelativeDocumentMoniker": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\AGV\\AGV\u7AD9\u70B9.xml",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\AGV\\AGV\u7AD9\u70B9.xml",
+              "RelativeToolTip": "ZHQXC\\\u7CFB\u7EDF\u914D\u7F6E\\AGV\\AGV\u7AD9\u70B9.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAACvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-05-27T07:02:42.998Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "SinevaRobotTaskCompletedEventHandlerStartUp.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\SinevaRobotTaskCompletedEventHandlerStartUp.cs",
+              "RelativeDocumentMoniker": "ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\SinevaRobotTaskCompletedEventHandlerStartUp.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\SinevaRobotTaskCompletedEventHandlerStartUp.cs \u2B24",
+              "RelativeToolTip": "..\\..\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\\u542F\u52A8\u7A0B\u5E8F\\SinevaRobotTaskCompletedEventHandlerStartUp.cs \u2B24",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.016Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "AGVSubSystemLocationWildcard.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\AGVSubSystemLocationWildcard.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\AGVSubSystemLocationWildcard.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\AGVSubSystemLocationWildcard.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\AGVSubSystemLocationWildcard.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAD4vwoAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.018Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "NLog.config",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\NLog.config",
+              "RelativeDocumentMoniker": "ZHQXC\\NLog.config",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\ZHQXC\\NLog.config",
+              "RelativeToolTip": "ZHQXC\\NLog.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-05-27T07:02:43.023Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "GSAGVHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Task\\GSAGVHelper.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\Task\\GSAGVHelper.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Task\\GSAGVHelper.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\Task\\GSAGVHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.024Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "AGVSubSystemLocationElement.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Configuration\\AGVSubSystemLocationElement.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\Configuration\\AGVSubSystemLocationElement.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Configuration\\AGVSubSystemLocationElement.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\Configuration\\AGVSubSystemLocationElement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.025Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SinevaAGVSubSystemLogicMovement.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Task\\SinevaAGVSubSystemLogicMovement.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\Task\\SinevaAGVSubSystemLogicMovement.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Task\\SinevaAGVSubSystemLogicMovement.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\Task\\SinevaAGVSubSystemLogicMovement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.027Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "SinevaAGVSubSystemAction.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Task\\SinevaAGVSubSystemAction.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\Task\\SinevaAGVSubSystemAction.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Task\\SinevaAGVSubSystemAction.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\Task\\SinevaAGVSubSystemAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "AGVSubSystemLocationCollection.cs",
+              "DocumentMoniker": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Configuration\\AGVSubSystemLocationCollection.cs",
+              "RelativeDocumentMoniker": "Wcs.DefaultImplementCollection.AGV\\Configuration\\AGVSubSystemLocationCollection.cs",
+              "ToolTip": "C:\\Users\\Sineva_CL\\Desktop\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS_0527\\\u827E\u82AC\u8FBE6\u53F7\u5E93WCS\\Wcs.DefaultImplementCollection.AGV\\Configuration\\AGVSubSystemLocationCollection.cs",
+              "RelativeToolTip": "Wcs.DefaultImplementCollection.AGV\\Configuration\\AGVSubSystemLocationCollection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T07:02:43.032Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,866 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Spiral</name>
+    </assembly>
+    <members>
+        <member name="T:Spiral.ApplicationServiceContext">
+            <summary>
+            应用层服务上下文。
+            </summary>
+        </member>
+        <member name="P:Spiral.ApplicationServiceContext.User">
+            <summary>
+            当前用户
+            </summary>
+        </member>
+        <member name="P:Spiral.ApplicationServiceContext.UserIP">
+            <summary>
+            用户 IP
+            </summary>
+        </member>
+        <member name="P:Spiral.ApplicationServiceContext.Terminal">
+            <summary>
+            终端
+            </summary>
+        </member>
+        <member name="T:Spiral.NhUnitOfWork">
+            <summary>
+            基于 NHibernate 的工作单元，这是对 ITransaction 的封装
+            </summary>
+        </member>
+        <member name="T:Spiral.IUnitOfWork">
+            <summary>
+            工作单元接口。
+            </summary>
+        </member>
+        <member name="M:Spiral.IUnitOfWork.Commit">
+            <summary>
+            提交此工作单元。
+            </summary>
+        </member>
+        <member name="M:Spiral.IUnitOfWork.Rollback">
+            <summary>
+            回滚此工作单元。
+            </summary>
+        </member>
+        <member name="M:Spiral.NhUnitOfWork.#ctor(NHibernate.ITransaction)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="transaction"></param>
+        </member>
+        <member name="M:Spiral.NhUnitOfWork.Commit">
+            <summary>
+            提交工作单元。
+            </summary>
+        </member>
+        <member name="M:Spiral.NhUnitOfWork.Rollback">
+            <summary>
+            回滚工作单元。
+            </summary>
+        </member>
+        <member name="M:Spiral.NhUnitOfWork.Dispose(System.Boolean)">
+            <summary>
+            处置此实例以释放资源。
+            </summary>
+            <param name="isDisposing"></param>
+        </member>
+        <member name="M:Spiral.NhUnitOfWork.Dispose">
+            <summary>
+            处置此实例以释放资源。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhUnitOfWork.Id">
+            <summary>
+            获取此 NhUnitOfWork 的 Id。这是自应用程序域启动后从 1 开始递增的流水号。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhUnitOfWork.Transaction">
+            <summary>
+            获取 NHibernate 的 Transaction 对象
+            </summary>
+        </member>
+        <member name="P:Spiral.NhUnitOfWork.IsDisposed">
+            <summary>
+            获取一个值，指示此实例是否已处置。
+            </summary>
+        </member>
+        <member name="T:Spiral.NhRepositoryContext">
+            <summary>
+            基于 NHibernate 的仓储上下文。
+            </summary>
+            <remarks>
+            关于 nhibernate 的级联操作：聚合内部的关联使用级联，从而自动获得整个聚合的保存功能，
+            跨聚合的关联，应避免使用级联，应将 cascade 设置为 none
+            </remarks>
+        </member>
+        <member name="T:Spiral.IRepositoryContext">
+            <summary>
+            仓储上下文。
+            实现说明：实体在上下文中应具备标识一致性，即若 a 与 value 类型相同，且有 a.Id == value.Id，则应有 a == value。
+            </summary>
+        </member>
+        <member name="M:Spiral.IRepositoryContext.BeginUnitOfWork">
+            <summary>
+            开始一个单元的工作。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.IRepositoryContext.BeginUnitOfWork(System.Data.IsolationLevel)">
+            <summary>
+            开始一个单元的工作。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Spiral.IRepositoryContext.CurrentUnitOfWork">
+            <summary>
+            获取当前的工作单元。
+            </summary>
+        </member>
+        <member name="P:Spiral.IRepositoryContext.IsReadOnly">
+            <summary>
+            如果为 true，则不能通过此上下文更新，删除，添加对象。
+            </summary>
+        </member>
+        <member name="P:Spiral.IRepositoryContext.Items">
+            <summary>
+            提供一个字典，供此实例的客户代码共享数据
+            </summary>
+        </member>
+        <member name="M:Spiral.NhRepositoryContext.#ctor(NHibernate.ISession)">
+            <summary>
+            
+            </summary>
+            <param name="session"></param>
+        </member>
+        <member name="M:Spiral.NhRepositoryContext.BeginUnitOfWork">
+            <summary>
+            以 ReadCommitted 隔离级别开始一个工作单元
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepositoryContext.BeginUnitOfWork(System.Data.IsolationLevel)">
+            <summary>
+            以指定的隔离级别开始一个工作单元
+            </summary>
+            <param name="isolationLevel">此工作单元的隔离级别</param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepositoryContext.Dispose">
+            <summary>
+            实现 IDisposable 接口。
+            </summary>
+        </member>
+        <member name="M:Spiral.NhRepositoryContext.GetDbConnection">
+            <summary>
+            获取底层数据库连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Spiral.NhRepositoryContext.Id">
+            <summary>
+            获取此 NhUnitOfWork 的 Id。这是自应用程序域启动后从 1 开始递增的流水号。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhRepositoryContext.Session">
+            <summary>
+            获取 NHibernate 的 session 对象
+            </summary>
+        </member>
+        <member name="P:Spiral.NhRepositoryContext.IsReadOnly">
+            <summary>
+            获取一个指，指示此实例是否是只读的。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhRepositoryContext.Current">
+            <summary>
+            获取在当前 CallContext 中的 NhRepositoryContext 实例。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhRepositoryContext.CurrentUnitOfWork">
+            <summary>
+            获取此上下文当前的工作单元。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhRepositoryContext.Items">
+            <summary>
+            获取此上下文的用于保存自定义数据的字典。
+            </summary>
+        </member>
+        <member name="T:Spiral.NhRepository`2">
+            <summary>
+            用 NHibernate 实现的 Repository。
+            </summary>
+            <typeparam name="TAggregateRoot"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Spiral.IRepository`2">
+            <summary>
+            仓储接口。
+            </summary>
+            <typeparam name="TAggregateRoot"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Spiral.IRepository`2.Get(`1)">
+            <summary>
+            获取具有指定 id 的聚合，如果数据库中没有对应的记录，则返回 null。
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.IRepository`2.Load(`1)">
+            <summary>
+            加载具有指定 id 的聚合，假设数据库中有对应的记录，不会发送 sql。
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Spiral.IRepository`2.Load``1(`1)">
+            <summary>
+            加载具有指定 id 的聚合根子类。
+            </summary>
+            <typeparam name="TSubclass"></typeparam>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.IRepository`2.LoadAll(System.Collections.Generic.IEnumerable{`1})">
+            <summary>
+            加载 ids 列表中全部 id 表示的聚合根，和 batch-size 配合使用，可以减少到数据库的往返次数。
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:Spiral.IRepository`2.LoadAll``1(System.Collections.Generic.IEnumerable{`1})">
+            <summary>
+            加载 ids 列表中全部 id 表示的聚合根子类，和 batch-size 配合使用，可以减少到数据库的往返次数。
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:Spiral.IRepository`2.Remove(`1)">
+            <summary>
+            删除具有指定 id 的聚合。
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Spiral.IRepository`2.Add(`0)">
+            <summary>
+            添加聚合。如果参数 TAggregateRoot 实现 INeedChecking 接口，则 Add 方法应调用 INeedChecking.Check 方法。
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Spiral.IRepository`2.Update(`0)">
+            <summary>
+            更新聚合。如果参数 TAggregateRoot 实现 INeedChecking 接口，则 Update 方法应调用 INeedChecking.Check 方法。
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Spiral.IRepository`2.SelectSatisfying(Spiral.ISpecification,System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            查找满足规格的聚合。
+            </summary>
+            <param name="spec">查询条件。</param>
+            <param name="applyOrder">指出对结果如何进行排序。</param>
+            <param name="start">指出从第几条记录开始取出数据。</param>
+            <param name="limit">指出取出多少条记录。</param>
+            <param name="totalItemCount">返回一共有多少条符合条件的数据。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.IRepository`2.SelectSatisfying(Spiral.ISpecification)">
+            <summary>
+            查找满足规格的聚合
+            </summary>
+            <param name="spec"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Spiral.IRepository`2.Context">
+            <summary>
+            获取此实例所在的上下文。
+            </summary>
+        </member>
+        <member name="M:Spiral.NhRepository`2.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            实例化 NhRepository 的新实例。
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Spiral.NhRepository`2.SetCreatedAtAndUpdatedAtIfNotSet(`0)">
+            <summary>
+            如果 obj 的类忘记了设置 CreatedAt 和 UpdatedAt，
+            则将这两个属性设置为当前值，用在 Add 方法中。
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Get(`1)">
+            <summary>
+            获取具有指定 id 的聚合根，如果 nh 的 session 中没有这个对象，
+            则会发出 sql 语句。如果数据库中没有这个 id，则返回 null。
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Get``1(`1)">
+            <summary>
+            获取具有指定 id 的聚合根子类
+            </summary>
+            <typeparam name="TSubclass"></typeparam>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Load(`1)">
+            <summary>
+            加载具有指定 id 的聚合根，此方法不访问数据库，从不会返回 null
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Load``1(`1)">
+            <summary>
+            加载具有指定 id 的聚合根子类
+            </summary>
+            <typeparam name="TSubclass"></typeparam>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.LoadAll(System.Collections.Generic.IEnumerable{`1})">
+            <summary>
+            加载 ids 列表中全部 id 表示的聚合根，和 batch-size 配合使用，可以减少到数据库的往返次数。
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:Spiral.NhRepository`2.LoadAll``1(System.Collections.Generic.IEnumerable{`1})">
+            <summary>
+            加载 ids 列表中全部 id 表示的聚合根子类，和 batch-size 配合使用，可以减少到数据库的往返次数。
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Remove(`1)">
+            <summary>
+            指定 id，删除对象
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Add(`0)">
+            <summary>
+            保存新对象，方法执行成功后，将为 obj.Id 分配一个值。
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Update(`0)">
+            <summary>
+            更新聚合，此方法不会立即发送 sql，而是使用 UpdatedAt 属性将聚合根“弄脏”。
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Query">
+            <summary>
+            获取 TAggregateRoot 上的查询对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.Query``1">
+            <summary>
+            获取 TAggregateRoot 子类上的查询对象
+            </summary>
+            <typeparam name="TSubclass"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.SelectSatisfying(Spiral.ISpecification,System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            查询满足规格的对象，指定排序方法和分页参数
+            </summary>
+            <param name="spec">规格对象</param>
+            <param name="applyOrder">用于排序的回调</param>
+            <param name="start">分页起始</param>
+            <param name="limit">分页大小</param>
+            <param name="totalItemCount">输出总数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.SelectSatisfying``1(Spiral.ISpecification,System.Func{System.Linq.IQueryable{``0},System.Linq.IOrderedQueryable{``0}},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            查询满足规格的对象，指定排序方法和分页参数
+            </summary>
+            <typeparam name="TSubclass">指定查询针对的子类</typeparam>
+            <param name="spec">规格对象</param>
+            <param name="applyOrder">用于排序的回调</param>
+            <param name="start">分页起始</param>
+            <param name="limit">分页大小</param>
+            <param name="totalItemCount">输出总数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.SelectSatisfying(Spiral.ISpecification)">
+            <summary>
+            查询所有满足规格的对象
+            </summary>
+            <param name="spec">规格对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepository`2.SelectSatisfying``1(Spiral.ISpecification)">
+            <summary>
+            查询所有满足规格的对象
+            </summary>
+            <typeparam name="TSubclass">指定查询针对的子类</typeparam>
+            <param name="spec">规格对象</param>
+            <returns></returns>
+        </member>
+        <member name="P:Spiral.NhRepository`2.Context">
+            <summary>
+            此实例所在的上下文
+            </summary>
+        </member>
+        <member name="T:Spiral.InvariantFailedException">
+            <summary>
+            当聚合违反不变量时引发的异常。
+            </summary>
+        </member>
+        <member name="M:Spiral.InvariantFailedException.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Spiral.InvariantFailedException.#ctor(System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Spiral.InvariantFailedException.#ctor(System.String,System.Exception)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="message"></param>
+            <param name="inner"></param>
+        </member>
+        <member name="M:Spiral.InvariantFailedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:Spiral.InvariantFailedException.#ctor(System.String,System.Type)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="message"></param>
+            <param name="invariantType"></param>
+        </member>
+        <member name="T:Spiral.IEntity`1">
+            <summary>
+            实体接口。
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Spiral.IEntity`1.Id">
+            <summary>
+            实体的 id。
+            </summary>
+        </member>
+        <member name="T:Spiral.NhLoggerFactory">
+            <summary>
+            生产 NhLogger 的工厂。
+            </summary>
+        </member>
+        <member name="M:Spiral.NhLoggerFactory.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Spiral.NhLoggerFactory.LoggerFor(System.Type)">
+            <summary>
+            指定 type 返回 logger。
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhLoggerFactory.LoggerFor(System.String)">
+            <summary>
+            指定 keyName 返回 logger。
+            </summary>
+            <param name="keyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.OneZeroType">
+            <summary>
+            供 NHibernate 使用的用字符串表示布尔值类型。"1" 表示 true，"0" 表示 false。
+            </summary>
+        </member>
+        <member name="M:Spiral.OneZeroType.#ctor">
+            <summary>
+            初始化 OneZeroType 类的新实例。
+            </summary>
+        </member>
+        <member name="P:Spiral.OneZeroType.FalseString">
+            <summary>
+            表示 False 的字符串，也就是字符串常量 "0"
+            </summary>
+        </member>
+        <member name="P:Spiral.OneZeroType.TrueString">
+            <summary>
+            表示 True 的字符串，也就是字符串常量 "1"
+            </summary>
+        </member>
+        <member name="P:Spiral.OneZeroType.Name">
+            <summary>
+            获取此类型的名字。
+            </summary>
+        </member>
+        <member name="T:Spiral.IAggregateRoot`1">
+            <summary>
+            聚合根接口。
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Spiral.IAggregateRoot`1.Version">
+            <summary>
+            聚合的版本号，用于乐观锁定
+            </summary>
+        </member>
+        <member name="P:Spiral.IAggregateRoot`1.CreatedAt">
+            <summary>
+            创建时间。
+            </summary>
+        </member>
+        <member name="P:Spiral.IAggregateRoot`1.UpdatedAt">
+            <summary>
+            UpdatedAt 供框架使用，在调用 Repository.Update 时，使用此属性将对象弄脏，与版本号配合，实现聚合的乐观锁定。
+            </summary>
+        </member>
+        <member name="T:Spiral.INeedChecking">
+            <summary>
+            如果一个聚合需要在保存和更新前检查不变量，则实现此接口。
+            IRepository 的实现类应在 Add, Update  方法中调用 Check 方法。
+            此方法只检查聚合内部的状态是否符合不变量。
+            如果业务规则涉及多个聚合，则应使用其他的检查方法。
+            </summary>
+        </member>
+        <member name="M:Spiral.INeedChecking.Check">
+            <summary>
+            检查此聚合，如果失败，应抛出 InvariantFailedException。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.NhRepositoryContextFactory">
+            <summary>
+            生产 NhRepositoryContext 的工厂类。
+            </summary>
+        </member>
+        <member name="T:Spiral.IRepositoryContextFactory">
+            <summary>
+            Repository 上下文工厂。
+            </summary>
+        </member>
+        <member name="M:Spiral.IRepositoryContextFactory.CreateRepositoryContext">
+            <summary>
+            创建一个可读可写的 Repository 上下文
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.IRepositoryContextFactory.CreateReadOnlyRepositoryContext">
+            <summary>
+            创建一个只读的 Repository 上下文
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Spiral.NhRepositoryContextFactory.Instance">
+            <summary>
+            此类的唯一实例
+            </summary>
+        </member>
+        <member name="M:Spiral.NhRepositoryContextFactory.CreateRepositoryContext">
+            <summary>
+            创建一个可以读写的上下文。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NhRepositoryContextFactory.CreateReadOnlyRepositoryContext">
+            <summary>
+            创建一个只读的上下文。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.NHibernateHelper">
+            <summary>
+            NHibernate 帮助类。
+            </summary>
+        </member>
+        <member name="M:Spiral.NHibernateHelper.CloseSessionFactory">
+            <summary>
+            关闭 SessionFactory
+            </summary>
+        </member>
+        <member name="M:Spiral.NHibernateHelper.Init">
+            <summary>
+            创建 nhiberate 的配置，并打开一个 SessionFactory
+            </summary>
+        </member>
+        <member name="M:Spiral.NHibernateHelper.OpenSession">
+            <summary>
+            打开一个新的 Session
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Spiral.NHibernateHelper.CreateSchema">
+            <summary>
+            创建数据库架构
+            </summary>
+        </member>
+        <member name="M:Spiral.NHibernateHelper.DropSchema">
+            <summary>
+            删除数据库架构
+            </summary>
+        </member>
+        <member name="M:Spiral.NHibernateHelper.GetAllEntityNames">
+            <summary>
+            获取所有实体名。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Spiral.NHibernateHelper.SessionFactory">
+            <summary>
+            获取 SessionFactory
+            </summary>
+        </member>
+        <member name="P:Spiral.NHibernateHelper.Configuration">
+            <summary>
+            获取 nhiberate 的配置对象
+            </summary>
+        </member>
+        <member name="T:Spiral.IApplicationServiceContextProvider">
+            <summary>
+            应用层服务上下文提供程序
+            </summary>
+        </member>
+        <member name="M:Spiral.IApplicationServiceContextProvider.GetCurrentContext">
+            <summary>
+            获取当前的应用层服务上下文。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.NhRepositoryFactory">
+            <summary>
+            仓储工厂提供此应用程序所需的仓储
+            </summary>
+        </member>
+        <member name="M:Spiral.NhRepositoryFactory.#ctor(Spiral.NhRepositoryContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Spiral.NhRepositoryFactory.Create``1">
+            <summary>
+            在 Context 中创建 TRepository 类型的实例，如果已有一个 TRepository 类型的实例，则返回现有实例。
+            </summary>
+            <typeparam name="TRepository"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:Spiral.NhRepositoryFactory.Context">
+            <summary>
+            获取此新实例的上下文。
+            </summary>
+        </member>
+        <member name="T:Spiral.RepositoryContextReadOnlyException">
+            <summary>
+            在只读的仓储上下文中执行命令类操作时引发的异常。
+            </summary>
+        </member>
+        <member name="M:Spiral.RepositoryContextReadOnlyException.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Spiral.RepositoryContextReadOnlyException.#ctor(System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Spiral.RepositoryContextReadOnlyException.#ctor(System.String,System.Exception)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="message"></param>
+            <param name="inner"></param>
+        </member>
+        <member name="M:Spiral.RepositoryContextReadOnlyException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Spiral.DuplicateRecordException">
+            <summary>
+            当出现重复记录时引发。例如，业务规则中指定物料的编码不能重复，那么添加重复编码的物料时引发此异常。
+            </summary>
+        </member>
+        <member name="M:Spiral.DuplicateRecordException.#ctor">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+        </member>
+        <member name="M:Spiral.DuplicateRecordException.#ctor(System.String)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Spiral.DuplicateRecordException.#ctor(System.String,System.Exception)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="message"></param>
+            <param name="inner"></param>
+        </member>
+        <member name="M:Spiral.DuplicateRecordException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Spiral.ISpecificationTranslator`2">
+            <summary>
+            将规格翻译成 linq 查询。
+            </summary>
+            <typeparam name="TAggregateRoot"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Spiral.ISpecificationTranslator`2.ApplyWhere(System.Linq.IQueryable{`0},Spiral.ISpecification)">
+            <summary>
+            返回 linq 查询
+            </summary>
+            <param name="q">要在其上进行过滤的查询</param>
+            <param name="spec">封装查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="T:Spiral.NhLogger">
+            <summary>
+            NHibernate 默认使用 log4net，NhLogger 为通过 NLog 实现的 NHibernate 日志类。
+            </summary>
+        </member>
+        <member name="M:Spiral.NhLogger.#ctor(NLog.Logger)">
+            <summary>
+            初始化此类的新实例。
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Debug(System.Object,System.Exception)">
+            <summary>
+            输出 debug 级别的消息
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Debug(System.Object)">
+            <summary>
+            输出 debug 级别的消息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.DebugFormat(System.String,System.Object[])">
+            <summary>
+            输出 debug 级别的消息
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Error(System.Object,System.Exception)">
+            <summary>
+            输出 Error 级别的消息
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Error(System.Object)">
+            <summary>
+            输出 Error 级别的消息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.ErrorFormat(System.String,System.Object[])">
+            <summary>
+            输出 Error 级别的消息
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Fatal(System.Object,System.Exception)">
+            <summary>
+            输出 Fatal 级别的消息
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Fatal(System.Object)">
+            <summary>
+            输出 Fatal 级别的消息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Info(System.Object,System.Exception)">
+            <summary>
+            输出 Info 级别的消息
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Info(System.Object)">
+            <summary>
+            输出 Info 级别的消息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.InfoFormat(System.String,System.Object[])">
+            <summary>
+            输出 Info 级别的消息
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Warn(System.Object,System.Exception)">
+            <summary>
+            输出 Warn 级别的消息
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.Warn(System.Object)">
+            <summary>
+            输出 Warn 级别的消息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Spiral.NhLogger.WarnFormat(System.String,System.Object[])">
+            <summary>
+            输出 Warn 级别的消息
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="P:Spiral.NhLogger.IsDebugEnabled">
+            <summary>
+            获取一个值，指示 Debug 级别是否已启用。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhLogger.IsErrorEnabled">
+            <summary>
+            获取一个值，指示 Error 级别是否已启用。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhLogger.IsFatalEnabled">
+            <summary>
+            获取一个值，指示 Fatal 级别是否已启用。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhLogger.IsInfoEnabled">
+            <summary>
+            获取一个值，指示 Info 级别是否已启用。
+            </summary>
+        </member>
+        <member name="P:Spiral.NhLogger.IsWarnEnabled">
+            <summary>
+            获取一个值，指示 Warn 级别是否已启用。
+            </summary>
+        </member>
+    </members>
+</doc>

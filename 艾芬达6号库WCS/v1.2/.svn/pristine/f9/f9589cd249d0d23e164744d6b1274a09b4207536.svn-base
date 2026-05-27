@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="26e19f50-37cf-446c-8118-207781d1d463" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9991/CraneService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="48ba23c9-db08-4019-b694-41551b4acb70" SourceId="1" SourceUrl="http://localhost:9991/CraneService/mex" />
+    <MetadataFile FileName="service3.xsd" MetadataType="Schema" ID="b06022b3-2fff-419d-bce7-b52023e7afcd" SourceId="1" SourceUrl="http://localhost:9991/CraneService/mex" />
+    <MetadataFile FileName="service31.xsd" MetadataType="Schema" ID="c42528f2-46dc-42c7-89ac-23d79935b491" SourceId="1" SourceUrl="http://localhost:9991/CraneService/mex" />
+    <MetadataFile FileName="Wcs.Framework.CraneControl.xsd" MetadataType="Schema" ID="c13b760c-0be3-4d4c-9865-b4c5ab3b77cd" SourceId="1" SourceUrl="http://localhost:9991/CraneService/mex" />
+    <MetadataFile FileName="System.Data1.xsd" MetadataType="Schema" ID="3ce10ea5-82cc-45e0-a65e-5c5264ac2bd5" SourceId="1" SourceUrl="http://localhost:9991/CraneService/mex" />
+    <MetadataFile FileName="service32.xsd" MetadataType="Schema" ID="7571c971-71d5-46af-b8c3-bcb9611b4456" SourceId="1" SourceUrl="http://localhost:9991/CraneService/mex" />
+    <MetadataFile FileName="Wcs.Framework.Devices.xsd" MetadataType="Schema" ID="df7830a1-4c59-4c69-b9a5-4536a23ee16d" SourceId="1" SourceUrl="http://localhost:9991/CraneService/mex" />
+    <MetadataFile FileName="Arrays1.xsd" MetadataType="Schema" ID="45e34b86-5645-4f05-8691-60e5a90bab25" SourceId="1" SourceUrl="http://localhost:9991/CraneService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,467 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.Interfaces.Task;
+using Wcs.Client.App.Elements.UIEditor;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("任务据源")]
+    [Serializable]
+    public class TaskDataSource:Element,Wcs.Client.Interfaces.Task.ITaskService,System.Runtime.Serialization.ISerializable,IWarningContainer
+    {
+        Int32 m_Interval;
+
+        StringFormat sf;
+
+        public TaskDataSource(Editor editor)
+            : base(editor)
+        {
+            Init();
+        }
+
+        public TaskDataSource(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            Init();
+            this.ConfigurationName = (string)info.GetValue("ConfigurationName", typeof(string));
+            this.Interval = (Int32)info.GetValue("Interval", typeof(Int32));
+        }
+
+        [Description("终结点配置名称"), Category("行为"),
+        EditorAttribute(typeof(ServiceEndPointConfigurationNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public String ConfigurationName { get; set; }
+
+        public Int32 Interval
+        {
+            get
+            {
+                return m_Interval;
+            }
+            set
+            {
+                if (value < 500)
+                {
+                    throw new InvalidOperationException("激活间隔时间必须大于等于 500ms");
+                }
+                m_Interval = value;
+            }
+        }
+
+        [Browsable(false)]
+        public Task[] Tasks { get; private set; }
+
+        public override void Draw(System.Drawing.Graphics graphics)
+        {
+            if (Editor.IsDesign)
+            {
+                base.Draw(graphics);
+
+                graphics.DrawRectangles(Pens.Red, new RectangleF[] { this.Rectangle });
+                graphics.DrawString("任务数据源", Control.DefaultFont, new SolidBrush(Color.Red), this.Rectangle, sf);
+            }
+        }
+
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            info.AddValue("Interval", this.Interval);
+            info.AddValue("ConfigurationName", this.ConfigurationName);
+
+            base.GetObjectData(info, context);
+        }
+
+        void Init()
+        {
+            this.Size = new System.Drawing.SizeF(50, 50);
+            sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+            Interval = 1000;
+            this.Tasks = new Task[0];
+
+            System.Threading.ThreadPool.QueueUserWorkItem((stat) =>
+            {
+                Proc();
+            });
+        }
+        void Proc()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(Interval);
+
+                if (Editor.IsDesign)
+                {
+                    continue;
+                }
+
+                if (String.IsNullOrWhiteSpace(this.ConfigurationName))
+                {
+                    continue;
+                }
+
+                TaskServiceClient client = null;
+                try
+                {
+                    client = new TaskServiceClient(this.ConfigurationName);
+
+                    client.Open();
+
+                    Tasks = client.GetTasks();
+                   
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+
+                    Tasks = new Task[0];
+                    if (client != null)
+                    {
+                        client.Abort();
+                    }
+                }
+                finally
+                {
+                    if (client != null)
+                    {
+                        client.Close();
+                        client = null;
+                    }
+                }
+            }
+        }
+
+        #region ITaskService
+        public string[] AllOperations()
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.AllOperations();
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public object Call(string name, object[] args)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                return client.Call(name, args);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void CancelTask(string taskNo)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.CancelTask(taskNo);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void CompleteAction(int id)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.CompleteAction(id);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void CompleteMovenent(int id)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.CompleteMovenent(id);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void CompleteTask(int id)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.CompleteTask(id);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public Task GetTask(String taskNo)
+        {
+            return Tasks
+                .FirstOrDefault(x => String.Equals(taskNo, x.TaskCode, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        public Task GetTaskByEquipmentTaskId(Int32 equipmentTaskId)
+        {
+            var task= Tasks
+                .FirstOrDefault(x => x.Movements.Any(m => m.EquipmentActions.Any(a => a.EquipmentTaskId == equipmentTaskId)));
+            return task;
+        }
+
+        public Task[] GetTasks()
+        {
+            return this.Tasks;
+        }
+
+        public void ResumeTask(string taskNo)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.ResumeTask(taskNo);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void ResumeTaskWithCurrentLocation(string taskNo, string currentLocation)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.ResumeTaskWithCurrentLocation(taskNo, currentLocation);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void SuspendTask(string taskNo)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.SuspendTask(taskNo);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+        }
+
+        public void Archive(int taskId)
+        {
+            var client = new TaskServiceClient(this.ConfigurationName);
+            try
+            {
+                client.Open();
+
+                client.Archive(taskId);
+
+            }
+            catch (Exception)
+            {
+                client.Abort();
+
+                throw;
+            }
+            finally
+            {
+                client.Close();
+                client = null;
+            }
+
+        }
+        #endregion
+
+        public override Element Clone()
+        {
+            TaskDataSource ds = new TaskDataSource(this.Editor);
+
+            ds.ConfigurationName = this.ConfigurationName;
+            ds.Interval = this.Interval;
+
+            CloneProperties(ds);
+
+            return ds;
+        }
+
+
+        public Warning[] GetWarings()
+        {
+            if (Tasks == null || Tasks.Length == 0)
+            {
+                return new Warning[0];
+            }
+
+            List<Warning> result = new List<Warning>();
+            foreach (var item in Tasks.Where(x=>x.Status==TaskStatus.Error || x.Status==TaskStatus.Suspend))
+            {
+                Warning w = new Warning();
+                w.DeviceName = string.Format("任务{0}",item.TaskCode);
+                //w.DeviceType = "任务管理器";
+                if (item.Status == TaskStatus.Suspend)
+                {
+                    w.Message = "已暂停";
+                }
+                else
+                {
+                    w.Message = "发生错误，已暂停。";
+                }
+
+                result.Add(w);
+            }
+
+            foreach (var item in Tasks)
+            {
+                double timeoutMinute = 5d;
+                var actions = item.Movements.SelectMany(x => x.EquipmentActions)
+                    .Where(x => x.Status == EquipmentActionStatus.Executing
+                        && x.SentAt != null
+                        && DateTime.Now.Subtract(x.SentAt.Value).TotalMinutes > timeoutMinute);
+
+                foreach (var act in actions)
+                {
+                    Warning w = new Warning();
+                    w.DeviceName = string.Format("任务{0}的设备任务{1}", item.TaskCode,act.EquipmentTaskId);
+                    //w.DeviceType = "任务管理器";
+                    w.Message = string.Format("已执行了 {0} 分钟，但仍未完成。", timeoutMinute.ToString("0.##"));
+
+                    result.Add(w);
+                }
+
+            }
+
+            return result.ToArray();
+        }
+
+        public override float WidthScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+
+        public override float HeightScale
+        {
+            get
+            {
+                return 1f;
+            }
+        }
+    }
+}

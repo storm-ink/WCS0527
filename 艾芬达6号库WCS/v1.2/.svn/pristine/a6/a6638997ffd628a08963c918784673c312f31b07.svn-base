@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "生成巷道";
+}
+
+<h2>生成巷道</h2>
+@using(Html.BeginForm())
+{
+    
+    <p><input type="submit" /></p>
+    
+    
+    
+    
+    
+    
+    
+}
+<p>
+@TempData["msg"]
+</p>
+
+
+

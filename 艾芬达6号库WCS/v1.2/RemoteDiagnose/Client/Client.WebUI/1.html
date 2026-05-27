@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script src="/Scripts/Design/jquery-2.1.1.min.js"></script>
+    <link href="/Scripts/Design/crane.css" rel="stylesheet" />
+    <script src="/Scripts/Design/MessageCenter.js"></script>
+</head>
+<body>
+    
+<div class="CraneControlBox">
+        <div class="infoBox">
+            <div name="Name" class="CraneName" style="font-size:15px;font-weight:bold;">一号穿梭车</div>
+            <table border="0" cellspacing="0" cellpadding="0" style="width:500px;float:left;font-size:14px;">
+                <tr>
+                    <td style="width:33.33%">当前站：<label>001</label></td>
+                    <td style="width:33.33%">起始站：<label>001</label></td>
+                    <td style="width:33.33%">终点站：<label>001</label></td>
+                </tr>
+                <tr>
+                    <td style="width:33.33%">状态：<label>初始化</label></td>
+                    <td style="width:33.33%">起始站：<label>初始化</label></td>
+                    <td style="width:33.33%">模式：<label>无货行走</label></td>
+                </tr>
+                <tr>
+                    <td style="width:33.33%">坐标：<label>0</label></td>
+                    <td style="width:33.33%">任务号：<label>00000000</label></td>
+                    <td style="width:33.33%">报警码：<label>00</label></td>
+                </tr>
+            </table>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0" class="controlTable" style="width:40%">
+            <tr>
+                <td style="width:33.33%">左</td>
+                <td style="width:33.33%">站点</td>
+                <td style="width:33.33%">右</td>
+            </tr>
+            <tr>
+                <td style="width:33.33%"><input type="button" class="leftPick" /></td>
+                <td style="width:33.33%"><input type="text" class="num" /></td>
+                <td style="width:33.33%"><input type="button" class="rightPick" /></td>
+            </tr>
+            <tr>
+                <td style="width:33.33%"><input type="button" class="leftPut" /></td>
+                <td style="width:33.33%"><input type="button" class="running" value="运行" /></td>
+                <td style="width:33.33%"><input type="button" class="rightPut" /></td>
+            </tr>
+            
+            <tr>
+                <td style="width:33.33%"> </td>
+                <td style="width:33.33%"><input type="button" class="lock" value="锁定" /></td>
+                <td style="width:33.33%"></td>
+            </tr>
+        </table>
+</div>
+<!--    <audio autoplay="autoplay" onended="onendedxx(this)" src="/home/speek?text=%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B%E8%BF%99%E4%B8%AA%E4%B8%AD%E6%96%87%E4%BD%A0%E4%BC%9A%E8%AF%B4%E4%B8%8D">
+    </audio>-->
+
+<!--    <video controls="" autoplay="" name="media">
+        <source src="/home/speek?text=%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B%E8%BF%99%E4%B8%AA%E4%B8%AD%E6%96%87%E4%BD%A0%E4%BC%9A%E8%AF%B4%E4%B8%8D" type="audio/x-wav">
+
+    </video>-->
+
+
+    
+<script type="text/javascript">
+    $(document).ready(function () {
+        var mc = new MessageCenter('/home/speek');
+
+        $('#addMsgBtn').click(function () {
+            mc.addMessage($('#msg').val());
+        });
+    });
+</script>
+
+
+<input type="text" id="msg" /> <button id="addMsgBtn">添加</button>
+</body>
+</html>

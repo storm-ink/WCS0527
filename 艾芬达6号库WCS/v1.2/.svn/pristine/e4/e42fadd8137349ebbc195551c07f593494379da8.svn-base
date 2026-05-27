@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Framework.Devices
+{
+    /// <summary>
+    /// 点位信息握手变量
+    /// </summary>
+    public enum OccupiedSignalHandShake
+    {
+        /// <summary>
+        /// 没有占位
+        /// </summary>
+        Empty = 0,
+        /// <summary>
+        /// 有占位
+        /// </summary>
+        New = 1,
+        /// <summary>
+        /// 删除
+        /// </summary>
+        ApplyForDelete = 2
+    }
+}

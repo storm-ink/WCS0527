@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.TwoForkCrane
+{
+    public enum ForkStatus
+    {
+        故障 = 3,
+        无货待命 = 1,
+        有货待命 = 2
+    }
+}

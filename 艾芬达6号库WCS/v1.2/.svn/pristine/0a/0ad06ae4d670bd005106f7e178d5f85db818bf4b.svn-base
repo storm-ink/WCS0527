@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.App.Elements;
+
+namespace Wcs.Client.App
+{
+    public partial class frmLanucher : Form
+    {
+
+        Editor _edit;
+        String _filePath;
+        public frmLanucher(String filePath)
+        {
+            InitializeComponent();
+
+            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            _filePath = filePath;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            _edit.Draw();
+        }
+
+        private void frmLanucher_Load(object sender, EventArgs e)
+        {
+            _edit = new Editor(this);
+            _edit.IsDesign = false;
+            _edit.Load(_filePath);
+        }
+    }
+}

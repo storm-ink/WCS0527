@@ -1,0 +1,104 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Client.Conveyor.Task>
+
+<table>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            设备名称
+        </th>
+        <th>
+            任务号
+        </th>
+        <th>
+            握手
+        </th>
+        <th>
+            状态
+        </th>
+        <th>
+            托盘号
+        </th>
+        <th>
+            托盘类型
+        </th>
+        <th>
+            业务数据
+        </th>
+        <th>
+            路径号
+        </th>
+        <th>
+            起点
+        </th>
+        <th>
+            终点
+        </th>
+        <th>
+            读取号
+        </th>
+        <th>
+            备用
+        </th>
+        <th>
+            日期
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LogId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignmentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HandShake)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TU_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TU_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IO_Data)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RotingNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartMotorNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DestinationNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReadTask)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Spare)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LongDate)
+        </td>
+    </tr>
+}
+
+</table>
+
+@if (Model.Count() > 0)
+{
+    @Html.PagedListPager(this.Model, pageIndex => Url.Action("Index", new { pageIndex }), new PagedList.Mvc.PagedListRenderOptions { DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共 {2} 个" })
+}

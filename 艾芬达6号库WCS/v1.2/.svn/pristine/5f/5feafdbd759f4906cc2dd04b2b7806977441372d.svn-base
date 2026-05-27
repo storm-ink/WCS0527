@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.App.Elements;
+
+namespace Wcs.Client.App
+{
+    public partial class frmEditor : Form
+    {
+        Editor _editor;
+        frmTools _frmTools;
+        frmProperty _frmProeprty;
+        public frmEditor()
+        {
+            InitializeComponent();
+        }
+
+        void _editor_Selected(Editor editor, Element[] selectedItems)
+        {
+            _frmProeprty.PropertyGrid.SelectedObjects = editor.SelectedItems;
+            editor.Draw();
+        }
+
+        void btn_Click(object sender, EventArgs e)
+        {
+            var type = ((Button)sender).Tag as Type;
+
+            var instance = (Element)type.Assembly.CreateInstance(type.FullName,false,System.Reflection.BindingFlags.CreateInstance,null,new object[]{_editor},null,null);
+
+            _editor.AddItem(instance);
+            
+        }
+
+        private void frmEditor_Load(object sender, EventArgs e)
+        {
+            _editor = new Editor(this);
+
+            _editor.Selected += _editor_Selected;
+
+            _frmTools = new frmTools(_editor);
+            _frmProeprty = new frmProperty(_editor);
+
+
+            _frmTools.Show(this);
+            _frmProeprty.Show(this);
+
+            _frmTools.Top = this.Height / 2 - _frmTools.Height / 2;
+            _frmTools.Left = 0;
+
+            _frmProeprty.Top = this.Height / 2 - _frmProeprty.Height / 2;
+            _frmProeprty.Left = this.Width - _frmProeprty.Width;
+        }
+
+    }
+}

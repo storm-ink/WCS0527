@@ -1,0 +1,65 @@
+﻿
+using System;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace Gensong
+{
+    /// <summary>报警声音设置</summary>
+    public partial class frmBeep : Form
+    {
+        public frmBeep()
+        {
+            InitializeComponent();
+
+            this.BackColor = Color.Black; this.ForeColor = Color.White;
+
+            Thread t = new Thread(new ThreadStart(BeepThread)); t.Start();
+
+            this.FormClosing += (sender, e) => {
+                bTesting = false; t.Abort();
+            };
+
+            tbF.Value = BeepInfo.Frequency; tbP.Value = BeepInfo.Persist; tbI.Value = BeepInfo.Interval;
+        }
+
+        // 测试, 确定, 返回
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            if (btnTest.Text == "测试")
+            {
+                btnTest.Text = "停止"; bTesting = true;
+            }
+            else
+            {
+                btnTest.Text = "测试"; bTesting = false;
+            }
+        }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            BeepInfo.Save(tbF.Value, tbP.Value, tbI.Value);
+        }
+        private void btnReturn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        bool bTesting; int iF, iP, iI;
+        private void BeepThread()
+        {
+            while (true)
+            {
+                if (bTesting)
+                {
+                    Action a = () => {
+                        iF = tbF.Value; iP = tbP.Value; iI = tbI.Value;
+                    }; 
+                    this.Invoke(a);
+
+                    API.Beep(iF, iP); Thread.Sleep(iI);
+                }
+            }
+        }
+    }
+}

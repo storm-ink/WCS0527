@@ -1,0 +1,109 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements
+{
+    [Description("画面设置")]
+    [Serializable]
+    public class EditorSettings:Element
+    {
+        StringFormat sf;
+        public EditorSettings(Editor editor)
+            : base(editor)
+        {
+            Init();
+
+            this.Size = new System.Drawing.SizeF(50, 50);
+            this.StageSize = new SizeF(editor.Container.ClientRectangle.Width, editor.Container.ClientRectangle.Height);
+            this.Name = "画布设置";
+
+            var index = this.Editor.GetAllItems().Where(x => x is Area).Max(x => (Int32?)x.Index);
+            
+            this.Index=index.GetValueOrDefault(-1)+1;
+        }
+
+        public EditorSettings(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            Init();
+
+            this.StageSize = (SizeF)info.GetValue("StageSize",typeof(SizeF));
+            this.Sizeable = info.GetBoolean("Sizeable");
+            this.Moveable = info.GetBoolean("Moveable");
+            this.WidthScale = info.GetSingle("WidthScale");
+            this.HeightScale = info.GetSingle("HeightScale");
+
+            this.OriginPointX = info.GetSingle("OriginPointX");
+            this.OriginPointY = info.GetSingle("OriginPointY");
+        }
+
+        [Description("舞台尺寸"), Category("外观")]
+        public SizeF StageSize { get; set; }
+
+        [Description("是否允许绽放"), Category("行为")]
+        public Boolean Sizeable { get; set; }
+
+        [Description("是否允许移动"), Category("行为")]
+        public Boolean Moveable { get; set; }
+
+        [Description("宽度缩放比例"), Category("行为")]
+        [Browsable(true)]
+        public new float WidthScale { get; set; }
+        [Description("高度缩放比例"), Category("行为")]
+        [Browsable(true)]
+        public new float HeightScale { get; set; }
+
+        [Description("当前画布绘制的原点x位置"), Category("行为")]
+        public float OriginPointX { get; set; }
+        [Description("当前画布绘制的原点Y位置"), Category("行为")]
+        public float OriginPointY { get; set; }
+
+        public override Element Clone()
+        {
+            throw new NotSupportedException("不支持复制");
+        }
+        void Init()
+        {
+            sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+        }
+
+
+        public Boolean Contains(Element element)
+        {
+            return this.Rectangle.Contains(element.Rectangle);
+        }
+
+        public override void Draw(Graphics graphics)
+        {
+            if (Editor.IsDesign)
+            {
+                base.Draw(graphics);
+
+                graphics.DrawRectangles(Pens.Red, new RectangleF[] { this.Rectangle });
+                graphics.DrawString("画布设置", Control.DefaultFont, new SolidBrush(Color.Red), this.Rectangle, sf);
+            }
+        }
+
+        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+
+            info.AddValue("StageSize", this.StageSize);
+            info.AddValue("Sizeable", this.Sizeable);
+            info.AddValue("Moveable", this.Moveable);
+
+            info.AddValue("WidthScale", this.WidthScale);
+            info.AddValue("HeightScale", this.HeightScale);
+            info.AddValue("OriginPointX", this.OriginPointX);
+            info.AddValue("OriginPointY", this.OriginPointY);
+        }
+    }
+}

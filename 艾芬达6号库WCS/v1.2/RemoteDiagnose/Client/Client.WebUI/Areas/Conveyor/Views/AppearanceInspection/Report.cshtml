@@ -1,0 +1,155 @@
+﻿<div>
+    <label>位置 <input type="text" name="no" id="no" /></label>
+    <label>开始日期 <input type="text" name="StartTime" id="startTime" value="@DateTime.Now.AddDays(-3).ToString("yyyy-MM-dd")" /></label>
+<label>结束日期 <input type="text" name="EndTime" id="endTime" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" /></label>
+<input type="submit" value="查询" id="submitBtn" />
+</div>
+<div id="canvasDiv" style="width:700px;float:left;"></div>
+<div id="detailsDiv" style="width:500px;float:left;"></div>
+<script type="text/javascript">
+    function loadMainChart(data) {
+        var chart = new iChart.Pie3D({
+            render: 'canvasDiv',
+            data: data,
+            title: {
+                text: '超差次数比例概要图',
+                color: '#3e576f'
+            },
+            border: {
+                color: "#404c5d",
+                width: 0
+            },
+            bound_event: null,
+            sub_option: {
+                label: {
+                    background_color: null,
+                    sign: false,//设置禁用label的小图标
+                    padding: '0 4',
+                    border: {
+                        enable: false,
+                        color: '#be5985'
+                    },
+                    fontsize: 12,
+                    fontweight: 600,
+                    color: '#000000'
+                },
+                border: {
+                    width: 1,
+                    color: '#ffffff'
+                },
+                listeners: {
+                    /**
+                     * r:iChart.Sector2D对象
+                     * e:eventObject对象
+                     * m:额外参数
+                     */
+                    click: function (s, e, m) {
+                        loadSubChart($('#no').val(), $('#startTime').val(), $('#endTime').val(), s.get('name'));
+                    },
+
+                    parseText: function (d, t) {
+                        return d.get('name') + " " + d.get('value') + " 次";//自定义label文本
+                    }
+                }
+            },
+            /*tip: {
+                enable: true,
+                listeners: {
+                    parseText: function (tip, name, value, text) {
+                        console.log(name);
+                        return '报警信息：'+name;
+                    }
+                }
+            },*/
+            shadow: true,
+            shadow_blur: 6,
+            shadow_color: '#000000',
+            shadow_offsetx: 0,
+            shadow_offsety: 0,
+            background_color: '#fefefe',
+            yHeight: 20,//饼图厚度
+            offsetx: 10,//设置向x轴负方向偏移位置60px
+            offset_angle: 0,//逆时针偏移120度
+            mutex: true,//只允许一个扇形弹出
+            showpercent: false,
+            decimalsnum: 2,
+            width: 700,
+            height: 500,
+            radius: 150
+        });
+
+        chart.draw();
+
+        loadSubChart($('#no').val(),$('#startTime').val(), $('#endTime').val(), '');
+    }
+
+    function loadSubChart(no, startTime, endTime, type) {
+        $.ajax({
+            url: "/Conveyor/AppearanceInspection/CountByNoWithType",
+            method: 'post',
+            data: {no:no, startTime: startTime, endTime: endTime, type: type },
+            dataType: 'json',
+            success: function (data) {
+                loadDetails(data);
+            }
+        });
+    }
+
+    function loadDetails(data) {
+        var chart = new iChart.Bar2D({
+            render: 'detailsDiv',
+            background_color: '#ffffff',
+            data: data,
+            title: '',
+            subtitle: '',
+            footnote: '',
+            width: 600,
+            height: 500,
+            coordinate: {
+                width: 450,
+                height: 300,
+                scale: [{
+                    position: 'bottom',
+                    start_scale: 0,
+                    end_scale: 50,
+                    scale_space: 3000
+                }]
+            },
+            sub_option: {
+                border: {
+                    enable: false
+                },
+                label: { color: '#000000' }
+            },
+            offsetx: 50,
+            shadow: true,
+            shadow_color: '#ffffff',
+            shadow_blur: 1,
+            shadow_offsety: 1,
+            shadow_offsetx: 1,
+            border: {
+                color: "#404c5d",
+                width: 0
+            },
+            legend: { enable: false }
+        });
+
+        chart.draw();
+    }
+    $(document).ready(function () {
+        $('#submitBtn').click(function () {
+            $.ajax({
+                url: "/Conveyor/AppearanceInspection/CountByType",
+                method: 'post',
+                data: { no: $('#no').val(), startTime: $('#startTime').val(), endTime: $('#endTime').val() },
+                dataType: 'json',
+                success: function (data) {
+                    loadMainChart(data);
+                }
+            });
+        });
+
+        $('#submitBtn').click();
+        $("#startTime,#endTime").datepicker();
+    });
+</script>

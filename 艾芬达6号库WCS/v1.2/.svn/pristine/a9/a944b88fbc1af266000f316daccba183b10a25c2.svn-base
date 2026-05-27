@@ -1,0 +1,34 @@
+﻿using Gensong;
+using Lutai;
+using Lutai.RailGuidedVehicle;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WindowsFormsApplication1
+{
+    public sealed class HB : RequestTelex
+    {
+        public String TaskId { get; set; }
+        public Int32 ContainerCode { get; set; }
+        public Int32 FromStation { get; set; }
+        public Int32 ToStation { get; set; }
+        public ChainAction FromStationChainAction { get; set; }
+        public ChainAction ToStationChainAction { get; set; }
+        public RailGuidedVehicleTaskMode TaskMode { get; set; }
+
+        public HB(String telex):base(telex)
+        {
+            this.Head = telex.Substring(0, 2);
+            this.TaskId = telex.Substring(2, 8);
+            this.ContainerCode = Convert.ToInt32(telex.Substring(10, 4));
+            this.FromStation = Convert.ToInt32(telex.Substring(14, 3));
+            this.ToStation = Convert.ToInt32(telex.Substring(17, 3));
+            this.FromStationChainAction = (ChainAction)Convert.ToInt32(telex.Substring(20, 1));
+            this.ToStationChainAction = (ChainAction)Convert.ToInt32(telex.Substring(21, 1));
+            this.TaskMode = (RailGuidedVehicleTaskMode)Convert.ToInt32(telex.Substring(22, 1));
+        }
+    }
+}

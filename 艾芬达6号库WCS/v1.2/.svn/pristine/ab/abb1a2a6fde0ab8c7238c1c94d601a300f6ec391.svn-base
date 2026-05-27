@@ -1,0 +1,225 @@
+﻿
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Net;
+using System.Windows.Forms;
+using Gensong.ServiceCrane;
+
+namespace Gensong
+{
+    [DesignTimeVisible(false)]
+    public partial class ucManual : UserControl
+    {
+        public ucManual()
+        {
+            InitializeComponent();
+
+            lblCol.ForeColor = lblRow.ForeColor = lblTaskId.ForeColor =
+            lblForkTL.ForeColor = lblForkLR.ForeColor = lblAlarmCode.ForeColor = Color.Yellow;
+
+            EmptyInfo();
+        }
+
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+            Globle.CheckLock(crn, (Button)sender);
+        }
+        private void btnHP_Click(object sender, EventArgs e)
+        {
+            SendTask(ETask.HP, null);
+        }
+        private void btnHE_Click(object sender, EventArgs e)
+        {
+            SendTask(ETask.HE, null);
+
+            //if (btnHE.Text == "  急停")
+            //{
+            //    SendTask(ETask.HE, null);
+            //    btnHE.Text = "  复位";
+            //}
+            //else
+            //{
+            //    SendTask(ETask.HC, null);
+            //    btnHE.Text = "  急停";
+            //}
+        }
+
+        private void btnColRow_Click(object sender, EventArgs e)
+        {
+            if (crn == null || shf == null) return;
+
+            if (sender == btnUCol)
+                btnUCol.Text = frmInput.Show(btnUCol.Text, 
+                    this.ParentForm.Left + 348, this.ParentForm.Top + 265, shf.MaxC, shf.MinC);
+            else
+                btnURow.Text = frmInput.Show(btnURow.Text, 
+                    this.ParentForm.Left + 348, this.ParentForm.Top + 265, shf.MaxR, shf.MinR);
+        }
+        private void btnGetPut_Click(object sender, EventArgs e)
+        {
+            SendTask(ETask.HGetPut, (Button)sender);
+        }
+        private void btnUpDownGoBack_Click(object sender, EventArgs e)
+        {
+            SendTask(ETask.HStep, (Button)sender);
+        }
+
+        private void btnRunPoint_Click(object sender, EventArgs e)
+        {
+            SendTask(ETask.HPoint, null);
+        }
+        private void btnRunColRow_Click(object sender, EventArgs e)
+        {
+            SendTask(ETask.HColRow, null);
+        }
+
+        private void btnTask_Click(object sender, EventArgs e)
+        {
+            if (ETaskClick != null) ETaskClick(this, EventArgs.Empty);
+        }
+
+        private void EventResponseTelex(object sender, ResponseEvent e)
+        {
+            if (e == null) return;
+
+            Action a = () => { LA la = (LA)e.Telex;
+                if (la != null) {
+                    crn.CraneWorkModeKeyInfo = la.CraneWorkModeKeyInfo;
+                    lblCol.Text = la.Position.UCol;
+                    lblRow.Text = la.Position.URow;
+                    lblTaskId.Text = la.TaskId;
+
+                    lblForkTL.Text = Util.PDescription(la.ForkTL);
+                    lblForkLR.Text = Util.PDescription(la.ForkLR);
+
+                    lblAlarmCode.Text = la.ErrorCode == "0000" ? string.Empty : la.ErrorCode;
+
+                    if (la.LockUser != Globle.HostName)
+                    {
+                        btnLock.Text = "  锁定"; btnLock.Image = Gensong.Properties.Resources.Unlock;
+                    }
+                    else
+                    {
+                        btnLock.Text = "  解锁"; btnLock.Image = Gensong.Properties.Resources.Onlock;
+                    }
+
+                    if (lblState.AccessibleDescription != "Online")
+                    {
+                        lblState.AccessibleDescription = "Online";
+                    }
+                }
+            }; this.Invoke(a);
+        }
+        public void EventClosed(object sender, EventArgs e)
+        {
+            Action a = () => {
+                if (lblState.AccessibleDescription != "Closed")
+                {
+                    EmptyInfo(); lblState.AccessibleDescription = "Closed";
+                }
+            }; this.Invoke(a);
+        }
+
+        private void EmptyInfo()
+        {
+            lblCol.Text = lblRow.Text = lblTaskId.Text = lblForkTL.Text = lblForkLR.Text = lblAlarmCode.Text = string.Empty;
+            btnLock.Text = "  锁定"; btnLock.Image = Gensong.Properties.Resources.Unlock;
+        }
+        private void SendTask(ETask eTask, Button btn)
+        {
+            try
+            {
+                if (!crn.Connected) { frmMsgbox.Show("无法连接堆垛机, 不能进行操作..."); return; }
+
+                if ((crn.CraneWorkModeKeyInfo == null || crn.CraneWorkModeKeyInfo.IsManual) && eTask != ETask.HE)
+                {
+                    frmMsgbox.Show("堆垛机远程手动模式已开，不能进行操作..."); return;
+                }
+
+                if (eTask != ETask.HE && eTask != ETask.HC)
+                {
+                    if (Globle.CheckLock(crn, true)) return;
+                }
+
+                if (eTask != ETask.HE && eTask != ETask.HC && eTask != ETask.HP)
+                {
+                    if (Globle.CheckCraneOK(crn) == false) return;
+                }
+
+                string sInfo = null;
+                switch (eTask)
+                {
+                    case ETask.HE:
+                        sInfo = Globle.MCS.SendHE(crn.CName); break;
+                    case ETask.HC:
+                        sInfo = Globle.MCS.SendHC(crn.CName); break;
+                    case ETask.HP:
+                        sInfo = Globle.MCS.SendHP(crn.CName); break;
+                    case ETask.HPoint:
+                        sInfo = Globle.MCS.SendPoint(crn.CName); break;
+                    case ETask.HColRow:
+                        var p = new ServiceCrane.Position
+                        {
+                            UCol = btnUCol.Text.PadLeft(3, '0'),
+                            URow = btnURow.Text.PadLeft(3, '0'),
+                            MCol = 0,
+                            MRow = 0
+                        };
+                        //sInfo = Globle.MCS.SendMove(crn.CName, new Position(btnUCol.Text, btnURow.Text)); break;
+                        sInfo = Globle.MCS.SendMove(crn.CName, p); break;
+                    case ETask.HGetPut:
+                        EForkLR LR = btn == btnLGet || btn == btnLPut ? EForkLR.L : EForkLR.R;
+                        HBCommand CMD = btn == btnLGet || btn == btnRGet ? HBCommand.E01 : HBCommand.E02;
+                        sInfo = Globle.MCS.SendGetPut(crn.CName, LR, CMD); break;
+                    case ETask.HStep:
+                        EStep eStep = EStep.Back;
+
+                        if (btn == btnCGo) eStep = EStep.Go;
+                        else if (btn == btnCBack) eStep = EStep.Back;
+                        else if (btn == btnCUp) eStep = EStep.Up;
+                        else if (btn == btnCDown) eStep = EStep.Down;
+
+                        sInfo = Globle.MCS.SendStep(crn.CName, eStep); break;
+                }
+
+                if (sInfo != null) frmMsgbox.Show(sInfo);
+            }
+            catch (Exception ex)
+            {
+                frmMsgbox.Show(ex.Message);
+            }
+        }
+
+        private Crane crn = null; SShelf shf = null;
+        public Crane Crane
+        {
+            get 
+            {
+                return crn;
+            }
+            set
+            {
+                if (crn != null)
+                {
+                    crn.EResponseTelex -= new EventHandler<ResponseEvent>(EventResponseTelex);
+                    crn.EClosed -= new EventHandler(EventClosed);
+                }
+                if (value == null) return; EmptyInfo(); shf = Globle.GetSShelf(value.CName); btnUCol.Text = btnURow.Text = "1";
+
+                crn = value;
+                crn.EResponseTelex += new EventHandler<ResponseEvent>(EventResponseTelex);
+                crn.EClosed += new EventHandler(EventClosed);
+
+                if (Globle.TcpConnected) EventResponseTelex(null, new ResponseEvent(crn.LA));
+            }
+        }
+
+        public event EventHandler ETaskClick;
+
+        enum ETask
+        {
+            HE, HC, HP, HPoint, HColRow, HStep, HGetPut
+        }
+    }
+}

@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// 任务来源
+    /// </summary>
+    [DataContract]
+    public enum TaskSource
+    {
+        /// <summary>
+        /// 未知
+        /// </summary>
+        [System.ComponentModel.Description("未知")]
+        [EnumMember]
+        Unknow,
+        /// <summary>
+        /// 由 Wms 创建
+        /// </summary>
+        [System.ComponentModel.Description("Wms")]
+        [EnumMember]
+        Wms,
+        /// <summary>
+        /// 由 Wcs 创建
+        /// </summary>
+        [System.ComponentModel.Description("Wcs")]
+        [EnumMember]
+        Wcs,
+        /// <summary>
+        /// 由 Master 创建
+        /// </summary>
+        [System.ComponentModel.Description("Master")]
+        [EnumMember]
+        Master,
+    }
+}

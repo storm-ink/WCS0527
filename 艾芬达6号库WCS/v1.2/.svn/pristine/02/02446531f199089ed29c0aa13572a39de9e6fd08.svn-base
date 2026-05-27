@@ -1,0 +1,14 @@
+﻿@model Int32?
+@{
+    
+    Int32[] arr = new int[] { 5, 10, 20, 50, 100, 500, 1000 };
+    Int32 pageSize = Model ?? 10;
+    if (arr.Contains(pageSize) == false)
+    {
+        pageSize = 10;
+    }
+
+    SelectList slist = new SelectList(arr, pageSize);
+}
+<label for="pageSize">每页:</label>
+@Html.DropDownList("pageSize", slist)

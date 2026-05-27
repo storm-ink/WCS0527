@@ -1,0 +1,12 @@
+﻿Wcs与客户端通讯服务定义集合
+这些服务都是稳定的，不会在后期修改
+
+使用方法：
+1、正常的配置Service
+2、在应用程序目录下新建一个xml文件，名称叫 ClientService.xml（服务的类型名称）,在里面输入以下内容：
+   <calls>
+		<register name="方法1" type="类型1" />
+		<register name="方法2" type="类型1" />
+		<register name="方法3" type="类型2" />
+   </calls>
+3、调用的时候使用 serviceClient.Call("方法1",参数集合)

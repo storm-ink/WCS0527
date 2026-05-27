@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+
+namespace Wcs.Client.Interfaces.Task
+{
+    /// <summary>
+    /// 任务状态
+    /// </summary>
+    [DataContract]
+    public enum TaskStatus
+    {
+        /// <summary>
+        /// 新任务
+        /// </summary>
+        [System.ComponentModel.Description("新任务")]
+        [EnumMember]
+        New,
+        /// <summary>
+        /// 已发送
+        /// </summary>
+        [System.ComponentModel.Description("已发送")]
+        [EnumMember]
+        Sent,
+        /// <summary>
+        /// 正在运行
+        /// </summary>
+        [System.ComponentModel.Description("执行中")]
+        [EnumMember]
+        Executing,
+        /// <summary>
+        /// 暂停
+        /// </summary>
+        [System.ComponentModel.Description("已暂停")]
+        [EnumMember]
+        Suspend,
+        /// <summary>
+        /// 发生错误
+        /// </summary>
+        [System.ComponentModel.Description("发生错误")]
+        [EnumMember]
+        Error,
+        /// <summary>
+        /// 被取消
+        /// </summary>
+        [System.ComponentModel.Description("已取消")]
+        [EnumMember]
+        Cancelled,
+        /// <summary>
+        /// 已完成
+        /// </summary>
+        [System.ComponentModel.Description("已完成")]
+        [EnumMember]
+        Completed,
+    }
+}

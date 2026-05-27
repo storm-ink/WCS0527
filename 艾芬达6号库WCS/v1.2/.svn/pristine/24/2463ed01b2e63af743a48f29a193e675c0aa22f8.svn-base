@@ -1,0 +1,78 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Client.Conveyor.AppearanceInspection>
+
+<table>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            设备名称
+        </th>
+        <th>
+            位置
+        </th>
+        <th>
+            结果
+        </th>
+        <th>
+            左超差
+        </th>
+        <th>
+            右超差
+        </th>
+        <th>
+            前超差
+        </th>
+        <th>
+            后超差
+        </th>
+        <th>
+            超高
+        </th>
+        <th>
+           日期
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LogId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Left_Over)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Right_Over)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Front_Over)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Back_Over)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Too_High)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LongDate)
+        </td>
+    </tr>
+}
+
+</table>
+@if (Model.Count() > 0)
+{
+    @Html.PagedListPager(this.Model, pageIndex => Url.Action("Index", new { pageIndex }), new PagedList.Mvc.PagedListRenderOptions { DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共 {2} 个" })
+}

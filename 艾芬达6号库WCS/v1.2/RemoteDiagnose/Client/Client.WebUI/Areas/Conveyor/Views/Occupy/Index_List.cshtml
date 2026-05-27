@@ -1,0 +1,92 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Client.Conveyor.Occupy>
+
+<table>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            设备名称
+        </th>
+        <th>
+            货位号
+        </th>
+        <th>
+            前保护
+        </th>
+        <th>
+            前到位
+        </th>
+        <th>
+            前减速
+        </th>
+        <th>
+            后保护
+        </th>
+        <th>
+            后到位
+        </th>
+        <th>
+            后减速
+        </th>
+        <th>
+            后高位
+        </th>
+        <th>
+            后低位
+        </th>
+        <th>
+            日期
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LogId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PosNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FroProPotocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FroPosPotocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FroSloPotocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AftProPotocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AftPosPotocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AftSloPotocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpPotocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DownPotocell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LongDate)
+        </td>
+    </tr>
+}
+
+</table>
+
+@if (Model.Count() > 0)
+{
+    @Html.PagedListPager(this.Model, pageIndex => Url.Action("Index", new { pageIndex }), new PagedList.Mvc.PagedListRenderOptions { DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共 {2} 个" })
+}

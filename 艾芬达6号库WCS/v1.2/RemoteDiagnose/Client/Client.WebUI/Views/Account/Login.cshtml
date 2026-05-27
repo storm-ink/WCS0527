@@ -1,0 +1,42 @@
+﻿@model Client.LoginModel
+
+@{
+    ViewBag.Title = "用户登录";
+}
+
+<h4>用户登录</h4>
+
+
+@if (Request.IsAuthenticated)
+{
+<p>   
+您已登录为 @this.Context.User.Identity.Name
+ </p>
+
+}
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = Request["ReturnUrl"] }, FormMethod.Post, new { data_ajax = "false" }))
+{
+        <table class="edit-table">
+             <tr>
+                  <th class="percent15">用户名：</th>
+                  <td>@Html.TextBoxFor(m => m.UserName)
+                  @Html.ValidationMessageFor(m => m.UserName)
+                  </td>
+             </tr>
+              <tr>
+                <th>密码：</th>
+                 <td>@Html.PasswordFor(m => m.Password)
+                 @Html.ValidationMessageFor(m => m.Password)
+                 </td>
+              </tr>
+              <tr>
+                <td></td>
+                  <td><input id="loginSubmitButton" type="submit" value="登录"/></td>
+              </tr>
+        </table>
+
+}
+  
+    
+ 
+    <p>@ViewBag.msg</p>

@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.App.Elements;
+
+namespace Wcs.Client.App
+{
+    public partial class frmProperty : Form
+    {
+        Editor _editor;
+        BindingSource bindingSource;
+        public PropertyGrid PropertyGrid
+        {
+            get
+            {
+                return propertyGrid1;
+            }
+        }
+        public frmProperty(Editor editor)
+        {
+            InitializeComponent();
+
+            _editor = editor;
+            _editor.Selected += _editor_Selected;
+            bindingSource = new BindingSource();
+            bindingSource.DataSource = _editor.Items.ToList();
+            cbxElements.DataSource = bindingSource;
+
+        }
+
+        void _editor_Selected(Editor editor, Element[] selectedItems)
+        {
+            if (selectedItems.Length > 1)
+            {
+                return;
+            }
+            if (selectedItems.Length == 1)
+            {
+                cbxElements.SelectedItem = selectedItems[0];
+            }
+        }
+
+        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            _editor.Draw();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            var now = _editor.Items.ToArray();
+            var old = bindingSource.Cast<Element>().ToArray();
+
+            foreach (var item in now)
+            {
+                if (!bindingSource.Contains(item))
+                {
+                    bindingSource.Add(item);
+                }
+            }
+
+            
+            foreach (var item in old)
+            {
+                if (!now.Contains(item))
+                {
+                    bindingSource.Remove(item);
+                }
+                else
+                {
+                    var index = bindingSource.Cast<Element>().ToList().IndexOf(item);
+                    bindingSource[index] = item;
+                }
+            }
+
+
+        }
+
+        private void cbxElements_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cbxElements_SelectedValueChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cbxElements_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void cbxElements_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbxElements.SelectedItem != null)
+            {
+
+                foreach (var item in _editor.SelectedItems.ToArray())
+                {
+                    item.Focused = false;   
+                }
+
+                propertyGrid1.SelectedObject = cbxElements.SelectedItem;
+
+                ((Element)cbxElements.SelectedItem).Focused = true;
+
+                _editor.Draw();
+            }
+        }
+    }
+}

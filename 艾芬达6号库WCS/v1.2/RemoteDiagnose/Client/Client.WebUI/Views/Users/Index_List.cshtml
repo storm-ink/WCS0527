@@ -1,0 +1,62 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Client.User>
+
+<table border="1" cellpadding="1" cellspacing="4">
+    <tr>
+        <th>
+           用户名
+        </th>
+        <th>
+            真实姓名
+        </th>
+        <th>
+           是否为内置
+        </th>
+        <th>
+            角色
+        </th>
+    
+        <th>
+           创建时间
+        </th>
+        <th>
+           备注
+        </th>
+        <th>
+        </th>
+      
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+          <td>
+              @Html.DisplayFor(modelItem=>item.UserName)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem=>item.RealName)
+          </td>
+           <td>
+               @Html.DisplayFor(modelItem=>item.IsBuiltIn)
+           </td>
+            <td>
+               @string.Join(",", item.Roles.Select(x => x.RoleName))
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem=>item.CreatedAt)
+            </td>
+          
+             <td>
+               @Html.DisplayFor(modelItem=>item.Comments)
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id })
+                @Html.ActionLink("删除", "Delete",new { id = item.Id }, new { @class="delete"} )
+            </td>
+        </tr>
+    }
+</table>
+@if (Model.Count() > 0)
+{
+    @Html.PagedListPager(this.Model, pageIndex => Url.Action("Index", new { pageIndex }), new PagedListRenderOptions { DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共 {2} 个" })
+}

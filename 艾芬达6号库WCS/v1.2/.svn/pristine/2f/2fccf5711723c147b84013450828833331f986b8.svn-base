@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:tns="http://tempuri.org/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" name="LTWMSService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_ILTWMSService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ILTWMSService_BlankPallentIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:BlankPallentIn" />
+  </wsdl:message>
+  <wsdl:message name="ILTWMSService_BlankPallentIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BlankPallentInResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILTWMSService_BlankPallentOut_InputMessage">
+    <wsdl:part name="parameters" element="tns:BlankPallentOut" />
+  </wsdl:message>
+  <wsdl:message name="ILTWMSService_BlankPallentOut_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BlankPallentOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILTWMSService_ReApplayForPosition_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReApplayForPosition" />
+  </wsdl:message>
+  <wsdl:message name="ILTWMSService_ReApplayForPosition_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReApplayForPositionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILTWMSService_VerificationBarcode_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerificationBarcode" />
+  </wsdl:message>
+  <wsdl:message name="ILTWMSService_VerificationBarcode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerificationBarcodeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ILTWMSService">
+    <wsdl:operation name="BlankPallentIn">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILTWMSService/BlankPallentIn" message="tns:ILTWMSService_BlankPallentIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILTWMSService/BlankPallentInResponse" message="tns:ILTWMSService_BlankPallentIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BlankPallentOut">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILTWMSService/BlankPallentOut" message="tns:ILTWMSService_BlankPallentOut_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILTWMSService/BlankPallentOutResponse" message="tns:ILTWMSService_BlankPallentOut_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReApplayForPosition">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILTWMSService/ReApplayForPosition" message="tns:ILTWMSService_ReApplayForPosition_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILTWMSService/ReApplayForPositionResponse" message="tns:ILTWMSService_ReApplayForPosition_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificationBarcode">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILTWMSService/VerificationBarcode" message="tns:ILTWMSService_VerificationBarcode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILTWMSService/VerificationBarcodeResponse" message="tns:ILTWMSService_VerificationBarcode_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSHttpBinding_ILTWMSService" type="tns:ILTWMSService">
+    <wsp:PolicyReference URI="#WSHttpBinding_ILTWMSService_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BlankPallentIn">
+      <soap12:operation soapAction="http://tempuri.org/ILTWMSService/BlankPallentIn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BlankPallentOut">
+      <soap12:operation soapAction="http://tempuri.org/ILTWMSService/BlankPallentOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReApplayForPosition">
+      <soap12:operation soapAction="http://tempuri.org/ILTWMSService/ReApplayForPosition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificationBarcode">
+      <soap12:operation soapAction="http://tempuri.org/ILTWMSService/VerificationBarcode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LTWMSService">
+    <wsdl:port name="WSHttpBinding_ILTWMSService" binding="tns:WSHttpBinding_ILTWMSService">
+      <soap12:address location="http://localhost:8730/wms/LTWMSService/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://localhost:8730/wms/LTWMSService/</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

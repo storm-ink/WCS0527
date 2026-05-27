@@ -1,0 +1,672 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements
+{
+    [Serializable]
+    public abstract class Element : IDisposable,System.Runtime.Serialization.ISerializable
+    {
+        Boolean m_focused = false;
+
+        Element m_parent;
+
+        PointF mouseDownPoint;
+
+        RectTracker rectTracker = new RectTracker();
+        public Element(Editor editor)
+            : this()
+        {
+            UpdateEditor(editor);
+
+            this.Index = Editor.Items.Length;
+        }
+
+        public Element(SerializationInfo info, StreamingContext context)
+            : this()
+        {
+            this.Name = (string)info.GetValue("Name", typeof(string));
+            this.BackgroundColor = (Color)info.GetValue("BackgroundColor", typeof(Color));
+            this.Index = (Int32)info.GetValue("Index", typeof(Int32));
+            this.Left = (float)info.GetValue("Left", typeof(float));
+            this.Top = (float)info.GetValue("Top", typeof(float));
+            this.Size = (SizeF)info.GetValue("Size", typeof(SizeF));
+            this.Items = new List<Element>((Element[])info.GetValue("Items", typeof(Element[])));
+            this.ElementContainerName = (String)info.GetValue("ElementContainerName", typeof(String));
+        }
+
+        protected Element()
+        {
+            AbsoluteTransform = new Elements.AbsoluteTransform(this);
+            RelativeTransform = new RelativeTransform(this);
+            BindingMapping = new Dictionary<PropertyInfo, string>();
+            Items = new List<Element>();
+            BackgroundColor = Color.Transparent;
+        }
+        public event MouseEventHandler MouseClick;
+
+        [BrowsableAttribute(false)]
+        public AbsoluteTransform AbsoluteTransform { get; protected set; }
+
+        [CategoryAttribute("外观"), Description("背景颜色")]
+        public Color BackgroundColor { get; set; }
+
+        [CategoryAttribute("行为"), Description("数据绑定字段映射集")]
+        [EditorAttribute(typeof(Wcs.Client.App.Elements.UIEditor.BindMappingEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public Dictionary<PropertyInfo, String> BindingMapping { get; set; }
+
+        [BrowsableAttribute(false)]
+        public Control Container { get; set; }
+
+        [BrowsableAttribute(false)]
+        public Editor Editor { get; protected set; }
+
+        [BrowsableAttribute(false)]
+        public Boolean Focused
+        {
+            get
+            {
+                return m_focused;
+            }
+            set
+            {
+                m_focused = value;
+
+                if (value)
+                {
+                    Items.ForEach((item) =>
+                    {
+                        item.Focused = false;
+                    });
+                }
+            }
+        }
+
+        [CategoryAttribute("行为"), Description("Z轴索引，决定了显示的层级")]
+        public int Index { get; set; }
+
+        [BrowsableAttribute(false)]
+        public List<Element> Items { get; private set; }
+
+        [CategoryAttribute("布局"), Description("相对于父级的左边距")]
+        public float Left { get; set; }
+
+        [BrowsableAttribute(false)]
+        public MouseMode MouseMode { get; protected set; }
+
+        [CategoryAttribute("行为"), Description("名称")]
+        public String Name { get; set; }
+
+        [BrowsableAttribute(false)]
+        public Element Parent
+        {
+            get
+            {
+                return m_parent;
+            }
+            set
+            {
+                //if (m_parent != null)
+                //{
+                //    if (m_parent is Canvas)
+                //    {
+                //        var canvas = (Canvas)m_parent;
+                //        canvas.RemoveItem(this);
+                //    }
+                //}
+                m_parent = value;
+            }
+        }
+
+        [BrowsableAttribute(false)]
+        public virtual RectangleF Rectangle
+        {
+            get
+            {
+                return new RectangleF(AbsoluteTransform.X(Left), AbsoluteTransform.Y(Top), AbsoluteTransform.W(Size.Width), AbsoluteTransform.H(Size.Height));
+            }
+        }
+
+        [BrowsableAttribute(false)]
+        public RelativeTransform RelativeTransform { get; protected set; }
+
+        [BrowsableAttribute(false)]
+        public ResizeBorder ResizeBorder { get; protected set; }
+
+        [CategoryAttribute("布局"), Description("尺寸")]
+        public SizeF Size { get; set; }
+
+        [CategoryAttribute("布局"), Description("相对于父级的上边距")]
+        public float Top { get; set; }
+
+        /// <summary>
+        /// 宽度缩放比例
+        /// </summary>
+        [Browsable(false)]
+        public virtual float WidthScale
+        {
+            get
+            {
+                return Editor.WidthScale;
+            }
+        }
+        /// <summary>
+        /// 高度缩放比例
+        /// </summary>
+        [Browsable(false)]
+        public virtual float HeightScale
+        {
+            get
+            {
+                return Editor.HeightScale;
+            }
+        }
+
+        public void AddItem(Element element)
+        {
+            if (element.Parent != null)
+            {
+                throw new InvalidOperationException("element 已添加到了其它的容器当中，无法再次添加");
+            }
+
+            Items.Add(element);
+            element.Parent = this;
+        }
+
+        public abstract Element Clone();
+
+        public void Dispose()
+        {
+            Container.MouseMove -= Container_MouseMove;
+            Container.MouseClick -= container_MouseClick;
+            Container.MouseUp -= container_MouseUp;
+            Container.MouseDown -= container_MouseDown;
+            Container.KeyDown -= Container_KeyDown;
+        }
+
+        [CategoryAttribute("行为"), Description("元素所属容器")]
+        [EditorAttribute(typeof(Wcs.Client.App.Elements.UIEditor.ElementContainerEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public String ElementContainerName { get; set; }
+
+        [Browsable(false)]
+        public IElementContainer ElementContainer
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(ElementContainerName))
+                {
+                    return null;
+                }
+
+                var c=this.Editor.FindByName(this.ElementContainerName);
+                if (c != null && c is IElementContainer)
+                {
+                    return (IElementContainer)c;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        [Browsable(false)]
+        public virtual Boolean Visible
+        {
+            get
+            {
+                var c = ElementContainer;
+                if (c != null && c.Visible == false)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            set
+            {
+                throw new NotSupportedException();
+            }
+        }
+
+        public virtual void Draw(Graphics graphics)
+        {
+            if (!Visible)
+            {
+                return;
+            }
+
+            Fill(graphics);
+
+            if (this.Focused)
+            {
+                DrawFocusRectangle(graphics);
+                DrawSelectionTrackers(graphics);
+            }
+
+            foreach (var item in this.Items.OrderBy(x => x.Index))
+            {
+                item.Draw(graphics);
+            }
+        }
+
+        public TElement Find<TElement>(Func<TElement, Boolean> match)
+            where TElement : Element
+        {
+            if (this.GetType() == typeof(TElement) && match((TElement)this))
+            {
+                return (TElement)this;
+            }
+
+            foreach (var item in Items)
+            {
+                var r = item.Find(match);
+
+                if (r != null)
+                {
+                    return (TElement)r;
+                }
+            }
+
+            return null;
+        }
+
+        public Element FindItemByName(String name)
+        {
+            if (String.Equals(this.Name, name, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return this;
+            }
+            foreach (var item in this.Items)
+            {
+                var r = item.FindItemByName(name);
+                if (r != null)
+                {
+                    return r;
+                }
+            }
+
+            return null;
+        }
+
+        public Element[] GetAllItems()
+        {
+            return Items
+                .SelectMany(x => x.GetAllItems())
+                .Concat(new Element[] { this })
+                .ToArray();
+        }
+
+        public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        {
+            info.AddValue("Name", this.Name);
+            info.AddValue("BackgroundColor", this.BackgroundColor);
+            info.AddValue("Index", this.Index);
+            info.AddValue("Left", this.Left);
+            info.AddValue("Top", this.Top);
+            info.AddValue("Size", this.Size);
+            info.AddValue("Items", this.Items.ToArray());
+            info.AddValue("ElementContainerName", this.ElementContainerName);
+        }
+
+        public void RemoveItem(Element element)
+        {
+            if (!Items.Contains(element))
+            {
+                throw new InvalidOperationException("element 未包含在当前画布中。");
+            }
+
+            Items.Remove(element);
+            element.Parent = null;
+        }
+
+        public Boolean TestHit(Int32 x, Int32 y)
+        {
+            return Rectangle.Contains(x, y);
+        }
+
+        public virtual void UpdateEditor(Editor editor)
+        {
+            if (this.Editor != null)
+            {
+                Editor.Container.MouseMove -= Container_MouseMove;
+                Editor.Container.MouseClick -= container_MouseClick;
+                Editor.Container.MouseUp -= container_MouseUp;
+                Editor.Container.MouseDown -= container_MouseDown;
+                Editor.Container.KeyDown -= Container_KeyDown;
+            }
+
+            Editor = editor;
+            Container = editor.Container;
+            Container.MouseMove += Container_MouseMove;
+            Container.MouseClick += container_MouseClick;
+            Container.MouseUp += container_MouseUp;
+            Container.MouseDown += container_MouseDown;
+            Container.KeyDown += Container_KeyDown;
+        }
+        /// <summary>
+        /// 添加一个可绑定的字段
+        /// </summary>
+        /// <typeparam name="TElement"></typeparam>
+        /// <typeparam name="TField"></typeparam>
+        /// <param name="pi"></param>
+        protected void AddBindField<TElement, TField>(TElement element, System.Linq.Expressions.Expression<Func<TElement, TField>> pi)
+            where TElement : Element
+        {
+            var body = pi.Body;
+            if (body.NodeType != System.Linq.Expressions.ExpressionType.MemberAccess)
+            {
+                throw new InvalidOperationException("必须是从字段或属性进行读取的运算，如 obj.SampleProperty。");
+            }
+
+            System.Linq.Expressions.MemberExpression memberExpression = (System.Linq.Expressions.MemberExpression)body;
+            if (memberExpression.Member.MemberType != System.Reflection.MemberTypes.Property)
+            {
+                throw new InvalidOperationException("必须是从字段或属性进行读取的运算，如 obj.SampleProperty。");
+            }
+
+            System.Reflection.PropertyInfo propertyInfo = (System.Reflection.PropertyInfo)memberExpression.Member;
+
+            this.BindingMapping.Add(propertyInfo, propertyInfo.Name);
+        }
+
+        protected virtual void CloneProperties(Element newInstance)
+        {
+            newInstance.Name = this.Name;
+            newInstance.AbsoluteTransform = this.AbsoluteTransform;
+            newInstance.BackgroundColor = this.BackgroundColor;
+            newInstance.BindingMapping = this.BindingMapping;
+            newInstance.Container = this.Container;
+            newInstance.Left = this.Left;
+            newInstance.RelativeTransform = this.RelativeTransform;
+            newInstance.Size = this.Size;
+            newInstance.Top = this.Top;
+
+            foreach (var item in Items)
+            {
+                newInstance.AddItem(item.Clone());
+            }
+
+        }
+
+        protected virtual void DrawFocusRectangle(Graphics graphics)
+        {
+            var x1 = Convert.ToInt32(Rectangle.X);
+            var y1 = Convert.ToInt32(Rectangle.Y);
+            var width = Convert.ToInt32(Rectangle.Width);
+            var height = Convert.ToInt32(Rectangle.Height);
+            ControlPaint.DrawFocusRectangle(graphics, new Rectangle(x1, y1, width, height));
+        }
+
+        protected virtual void DrawSelectionTrackers(Graphics graphics)
+        {
+            rectTracker.DrawSelectionTrackers(
+                this.Rectangle.X,
+                this.Rectangle.Y,
+                this.Rectangle.Width,
+                this.Rectangle.Height,
+                graphics);
+        }
+
+        protected virtual void Fill(Graphics graphics)
+        {
+            graphics.FillRectangle(new SolidBrush(this.BackgroundColor), this.Rectangle);
+        }
+
+        void Container_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!this.Focused)
+            {
+                return;
+            }
+
+            //resize
+            if (e.Shift)
+            {
+                if (e.KeyCode == Keys.Up)
+                {
+                    this.Size = new SizeF(Size.Width, Size.Height - 1);
+                    e.Handled = true;
+                    Editor.Draw();
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    this.Size = new SizeF(Size.Width, Size.Height + 1);
+                    e.Handled = true;
+                    Editor.Draw();
+                }
+                else if (e.KeyCode == Keys.Left)
+                {
+                    this.Size = new SizeF(Size.Width - 1, Size.Height);
+                    e.Handled = true;
+                    Editor.Draw();
+                }
+                else if (e.KeyCode == Keys.Right)
+                {
+                    this.Size = new SizeF(Size.Width + 1, Size.Height);
+                    e.Handled = true;
+                    Editor.Draw();
+                }
+            }
+            else
+            {
+                //move
+                if (e.KeyCode == Keys.Up)
+                {
+                    this.Top--;
+                    e.Handled = true;
+                    Editor.Draw();
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    this.Top++;
+                    e.Handled = true;
+                    Editor.Draw();
+                }
+                else if (e.KeyCode == Keys.Left)
+                {
+                    this.Left--;
+                    e.Handled = true;
+                    Editor.Draw();
+                }
+                else if (e.KeyCode == Keys.Right)
+                {
+                    this.Left++;
+                    e.Handled = true;
+                    Editor.Draw();
+                }
+            }
+        }
+        void container_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!Visible)
+            {
+                this.Focused = false;
+                return;
+            }
+
+            //if (TestHit(e.X, e.Y) && MouseClick!=null)
+            //{
+            //    MouseClick.Invoke(this, e);
+            //}
+        }
+
+        void container_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            if (!Visible)
+            {
+                this.Focused = false;
+                return;
+            }
+
+
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
+
+            mouseDownPoint = new PointF(e.X,e.Y);
+
+            if (TestHit(e.X, e.Y) && !Items.Any(x =>x.Visible &&  x.TestHit(e.X,e.Y)))
+            {
+                if (!Editor.Items.Any(x => x != this && x.Visible && x.TestHit(e.X, e.Y) && x.Index > this.Index))
+                {
+                    if (Editor.IsDesign)
+                    {
+                        Focused = true;
+                    }
+
+                    if (MouseClick != null)
+                    {
+                        MouseClick.Invoke(this, e);
+                    }
+                }
+            }
+            else
+            {
+                if ((Control.ModifierKeys & Keys.Shift) != Keys.Shift)
+                {
+                    Focused = false;
+                }
+            }
+            if (Editor.IsDesign)
+            {
+                ResizeBorder nResult = Elements.ResizeBorder.None;
+                var cursor = rectTracker.CursorCheck(this.Rectangle, new Point(e.X, e.Y), ref nResult);
+
+                if (nResult != 0)
+                {
+                    Focused = true;
+                    this.MouseMode = Elements.MouseMode.Resize;
+                    this.ResizeBorder = nResult;
+
+                    this.Container.Cursor = cursor;
+                }
+                else if (Focused)
+                {
+                    Focused = true;
+                    this.MouseMode = Elements.MouseMode.Move;
+                    this.Container.Cursor = cursor;
+                }
+            }
+        }
+
+        void Container_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!Editor.IsDesign)
+            {
+                return;
+            }
+
+            if (!Visible)
+            {
+                this.Focused = false;
+                return;
+            }
+
+
+            if (!this.Focused && this.MouseMode != Elements.MouseMode.Move && this.MouseMode != Elements.MouseMode.Resize)
+            {
+                return;
+            }
+
+            if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
+            {
+                if (this.MouseMode == Elements.MouseMode.Move && mouseDownPoint != default(PointF))
+                {
+                    this.Left += (e.X - mouseDownPoint.X);
+                    this.Top += (e.Y - mouseDownPoint.Y);
+                    mouseDownPoint = new PointF(e.X, e.Y);
+                }
+                else if (this.MouseMode == Elements.MouseMode.Resize && mouseDownPoint != default(PointF) && ResizeBorder != Elements.ResizeBorder.None)
+                {
+                    switch (this.ResizeBorder)
+                    {
+                        case Elements.ResizeBorder.Top:
+                            this.Size = new SizeF(this.Size.Width, this.Top + this.Size.Height - e.Y);
+                            this.Top = e.Y;
+                            break;
+                        case Elements.ResizeBorder.Right:
+                            this.Size = new SizeF(e.X - this.Left, this.Size.Height);
+                            break;
+                        case Elements.ResizeBorder.Bottom:
+                            this.Size = new SizeF(this.Size.Width, e.Y - this.Top);
+                            break;
+                        case Elements.ResizeBorder.Left:
+                            this.Size = new SizeF(this.Left + this.Size.Width - e.X, this.Size.Height);
+                            this.Left = e.X;
+                            break;
+                        case Elements.ResizeBorder.LeftTop:
+                            this.Size = new SizeF(this.Left + this.Size.Width - e.X, this.Top + this.Size.Height - e.Y);
+                            this.Top = e.Y;
+                            this.Left = e.X;
+                            break;
+                        case Elements.ResizeBorder.RightTop:
+                            this.Size = new SizeF(e.X - this.Left, this.Top + this.Size.Height - e.Y);
+                            this.Top = e.Y;
+                            break;
+                        case Elements.ResizeBorder.LeftBottom:
+                            this.Size = new SizeF(this.Left + this.Size.Width - e.X, e.Y - this.Top);
+                            this.Left = e.X;
+                            break;
+                        case Elements.ResizeBorder.RightBottom:
+                            this.Size = new SizeF(e.X - this.Left, e.Y - this.Top);
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                ResizeBorder nResult = Elements.ResizeBorder.None;
+                this.Container.Cursor = rectTracker.CursorCheck(this.Rectangle, new Point(e.X, e.Y), ref nResult);
+
+                if (this.MouseMode == Elements.MouseMode.Resize)
+                {
+                    this.ResizeBorder = nResult;
+                }
+            }
+
+            //b.AppendText(string.Format("event = MouseMove, x={0},y={1},Button={2},MouseMode = {3},Left={4},Top={5},ResizeBorder={6}\n", e.X, e.Y, e.Button, MouseMode, this.Left, this.Top, ResizeBorder));
+
+#warning 重绘
+            //Draw();
+        }
+
+        void container_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.MouseMode = Elements.MouseMode.None;
+            this.ResizeBorder = Elements.ResizeBorder.None;
+            mouseDownPoint = default(PointF);
+
+            if (!Visible)
+            {
+                this.Focused = false;
+                this.Container.Cursor = Cursors.Default;
+            }
+
+            //b.AppendText(string.Format("event = MouseUp, x={0},y={1},Button={2},MouseMode = {3},Left={4},Top={5},ResizeBorder={6}\n", e.X, e.Y, e.Button, MouseMode, this.Left, this.Top, ResizeBorder));
+
+        }
+
+        public override string ToString()
+        {
+            if (string.IsNullOrWhiteSpace(this.Name))
+            {
+                return this.GetType().Name;
+            }
+            else
+            {
+                return this.Name;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7e495779-5ecf-45ed-861a-9df123d8fad7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/LEDService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="LEDService.xsd" MetadataType="Schema" ID="73793288-fa74-4855-8e44-c319da8e6388" SourceId="1" SourceUrl="http://localhost:8733/LEDService?xsd=xsd0" />
+    <MetadataFile FileName="LEDService.wsdl" MetadataType="Wsdl" ID="f2b9c818-29bb-4056-b898-184501a748a6" SourceId="1" SourceUrl="http://localhost:8733/LEDService?wsdl" />
+    <MetadataFile FileName="LEDService.disco" MetadataType="Disco" ID="84fbb943-c55d-4f0a-ae75-bd36c82c4e45" SourceId="1" SourceUrl="http://localhost:8733/LEDService?disco" />
+    <MetadataFile FileName="LEDService1.xsd" MetadataType="Schema" ID="8d28fe9f-8fb5-4021-8652-10817ba1995f" SourceId="1" SourceUrl="http://localhost:8733/LEDService?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

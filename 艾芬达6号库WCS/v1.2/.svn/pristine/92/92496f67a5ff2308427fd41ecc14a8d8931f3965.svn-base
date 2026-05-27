@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{50BFCDD0-07DF-475C-9BCB-D82F65BF8A51}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Wcs.Client</RootNamespace>
+    <AssemblyName>Wcs.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Wcs.Client.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.2.3\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Impls\ClientService.cs" />
+    <Compile Include="Interfaces\Conveyor\AlarmNetTransferObject.cs" />
+    <Compile Include="Interfaces\Conveyor\HoldSignalNetTransferObject.cs" />
+    <Compile Include="Interfaces\Conveyor\HoldSignalNetTransferObjectHandShake.cs" />
+    <Compile Include="Interfaces\Conveyor\IConveyorService.cs" />
+    <Compile Include="Interfaces\Conveyor\LocationNetTransferObject.cs" />
+    <Compile Include="Interfaces\Conveyor\LocationNetTransferObjectStatus.cs" />
+    <Compile Include="Interfaces\Conveyor\LocationTaskNetTransferObject.cs" />
+    <Compile Include="Interfaces\Conveyor\OccupyNetTransferObject.cs" />
+    <Compile Include="Interfaces\Conveyor\TaskNetTransferObject.cs" />
+    <Compile Include="Interfaces\Conveyor\TaskNetTransferObjectHandShake.cs" />
+    <Compile Include="Interfaces\Conveyor\TaskNetTransferObjectStatus.cs" />
+    <Compile Include="Interfaces\AbstractClientService.cs" />
+    <Compile Include="Interfaces\SinglePlantformRailGuidedVehicle\ISinglePlantformRailGuidedVehicleService.cs" />
+    <Compile Include="Interfaces\SinglePlantformRailGuidedVehicle\SinglePlantformRailGuidedVehicleEvent.cs" />
+    <Compile Include="Interfaces\SinglePlantformRailGuidedVehicle\SinglePlantformRailGuidedVehicleStatus.cs" />
+    <Compile Include="Interfaces\SinglePlantformRailGuidedVehicle\SinglePlantformRailGuidedVehicleMode.cs" />
+    <Compile Include="Interfaces\SinglePlantformRailGuidedVehicle\StatusTransferObject.cs" />
+    <Compile Include="Interfaces\Task\EquipmentAction.cs" />
+    <Compile Include="Interfaces\Task\EquipmentActionStatus.cs" />
+    <Compile Include="Interfaces\Task\EquipmentActionWarning.cs" />
+    <Compile Include="Interfaces\Task\ITaskService.cs" />
+    <Compile Include="Interfaces\SingleForkCrane\CraneEvent.cs" />
+    <Compile Include="Interfaces\SingleForkCrane\CraneInfo.cs" />
+    <Compile Include="Interfaces\SingleForkCrane\CraneStatus.cs" />
+    <Compile Include="Interfaces\SingleForkCrane\ForkDirection.cs" />
+    <Compile Include="Interfaces\SingleForkCrane\ForkHorizontalPosition.cs" />
+    <Compile Include="Interfaces\SingleForkCrane\ForkVerticalPosition.cs" />
+    <Compile Include="Interfaces\SingleForkCrane\ICraneService.cs" />
+    <Compile Include="Interfaces\SingleForkCrane\LA.cs" />
+    <Compile Include="Interfaces\IClientService.cs" />
+    <Compile Include="Interfaces\Task\LocationInfo.cs" />
+    <Compile Include="Interfaces\Task\LogicMovement.cs" />
+    <Compile Include="Interfaces\Task\LogicMovementStatus.cs" />
+    <Compile Include="Interfaces\Task\Task.cs" />
+    <Compile Include="Interfaces\Task\TaskBizType.cs" />
+    <Compile Include="Interfaces\Task\TaskDirection.cs" />
+    <Compile Include="Interfaces\Task\TaskSource.cs" />
+    <Compile Include="Interfaces\Task\TaskStatus.cs" />
+    <Compile Include="Interfaces\TwoForkCrane\ForkStatus.cs" />
+    <Compile Include="Interfaces\TwoForkCrane\ITwoForksCraneService.cs" />
+    <Compile Include="Interfaces\TwoForkCrane\LA.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="请求上下文\ContextPropagationBehavior.cs" />
+    <Compile Include="请求上下文\ContextPropagationBehaviorElement.cs" />
+    <Compile Include="请求上下文\ContextSender.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="install.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\AssemblyInfo.tpl" />
+    <None Include="Wcs.Client.nuspec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

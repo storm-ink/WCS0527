@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Wcs.Client.Interfaces.Conveyor;
+
+namespace Wcs.Client.App.Elements
+{
+    public static class AlarmNetTransferObjectExtentions
+    {
+        /// <summary>
+        /// 获取报警信息.
+        /// </summary>
+        public static String[] ToAlarms(this AlarmNetTransferObject alarm)
+        {
+            List<String> result = new List<string>();
+
+            if (alarm.Manual)
+            {
+                result.Add("是否手动");
+            }
+
+            if (alarm.Isolator)
+            {
+                result.Add("离线（隔离开关断开）");
+            }
+
+            if (alarm.Breaker)
+            {
+                result.Add("电路保护器断开（断路器断开）");
+            }
+
+            if (alarm.Photocell)
+            {
+                result.Add("光电异常");
+            }
+
+            if (alarm.RunOvertime)
+            {
+                result.Add("运行超时");
+            }
+
+            if (alarm.OccupyOvertime)
+            {
+                result.Add("占位超时");
+            }
+
+            if (alarm.TaskNoGoods)
+            {
+                result.Add("有任务无货");
+            }
+
+            if (alarm.X_MotorVAF)
+            {
+                result.Add("X轴电机变频器故障");
+            }
+
+            if (alarm.Y_MotorVAF)
+            {
+                result.Add("Y轴电机变频器故障");
+            }
+
+            if (alarm.X_MotorContactor)
+            {
+                result.Add("X轴电机正反转接触器故障");
+            }
+
+            if (alarm.X_MotorBraker)
+            {
+                result.Add("X轴电机抱闸接触器故障");
+            }
+
+            if (alarm.Y_MotorContactor)
+            {
+                result.Add("Y轴电机正反转接触器故障");
+            }
+
+            if (alarm.Y_MotorBraker)
+            {
+                result.Add("Y轴电机抱闸接触器故障");
+            }
+
+            if (alarm.Lift_MotorContactor)
+            {
+                result.Add("顶升电机正反转接触器故障");
+            }
+
+            if (alarm.Lift_MotorBraker)
+            {
+                result.Add("顶升电机抱闸接触器故障");
+            }
+
+            return result.ToArray();
+        }
+    }
+}

@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace wms模拟工具
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (System.Transactions.TransactionScope tx = new System.Transactions.TransactionScope())
+            {
+                using (ServiceReference1.WcfWcsServiceForWmsClient client = new ServiceReference1.WcfWcsServiceForWmsClient())
+                {
+                    try
+                    {
+                        client.SendTask(new ServiceReference1.WcsTaskInfo
+                        {
+                            TaskCode = tbx_taskCode.Text,
+                            ContainerCodes = new string[] { tbx_barCode.Text.ToString() },
+                            From = tbx_StartLocation.Text,
+                            To = tbx_EndLocation.Text,
+                            TaskType = "按钮任务"
+                        });
+                        client.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                tx.Complete();
+            }
+        }
+    }
+}

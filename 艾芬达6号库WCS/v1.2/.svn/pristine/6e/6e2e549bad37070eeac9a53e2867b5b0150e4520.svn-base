@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repositories>
+  <repository path="..\Wcs.Client.App\packages.config" />
+  <repository path="..\Wcs.Client.Services\packages.config" />
+  <repository path="..\Wcs.Client\packages.config" />
+</repositories>

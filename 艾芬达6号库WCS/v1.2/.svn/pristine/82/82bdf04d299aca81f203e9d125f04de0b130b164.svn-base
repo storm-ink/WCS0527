@@ -1,0 +1,1039 @@
+﻿namespace Wcs.Client.App.Elements.Forms
+{
+    partial class frmTwoForksCraneUI
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lblBizType = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.lblCreatedAt = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblEndLocation = new System.Windows.Forms.Label();
+            this.lblTaskType = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lblContainerCodes = new System.Windows.Forms.Label();
+            this.lblStartLocation = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblSource = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblTaskCode = new System.Windows.Forms.Label();
+            this.gbTaskInfoF1 = new System.Windows.Forms.GroupBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnReturn = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblName = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblTaskId = new System.Windows.Forms.Label();
+            this.lblEvent = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblEName = new System.Windows.Forms.Label();
+            this.lblECode = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblLocker = new System.Windows.Forms.Label();
+            this.lblUserPos = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblRow = new System.Windows.Forms.Label();
+            this.lblCol = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblState = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnJT = new System.Windows.Forms.Button();
+            this.btnCHTS = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblF1Status = new System.Windows.Forms.Label();
+            this.lblF2Status = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.lblF1Pos = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.lblF2Pos = new System.Windows.Forms.Label();
+            this.lblTL = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.gbTaskInfoF2 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lblBizType2 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.lblCreatedAt2 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.lblEndLocation2 = new System.Windows.Forms.Label();
+            this.lblTaskType2 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.lblContainerCodes2 = new System.Windows.Forms.Label();
+            this.lblStartLocation2 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.lblSource2 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.lblTaskCode2 = new System.Windows.Forms.Label();
+            this.gbTaskInfoF1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.gbTaskInfoF2.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label13.Location = new System.Drawing.Point(595, 28);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(39, 15);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "业务";
+            // 
+            // lblBizType
+            // 
+            this.lblBizType.AutoSize = true;
+            this.lblBizType.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblBizType.ForeColor = System.Drawing.Color.Blue;
+            this.lblBizType.Location = new System.Drawing.Point(636, 28);
+            this.lblBizType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblBizType.Name = "lblBizType";
+            this.lblBizType.Size = new System.Drawing.Size(39, 15);
+            this.lblBizType.TabIndex = 5;
+            this.lblBizType.Text = "盘点";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label19.Location = new System.Drawing.Point(389, 60);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(71, 15);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "创建时间";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label17.Location = new System.Drawing.Point(229, 60);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(39, 15);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "终点";
+            // 
+            // lblCreatedAt
+            // 
+            this.lblCreatedAt.AutoSize = true;
+            this.lblCreatedAt.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblCreatedAt.ForeColor = System.Drawing.Color.Blue;
+            this.lblCreatedAt.Location = new System.Drawing.Point(465, 60);
+            this.lblCreatedAt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCreatedAt.Name = "lblCreatedAt";
+            this.lblCreatedAt.Size = new System.Drawing.Size(214, 15);
+            this.lblCreatedAt.TabIndex = 5;
+            this.lblCreatedAt.Text = "2014-12-01 08:58:58.891";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Location = new System.Drawing.Point(424, 28);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(39, 15);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "类型";
+            // 
+            // lblEndLocation
+            // 
+            this.lblEndLocation.AutoSize = true;
+            this.lblEndLocation.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblEndLocation.ForeColor = System.Drawing.Color.Blue;
+            this.lblEndLocation.Location = new System.Drawing.Point(271, 60);
+            this.lblEndLocation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEndLocation.Name = "lblEndLocation";
+            this.lblEndLocation.Size = new System.Drawing.Size(97, 15);
+            this.lblEndLocation.TabIndex = 5;
+            this.lblEndLocation.Text = "00-001-001";
+            // 
+            // lblTaskType
+            // 
+            this.lblTaskType.AutoSize = true;
+            this.lblTaskType.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTaskType.ForeColor = System.Drawing.Color.Blue;
+            this.lblTaskType.Location = new System.Drawing.Point(465, 28);
+            this.lblTaskType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTaskType.Name = "lblTaskType";
+            this.lblTaskType.Size = new System.Drawing.Size(71, 15);
+            this.lblTaskType.TabIndex = 5;
+            this.lblTaskType.Text = "盘点出库";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label21.Location = new System.Drawing.Point(4, 91);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(71, 15);
+            this.label21.TabIndex = 6;
+            this.label21.Text = "容器编码";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.Location = new System.Drawing.Point(35, 60);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(39, 15);
+            this.label15.TabIndex = 6;
+            this.label15.Text = "起点";
+            // 
+            // lblContainerCodes
+            // 
+            this.lblContainerCodes.AutoSize = true;
+            this.lblContainerCodes.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblContainerCodes.ForeColor = System.Drawing.Color.Blue;
+            this.lblContainerCodes.Location = new System.Drawing.Point(79, 91);
+            this.lblContainerCodes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblContainerCodes.Name = "lblContainerCodes";
+            this.lblContainerCodes.Size = new System.Drawing.Size(115, 15);
+            this.lblContainerCodes.TabIndex = 5;
+            this.lblContainerCodes.Text = "201412010001";
+            // 
+            // lblStartLocation
+            // 
+            this.lblStartLocation.AutoSize = true;
+            this.lblStartLocation.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblStartLocation.ForeColor = System.Drawing.Color.Blue;
+            this.lblStartLocation.Location = new System.Drawing.Point(79, 60);
+            this.lblStartLocation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblStartLocation.Name = "lblStartLocation";
+            this.lblStartLocation.Size = new System.Drawing.Size(97, 15);
+            this.lblStartLocation.TabIndex = 5;
+            this.lblStartLocation.Text = "01-001-001";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.Location = new System.Drawing.Point(229, 28);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(39, 15);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "来源";
+            // 
+            // lblSource
+            // 
+            this.lblSource.AutoSize = true;
+            this.lblSource.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblSource.ForeColor = System.Drawing.Color.Blue;
+            this.lblSource.Location = new System.Drawing.Point(273, 28);
+            this.lblSource.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSource.Name = "lblSource";
+            this.lblSource.Size = new System.Drawing.Size(34, 15);
+            this.lblSource.TabIndex = 5;
+            this.lblSource.Text = "WMS";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(19, 28);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 15);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "任务号";
+            // 
+            // lblTaskCode
+            // 
+            this.lblTaskCode.AutoSize = true;
+            this.lblTaskCode.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTaskCode.ForeColor = System.Drawing.Color.Blue;
+            this.lblTaskCode.Location = new System.Drawing.Point(80, 28);
+            this.lblTaskCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTaskCode.Name = "lblTaskCode";
+            this.lblTaskCode.Size = new System.Drawing.Size(115, 15);
+            this.lblTaskCode.TabIndex = 5;
+            this.lblTaskCode.Text = "201412010001";
+            // 
+            // gbTaskInfoF1
+            // 
+            this.gbTaskInfoF1.Controls.Add(this.label13);
+            this.gbTaskInfoF1.Controls.Add(this.lblBizType);
+            this.gbTaskInfoF1.Controls.Add(this.label19);
+            this.gbTaskInfoF1.Controls.Add(this.label17);
+            this.gbTaskInfoF1.Controls.Add(this.lblCreatedAt);
+            this.gbTaskInfoF1.Controls.Add(this.label11);
+            this.gbTaskInfoF1.Controls.Add(this.lblEndLocation);
+            this.gbTaskInfoF1.Controls.Add(this.lblTaskType);
+            this.gbTaskInfoF1.Controls.Add(this.label21);
+            this.gbTaskInfoF1.Controls.Add(this.label15);
+            this.gbTaskInfoF1.Controls.Add(this.lblContainerCodes);
+            this.gbTaskInfoF1.Controls.Add(this.lblStartLocation);
+            this.gbTaskInfoF1.Controls.Add(this.label9);
+            this.gbTaskInfoF1.Controls.Add(this.lblSource);
+            this.gbTaskInfoF1.Controls.Add(this.label5);
+            this.gbTaskInfoF1.Controls.Add(this.lblTaskCode);
+            this.gbTaskInfoF1.Location = new System.Drawing.Point(7, 183);
+            this.gbTaskInfoF1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbTaskInfoF1.Name = "gbTaskInfoF1";
+            this.gbTaskInfoF1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbTaskInfoF1.Size = new System.Drawing.Size(716, 125);
+            this.gbTaskInfoF1.TabIndex = 19;
+            this.gbTaskInfoF1.TabStop = false;
+            this.gbTaskInfoF1.Text = "货叉1任务信息";
+            this.gbTaskInfoF1.Visible = false;
+            this.gbTaskInfoF1.VisibleChanged += new System.EventHandler(this.gbTaskInfo_VisibleChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 300;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReturn.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnReturn.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnReturn.Location = new System.Drawing.Point(633, 186);
+            this.btnReturn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(89, 31);
+            this.btnReturn.TabIndex = 12;
+            this.btnReturn.Text = "返  回";
+            this.btnReturn.UseVisualStyleBackColor = true;
+            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.lblTL);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.lblF2Pos);
+            this.groupBox1.Controls.Add(this.lblF2Status);
+            this.groupBox1.Controls.Add(this.label24);
+            this.groupBox1.Controls.Add(this.label20);
+            this.groupBox1.Controls.Add(this.lblName);
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.lblTaskId);
+            this.groupBox1.Controls.Add(this.lblEvent);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.lblEName);
+            this.groupBox1.Controls.Add(this.lblECode);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.lblLocker);
+            this.groupBox1.Controls.Add(this.lblF1Pos);
+            this.groupBox1.Controls.Add(this.lblF1Status);
+            this.groupBox1.Controls.Add(this.lblUserPos);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label22);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.lblRow);
+            this.groupBox1.Controls.Add(this.lblCol);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.lblState);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(7, 11);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 41, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(716, 158);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "状态";
+            // 
+            // lblName
+            // 
+            this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblName.ForeColor = System.Drawing.Color.Blue;
+            this.lblName.Location = new System.Drawing.Point(79, 30);
+            this.lblName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(43, 15);
+            this.lblName.TabIndex = 21;
+            this.lblName.Text = "C001";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.Location = new System.Drawing.Point(11, 30);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 15);
+            this.label14.TabIndex = 20;
+            this.label14.Text = "名  称";
+            // 
+            // lblTaskId
+            // 
+            this.lblTaskId.AutoSize = true;
+            this.lblTaskId.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTaskId.ForeColor = System.Drawing.Color.Blue;
+            this.lblTaskId.Location = new System.Drawing.Point(248, 30);
+            this.lblTaskId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTaskId.Name = "lblTaskId";
+            this.lblTaskId.Size = new System.Drawing.Size(79, 15);
+            this.lblTaskId.TabIndex = 13;
+            this.lblTaskId.Text = "00000012";
+            // 
+            // lblEvent
+            // 
+            this.lblEvent.AutoSize = true;
+            this.lblEvent.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblEvent.ForeColor = System.Drawing.Color.Blue;
+            this.lblEvent.Location = new System.Drawing.Point(245, 93);
+            this.lblEvent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEvent.Name = "lblEvent";
+            this.lblEvent.Size = new System.Drawing.Size(71, 15);
+            this.lblEvent.TabIndex = 12;
+            this.lblEvent.Text = "取货完成";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.Location = new System.Drawing.Point(180, 30);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 15);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "任务号";
+            // 
+            // lblEName
+            // 
+            this.lblEName.AutoSize = true;
+            this.lblEName.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblEName.ForeColor = System.Drawing.Color.Red;
+            this.lblEName.Location = new System.Drawing.Point(179, 123);
+            this.lblEName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEName.Name = "lblEName";
+            this.lblEName.Size = new System.Drawing.Size(119, 15);
+            this.lblEName.TabIndex = 9;
+            this.lblEName.Text = "激光测距被遮挡";
+            // 
+            // lblECode
+            // 
+            this.lblECode.AutoSize = true;
+            this.lblECode.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblECode.ForeColor = System.Drawing.Color.Red;
+            this.lblECode.Location = new System.Drawing.Point(77, 123);
+            this.lblECode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblECode.Name = "lblECode";
+            this.lblECode.Size = new System.Drawing.Size(43, 15);
+            this.lblECode.TabIndex = 8;
+            this.lblECode.Text = "1340";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(179, 93);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 15);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "事  件";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(11, 123);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 15);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "错误码";
+            // 
+            // lblLocker
+            // 
+            this.lblLocker.AutoSize = true;
+            this.lblLocker.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblLocker.ForeColor = System.Drawing.Color.Blue;
+            this.lblLocker.Location = new System.Drawing.Point(639, 93);
+            this.lblLocker.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLocker.Name = "lblLocker";
+            this.lblLocker.Size = new System.Drawing.Size(0, 15);
+            this.lblLocker.TabIndex = 5;
+            // 
+            // lblUserPos
+            // 
+            this.lblUserPos.AutoSize = true;
+            this.lblUserPos.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblUserPos.ForeColor = System.Drawing.Color.Blue;
+            this.lblUserPos.Location = new System.Drawing.Point(433, 30);
+            this.lblUserPos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblUserPos.Name = "lblUserPos";
+            this.lblUserPos.Size = new System.Drawing.Size(97, 15);
+            this.lblUserPos.TabIndex = 4;
+            this.lblUserPos.Text = "00-000-000";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Location = new System.Drawing.Point(555, 93);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(71, 15);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "持有对象";
+            // 
+            // lblRow
+            // 
+            this.lblRow.AutoSize = true;
+            this.lblRow.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblRow.ForeColor = System.Drawing.Color.Blue;
+            this.lblRow.Location = new System.Drawing.Point(476, 93);
+            this.lblRow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRow.Name = "lblRow";
+            this.lblRow.Size = new System.Drawing.Size(34, 15);
+            this.lblRow.TabIndex = 18;
+            this.lblRow.Text = "002";
+            // 
+            // lblCol
+            // 
+            this.lblCol.AutoSize = true;
+            this.lblCol.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblCol.ForeColor = System.Drawing.Color.Blue;
+            this.lblCol.Location = new System.Drawing.Point(435, 93);
+            this.lblCol.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCol.Name = "lblCol";
+            this.lblCol.Size = new System.Drawing.Size(34, 15);
+            this.lblCol.TabIndex = 19;
+            this.lblCol.Text = "001";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(349, 30);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 15);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "当前位置";
+            // 
+            // lblState
+            // 
+            this.lblState.AutoSize = true;
+            this.lblState.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblState.ForeColor = System.Drawing.Color.Blue;
+            this.lblState.Location = new System.Drawing.Point(77, 93);
+            this.lblState.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(71, 15);
+            this.lblState.TabIndex = 16;
+            this.lblState.Text = "无货待命";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(349, 93);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 15);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "列层位置";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(11, 93);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 15);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "状  态";
+            // 
+            // btnJT
+            // 
+            this.btnJT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnJT.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnJT.Location = new System.Drawing.Point(527, 186);
+            this.btnJT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnJT.Name = "btnJT";
+            this.btnJT.Size = new System.Drawing.Size(89, 31);
+            this.btnJT.TabIndex = 22;
+            this.btnJT.Text = "急  停";
+            this.btnJT.UseVisualStyleBackColor = true;
+            this.btnJT.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btnCHTS
+            // 
+            this.btnCHTS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCHTS.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnCHTS.Location = new System.Drawing.Point(419, 186);
+            this.btnCHTS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCHTS.Name = "btnCHTS";
+            this.btnCHTS.Size = new System.Drawing.Size(89, 31);
+            this.btnCHTS.TabIndex = 23;
+            this.btnCHTS.Text = "手持地操";
+            this.btnCHTS.UseVisualStyleBackColor = true;
+            this.btnCHTS.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.Location = new System.Drawing.Point(11, 60);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(64, 15);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "叉1状态";
+            // 
+            // lblF1Status
+            // 
+            this.lblF1Status.AutoSize = true;
+            this.lblF1Status.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblF1Status.ForeColor = System.Drawing.Color.Blue;
+            this.lblF1Status.Location = new System.Drawing.Point(77, 60);
+            this.lblF1Status.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblF1Status.Name = "lblF1Status";
+            this.lblF1Status.Size = new System.Drawing.Size(71, 15);
+            this.lblF1Status.TabIndex = 5;
+            this.lblF1Status.Text = "无货待命";
+            // 
+            // lblF2Status
+            // 
+            this.lblF2Status.AutoSize = true;
+            this.lblF2Status.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblF2Status.ForeColor = System.Drawing.Color.Blue;
+            this.lblF2Status.Location = new System.Drawing.Point(245, 59);
+            this.lblF2Status.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblF2Status.Name = "lblF2Status";
+            this.lblF2Status.Size = new System.Drawing.Size(71, 15);
+            this.lblF2Status.TabIndex = 23;
+            this.lblF2Status.Text = "无货待命";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label20.Location = new System.Drawing.Point(179, 60);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(64, 15);
+            this.label20.TabIndex = 22;
+            this.label20.Text = "叉2状态";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Location = new System.Drawing.Point(349, 60);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(64, 15);
+            this.label22.TabIndex = 3;
+            this.label22.Text = "叉1位置";
+            // 
+            // lblF1Pos
+            // 
+            this.lblF1Pos.AutoSize = true;
+            this.lblF1Pos.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblF1Pos.ForeColor = System.Drawing.Color.Blue;
+            this.lblF1Pos.Location = new System.Drawing.Point(433, 60);
+            this.lblF1Pos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblF1Pos.Name = "lblF1Pos";
+            this.lblF1Pos.Size = new System.Drawing.Size(39, 15);
+            this.lblF1Pos.TabIndex = 5;
+            this.lblF1Pos.Text = "中位";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.Location = new System.Drawing.Point(555, 60);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(64, 15);
+            this.label24.TabIndex = 22;
+            this.label24.Text = "叉2位置";
+            // 
+            // lblF2Pos
+            // 
+            this.lblF2Pos.AutoSize = true;
+            this.lblF2Pos.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblF2Pos.ForeColor = System.Drawing.Color.Blue;
+            this.lblF2Pos.Location = new System.Drawing.Point(639, 60);
+            this.lblF2Pos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblF2Pos.Name = "lblF2Pos";
+            this.lblF2Pos.Size = new System.Drawing.Size(39, 15);
+            this.lblF2Pos.TabIndex = 23;
+            this.lblF2Pos.Text = "中位";
+            // 
+            // lblTL
+            // 
+            this.lblTL.AutoSize = true;
+            this.lblTL.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTL.ForeColor = System.Drawing.Color.Blue;
+            this.lblTL.Location = new System.Drawing.Point(640, 30);
+            this.lblTL.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTL.Name = "lblTL";
+            this.lblTL.Size = new System.Drawing.Size(39, 15);
+            this.lblTL.TabIndex = 25;
+            this.lblTL.Text = "中位";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(555, 30);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 15);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "载货台";
+            // 
+            // gbTaskInfoF2
+            // 
+            this.gbTaskInfoF2.Controls.Add(this.label16);
+            this.gbTaskInfoF2.Controls.Add(this.lblBizType2);
+            this.gbTaskInfoF2.Controls.Add(this.label23);
+            this.gbTaskInfoF2.Controls.Add(this.label25);
+            this.gbTaskInfoF2.Controls.Add(this.lblCreatedAt2);
+            this.gbTaskInfoF2.Controls.Add(this.label27);
+            this.gbTaskInfoF2.Controls.Add(this.lblEndLocation2);
+            this.gbTaskInfoF2.Controls.Add(this.lblTaskType2);
+            this.gbTaskInfoF2.Controls.Add(this.label30);
+            this.gbTaskInfoF2.Controls.Add(this.label31);
+            this.gbTaskInfoF2.Controls.Add(this.lblContainerCodes2);
+            this.gbTaskInfoF2.Controls.Add(this.lblStartLocation2);
+            this.gbTaskInfoF2.Controls.Add(this.label34);
+            this.gbTaskInfoF2.Controls.Add(this.lblSource2);
+            this.gbTaskInfoF2.Controls.Add(this.label36);
+            this.gbTaskInfoF2.Controls.Add(this.lblTaskCode2);
+            this.gbTaskInfoF2.Location = new System.Drawing.Point(7, 316);
+            this.gbTaskInfoF2.Margin = new System.Windows.Forms.Padding(4);
+            this.gbTaskInfoF2.Name = "gbTaskInfoF2";
+            this.gbTaskInfoF2.Padding = new System.Windows.Forms.Padding(4);
+            this.gbTaskInfoF2.Size = new System.Drawing.Size(716, 125);
+            this.gbTaskInfoF2.TabIndex = 24;
+            this.gbTaskInfoF2.TabStop = false;
+            this.gbTaskInfoF2.Text = "货叉2任务信息";
+            this.gbTaskInfoF2.Visible = false;
+            this.gbTaskInfoF2.VisibleChanged += new System.EventHandler(this.gbTaskInfo_VisibleChanged);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Location = new System.Drawing.Point(595, 28);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(39, 15);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "业务";
+            // 
+            // lblBizType2
+            // 
+            this.lblBizType2.AutoSize = true;
+            this.lblBizType2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblBizType2.ForeColor = System.Drawing.Color.Blue;
+            this.lblBizType2.Location = new System.Drawing.Point(636, 28);
+            this.lblBizType2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblBizType2.Name = "lblBizType2";
+            this.lblBizType2.Size = new System.Drawing.Size(39, 15);
+            this.lblBizType2.TabIndex = 5;
+            this.lblBizType2.Text = "盘点";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label23.Location = new System.Drawing.Point(389, 60);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(71, 15);
+            this.label23.TabIndex = 6;
+            this.label23.Text = "创建时间";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label25.Location = new System.Drawing.Point(229, 60);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(39, 15);
+            this.label25.TabIndex = 6;
+            this.label25.Text = "终点";
+            // 
+            // lblCreatedAt2
+            // 
+            this.lblCreatedAt2.AutoSize = true;
+            this.lblCreatedAt2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblCreatedAt2.ForeColor = System.Drawing.Color.Blue;
+            this.lblCreatedAt2.Location = new System.Drawing.Point(465, 60);
+            this.lblCreatedAt2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCreatedAt2.Name = "lblCreatedAt2";
+            this.lblCreatedAt2.Size = new System.Drawing.Size(214, 15);
+            this.lblCreatedAt2.TabIndex = 5;
+            this.lblCreatedAt2.Text = "2014-12-01 08:58:58.891";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label27.Location = new System.Drawing.Point(424, 28);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(39, 15);
+            this.label27.TabIndex = 6;
+            this.label27.Text = "类型";
+            // 
+            // lblEndLocation2
+            // 
+            this.lblEndLocation2.AutoSize = true;
+            this.lblEndLocation2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblEndLocation2.ForeColor = System.Drawing.Color.Blue;
+            this.lblEndLocation2.Location = new System.Drawing.Point(271, 60);
+            this.lblEndLocation2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEndLocation2.Name = "lblEndLocation2";
+            this.lblEndLocation2.Size = new System.Drawing.Size(97, 15);
+            this.lblEndLocation2.TabIndex = 5;
+            this.lblEndLocation2.Text = "00-001-001";
+            // 
+            // lblTaskType2
+            // 
+            this.lblTaskType2.AutoSize = true;
+            this.lblTaskType2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTaskType2.ForeColor = System.Drawing.Color.Blue;
+            this.lblTaskType2.Location = new System.Drawing.Point(465, 28);
+            this.lblTaskType2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTaskType2.Name = "lblTaskType2";
+            this.lblTaskType2.Size = new System.Drawing.Size(71, 15);
+            this.lblTaskType2.TabIndex = 5;
+            this.lblTaskType2.Text = "盘点出库";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label30.Location = new System.Drawing.Point(4, 91);
+            this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(71, 15);
+            this.label30.TabIndex = 6;
+            this.label30.Text = "容器编码";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label31.Location = new System.Drawing.Point(35, 60);
+            this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(39, 15);
+            this.label31.TabIndex = 6;
+            this.label31.Text = "起点";
+            // 
+            // lblContainerCodes2
+            // 
+            this.lblContainerCodes2.AutoSize = true;
+            this.lblContainerCodes2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblContainerCodes2.ForeColor = System.Drawing.Color.Blue;
+            this.lblContainerCodes2.Location = new System.Drawing.Point(79, 91);
+            this.lblContainerCodes2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblContainerCodes2.Name = "lblContainerCodes2";
+            this.lblContainerCodes2.Size = new System.Drawing.Size(115, 15);
+            this.lblContainerCodes2.TabIndex = 5;
+            this.lblContainerCodes2.Text = "201412010001";
+            // 
+            // lblStartLocation2
+            // 
+            this.lblStartLocation2.AutoSize = true;
+            this.lblStartLocation2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblStartLocation2.ForeColor = System.Drawing.Color.Blue;
+            this.lblStartLocation2.Location = new System.Drawing.Point(79, 60);
+            this.lblStartLocation2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblStartLocation2.Name = "lblStartLocation2";
+            this.lblStartLocation2.Size = new System.Drawing.Size(97, 15);
+            this.lblStartLocation2.TabIndex = 5;
+            this.lblStartLocation2.Text = "01-001-001";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label34.Location = new System.Drawing.Point(229, 28);
+            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(39, 15);
+            this.label34.TabIndex = 6;
+            this.label34.Text = "来源";
+            // 
+            // lblSource2
+            // 
+            this.lblSource2.AutoSize = true;
+            this.lblSource2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblSource2.ForeColor = System.Drawing.Color.Blue;
+            this.lblSource2.Location = new System.Drawing.Point(273, 28);
+            this.lblSource2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSource2.Name = "lblSource2";
+            this.lblSource2.Size = new System.Drawing.Size(34, 15);
+            this.lblSource2.TabIndex = 5;
+            this.lblSource2.Text = "WMS";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label36.Location = new System.Drawing.Point(19, 28);
+            this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(55, 15);
+            this.label36.TabIndex = 6;
+            this.label36.Text = "任务号";
+            // 
+            // lblTaskCode2
+            // 
+            this.lblTaskCode2.AutoSize = true;
+            this.lblTaskCode2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTaskCode2.ForeColor = System.Drawing.Color.Blue;
+            this.lblTaskCode2.Location = new System.Drawing.Point(80, 28);
+            this.lblTaskCode2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTaskCode2.Name = "lblTaskCode2";
+            this.lblTaskCode2.Size = new System.Drawing.Size(115, 15);
+            this.lblTaskCode2.TabIndex = 5;
+            this.lblTaskCode2.Text = "201412010001";
+            // 
+            // frmTwoForksCraneUI
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(729, 229);
+            this.Controls.Add(this.gbTaskInfoF2);
+            this.Controls.Add(this.btnJT);
+            this.Controls.Add(this.btnCHTS);
+            this.Controls.Add(this.btnReturn);
+            this.Controls.Add(this.gbTaskInfoF1);
+            this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "frmTwoForksCraneUI";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "堆垛机";
+            this.VisibleChanged += new System.EventHandler(this.gbTaskInfo_VisibleChanged);
+            this.gbTaskInfoF1.ResumeLayout(false);
+            this.gbTaskInfoF1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.gbTaskInfoF2.ResumeLayout(false);
+            this.gbTaskInfoF2.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblBizType;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lblCreatedAt;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblEndLocation;
+        private System.Windows.Forms.Label lblTaskType;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblContainerCodes;
+        private System.Windows.Forms.Label lblStartLocation;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblSource;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblTaskCode;
+        private System.Windows.Forms.GroupBox gbTaskInfoF1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnReturn;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblTaskId;
+        private System.Windows.Forms.Label lblEvent;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblEName;
+        private System.Windows.Forms.Label lblECode;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblUserPos;
+        private System.Windows.Forms.Label lblRow;
+        private System.Windows.Forms.Label lblCol;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblState;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnJT;
+        private System.Windows.Forms.Button btnCHTS;
+        private System.Windows.Forms.Label lblLocker;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblF2Pos;
+        private System.Windows.Forms.Label lblF2Status;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lblF1Pos;
+        private System.Windows.Forms.Label lblF1Status;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblTL;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox gbTaskInfoF2;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblBizType2;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label lblCreatedAt2;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label lblEndLocation2;
+        private System.Windows.Forms.Label lblTaskType2;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label lblContainerCodes2;
+        private System.Windows.Forms.Label lblStartLocation2;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label lblSource2;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label lblTaskCode2;
+    }
+}

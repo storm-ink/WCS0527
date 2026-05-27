@@ -1,0 +1,17 @@
+﻿
+<a href="/Admin/WmsSettings/Create">新建配置</a> 
+<br />
+
+<div>
+    @using (Ajax.BeginForm("Index_List", null, new AjaxOptions { UpdateTargetId = "list", LoadingElementId = "loading_img", OnBegin = "onListLoadBegin", OnFailure = "onListLoadFailure", OnSuccess = "onListLoadSuccess", OnComplete = "onListLoadComplete" }, new { id = "spec_form" }))
+    {
+        
+         <img style="display:none; " id="loading_img" src="@Url.Content("~/Content/loading.gif")" alt="loading" />
+    }
+</div>
+<div id="list">
+</div>
+
+@Html.Partial("IndexJs")
+
+

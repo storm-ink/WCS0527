@@ -1,0 +1,117 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Gensong;
+using System.Diagnostics;
+using System.Net;
+
+namespace ConveyorSimulationApplication
+{
+    public partial class Form1 : Form
+    {
+        TextBoxTraceListener _textBoxTraceListener;
+        Conveyor _conveyor;
+        IPEndPoint _ipEndPoint;
+        public Form1(IPEndPoint ipEndPoint)
+        {
+            _ipEndPoint = ipEndPoint;
+            InitializeComponent();
+
+            _textBoxTraceListener = new TextBoxTraceListener(this.tbxLog);
+            _textBoxTraceListener.Filter = new EventTypeFilter(SourceLevels.Information);
+
+            Logger.AddListener(_textBoxTraceListener);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //this.tbxIP.Text = Dns.GetHostEntry(String.Empty).AddressList.First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
+            if (_ipEndPoint != null)
+            {
+                tbxIP.Text = _ipEndPoint.Address.ToString();
+                tbxPort.Text = _ipEndPoint.Port.ToString();
+                btnListen.PerformClick();
+            }
+        }
+
+        private void btnListen_Click(object sender, EventArgs e)
+        {
+            if (btnListen.Text == "停止侦听")
+            {
+                _conveyor.TcpServer.Stop();
+            }
+            else
+            {
+                _conveyor = new Conveyor(tbxIP.Text, Int32.Parse(tbxPort.Text));
+                _conveyor.TimerInterval = 500;
+                //_conveyor.ClientConnected += new EventHandler(_crane_ClientConnected);
+                //_conveyor.ClientDisconnected += new EventHandler(_crane_ClientDisconnected);
+                //_conveyor.TcpServer.Started += new EventHandler(TcpServer_Started);
+                //_conveyor.TcpServer.Stopped += new EventHandler(TcpServer_Stopped);;
+
+                //_conveyor.ProcessingRequestTelex += new EventHandler<ProcessingRequestTelexEventArgs>(_crane_ProcessingRequestTelex);
+                _conveyor.TcpServer.Start();
+
+                bind();
+            }
+        }
+
+        private void bind()
+        {
+            foreach (var collection in _conveyor.Status)
+            {
+                var parent = treeViewAdv1.AddNode(null, collection.Key, false);
+                foreach (var item in collection.Value)
+                {
+                    treeViewAdv1.AddNode(parent, item, true);
+                }
+            }
+        }
+
+        private void tbxIP_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            string ip = tbxIP.Text;
+            var ips = Dns.GetHostEntry(String.Empty).AddressList;
+            var xx = ips.Where(x => x.ToString() == ip).FirstOrDefault();
+            if (xx != null)
+            {
+                int index = ips.ToList().IndexOf(xx);
+                if (index < ips.Length - 1)
+                {
+                    this.tbxIP.Text = ips[index + 1].ToString();
+                }
+                else
+                {
+                    this.tbxIP.Text = ips.First().ToString();
+                }
+            }else
+            {
+                this.tbxIP.Text =ips.First().ToString();
+            }
+        }
+
+        private void treeViewAdv1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (treeViewAdv1.CurrentNode != null)
+            {
+                propertyGrid1.SelectedObject = treeViewAdv1.CurrentNode.Tag;
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
+            Application.ExitThread();
+        }
+
+        private void treeViewAdv1_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

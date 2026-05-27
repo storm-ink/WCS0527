@@ -1,0 +1,42 @@
+﻿@model Spiral.Base.Role
+
+
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "form_container", OnBegin = "showTip", OnComplete = "hideTip" }))
+{
+        @Html.ValidationSummary(true)
+    
+    <table class="edit-table">
+        <tr>
+            <th>@Html.LabelFor(model => model.RoleName)
+            </th>
+            <td>
+                @if (Model!=null &&Model.IsBuiltIn)
+                {
+                    @Html.DisplayFor(model=>model.RoleName)
+                }
+                else
+                {
+                 @Html.EditorFor(model => model.RoleName)
+                 @Html.ValidationMessageFor(model => model.RoleName)
+                }
+               
+            </td>
+        </tr>
+        <tr>
+          <th>
+                @Html.LabelFor(model => model.Comments)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Comments)
+                @Html.ValidationMessageFor(model => model.Comments)
+            </td>
+        </tr>
+          <tr>
+            <th></th>
+            <td><input type="submit" value="保存" />
+                <input type="button" value="取消" onclick="javascript:location.href='@(Url.Action("Index", new { isReturned=true }))'" />
+            </td>
+        </tr>
+    </table>
+    
+    }

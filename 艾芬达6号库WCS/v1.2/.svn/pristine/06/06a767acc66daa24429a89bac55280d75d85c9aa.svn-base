@@ -1,0 +1,148 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements.UIEditor
+{
+    public partial class frmShuttleStationEditorUI : Form
+    {
+        public List<ShuttleStation> Stations { get; private set; }
+        BindingSource bindingSource;
+        public Shuttle _shuttle;
+        public frmShuttleStationEditorUI(List<ShuttleStation> stations,Shuttle shuttle)
+        {
+            InitializeComponent();
+            _shuttle=shuttle;
+            bindingSource = new BindingSource(stations, "");
+            lblStations.DataSource = bindingSource;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            ShuttleStation ps = new ShuttleStation();
+            bindingSource.Add(ps);
+            propertyGrid1.SelectedObject = ps;
+            lblStations.SelectedItem = ps;
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (lblStations.SelectedItem == null)
+            {
+                btnRemove.Enabled = false;
+                return;
+            }
+
+            bindingSource.Remove(lblStations.SelectedItem);
+        }
+
+        private void lblPath_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lblStations.SelectedItem != null)
+            {
+                propertyGrid1.SelectedObject = lblStations.SelectedItem;
+                btnRemove.Enabled = true;
+            }
+            else
+            {
+                btnRemove.Enabled = false;
+            }
+
+            if (lblStations.Items.Count == 1)
+            {
+                btnUP.Enabled =
+                    btnDown.Enabled = false;
+
+            }
+            else
+            {
+                if (lblStations.SelectedIndex == 0)
+                {
+                    btnUP.Enabled = false;
+                    btnDown.Enabled = true;
+                }
+                else if (lblStations.SelectedIndex == lblStations.Items.Count - 1)
+                {
+                    btnUP.Enabled = true;
+                    btnDown.Enabled = false;
+                }
+                else
+                {
+
+                    btnUP.Enabled = true;
+                    btnDown.Enabled = true;
+                }
+            }
+        }
+
+        private void btnUP_Click(object sender, EventArgs e)
+        {
+            if (lblStations.SelectedItem == null)
+            {
+                btnUP.Enabled = false;
+                btnDown.Enabled = false;
+                return;
+            }
+
+            int index = lblStations.SelectedIndex;
+            if (index == 0)
+            {
+                btnUP.Enabled = false;
+                return;
+            }
+
+            var item = lblStations.SelectedItem;
+            bindingSource.Remove(item);
+            bindingSource.Insert(index - 1, item);
+            propertyGrid1.SelectedObject = item;
+            lblStations.SelectedItem = item;
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            if (lblStations.SelectedItem == null)
+            {
+                btnUP.Enabled = false;
+                btnDown.Enabled = false;
+                return;
+            }
+
+            int index = lblStations.SelectedIndex;
+            if (index == lblStations.Items.Count-1)
+            {
+                btnDown.Enabled = false;
+                return;
+            }
+
+            var item = lblStations.SelectedItem;
+            bindingSource.Remove(item);
+            bindingSource.Insert(index + 1, item);
+            propertyGrid1.SelectedObject = item;
+            lblStations.SelectedItem = item;
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            var paths = bindingSource.Cast<ShuttleStation>().ToList();
+
+            if (paths.Any(x => x.IsEmpty))
+            {
+                MessageBox.Show("有未初始化的站点对象，请移除", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            this.Stations = paths;
+
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

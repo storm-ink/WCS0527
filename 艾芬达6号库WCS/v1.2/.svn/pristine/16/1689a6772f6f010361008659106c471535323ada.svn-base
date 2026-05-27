@@ -1,0 +1,117 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading;
+using Gensong.MCS;
+using ST = System.Timers;
+using Gensong.ServiceCrane;
+
+namespace Gensong
+{
+    public class Test
+    {
+        public static Dictionary<string, TestInfo> dTest = new Dictionary<string, TestInfo>();
+
+        public static TestInfo Get(string sCraneName)
+        {
+            return dTest[sCraneName];
+        }
+
+        public static void New(string sCraneName)
+        {
+            dTest.Add(sCraneName, new TestInfo(sCraneName));
+        }
+    }
+    public class TestInfo
+    {
+        public ELR eLR; public ECR eCR; public ETaskType eTaskType;
+        public string sCraneName, sTaskInfo = "00-000-000 00-000-000", sTaskId = "000000";
+        ST.Timer tTest; Position p1, p2; EForkLR eLR1, eLR2; DataTable dtbPBit; Random rdm; bool bStop;
+
+        public TestInfo(string sCraneName)
+        {
+            this.sCraneName = sCraneName;
+        }
+        public void TestStart(string sL, string sC, string sR)
+        {
+            if (dtbPBit == null) { dtbPBit = Globle.GetSShelf(sCraneName).PBit; rdm = new Random(); }
+            p1 = new Position(); p1.UCol = sC.PadLeft(3, '0'); p1.URow = sR.PadLeft(3, '0');
+            eLR1 = sL == "1" ? EForkLR.L : EForkLR.R;
+
+            this.tTest = new ST.Timer(Config.Interval);
+            this.tTest.Elapsed += (sender, e) =>
+            {
+                this.tTest.Stop(); Thread.Sleep(500);
+                LA la = Globle.GetCraneLA(sCraneName);
+
+                if ((sTaskId == "000000" || sTaskId == la.TaskId) && (la.Event == ECraneEvent.E00 || la.Event == ECraneEvent.E06))
+                {
+                    switch (eTaskType)
+                    {
+                        case ETaskType.AllCol: TestAllCol(); break;
+                        case ETaskType.AllRow: TestAllRow(); break;
+                        case ETaskType.Foreach: TestForeach(); break;
+                        case ETaskType.Random: TestRandom(); break;
+                    }
+                }
+
+                if (bStop) bStop = false; else this.tTest.Start();
+            }; this.tTest.Start();
+        }
+        public void TestStop()
+        {
+            if (this.tTest != null) bStop = true; sTaskId = "000000";
+        }
+
+        void TestAllCol()
+        {
+        }
+        void TestAllRow()
+        {
+        }
+        void TestForeach()
+        {
+        }
+        void TestRandom()
+        {
+            eLR2 = eLR1 == EForkLR.L ? EForkLR.R : EForkLR.L; string sLR = eLR2 == EForkLR.L ? "1" : "2";
+
+            while (true)
+            {
+                DataRow dtr = dtbPBit.Rows[rdm.Next(dtbPBit.Rows.Count)];
+                if (dtr["LRL"].ToString() == sLR || dtr["LRR"].ToString() == sLR)
+                {
+                    p2 = new Position(); p2.UCol = Convert.ToString(dtr["C1"]).PadLeft(3, '0'); p2.URow = Convert.ToString(dtr["R1"]).PadLeft(3, '0'); break;
+                }
+            }
+
+            sTaskId = Task.GetGotId;
+            string P1 = string.Format("{0}-{1}-{2}", eLR1 == EForkLR.L ? "01" : "02", p1.UCol, p1.URow);
+            string P2 = string.Format("{0}-{1}-{2}", eLR2 == EForkLR.L ? "01" : "02", p2.UCol, p2.URow);
+            SHB sHB = new SHB(sCraneName, P1, P2, sTaskId);
+
+            using (CraneClient MCS = new CraneClient())
+            {
+                MCS.SendHB(sCraneName, sHB);
+            }
+
+            sTaskInfo = string.Format("{0} {1}", P1, P2);
+            eLR1 = eLR2; p1.UCol = p2.UCol; p1.URow = p2.URow;
+        }
+    }
+
+    public enum ELR
+    {
+        B, L, R
+    }
+    public enum ECR
+    {
+        CR, RC
+    }
+    public enum ETaskType
+    {
+        Null, AllCol, AllRow, Foreach, Random, Finish
+    }
+
+}

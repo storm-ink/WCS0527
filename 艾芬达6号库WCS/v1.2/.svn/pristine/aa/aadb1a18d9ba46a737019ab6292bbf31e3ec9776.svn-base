@@ -1,0 +1,231 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Net;
+using System.Configuration;
+using Wcs.Framework.Devices;
+using Wcs.Framework;
+using System.Xml;
+using System.IO;
+
+namespace Gensong
+{
+    public partial class Conveyor
+    {
+        private System.Timers.Timer _timer;
+
+        /// <summary>
+        /// 获取此堆垛机的 TcpServer。
+        /// </summary>
+        internal TcpServer TcpServer { get; private set; }
+
+        /// <summary>
+        /// 获取连接到此堆垛机的客户端代理。
+        /// </summary>
+        public ConveyorClientProxy Client { get; private set; }
+        /// <summary>
+        /// 获取或设置堆垛机内部 Timer 的 Interval 属性。
+        /// </summary>
+        public Double TimerInterval
+        {
+            get
+            {
+                return _timer.Interval;
+            }
+            set
+            {
+                _timer.Interval = value;
+            }
+        }
+
+        public Dictionary<Type, NetTransferObject[]> Status { get; private set; }
+
+
+        /// <summary>
+        /// 作为接收方使用的数据包解码器
+        /// </summary>
+        public DefaultConveyorNetPackageDecoder ReceiverDecoder { get; set; }
+        /// <summary>
+        /// 作为发送方使用的数据包解码器
+        /// </summary>
+        public DefaultConveyorNetPackageDecoder SenderDecoder { get; set; }
+        public NetPackage NetPackage { get; private set; }
+
+        public Conveyor(String ip, Int32 port)
+        {
+            TcpServer = new TcpServer(ip,port);
+            TcpServer.Stopping += new EventHandler(TcpServer_Stopping);
+            TcpServer.ClientAccepted += new EventHandler<ClientAcceptedEventArgs>(TcpServer_ClientAccepted);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Path.Combine(Application.StartupPath, "config.xml"));
+            var node = doc.SelectSingleNode("/configuration/netPackageDecoders/netPackageDecoder[@name='netPackageDecoder1']");
+            this.SenderDecoder = new DefaultConveyorNetPackageDecoder(node);
+            node = doc.SelectSingleNode("/configuration/netPackageDecoders/netPackageDecoder[@name='netPackageDecoder2']");
+            this.ReceiverDecoder=new DefaultConveyorNetPackageDecoder(node);
+            doc = null;
+
+            this.NetPackage = new ConveyorNetPackage();
+
+            this.Status = this.SenderDecoder.CreateFullMap();
+
+            var craneWorkModeKeyInfos=this.Status[typeof(CraneWorkModeKeyInfo)];
+            for(short i=0;i<craneWorkModeKeyInfos.Length;i++)
+            {
+                ((CraneWorkModeKeyInfo)craneWorkModeKeyInfos[i]).CraneNo = Convert.ToUInt16(i + 1);
+            }
+
+            const double defaultInterval = 100;
+            _timer = new System.Timers.Timer(defaultInterval);
+            _timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
+            _timer.Start();
+
+
+            this.ProcessingRequestTelex += (sender, args) =>
+            {
+                var package = this.ReceiverDecoder.DecodePackage(args.Telex);
+                if (package != null)
+                {
+                    SendOccupiedSignal receivedOccupiedSignal = package[typeof(SendOccupiedSignal)][0] as SendOccupiedSignal;
+                    if (receivedOccupiedSignal != null && receivedOccupiedSignal.Index>0)
+                    {
+                        var signal = this.Status[typeof(OccupiedSignal)][receivedOccupiedSignal.Index - 1] as OccupiedSignal;
+                        if (receivedOccupiedSignal.HandShake == OccupiedSignalHandShake.ApplyForDelete)
+                        {
+                            signal.HandShake = OccupiedSignalHandShake.Empty;
+                            signal.IO_Data = 0;
+                            signal.TU_ID = 0;
+                            signal.TU_Type = 0;
+                            signal.AssignmentID = 0;
+                        }
+                    }
+
+                    SendClearLocationCurrentTask receivedClearLocationCurrentTask = package[typeof(SendClearLocationCurrentTask)][0] as SendClearLocationCurrentTask;
+                    if (receivedClearLocationCurrentTask != null && receivedClearLocationCurrentTask.Index > 0)
+                    {
+                        var task = this.Status[typeof(LocationCurrentTask)][receivedClearLocationCurrentTask.Index - 1] as LocationCurrentTask;
+                        task.TaskNo = 0;
+                        task.TUID = 0;
+                    }
+
+                    SendTaskBlock receivedTask = package[typeof(SendTaskBlock)][0] as SendTaskBlock;
+                    if (receivedTask != null && receivedTask.Index > 0)
+                    {
+                        TaskBlock task = this.Status[typeof(TaskBlock)][receivedTask.Index - 1] as TaskBlock;
+                        if (receivedTask.HandShake == HandShake.ApplyForDelete || receivedTask.HandShake==HandShake.ApplyForClear)
+                        {
+                            task.HandShake = HandShake.Empty;
+                            task.AssignmentID = 0;
+                            task.DestinationNo = 0;
+                            task.IO_Data = 0;
+                            task.RotingNo = 0;
+                            task.Spare = 0;
+                            task.StartMotorNo = 0;
+                            task.TaskStatus = TaskStatus.Empty;
+                            task.TU_ID = 0;
+                            task.TU_Type = 0;
+                        }
+                        else
+                        {
+                            task.AssignmentID = receivedTask.AssignmentID;
+                            task.DestinationNo = receivedTask.DestinationNo;
+                            task.IO_Data = receivedTask.IO_Data;
+                            task.RotingNo = receivedTask.RotingNo;
+                            task.Spare = receivedTask.Spare;
+                            task.StartMotorNo = receivedTask.StartMotorNo;
+                            task.TaskStatus = TaskStatus.Waiting;
+                            task.TU_ID = receivedTask.TU_ID;
+                            task.TU_Type = receivedTask.TU_Type;
+
+                            if (receivedTask.HandShake == HandShake.New)
+                            {
+                                task.HandShake = HandShake.Readed;
+                            }
+                            else if (receivedTask.HandShake == HandShake.SecondConfirm)
+                            {
+                                task.HandShake = HandShake.SecondConfirm;
+                            }
+                            else if (receivedTask.HandShake == HandShake.Empty)
+                            {
+                                task.AssignmentID =0;
+                                task.DestinationNo = 0;
+                                task.IO_Data = 0;
+                                task.RotingNo = 0;
+                                task.Spare = 0;
+                                task.StartMotorNo = 0;
+                                task.TaskStatus = TaskStatus.Empty;
+                                task.TU_ID = 0;
+                                task.TU_Type = 0;
+                                task.HandShake = HandShake.Empty;
+                            }
+                            else
+                            {
+                                throw new NotSupportedException();
+                            }
+                        }
+
+                        
+                    }
+                }
+            };
+        }
+        
+        void TcpServer_ClientAccepted(object sender, ClientAcceptedEventArgs e)
+        {
+            if (Client != null)
+            {
+                e.TcpClient.Close();
+                Logger.Info("拒绝连接，一次只能有一个上位机。");
+                return;
+            }
+
+            Client = new ConveyorClientProxy(e.TcpClient, Encoding.ASCII);
+            OnClientConnected(EventArgs.Empty);
+            Client.Closed += new EventHandler(Client_Closed);
+            Client.RequestTelexReceived += new EventHandler<RequestTelexReceivedEventArgs>(Client_TelexReceived);
+            Client.StartRead();
+        }
+
+        void Client_TelexReceived(object sender, RequestTelexReceivedEventArgs e)
+        {
+            Logger.Info("收到报文");
+            try
+            {
+                ProcessRequestTelex(e.Telex);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+        }
+
+        void Client_Closed(object sender, EventArgs e)
+        {
+            Client = null;
+            OnClientDisconnected(EventArgs.Empty);
+        }
+
+        void TcpServer_Stopping(object sender, EventArgs e)
+        {
+            if (Client != null)
+            {
+                Client.Close();
+            }
+        }
+
+        void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (Client != null)
+            {
+                var netPackage = new ConveyorNetPackage();
+                byte[] dataPart=this.SenderDecoder.Encode(Status);
+                byte[] package = netPackage.CreateSendPackage(dataPart);
+                Client.SendResponseTelex(package);
+            }
+        }
+    }
+}

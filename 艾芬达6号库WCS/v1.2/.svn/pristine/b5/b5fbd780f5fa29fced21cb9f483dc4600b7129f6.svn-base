@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Wcs.Framework.Devices
+{
+    public class OccupyStatus : NetTransferObject
+    {
+        public UInt16 PosNo{get;set;}
+        public Byte PhocllUseStatus{get;set;}
+        public Boolean FroProPotocell{get;set;}
+        public Boolean FroPosPotocell{get;set;}
+        public Boolean FroSloPotocell{get;set;}
+        public Boolean AftProPotocell{get;set;}
+        public Boolean AftPosPotocell{get;set;}
+        public Boolean AftSloPotocell{get;set;}
+        public Boolean UpPotocell{get;set;}
+        public Boolean DownPotocell { get; set; }
+        public override object this[string name]
+        {
+            set
+            {
+                switch (name)
+                {
+                    case "PosNo":
+                        this.PosNo = Convert.ToUInt16(value);
+                        break;
+                    case "PhocllUseStatus":
+                        this.PhocllUseStatus = Convert.ToByte(value);
+                        break;
+                    case "FroProPotocell":
+                        this.FroProPotocell = Convert.ToBoolean(value);
+                        break;
+                    case "FroPosPotocell":
+                        this.FroPosPotocell = Convert.ToBoolean(value);
+                        break;
+                    case "FroSloPotocell":
+                        this.FroSloPotocell = Convert.ToBoolean(value);
+                        break;
+                    case "AftProPotocell":
+                        this.AftProPotocell = Convert.ToBoolean(value);
+                        break;
+                    case "AftPosPotocell":
+                        this.AftPosPotocell = Convert.ToBoolean(value);
+                        break;
+                    case "AftSloPotocell":
+                        this.AftSloPotocell = Convert.ToBoolean(value);
+                        break;
+                    case "UpPotocell":
+                        this.UpPotocell = Convert.ToBoolean(value);
+                        break;
+                    case "DownPotocell":
+                        this.DownPotocell = Convert.ToBoolean(value);
+                        break;
+                    default:
+                        throw new NotImplementedException(String.Format("{0} 未实现对属性 {1} 的赋值操作", this.GetType(), name));
+                }
+            }
+        }
+    }
+}

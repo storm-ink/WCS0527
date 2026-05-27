@@ -1,0 +1,37 @@
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\bin\Debug\WCSValidity.exe.config
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\bin\Debug\WCSValidity.exe
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\bin\Debug\WCSValidity.pdb
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\obj\Debug\WCSValidity.csprojResolveAssemblyReference.cache
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\obj\Debug\WCSValidity.Form1.resources
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\obj\Debug\WCSValidity.Properties.Resources.resources
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\obj\Debug\WCSValidity.csproj.GenerateResource.Cache
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\obj\Debug\WCSValidity.exe
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\obj\Debug\WCSValidity.pdb
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\bin\Debug\WCSValidityHelper.dll
+E:\svn\Wcs2\Wcs\branches\005\WCSValidity\bin\Debug\WCSValidityHelper.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\bin\Debug\WCSValidity.exe.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\bin\Debug\WCSValidity.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\bin\Debug\WCSValidity.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\bin\Debug\WCSValidityHelper.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\bin\Debug\WCSValidityHelper.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\obj\Debug\WCSValidity.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\obj\Debug\WCSValidity.Form1.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\obj\Debug\WCSValidity.Properties.Resources.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\obj\Debug\WCSValidity.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\obj\Debug\WCSValidity.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\obj\Debug\WCSValidity.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\obj\Debug\WCSValidity.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\WCSValidity\obj\Debug\WCSValidity.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\bin\Debug\WCSValidity.exe.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\bin\Debug\WCSValidity.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\bin\Debug\WCSValidity.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\bin\Debug\WCSValidityHelper.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\bin\Debug\WCSValidityHelper.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\obj\Debug\WCSValidity.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\obj\Debug\WCSValidity.Form1.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\obj\Debug\WCSValidity.Properties.Resources.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\obj\Debug\WCSValidity.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\obj\Debug\WCSValidity.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\obj\Debug\WCSValidity.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\obj\Debug\WCSValidity.exe
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\WCSValidity\obj\Debug\WCSValidity.pdb

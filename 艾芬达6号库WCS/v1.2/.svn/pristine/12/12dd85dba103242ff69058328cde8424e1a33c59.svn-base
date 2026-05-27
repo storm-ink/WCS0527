@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "生成测试物料";
+}
+
+<h2>生成测试物料</h2>
+
+
+@using(Html.BeginForm()){
+    <input type="submit" />
+}
+
+
+<p>
+@TempData["msg"]
+</p>
+
+
+

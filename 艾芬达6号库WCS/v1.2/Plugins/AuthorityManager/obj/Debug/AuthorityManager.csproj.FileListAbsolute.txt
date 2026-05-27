@@ -1,0 +1,209 @@
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\Wcs.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\Wcs.XML
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\AuthorityManagerj.nuspec
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\install.ps1
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.dll.config
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\Iesi.Collections.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\NHibernate.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\NLog.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\Wcs.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\Iesi.Collections.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\NHibernate.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\bin\Debug\NLog.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csprojResolveAssemblyReference.cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmChangePassword.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmLogin.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmRoleEdit.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmRoles.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmUserEdit.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmUsers.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.GenerateResource.Cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+E:\svn\Wcs2\Wcs\branches\005\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\AuthorityManagerj.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\Wcs.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\Wcs.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\install.ps1
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.dll.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\NHibernate.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\Wcs.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\NHibernate.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmChangePassword.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmLogin.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmRoleEdit.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmRoles.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmUserEdit.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmUsers.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Wcs.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Wcs.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\install.ps1
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\AuthorityManagerj.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.dll.config
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\NHibernate.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Wcs.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\NHibernate.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmChangePassword.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmLogin.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmRoleEdit.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmRoles.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmUserEdit.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmUsers.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\AuthorityManager\bin\Debug\sineva.png
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.XML
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\install.ps1
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\AuthorityManagerj.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\sineva.png
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\NHibernate.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\NLog.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\NHibernate.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\NLog.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmChangePassword.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmLogin.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmRoleEdit.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmRoles.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmUserEdit.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.frmUsers.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.GenerateResource.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.CopyComplete
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\Wcs.App.Plugins.AuthorityManager.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.Framework.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\StackExchange.Redis.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\EPPlus.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Newtonsoft.Json.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Microsoft.Threading.Tasks.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.Framework.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.Framework.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Wcs.Framework.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\StackExchange.Redis.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\EPPlus.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Newtonsoft.Json.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\bin\Debug\Microsoft.Threading.Tasks.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\AuthorityManager\obj\Debug\AuthorityManager.csproj.AssemblyReference.cache

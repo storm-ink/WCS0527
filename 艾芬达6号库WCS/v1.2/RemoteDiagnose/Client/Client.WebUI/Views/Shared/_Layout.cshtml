@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@(this.ViewBag.Title ?? "鲁泰三期-纺纱四厂 Wms")</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/favicon.ico" rel="bookmark" type="image/x-icon" />
+    <link href="~/favicon.ico" rel="icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="Stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/log.css")" rel="Stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/PagedList.css")" rel="Stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="Stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.datepicker-zh-CN.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcValidation.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/styletable.jquery.plugin.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ichart.1.2.min.js")" type="text/javascript"></script>
+    @Html.Partial("NotyJs")
+    <script src="@Url.Content("~/Scripts/notify.js")" type="text/javascript"></script>
+
+    
+	<script type="text/javascript" src="/scripts/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/scripts/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script src="/Scripts/datagrid-detailview.js"></script>
+    <link rel="stylesheet" type="text/css" href="/scripts/easyui/themes/default/easyui.css" />
+	<link rel="stylesheet" type="text/css" href="/scripts/easyui/themes/icon.css" />
+
+    @*http://needim.github.io/noty/*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("input[data-val-remote-url]").validate({
+                onkeyup: false
+            });
+
+            @*样式设置*@
+            if ($.fn.styleTable) {
+                $('.list-table').styleTable({
+                    th_bgcolor: 'url(/scripts/easyui/images/blank.gif)',
+                    th_color: '#0E2D5F',
+                    th_border_color: '#ECF6FC',
+                    tr_odd_bgcolor: '#ECF6FC',
+                    tr_even_bgcolor: '#ffffff',
+                    tr_border_color: '#ECF6FC',
+                    tr_hover_bgcolor: '#BCD4EC'
+                });
+
+                $('.edit-table, .display-table').styleTable({
+                    th_bgcolor: 'url(/scripts/easyui/images/blank.gif)',
+                    th_color: '#0E2D5F',
+                    th_border_color: '#ECF6FC',
+                    tr_odd_bgcolor: '#ECF6FC',
+                    tr_even_bgcolor: '#ffffff',
+                    tr_border_color: '#ECF6FC',
+                    tr_hover_bgcolor: '#BCD4EC'
+                });
+
+                $('table.formContent').styleTable({
+                    th_bgcolor: 'url(/scripts/easyui/images/blank.gif)',
+                    th_color: '#0E2D5F',
+                    th_border_color: '#ECF6FC',
+                    tr_odd_bgcolor: '#ECF6FC',
+                    tr_even_bgcolor: '#ffffff',
+                    tr_border_color: '#ECF6FC',
+                    tr_hover_bgcolor: '#BCD4EC'
+                });
+            }
+
+            if ($.fn.menu) {
+                $('#menu').menu({
+                    position: { my: "left bottom", at: "left+8 top+70" },
+                    icons: { submenu: "ui-icon-triangle-1-se" }
+                });
+            }
+            
+            //$('section a,button,:submit,:reset').button();
+        });
+
+        function getResponseErrorText(response) {
+            var msg = response.status + ' ' + response.statusText;
+            var matchs = response.responseText.match(/(<title>)(.*?)(<\/title>)/);
+            if (matchs == undefined || matchs == null) {
+                return msg;
+            }
+
+            if (matchs.length == 4) {
+                msg = matchs[2];
+            } else if (matchs.length > 0) {
+                msg += "：" + matchs[0];
+            }
+
+            return msg;
+        }
+    </script>
+     <script type="text/javascript">
+ 
+        function infoNotify(msg) {
+            noty({ layout: 'top', type: 'alert', text: msg, timeout: 3000 });
+        }
+
+        function successNotify(msg) {
+            noty({ layout: 'top', type: 'success', text: msg, timeout: 3000 });
+        }
+
+        function errorNotify(msg) {
+            noty({ layout: 'top', type: 'error', text: msg, timeout: 3000 });
+        }
+
+        function warningNotify(msg) {
+            noty({ layout: 'top', type: 'warning', text: msg, timeout: 3000 });
+        }
+
+        function confirmNotify(msg, callback) {
+            noty({
+                layout: 'center',
+                text: msg,
+                modal: true,
+                buttons: [
+                  {
+                      addClass: 'btn btn-primary', text: '确定', onClick: function ($noty) {
+
+                          $noty.close();
+                          callback();
+                      }
+                  },
+                  {
+                      addClass: 'btn btn-danger', text: '取消', onClick: function ($noty) {
+                          $noty.close();
+                      }
+                  }
+                ]
+            });
+        }
+
+        function getResponseErrorText(response) {
+            var msg = response.status + ' ' + response.statusText;
+            var matchs = response.responseText.match(/(<title>)(.*?)(<\/title>)/);
+            if (matchs == undefined || matchs == null) {
+                return msg;
+            }
+
+            if (matchs.length == 4) {
+                msg = matchs[2];
+            } else if (matchs.length > 0) {
+                msg += "：" + matchs[0];
+            }
+
+            return msg;
+        }
+    </script>
+    
+@Html.Partial("IndexJs")
+</head>
+<body>
+    @*<header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <nav>
+                        @Html.Partial("Menu")
+                    </nav>
+                </div>
+            </div>
+        </header>*@
+    <div id="body">
+        <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+    </div>
+    @*<footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+
+            </div>
+        </div>
+    </footer>*@
+</body>
+</html>

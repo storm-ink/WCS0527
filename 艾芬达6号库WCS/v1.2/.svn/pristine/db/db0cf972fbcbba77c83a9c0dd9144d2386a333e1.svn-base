@@ -1,0 +1,26 @@
+﻿
+using System;
+using System.Runtime.Serialization;
+
+namespace Gensong
+{
+    /// <summary>查询堆垛机状态</summary>
+    [Serializable]
+    [DataContract]
+    public sealed class HA : RequestTelex
+    {
+        private HA()
+        {
+            this.Head = "HA";
+        }
+
+        private static HA ha = new HA();
+        public static HA Instance
+        {
+            get
+            {
+                return ha;
+            }
+        }
+    }
+}

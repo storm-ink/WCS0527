@@ -1,0 +1,207 @@
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.XML
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\EquipmentActionSchedulerManager.nuspec
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\install.ps1
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.xml
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.pdb
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csprojResolveAssemblyReference.cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMain.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMethodTrace.resources
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.GenerateResource.Cache
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.dll
+E:\SVNGS\Wcs2\Wcs\branches\004\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.pdb
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.XML
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\EquipmentActionSchedulerManager.nuspec
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\install.ps1
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.xml
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.xml
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.xml
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.pdb
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.AbstractStateManagerState.resources
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMain.resources
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMethodTrace.resources
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.GenerateResource.Cache
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.dll
+E:\svn\Wcs2\Wcs\branches\005\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\EquipmentActionSchedulerManager.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\install.ps1
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.AbstractStateManagerState.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMain.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMethodTrace.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\EquipmentActionSchedulerManager.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\install.ps1
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.XML
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.AssemblyReference.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.AbstractStateManagerState.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMain.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMethodTrace.resources
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.GenerateResource.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.CopyComplete
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\项目资料\艾芬达\框架整合\V0.0 - devexpress\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\install.ps1
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.XML
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\EquipmentActionSchedulerManager.nuspec
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.XtraBars.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.Caches.SysCache2.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Utils.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.XtraEditors.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Data.v18.1.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Printing.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Sparkline.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Pdf.v18.1.Core.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.XtraBars.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Iesi.Collections.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NHibernate.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\NLog.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.Framework.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Utils.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.XtraEditors.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Data.v18.1.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Printing.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Sparkline.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\DevExpress.Pdf.v18.1.Core.xml
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.XtraBars.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Utils.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.XtraEditors.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Data.v18.1.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Printing.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Sparkline.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\de\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\es\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ja\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\ru\DevExpress.Pdf.v18.1.Core.resources.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.AssemblyReference.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.AbstractStateManagerState.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMain.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Wcs.App.Plugins.EquipmentActionSchedulerManager.frmMethodTrace.resources
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.GenerateResource.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.CoreCompileInputs.cache
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\EquipmentActionSchedulerManager.csproj.CopyComplete
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.dll
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\obj\Debug\Plugins.EquipmentActionSchedulerManager.pdb
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Plugins.EquipmentActionSchedulerManager.dll.config
+F:\OfficeDocument\WCS-SVN\0.源代码\trunk\v1.0\Plugins\EquipmentActionSchedulerManager\bin\Debug\Wcs.dll.config

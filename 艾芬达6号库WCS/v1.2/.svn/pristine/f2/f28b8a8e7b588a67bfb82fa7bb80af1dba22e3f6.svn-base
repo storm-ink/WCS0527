@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+@using System.Collections.Generic;
+@model Client.Logs.WcsLogDiagnosisData
+<html>
+<head>
+<link href="@Url.Content("~/Content/Log.css")" rel="Stylesheet" type="text/css" />
+<title>wms日志-@Model.Id</title>
+</head>
+<body>
+<table  >
+ <tr>
+ <td>Id</td>
+ <td>@Html.DisplayFor(model=>model.Id)</td>
+ </tr>
+    <tr>
+    <td>日志名</td>
+    <td>@Html.DisplayFor(model=>model.Logger)</td>
+    </tr>
+    <tr>
+     <td>时间</td>
+    <td>@Html.DisplayFor(model=>model.LongDate)</td>
+    </tr>
+    <tr>
+     <td>级别</td>
+    <td>@Html.DisplayFor(model=>model.Level)</td>
+    </tr>
+    <tr>
+     <td>版本</td>
+    <td>@Html.DisplayFor(model=>model.ProcessId)-@Html.DisplayFor(model=>model.ProcessName)</td>
+    </tr>
+    <tr>
+     <td>进程</td>
+    <td>@Html.DisplayFor(model=>model.AssemblyVersion)</td>
+    </tr>
+    <tr>
+     <td>线程</td>
+    <td>@Html.DisplayFor(model=>model.ThreadId)</td>
+    </tr>
+    <tr>
+     <td>用户名</td>
+    <td>@Html.DisplayFor(model=>model.UserName)</td>
+    </tr>
+    <tr>
+     <td>消息</td>
+    <td>
+    <pre>@Model.Message</pre>
+    </td>
+    </tr>
+      <tr>
+     <td>异常</td>
+    <td>
+    <pre>@Model.Exception</pre>
+    </td>
+    </tr>
+</table>
+</body>
+</html>

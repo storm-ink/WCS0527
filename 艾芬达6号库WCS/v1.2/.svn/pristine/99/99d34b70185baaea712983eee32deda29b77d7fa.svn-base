@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Configuration;
+
+namespace Gensong
+{
+    public static class Logger
+    {
+        private static TraceSource ts = new TraceSource("crn");
+
+        public static void AddListener(TraceListener listener)
+        {
+            ts.Listeners.Add(listener);
+        }
+
+        public static void RemoveListener(TraceListener listener)
+        {
+            ts.Listeners.Remove(listener);
+        }
+
+        public static void Debug(String format, params Object[] args)
+        {
+            ts.TraceEvent(TraceEventType.Verbose, 0, format, args);
+            ts.Flush();
+        }
+
+        public static void Info(String format, params Object[] args)
+        {
+            ts.TraceEvent(TraceEventType.Information, 0, format, args);
+            ts.Flush();
+        }
+        public static void Warning(String format, params Object[] args)
+        {
+            ts.TraceEvent(TraceEventType.Warning, 0, format, args);
+            ts.Flush();
+        }
+        public static void Error(String format, params Object[] args)
+        {
+            ts.TraceEvent(TraceEventType.Error, 0, format, args);
+            ts.Flush();
+        }
+
+
+
+
+        public static Boolean ShouldLog(RequestTelex telex)
+        {
+            if (telex is HA)
+            {
+                Boolean b = false;
+                Boolean.TryParse(ConfigurationManager.AppSettings["should-log-HA-LA"], out b);
+                return b;
+            }
+            return true;
+        }
+
+        public static Boolean ShouldLog(ResponseTelex telex)
+        {
+            if (telex is LA)
+            {
+                Boolean b = false;
+                Boolean.TryParse(ConfigurationManager.AppSettings["should-log-HA-LA"], out b);
+                return b;
+            }
+            return true;
+        }
+
+    }
+}

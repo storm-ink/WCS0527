@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "创建数据库表";
+}
+
+<h2>创建数据库表</h2>
+
+@using(Html.BeginForm()){
+    <input type="submit" />
+}
+
+<p>
+@TempData["msg"]
+</p>
+

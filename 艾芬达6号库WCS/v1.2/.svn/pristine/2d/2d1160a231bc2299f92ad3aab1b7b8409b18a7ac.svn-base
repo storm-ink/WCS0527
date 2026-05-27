@@ -1,0 +1,88 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>设计器</title>
+    <script src="~/Scripts/Design/userData.js"></script>
+    <script src="~/Scripts/Design/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/Design/kinetic-v5.1.0.min.js"></script>
+    <script src="~/Scripts/Design/jsCrane.js"></script>
+    <script src="~/Scripts/Design/jsTBCrane.js"></script>
+    <script src="~/Scripts/Design/jsImage.js"></script>
+    <script src="~/Scripts/Design/jsShuttle.js"></script>
+    <script src="~/Scripts/Design/JSConveyorLocation.js"></script>
+    <script src="~/Scripts/Design/JSConveyorDataAdapter.js"></script>
+    <script src="~/Scripts/Design/JSCraneDataAdapter.js"></script>
+    <script defer="defer" src="~/Scripts/Design/editor.js"></script>
+    <script src="~/Scripts/Design/dialog.js"></script>
+    <link href="~/Scripts/Design/dialog.css" rel="stylesheet" />
+    <style>
+        *, html {
+            font-size:12px;
+        }
+        #leftBar {
+            width: 280px;
+            float: left;
+        }
+        fieldset {
+            margin: 0px;
+        }
+
+        #editorContainer {
+            min-width:800px;
+            min-height:400px;
+            float:left;
+            margin-left:10px;
+        }
+
+        #property {
+            min-height:260px;
+        }
+
+        #layerList,#stageList {
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+   <div id="leftBar">
+        <fieldset>
+            <legend>工具栏</legend>
+            <button type="button" onclick="addLayer()">Layer</button>
+            <button type="button" onclick="addJSConveyorLocation()">输送机</button>
+            <button type="button" onclick="addCrane()">堆垛机</button>
+            <button type="button" onclick="addImage()">图片</button>
+            <button type="button" onclick="addJSShuttle()">穿梭车</button>
+            <button type="button" onclick="addJSConveyorDataAdapter()">输送线数据填充器</button>
+            <button type="button" onclick="addJSCraneDataAdapter()">堆垛机数据填充器</button>
+            <button type="button" onclick="addTBCrane()">泰绑堆垛机</button>
+        </fieldset>
+        <fieldset>
+            <legend>对象属性 <button id="btnDeleteObj" style="display:none;">删除</button></legend>
+            <div id="property"></div>
+        </fieldset>
+        <fieldset>
+            <legend>层对象</legend>
+            <select id="layerList" multiple="multiple"></select>
+        </fieldset>
+        <fieldset>
+            <legend>画布设置</legend>
+            名称：<input type="text" value="100" name="stageName" style="width:190px" /><br />
+            尺寸：<input type="text" value="100" name="stageWidth" style="width:40px" /> X <input type="text" value="100" name="stageHeight" style="width:40px" />
+            <button type="button" onclick="applyStage()">应用</button> <button type="button" onclick="saveStage($('input[name=stageName]').val())">保存</button>
+        </fieldset>
+       <fieldset>
+            <legend>画布对象</legend>
+            <select id="stageList" multiple="multiple"></select>
+        </fieldset>
+    </div>
+    <fieldset id="editorContainer">
+        <legend><input type="checkbox" id="isDesign" /><label for="isDesign">设计模式</label> - 画布</legend>
+        <div id="stage"></div>
+    </fieldset>
+</body>
+</html>

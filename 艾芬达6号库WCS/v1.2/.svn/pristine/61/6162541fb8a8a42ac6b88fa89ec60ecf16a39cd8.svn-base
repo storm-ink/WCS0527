@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+      <section name="Wcs.App.Plugins.TwoForksCraneManualClient.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    </sectionGroup>
+  </configSections>
+  <appSettings>
+    <add key="双伸位" value="true" />
+  </appSettings>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_ITwoForksCraneService" />
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:9991/TwoForksCraneService" binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_ITwoForksCraneService" contract="TwoForksCraneService.ITwoForksCraneService" name="BasicHttpBinding_ITwoForksCraneService" />
+        </client>
+    </system.serviceModel>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0" /></startup>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="NHibernate" publicKeyToken="aa95f207798dfdb4" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.3.1.4000" newVersion="3.3.1.4000" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <applicationSettings>
+    <Wcs.App.Plugins.TwoForksCraneManualClient.Properties.Settings>
+      <setting name="CompanyName" serializeAs="String">
+        <value>合肥欣奕华智能机器股份有限公司  堆垛机监控</value>
+      </setting>
+      <setting name="ShowLogo" serializeAs="String">
+        <value>True</value>
+      </setting>
+    </Wcs.App.Plugins.TwoForksCraneManualClient.Properties.Settings>
+  </applicationSettings>
+</configuration>

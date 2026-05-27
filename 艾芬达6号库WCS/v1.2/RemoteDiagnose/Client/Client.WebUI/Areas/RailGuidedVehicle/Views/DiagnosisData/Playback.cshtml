@@ -1,0 +1,309 @@
+﻿@{
+    ViewBag.Title = "Playback";
+}
+<script src="~/Scripts/Design/kinetic-v5.1.0.min.js"></script>
+<script src="~/Scripts/Design/jsCrane.js"></script>
+<script src="~/Scripts/Design/jsTBCrane.js"></script>
+<script src="~/Scripts/Design/jsImage.js"></script>
+<script src="~/Scripts/Design/jsShuttle.js"></script>
+<script src="~/Scripts/Design/JSConveyorLocation.js"></script>
+<script src="~/Scripts/Design/JSConveyorDataAdapter.js"></script>
+<script src="~/Scripts/Design/JSCraneDataAdapter.js"></script>
+<script src="~/Scripts/Design/editor.js"></script>
+<script src="~/Scripts/Design/dialog.js"></script>
+<link href="~/Scripts/Design/dialog.css" rel="stylesheet" />
+<style>
+    *, html {
+        font-size:12px;
+    }
+    #stage {
+    text-align:center;
+    line-height:100%;
+    }
+    label {
+        padding: 5px;
+    }
+    #info {
+        width:280px;
+        padding:5px;
+        border:1px solid #efefef;
+        background-color:#efefef;
+        line-height:1.5;
+    }
+
+    .title {
+            width: 80px;
+            display:inline-block;
+            background-color:#ececec;
+        }
+    .content {
+            width: 180px;
+            display:inline-block;
+            background-color:#E2E2E2;
+    }
+</style>
+
+<script type="text/javascript">
+    var timer = null;
+    function playback(deviceName,cols,width,height,startTime,endTime) {
+        if (timer != null) {
+            clearTimeout(timer);
+        }
+
+        if (window.stage) {
+            window.stage.destroy();
+            window.stage = null;
+        }
+
+        $('#stageDiv').empty();
+        var columns = "";
+        for (var i = 1; i <= cols; i++) {
+            if (columns != "") {
+                columns += "," + i;
+            } else {
+
+                columns += i;
+            }
+        }
+        var data = '{"attrs":{"width":' + (width + 160) + ',"height":' + (height + 30) + '},"className":"Stage","children":[{"attrs":{"name":"layer0","draggable":false,"fill":"red","stroke":"red","strokeWidth":1,"width":1060,"height":90,"x":9,"y":3},"className":"Layer","children":[{"attrs":{"x":14,"y":15,"width":' + width + ',"height":' + height + ',"listening":true,"draggable":false,"columnCount":' + cols + ',"name":"' + deviceName + '","columns":"'+columns+'"},"className":"JSCrane","children":[]}]}]}';
+
+
+        window.stage = Kinetic.Node.create(data, 'stageDiv');
+        formatStage(window.stage);
+
+        $.ajax({
+            type: "POST",
+            url: '/SingleForkCrane/Playback',
+            data:{name:deviceName,startTime:startTime,endTime:endTime},
+            dataType: "json",
+            success: function (data) {
+                if (data == null || data.length == 0) {
+                    alert('未找到任何回放数据');
+                }
+                else {
+                    play(data, 0, deviceName);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('读取回放数据失败\n' + errorThrown.message);
+            }
+
+        });
+    }
+
+    function play(data, i, name) {
+        if (i >= data.length) {
+            alert('数据回放结束');
+            return;
+        }
+
+        console.log(i + ' ' + data[i].Column);
+        var crane = getCrane(name);
+        crane.setStatus(data[i]);
+        setDetails(data[i]);
+        timer = setTimeout(function () {
+            play(data, i + 1, name);
+        }, 500);
+    }
+
+    function setDetails(data) {
+        $('#_name').text(data.Name);
+        $('#_state').text(getState(data.State));
+        $('#_event').text(getEvent(data.Event));
+        $('#_atStatin').text(data.AtStation);
+        $('#_column').text(data.Column);
+        $('#_level').text(data.Level);
+        if (data.Alarm) {
+            $('#_errorCode').text(data.ErrorCode + ' ' + data.Alarm.Name);
+        } else {
+            $('#_errorCode').text(data.ErrorCode);
+        }
+        $('#_taskCode').text(data.TaskId);
+        $('#_forkHorizontalPosition').text(getForkHorizontalPosition(data.ForkHorizontalPosition));
+        $('#_forkVerticalPosition').text(getForkVerticalPosition(data.ForkVerticalPosition));
+        $('#_time').text(toDate(data.LongDate).format('yyyy-MM-dd hh:mm:ss.S'));
+    }
+
+    function getCrane(name) {
+        var result = null;
+        window.stage.find('Layer').each(function (layer) {
+            layer.getChildren().each(function (crane) {
+                if (Kinetic.JSCraneTypes.contains(crane.getClassName()) && crane.getName() == name) {
+                    result = crane;
+                    return;
+                }
+
+                if (result != null) {
+                    return;
+                }
+            });
+
+            if (result != null) {
+                return;
+            }
+        });
+
+        return result;
+    }
+
+    function getForkHorizontalPosition(v) {
+        switch (v) {
+            case 1:
+                return '中位';
+            case 2:
+                return '左位';
+            case 3:
+                return '左极限';
+            case 4:
+                return '右位';
+            case 5:
+                return '右极限';
+            case 6:
+                return '"左（外）';
+            case 7:
+                return '左（外）极限';
+            case 8:
+                return '右（外）';
+            case 9:
+                return '右（外）极限';
+            default:
+                return v;
+        }
+    }
+
+    function getForkVerticalPosition(v) {
+        switch (v) {
+            case 0:
+                return '中位';
+            case 1:
+                return '高位';
+            case 2:
+                return '低位';
+            default:
+                return v;
+        }
+    }
+
+    function getEvent(v) {
+        switch (v) {
+            case 0:
+                return '初始化';
+            case 1:
+                return '开始运行';
+            case 2:
+                return '开始取货';
+            case 3:
+                return '取货完成'
+            case 4:
+                return '开始放货';
+            case 5:
+                return '放货完成';
+            case 6:
+                return '完成';
+            case 7:
+                return '急停';
+            case 8:
+                return '出错完成';
+            case 9:
+                return '回原点'
+        }
+    }
+
+    function getState(v) {
+        switch (v) {
+            case 0:
+                return '初始化';
+            case 1:
+                return '回原点';
+            case 2:
+                return '无货待命';
+            case 3:
+                return '有货待命';
+            case 4:
+                return '无货运行';
+            case 5:
+                return '有货运行';
+            case 6:
+                return '取货';
+            case 7:
+                return '放货';
+            case 8:
+                return '报警停机';
+            case 9:
+                return '报警复位';
+            case 10:
+                return '奇怪的状态';
+            case 11:
+                return '未连接';
+            case 12:
+                return '手动操作'
+        }
+    }
+    Date.prototype.format = function (format) {
+        var o = {
+            "M+": this.getMonth() + 1, //month 
+            "d+": this.getDate(), //day 
+            "h+": this.getHours(), //hour 
+            "m+": this.getMinutes(), //minute 
+            "s+": this.getSeconds(), //second 
+            "q+": Math.floor((this.getMonth() + 3) / 3), //quarter 
+            "S": this.getMilliseconds() //millisecond 
+        }
+
+        if (/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+
+        for (var k in o) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    }
+
+    function toDate(val) {
+        return new Date(parseInt(val.replace("/Date(", "").replace(")/", ""), 10));
+    }
+
+    $(document).ready(function () {
+
+        $('#btnPlayback').click(function () {
+            var deviceName = $('#deviceName').val();
+            var cols = parseInt($('#cols').val());
+            var width = parseInt($('#width').val());
+            var height = parseInt($('#height').val());
+            var startTime = $('#startTime').val();
+            var endTime = $('#endTime').val();
+            playback(deviceName, cols, width, height, startTime, endTime)
+        });
+    });
+</script>
+<div>
+    <label>堆垛机<select id="deviceName" name="deviceName"> 
+        @foreach (var item in (List<String>)ViewBag.DeviceNames)
+        {
+            <option value="@item">@item</option>
+        }
+              </select></label>
+    <label>列数 </label><input type="number" name="cols" id="cols" style="width:60px;" value="102" />
+    <label>宽 </label><input type="number" name="width" id="width" style="width:60px;" value="1040" />
+    <label>高 </label><input type="number" name="height" id="height" style="width:60px;" value="60" />
+    <label>开始日期 <input type="text" name="StartTime" id="startTime" value="@DateTime.Now.AddDays(-3).ToString("yyyy-MM-dd HH:mm:ss")" /></label>
+<label>结束日期 <input type="text" name="EndTime" id="endTime" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm:ss")" /></label>
+    <input type="button" value="回放" id="btnPlayback" />
+</div>
+<div id="stageDiv"></div>
+<div id="info">
+    <label class="title">名称：</label><label id="_name" class="content">-</label><br />
+    <label class="title">状态：</label><label id="_state" class="content">-</label><br />
+    <label class="title">事件：</label><label id="_event" class="content">-</label><br />
+    <label class="title">是否在站点：</label><label id="_atStatin" class="content">-</label><br />
+    <label class="title">当前列：</label><label id="_column" class="content">-</label><br />
+    <label class="title">当前层：</label><label id="_level" class="content">-</label><br />
+    <label class="title">货叉位置：</label><label id="_forkHorizontalPosition" class="content">-</label><br />
+    <label class="title">载货台位置：</label><label id="_forkVerticalPosition" class="content">-</label><br />
+    <label class="title">故障码：</label><label id="_errorCode" class="content">-</label><br />
+    <label class="title">任务号：</label><label id="_taskCode" class="content">-</label><br />
+    <label class="title">数据时间：</label><label id="_time" class="content">-</label><br />
+</div>

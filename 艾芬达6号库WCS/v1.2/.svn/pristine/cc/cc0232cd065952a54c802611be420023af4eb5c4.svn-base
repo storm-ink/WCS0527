@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Client" namespace="Client.Logs">
+  <class name="WcsLogDiagnosisData" table="`WcsLogs`" batch-size="500" schema-action="none">
+    <id name="Id" column="`Id`" type="Int32">
+      <generator class="increment">
+      </generator>
+    </id>
+    <version name="Version" type="Int32" column="`Version`" unsaved-value="0" />
+    <property name="LogId" type="Int32" column="`LogId`" not-null="true" />
+
+    <property name="ProjectId" type="Int32" column="`ProjectId`" not-null="true" />
+    <!--<many-to-one class="RemoteDiagnose.Project" name="Project" column="`ProjectId`" not-found="ignore" not-null="true" lazy="proxy" cascade="none" />-->
+    <property name="CreatedAt" type="DateTime2" not-null="true">
+      <column name="`CreatedAt`" sql-type="DateTime2" />
+    </property>
+    <property name="LongDate" type="DateTime2">
+      <column name="`LongDate`" sql-type="DateTime2" />
+    </property>
+    <property name="Level" type="String" column="`Level`" length="10" />
+    <property name="MachineName" type="String" column="`MachineName`" length="50" />
+    <property name="ProcessName" type="String" column="`ProcessName`" length="50" />
+    <property name="ProcessId" type="Int32" column="`ProcessId`" />
+    <property name="AssemblyVersion" type="String" column="`AssemblyVersion`" length="50"/>
+    <property name="ThreadId" type="Int32" column="`ThreadId`" />
+    <property name="Logger" type="String" column="`Logger`" length="255"/>
+    <property name="Message" type="String" column="`Message`" length="4000"/>
+    <property name="Exception" type="String" column="`Exception`" length="4000"/>
+    <property name="UserName" type="String" column="`UserName`" length="255"/>
+    <property name="IP" type="String" column="`IP`" />
+    <property name="TaskCode" type="String" column="`TaskCode`" length="30"/>
+    <property name="EquipmentTaskId" type="Int32" column="`EquipmentTaskId`" />
+    <property name="Sender" type="String" column="`Sender`" length="255"/>
+  </class>
+  <database-object>
+    <create>
+      CREATE TABLE [dbo].[WcsLogs](
+      [Id] [int] NOT NULL PRIMARY KEY NONCLUSTERED,
+      [LogId] [int] NOT NULL,
+      [ProjectId] [int] NOT NULL,
+      [CreatedAt] [datetime2](7) NULL,
+      [LongDate] [datetime2](7) NULL,
+      [Level] [nvarchar](10) NULL,
+      [MachineName] [nvarchar](50) NULL,
+      [ProcessName] [nvarchar](50) NULL,
+      [ProcessId] [int] NULL,
+      [AssemblyVersion] [nvarchar](50) NULL,
+      [ThreadId] [int] NULL,
+      [Logger] [nvarchar](255) NULL,
+      [Message] [nvarchar](4000) NULL,
+      [Exception] [nvarchar](4000) NULL,
+      [UserName] [nvarchar](255) NULL,
+      [IP] [nvarchar](255) NULL,
+      [TaskCode] [nvarchar](30) NULL,
+      [EquipmentTaskId] [int] NULL,
+      [Sender] [nvarchar](255) NULL,
+      [Version] [int] NOT NULL
+      )  ON [PRIMARY]
+
+
+    </create>
+    <drop>
+      <![CDATA[
+      IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[WcsLogs]') AND type in (N'U'))
+      DROP TABLE [dbo].[WcsLogs]
+      ]]>
+    </drop>
+  </database-object>
+  <database-object>
+     <create>
+        <![CDATA[
+              CREATE CLUSTERED INDEX [IX_WcsLogs_LongDate] ON dbo.[WcsLogs]
+            (
+            LongDate
+            ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+        ]]>
+    </create>
+    <drop>
+      
+    </drop>
+  </database-object>  
+  <!--<database-object>
+     <create>
+        <![CDATA[
+             ALTER TABLE dbo.WcsLogs ADD CONSTRAINT
+	          FK_WcsLogs_Project FOREIGN KEY
+	          (
+	          ProjectId
+	          ) REFERENCES dbo.Project
+	          (
+	          Id
+	          ) ON UPDATE  NO ACTION 
+	           ON DELETE  NO ACTION 
+        ]]>
+    </create>
+    <drop>
+      
+    </drop>
+  </database-object>-->
+</hibernate-mapping>

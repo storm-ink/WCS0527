@@ -1,0 +1,228 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using 输送线模拟程序.ConveyorServer;
+
+namespace 输送线模拟程序
+{
+    public partial class Form1 : Form, ILogger
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            var q = from o in Wcs.Framework.Cfg.WcsConfiguration.Instance.DeviceCollection.ParticularDeviceCollection
+                    where o is Wcs.DefaultImplementCollection.Conveyor.ConveyorCollection
+                    select o as Wcs.DefaultImplementCollection.Conveyor.ConveyorCollection;
+
+            var conveyorElementItems = q.SelectMany(x => x.DeviceElements)
+                .Select(x => new item((Wcs.DefaultImplementCollection.Conveyor.ConveyorElement)x))
+                .ToArray();
+            cmbCfg.Items.AddRange(conveyorElementItems);
+
+
+            button2.Enabled =
+                numericUpDown1.Enabled = false;
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var item = cmbCfg.SelectedItem as item;
+                if (item == null)
+                {
+                    return;
+                }
+
+                if (item.Simulation != null)
+                {
+                    item.Simulation.TcpServer.Stop();
+                    item.Simulation = null;
+                    button1.Text = "启动";
+
+                    button2.Enabled =
+                        numericUpDown1.Enabled = false;
+                }
+                else
+                {
+                    item.Simulation = new ConveyorSimulation(item.ConveyorElement, this);
+                    item.Simulation.TcpServer.Start();
+                    button1.Text = "停止";
+
+                    button2.Enabled =
+                        numericUpDown1.Enabled = true;
+                    bind();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        void bind()
+        {
+            treeView1.Nodes.Clear();
+            propertyGrid1.SelectedObject = null;
+
+            var selectedItem = cmbCfg.SelectedItem as item;
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            if (selectedItem.Simulation == null || selectedItem.Simulation.Mapping == null)
+            {
+                return;
+            }
+
+            foreach (var collection in selectedItem.Simulation.Mapping)
+            {
+                List<TreeNode> children = new List<TreeNode>();
+                foreach (var item in collection.Value)
+                {
+                    TreeNode childNode = new TreeNode(item.ToString());
+                    childNode.Tag = item;
+                    children.Add(childNode);
+                }
+                TreeNode parentNode = new TreeNode(collection.Key.ToString(), children.ToArray());
+                parentNode.Tag = collection;
+                treeView1.Nodes.Add(parentNode);
+            }
+        }
+
+        class item
+        {
+            public Wcs.DefaultImplementCollection.Conveyor.ConveyorElement ConveyorElement { get; set; }
+            public item(Wcs.DefaultImplementCollection.Conveyor.ConveyorElement conveyorElement)
+            {
+                this.ConveyorElement = conveyorElement;
+            }
+            public ConveyorSimulation Simulation { get; set; }
+
+            public override string ToString()
+            {
+                return string.Format("{0}({1})", ConveyorElement.Name, ConveyorElement.IPEndPoint.ToString());
+            }
+        }
+
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+            Application.ExitThread();
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+
+            foreach (var item in cmbCfg.Items.Cast<item>())
+            {
+                if (item.Simulation == null)
+                {
+                    continue;
+                }
+
+                item.Simulation.TcpServer.Stop();
+                item.Simulation = null;
+            }
+        }
+
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node != null)
+            {
+                propertyGrid1.SelectedObject = e.Node.Tag;
+            }
+        }
+
+        public void Info(string formatStr, params object[] paras)
+        {
+            this.BeginInvoke(new MethodInvoker(() =>
+            {
+                addTextToLogBox(string.Format(formatStr, paras));
+            }));
+        }
+
+        public void Error(Exception ex)
+        {
+            this.BeginInvoke(new MethodInvoker(() =>
+            {
+                addTextToLogBox(ex.ToString());
+            }));
+        }
+
+        void addTextToLogBox(String text)
+        {
+            richTextBox1.AppendText(string.Format("{0:HH:mm:ss fffff}   {1}\n", DateTime.Now, text));
+        }
+
+        private void cmbCfg_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var item = cmbCfg.SelectedItem as item;
+            if (item == null)
+            {
+                button1.Enabled = false;
+                return;
+            }
+
+            button1.Enabled = true;
+
+            if (item.Simulation != null)
+            {
+                button1.Text = "停止";
+                button2.Enabled =
+                    numericUpDown1.Enabled = true;
+            }
+            else
+            {
+                button1.Text = "启动";
+                button2.Enabled =
+                    numericUpDown1.Enabled = false;
+            }
+
+            bind();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //numericUpDown1
+
+            var selectedItem = cmbCfg.SelectedItem as item;
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            if (selectedItem.Simulation == null || selectedItem.Simulation.Mapping == null)
+            {
+                return;
+            }
+
+            if (selectedItem.Simulation.Mapping.Any(x => x.Key == typeof(Wcs.DefaultImplementCollection.Conveyor.TaskBlock)))
+            {
+                var map = selectedItem.Simulation.Mapping.FirstOrDefault(x => x.Key == typeof(Wcs.DefaultImplementCollection.Conveyor.TaskBlock));
+
+                var items = map.Value.Cast<Wcs.DefaultImplementCollection.Conveyor.TaskBlock>()
+                    .Where(x => x.TaskNo != 0
+                    && x.HandShake != Wcs.DefaultImplementCollection.Conveyor.TaskHandShakes.Empty
+                    && x.TaskState != Wcs.DefaultImplementCollection.Conveyor.TaskBlockTaskStatus.Error
+                    && x.TaskState != Wcs.DefaultImplementCollection.Conveyor.TaskBlockTaskStatus.Finished
+                    ).Take(Convert.ToInt32(numericUpDown1.Value));
+
+                foreach (var item in items)
+                {
+                    item.TaskState = Wcs.DefaultImplementCollection.Conveyor.TaskBlockTaskStatus.Finished;
+                }
+            }
+        }
+    }
+}

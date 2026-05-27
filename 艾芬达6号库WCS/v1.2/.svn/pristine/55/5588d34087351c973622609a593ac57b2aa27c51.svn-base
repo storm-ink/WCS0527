@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Wcs.Client.App.Elements.UIEditor
+{
+    public partial class BindMappingEditorUI : Form
+    {
+        public Dictionary<PropertyInfo, String> Values { get; private set; }
+        public BindMappingEditorUI(IEnumerable<KeyValuePair<PropertyInfo,String>> values)
+        {
+            InitializeComponent();
+
+            dataGridView1.RowCount = values.Count();
+            for (int i = 0; i < values.Count(); i++)
+            {
+                var row = dataGridView1.Rows[i];
+                row.Tag = values.ElementAt(i).Key;
+                row.Cells[0].Value = values.ElementAt(i).Key.Name;
+                row.Cells[1].Value = values.ElementAt(i).Value;
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            Dictionary<PropertyInfo, String> values = new Dictionary<PropertyInfo, string>();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                var key = (PropertyInfo)row.Tag;
+                var value = Convert.ToString(row.Cells[1].Value);
+                values.Add(key, value);
+            }
+
+            this.Values = values;
+        }
+    }
+}

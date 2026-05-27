@@ -1,0 +1,83 @@
+﻿
+using System;
+using System.Runtime.Serialization;
+
+namespace Gensong
+{
+    /// <summary>发任务 GOT -&gt; CRN  &lt;HB 起点排列层(8) + 终点排列层(8) + 动作命令(2) + 任务号(8)&gt;</summary>
+    [Serializable]
+    [DataContract]
+    public sealed class HB : RequestTelex
+    {
+        /// <summary>发任务 GOT -&gt; CRN  &lt;HB 起点排列层(8) + 终点排列层(8) + 动作命令(2) + 任务号(8)&gt;</summary>
+        public HB(EForkLR LR1, Position P1, EForkLR LR2, Position P2, HBCommand CMD, string TaskId)
+        {
+            this.LALeftRight1 = LR1; this.Position1 = P1;
+            this.LALeftRight2 = LR2; this.Position2 = P2;
+            this.HBCommand = CMD; this.TaskId = TaskId;
+
+            this.Head = "HB";
+            this.Body = string.Format("{0:00}{1:000}{2:000}{3:00}{4:000}{5:000}{6:00}{7}",
+                (int)LR1, P1.Col, P1.Row, (int)LR2, P2.Col, P2.Row, (int)CMD, TaskId);
+        }
+
+        /// <summary>起点 排</summary>
+        [DataMember]
+        public EForkLR LALeftRight1 { get; private set; }
+        /// <summary>起点 位置</summary>
+        [DataMember]
+        public Position Position1 { get; private set; }
+
+        /// <summary>终点 排</summary>
+        [DataMember]
+        public EForkLR LALeftRight2 { get; private set; }
+        /// <summary>终点 位置</summary>
+        [DataMember]
+        public Position Position2 { get; private set; }
+
+        /// <summary>动作命令</summary>
+        [DataMember]
+        public HBCommand HBCommand { get; private set; }
+
+        /// <summary>任务号</summary>
+        [DataMember]
+        public string TaskId { get; set; }
+    }
+
+    /// <summary>动作命令</summary>
+    public enum HBCommand
+    {
+        /// <summary>半自动 行走</summary>
+        E00,
+        /// <summary>半自动 取货</summary>
+        E01,
+        /// <summary>半自动 放货</summary>
+        E02,
+
+        /// <summary>全自动</summary>
+        E11 = 11,
+
+        //00、半自动 行走
+        //01、半自动 取货 
+        //02、半自动 放货 
+
+        //03、手动   左伸叉 
+        //04、手动   右伸叉 
+        //05、手动   前进 
+        //06、手动   后退 
+        //07、手动   上 
+        //08、手动   下 
+        //09、手动   取消任务 
+        //10、手动   回叉中位 
+
+        //11、全自动
+        //12、全自动 取消
+
+        //13、手操盒 左伸叉
+        //14、手操盒 右伸叉
+        //15、手操盒 前进 
+        //16、手操盒 后退 
+        //17、手操盒 上 
+        //18、手操盒 下 
+    }
+}

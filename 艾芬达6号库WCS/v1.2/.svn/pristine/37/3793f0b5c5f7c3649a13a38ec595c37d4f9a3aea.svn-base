@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Wcs.Client.App.Elements;
+
+namespace Wcs.Client.App
+{
+    public partial class frmTools : Form
+    {
+        Editor _editor;
+        public frmTools(Editor editor)
+        {
+            InitializeComponent();
+
+            _editor = editor;
+
+            loadElements();
+        }
+
+        void loadElements()
+        {
+            var types = this.GetType().Assembly.GetTypes()
+                .Where(x => x.IsSubclassOf(typeof(Element)) && !x.IsAbstract)
+                .ToList();
+
+            foreach (var item in types)
+            {
+                var descriptionArtr = (DescriptionAttribute)item.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault();
+                Button btn = new Button();
+                btn.Tag = item;
+                if (descriptionArtr != null)
+                {
+                    btn.Text = descriptionArtr.Description;
+                }
+                else
+                {
+                    btn.Text = item.Name;
+                }
+                btn.Dock = DockStyle.Top;
+                btn.Click += btn_Click;
+                this.Controls.Add(btn);
+            }
+        }
+
+
+        void btn_Click(object sender, EventArgs e)
+        {
+            var type = ((Button)sender).Tag as Type;
+
+            var instance = (Element)type.Assembly.CreateInstance(type.FullName, false, System.Reflection.BindingFlags.CreateInstance, null, new object[] { _editor }, null, null);
+
+            if (_editor.LastClickedPoint != default(PointF))
+            {
+                instance.Left = _editor.LastClickedPoint.X;
+                instance.Top = _editor.LastClickedPoint.Y;
+            }
+            _editor.AddItem(instance);
+
+        }
+    }
+}

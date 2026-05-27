@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<receiver name="receiver1" type="Wcs.DefaultImpls.Conveyor.ConveyorDataReceiverElement, Wcs.DefaultImpls">
+  <senderEncoding xmlFile="db1.xml" />
+  <receiverEncoding xmlFile="db2.xml" />
+</receiver>

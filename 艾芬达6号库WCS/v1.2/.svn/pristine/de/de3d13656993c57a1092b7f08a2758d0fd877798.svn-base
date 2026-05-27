@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using Wcs.Framework.Cfg;
+
+namespace $rootnamespace$
+{
+    public class WithRemoteControllerCraneDeviceElement :Wcs.DefaultImpls.Crane.CraneElement
+    {
+        public WithRemoteControllerCraneDeviceElement(XmlNode node, WcsConfiguration configuration)
+            : base(node, configuration)
+        {
+        }
+        protected override Wcs.Framework.Device CreateDevice()
+        {
+            var conveyorDeviceName = this.GetAttribute<String>("conveyor");
+            return new WithRemoteControllerCraneDevice(this.Name, this.No, this.ReceiveTimeout, this.ConnectTimeout, this.SendTimeout, this.IPEndPoint,this.BindEndPoint, this.DataReceiver,this.Laneways,conveyorDeviceName);
+        }
+    }
+}

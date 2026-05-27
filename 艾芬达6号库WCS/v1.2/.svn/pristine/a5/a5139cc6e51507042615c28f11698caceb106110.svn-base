@@ -1,0 +1,183 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using WindowsFormsApplication1.ABC;
+
+namespace WindowsFormsApplication1
+{
+    public partial class Form1 : Form
+    {
+        Editor _editor;
+        public Form1()
+        {
+            InitializeComponent();
+            _editor = new Editor(this);
+            _editor.Selected += _editor_Selected;
+            propertyGrid1.PropertyValueChanged += propertyGrid1_PropertyValueChanged;
+
+            Crane c = new Crane(_editor);
+            c.RackLocationSize = new SizeF(12, 30);
+            c.Size = new SizeF(1228, 90);
+            c.Left = 218;
+            c.Top = 146;
+            c.Name = "C001";
+            c.Columns = 102;
+            _editor.AddItem(c);
+
+            Crane c1 = new Crane(_editor);
+            c1.RackLocationSize = new SizeF(12, 30);
+            c1.Size = new SizeF(1228, 90);
+            c1.Left = 218;
+            c1.Top = 252;
+            c1.Name = "C002";
+            c1.Columns = 102;
+            _editor.AddItem(c1);
+
+
+            var s = new SingleForkCraneDataSource(_editor);
+            _editor.AddItem(s);
+
+            var s1 = new ConveyorDataSource(_editor);
+            s1.Left = s.Left + s.Size.Width + 20;
+            _editor.AddItem(s1);
+        }
+
+        void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            _editor.Draw();
+        }
+
+        void _editor_Selected(Editor editor, Element[] selectedItems)
+        {
+            propertyGrid1.SelectedObjects = selectedItems;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var item = new asdf(_editor);
+            item.Left = 10;
+            item.Top = 10;
+            item.Size = new SizeF(100, 50);
+            _editor.AddItem(item);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            var item = new Canvas(_editor);
+            item.Left = 10;
+            item.Top = 10;
+            item.Size = new SizeF(400, 300);
+            _editor.AddItem(item);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var c = new Canvas(_editor);
+            var item = new asdf(_editor);
+            item.Size = new SizeF(100, 50);
+            c.AddItem(item);
+            _editor.AddItem(c);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var c = new ConveyorLocation(_editor);
+            c.Left = 100;
+            c.Top = 100;
+            c.PosNo = 1;
+            _editor.AddItem(c);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+            var c = new ConveyorLocation(_editor);
+            c.Left = 100;
+            c.Top = 100;
+
+            c.PosNo = 2000;
+            c.DrawDirection = ConveyorLocationDrawDirection.Vertical;
+            _editor.AddItem(c);
+        }
+
+        void c_MouseClick(object sender, MouseEventArgs e)
+        {
+            propertyGrid1.SelectedObject = sender;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog ofd = new OpenFileDialog())
+                {
+                    ofd.Filter = "Xml文件(*.xml)|*.xml";
+                    ofd.InitialDirectory=@"F:\项目\Wcs2\定制项目\鲁泰三期-纺纱四厂\bin\Debug\系统配置\输送线";
+                    ofd.FileName=@"F:\项目\Wcs2\定制项目\鲁泰三期-纺纱四厂\bin\Debug\系统配置\输送线\输送线位置.xml";
+                    if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        var fileName = ofd.FileName;
+
+                        System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                        doc.Load(fileName);
+                        foreach (System.Xml.XmlNode item in doc.SelectNodes(@"/输送线位置/location"))
+                        {
+                            int posNo;
+                            int.TryParse(item.Attributes["deviceCode"].Value, out posNo);
+
+                            ConveyorLocation loc = new ConveyorLocation(_editor);
+                            
+                            loc.Left = 10;
+                            loc.Top = 10;
+                            loc.PosNo = posNo;
+
+                            _editor.AddItem(loc);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            var c = new Crane(_editor);
+            _editor.AddItem(c);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+            var c = new SingleForkCraneDataSource(_editor);
+            _editor.AddItem(c);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            _editor.Draw();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            using (frmBmpToBase64 frm = new frmBmpToBase64())
+            {
+                frm.ShowDialog();
+            }
+        }
+    }
+}

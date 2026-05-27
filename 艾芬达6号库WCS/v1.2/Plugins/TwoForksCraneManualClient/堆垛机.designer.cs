@@ -1,0 +1,327 @@
+﻿namespace Wcs.App.Plugins.TwoForksCraneManualClient
+{
+    partial class ucCrane
+    {
+        /// <summary> 
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region 组件设计器生成的代码
+
+        /// <summary> 
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucCrane));
+            this.gbxCrane = new System.Windows.Forms.GroupBox();
+            this.lblCraneName = new System.Windows.Forms.Label();
+            this.btnLock = new System.Windows.Forms.Button();
+            this.btnManual = new System.Windows.Forms.Button();
+            this.btnAlarm = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pbxError = new System.Windows.Forms.PictureBox();
+            this.pbxOnline = new System.Windows.Forms.PictureBox();
+            this.lblEvent = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblState = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblAlarmCode = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblTaskId = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblUserCode = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblColRow = new System.Windows.Forms.Label();
+            this.gbxCrane.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxError)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxOnline)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // gbxCrane
+            // 
+            this.gbxCrane.Controls.Add(this.lblCraneName);
+            this.gbxCrane.Controls.Add(this.btnLock);
+            this.gbxCrane.Controls.Add(this.btnManual);
+            this.gbxCrane.Controls.Add(this.btnAlarm);
+            this.gbxCrane.Controls.Add(this.label2);
+            this.gbxCrane.Controls.Add(this.label1);
+            this.gbxCrane.Controls.Add(this.pbxError);
+            this.gbxCrane.Controls.Add(this.pbxOnline);
+            this.gbxCrane.Controls.Add(this.lblEvent);
+            this.gbxCrane.Controls.Add(this.label12);
+            this.gbxCrane.Controls.Add(this.lblState);
+            this.gbxCrane.Controls.Add(this.label9);
+            this.gbxCrane.Controls.Add(this.lblAlarmCode);
+            this.gbxCrane.Controls.Add(this.lblTaskId);
+            this.gbxCrane.Controls.Add(this.label4);
+            this.gbxCrane.Controls.Add(this.lblUserCode);
+            this.gbxCrane.Controls.Add(this.lblColRow);
+            this.gbxCrane.Controls.Add(this.label5);
+            this.gbxCrane.Controls.Add(this.label11);
+            this.gbxCrane.Font = new System.Drawing.Font("隶书", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gbxCrane.Location = new System.Drawing.Point(0, 0);
+            this.gbxCrane.Margin = new System.Windows.Forms.Padding(0);
+            this.gbxCrane.Name = "gbxCrane";
+            this.gbxCrane.Size = new System.Drawing.Size(758, 56);
+            this.gbxCrane.TabIndex = 1;
+            this.gbxCrane.TabStop = false;
+            // 
+            // lblCraneName
+            // 
+            this.lblCraneName.AutoSize = true;
+            this.lblCraneName.Font = new System.Drawing.Font("幼圆", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblCraneName.Location = new System.Drawing.Point(8, -1);
+            this.lblCraneName.Name = "lblCraneName";
+            this.lblCraneName.Size = new System.Drawing.Size(44, 16);
+            this.lblCraneName.TabIndex = 32;
+            this.lblCraneName.Text = "C001";
+            // 
+            // btnLock
+            // 
+            this.btnLock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLock.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnLock.Location = new System.Drawing.Point(692, 14);
+            this.btnLock.Name = "btnLock";
+            this.btnLock.Size = new System.Drawing.Size(61, 37);
+            this.btnLock.TabIndex = 31;
+            this.btnLock.Text = "锁定";
+            this.btnLock.UseVisualStyleBackColor = true;
+            this.btnLock.Click += new System.EventHandler(this.btnLock_Click);
+            // 
+            // btnManual
+            // 
+            this.btnManual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManual.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnManual.Location = new System.Drawing.Point(558, 14);
+            this.btnManual.Name = "btnManual";
+            this.btnManual.Size = new System.Drawing.Size(61, 37);
+            this.btnManual.TabIndex = 31;
+            this.btnManual.Text = "手控";
+            this.btnManual.UseVisualStyleBackColor = true;
+            this.btnManual.Click += new System.EventHandler(this.btnManual_Click);
+            // 
+            // btnAlarm
+            // 
+            this.btnAlarm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlarm.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnAlarm.Location = new System.Drawing.Point(625, 14);
+            this.btnAlarm.Name = "btnAlarm";
+            this.btnAlarm.Size = new System.Drawing.Size(61, 37);
+            this.btnAlarm.TabIndex = 31;
+            this.btnAlarm.Text = "故障";
+            this.btnAlarm.UseVisualStyleBackColor = true;
+            this.btnAlarm.Click += new System.EventHandler(this.btnAlarm_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(31, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 16);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "报警";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(31, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 16);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "联机";
+            // 
+            // pbxError
+            // 
+            this.pbxError.AccessibleDescription = "0";
+            this.pbxError.Image = ((System.Drawing.Image)(resources.GetObject("pbxError.Image")));
+            this.pbxError.Location = new System.Drawing.Point(9, 34);
+            this.pbxError.Name = "pbxError";
+            this.pbxError.Size = new System.Drawing.Size(16, 16);
+            this.pbxError.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbxError.TabIndex = 26;
+            this.pbxError.TabStop = false;
+            // 
+            // pbxOnline
+            // 
+            this.pbxOnline.AccessibleDescription = "0";
+            this.pbxOnline.Image = ((System.Drawing.Image)(resources.GetObject("pbxOnline.Image")));
+            this.pbxOnline.Location = new System.Drawing.Point(9, 16);
+            this.pbxOnline.Name = "pbxOnline";
+            this.pbxOnline.Size = new System.Drawing.Size(16, 16);
+            this.pbxOnline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbxOnline.TabIndex = 26;
+            this.pbxOnline.TabStop = false;
+            // 
+            // lblEvent
+            // 
+            this.lblEvent.AutoSize = true;
+            this.lblEvent.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold);
+            this.lblEvent.Location = new System.Drawing.Point(130, 33);
+            this.lblEvent.Name = "lblEvent";
+            this.lblEvent.Size = new System.Drawing.Size(76, 16);
+            this.lblEvent.TabIndex = 22;
+            this.lblEvent.Text = "开始运行";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold);
+            this.label12.Location = new System.Drawing.Point(82, 33);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 16);
+            this.label12.TabIndex = 21;
+            this.label12.Text = "事件:";
+            // 
+            // lblState
+            // 
+            this.lblState.AutoSize = true;
+            this.lblState.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold);
+            this.lblState.Location = new System.Drawing.Point(130, 15);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(59, 16);
+            this.lblState.TabIndex = 16;
+            this.lblState.Text = "初始化";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Bold);
+            this.label9.Location = new System.Drawing.Point(82, 15);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(51, 16);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "状态:";
+            // 
+            // lblAlarmCode
+            // 
+            this.lblAlarmCode.AutoSize = true;
+            this.lblAlarmCode.Font = new System.Drawing.Font("幼圆", 10F, System.Drawing.FontStyle.Bold);
+            this.lblAlarmCode.Location = new System.Drawing.Point(278, 33);
+            this.lblAlarmCode.Name = "lblAlarmCode";
+            this.lblAlarmCode.Size = new System.Drawing.Size(39, 14);
+            this.lblAlarmCode.TabIndex = 14;
+            this.lblAlarmCode.Text = "0000";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("幼圆", 10F, System.Drawing.FontStyle.Bold);
+            this.label5.Location = new System.Drawing.Point(218, 33);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 14);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "故障码:";
+            // 
+            // lblTaskId
+            // 
+            this.lblTaskId.AutoSize = true;
+            this.lblTaskId.Font = new System.Drawing.Font("幼圆", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTaskId.Location = new System.Drawing.Point(485, 15);
+            this.lblTaskId.Name = "lblTaskId";
+            this.lblTaskId.Size = new System.Drawing.Size(71, 14);
+            this.lblTaskId.TabIndex = 14;
+            this.lblTaskId.Text = "GOT00001";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("幼圆", 10F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(423, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 14);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "任务号:";
+            // 
+            // lblUserCode
+            // 
+            this.lblUserCode.AutoSize = true;
+            this.lblUserCode.Font = new System.Drawing.Font("幼圆", 10F, System.Drawing.FontStyle.Bold);
+            this.lblUserCode.Location = new System.Drawing.Point(315, 15);
+            this.lblUserCode.Name = "lblUserCode";
+            this.lblUserCode.Size = new System.Drawing.Size(87, 14);
+            this.lblUserCode.TabIndex = 20;
+            this.lblUserCode.Text = "01-001-001";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("幼圆", 10F, System.Drawing.FontStyle.Bold);
+            this.label11.Location = new System.Drawing.Point(217, 15);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(45, 14);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "列层:";
+            // 
+            // lblColRow
+            // 
+            this.lblColRow.AutoSize = true;
+            this.lblColRow.Font = new System.Drawing.Font("幼圆", 10F, System.Drawing.FontStyle.Bold);
+            this.lblColRow.Location = new System.Drawing.Point(256, 15);
+            this.lblColRow.Name = "lblColRow";
+            this.lblColRow.Size = new System.Drawing.Size(63, 14);
+            this.lblColRow.TabIndex = 18;
+            this.lblColRow.Text = "001 001";
+            // 
+            // ucCrane
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.gbxCrane);
+            this.DoubleBuffered = true;
+            this.MaximumSize = new System.Drawing.Size(758, 56);
+            this.MinimumSize = new System.Drawing.Size(218, 56);
+            this.Name = "ucCrane";
+            this.Size = new System.Drawing.Size(758, 56);
+            this.Tag = "";
+            this.Load += new System.EventHandler(this.ucCrane_Load);
+            this.gbxCrane.ResumeLayout(false);
+            this.gbxCrane.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxError)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxOnline)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox gbxCrane;
+        private System.Windows.Forms.Label lblState;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblTaskId;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblUserCode;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblColRow;
+        private System.Windows.Forms.Label lblEvent;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.PictureBox pbxError;
+        private System.Windows.Forms.PictureBox pbxOnline;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnAlarm;
+        private System.Windows.Forms.Button btnLock;
+        private System.Windows.Forms.Label lblAlarmCode;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnManual;
+        internal System.Windows.Forms.Label lblCraneName;
+    }
+}

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c001 xmlFile="C001.xml" type="Wcs.DefaultImpls.Crane.RackLocationCollection, Wcs.DefaultImpls" device="C001" _leftLine="1" _rightLine="2" _columnCount="10" _levelCount="3">
+  <location isWildcard="true"/>
+  <location userCode="01-000-001" column="0" level="1" forkDirection="Left" synonymous="1101@输送线1"/>
+  <location userCode="02-000-001" column="0" level="1" forkDirection="Right" synonymous="1102@输送线1"/>
+</c001>
