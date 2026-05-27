@@ -1,13 +1,21 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
+using System.Xml;
+using NLog;
+using NLog.Config;
 using Wcs.Framework.Cfg;
 
 namespace WcsConsoleApplication
 {
     internal class Program
     {
+        private static string AssemblySearchDirectory;
+        private static string ValidationConfigurationPath;
+        private static int _assemblyResolverRegistered;
         private static readonly ManualResetEvent ShutdownEvent = new ManualResetEvent(false);
         private static int _shutdownRequested;
 
@@ -26,6 +34,7 @@ namespace WcsConsoleApplication
 
                 if (options.ValidateConfigurationOnly)
                 {
+                    ConfigureValidationLogging();
                     ValidateConfiguration();
                     return 0;
                 }
@@ -56,6 +65,7 @@ namespace WcsConsoleApplication
         private static void Bootstrap(HostOptions options)
         {
             string configPath = null;
+            string effectiveConfigPath = null;
             if (!string.IsNullOrWhiteSpace(options.ConfigurationPath))
             {
                 configPath = Path.GetFullPath(options.ConfigurationPath);
@@ -80,12 +90,26 @@ namespace WcsConsoleApplication
             }
 
             Directory.SetCurrentDirectory(baseDirectory);
+            ConfigureAssemblyResolution(baseDirectory);
             Console.WriteLine("Working directory: " + baseDirectory);
 
             if (!string.IsNullOrWhiteSpace(configPath))
             {
-                ConfigurationFileSwitcher.Use(configPath);
+                if (options.ValidateConfigurationOnly)
+                {
+                    ValidationConfigurationPath = configPath;
+                }
+
+                effectiveConfigPath = options.ValidateConfigurationOnly
+                    ? CreateValidationConfig(configPath)
+                    : configPath;
+
+                ConfigurationFileSwitcher.Use(effectiveConfigPath);
                 Console.WriteLine("Using external config: " + configPath);
+                if (!string.Equals(configPath, effectiveConfigPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Validation config: " + effectiveConfigPath);
+                }
             }
             else
             {
@@ -95,17 +119,169 @@ namespace WcsConsoleApplication
 
         private static void ValidateConfiguration()
         {
-            WcsConfiguration configuration = WcsConfiguration.Instance;
-            int startupCount = configuration.ApplicationElement.StartupSelection.StartupElements.Length;
-            int deviceCount = configuration.DeviceCollection.ParticularDeviceCollection.SelectMany(x => x.DeviceElements).Count();
-            int locationCount = configuration.LocationCollection.ParticularLocationCollection.SelectMany(x => x.LocationElements).Count();
-            int routeCount = configuration.RouteCollection.RouteElements.Count();
+            WcsConfiguration configuration = string.IsNullOrWhiteSpace(ValidationConfigurationPath)
+                ? WcsConfiguration.Instance
+                : LoadValidationConfiguration(ValidationConfigurationPath);
+            int startupCount = configuration.ApplicationElement != null
+                && configuration.ApplicationElement.StartupSelection != null
+                && configuration.ApplicationElement.StartupSelection.StartupElements != null
+                ? configuration.ApplicationElement.StartupSelection.StartupElements.Length
+                : 0;
+
+            int deviceCount = configuration.DeviceCollection != null
+                && configuration.DeviceCollection.ParticularDeviceCollection != null
+                ? configuration.DeviceCollection.ParticularDeviceCollection.SelectMany(x => x.DeviceElements ?? new Wcs.Framework.Cfg.DeviceElement[] { }).Count()
+                : 0;
+
+            int locationCount = configuration.LocationCollection != null
+                && configuration.LocationCollection.ParticularLocationCollection != null
+                ? configuration.LocationCollection.ParticularLocationCollection.SelectMany(x => x.LocationElements ?? new Wcs.Framework.Cfg.LocationElement[] { }).Count()
+                : 0;
+
+            int routeCount = configuration.RouteCollection != null
+                && configuration.RouteCollection.RouteElements != null
+                ? configuration.RouteCollection.RouteElements.Count()
+                : 0;
 
             Console.WriteLine("Configuration loaded successfully.");
             Console.WriteLine("Startups: {0}", startupCount);
             Console.WriteLine("Devices: {0}", deviceCount);
             Console.WriteLine("Locations: {0}", locationCount);
             Console.WriteLine("Routes: {0}", routeCount);
+        }
+
+        private static void ConfigureValidationLogging()
+        {
+            LogManager.Configuration = new LoggingConfiguration();
+        }
+
+        private static void ConfigureAssemblyResolution(string baseDirectory)
+        {
+            AssemblySearchDirectory = baseDirectory;
+            AppDomain.CurrentDomain.SetData("WCS_CONFIG_BASE_DIRECTORY", baseDirectory);
+            TryPreloadAssembly("ZHQXC.dll");
+            if (Interlocked.Exchange(ref _assemblyResolverRegistered, 1) == 1)
+            {
+                return;
+            }
+
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+        }
+
+        private static string CreateValidationConfig(string configPath)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(configPath);
+
+            XmlNode configSections = document.SelectSingleNode("/configuration/configSections");
+            if (configSections != null)
+            {
+                XmlNode nlogSection = configSections.SelectSingleNode("section[@name='nlog']");
+                if (nlogSection != null)
+                {
+                    configSections.RemoveChild(nlogSection);
+                }
+            }
+
+            XmlNode nlogNode = document.SelectSingleNode("/configuration/nlog");
+            if (nlogNode != null && nlogNode.ParentNode != null)
+            {
+                nlogNode.ParentNode.RemoveChild(nlogNode);
+            }
+
+            string validationConfigPath = Path.Combine(
+                Path.GetTempPath(),
+                "WcsConsoleApplication.validation." + Guid.NewGuid().ToString("N") + ".config");
+
+            document.Save(validationConfigPath);
+            return validationConfigPath;
+        }
+
+        private static WcsConfiguration LoadValidationConfiguration(string configPath)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(configPath);
+            ExpandXmlFileAttributes(document, Path.GetDirectoryName(configPath));
+
+            XmlNode wcsConfigurationNode = document.SelectSingleNode("/configuration/wcs-configuration");
+            if (wcsConfigurationNode == null)
+            {
+                throw new ConfigurationErrorsException("Missing wcs-configuration section in " + configPath);
+            }
+
+            return new WcsConfiguration(wcsConfigurationNode);
+        }
+
+        private static void ExpandXmlFileAttributes(XmlDocument document, string configDirectory)
+        {
+            XmlNodeList redirectedNodes = document.SelectNodes("//*[@xmlFile]");
+            if (redirectedNodes == null)
+            {
+                return;
+            }
+
+            foreach (XmlNode redirectedNode in redirectedNodes)
+            {
+                if (redirectedNode.Attributes == null)
+                {
+                    continue;
+                }
+
+                XmlAttribute xmlFileAttribute = redirectedNode.Attributes["xmlFile"];
+                if (xmlFileAttribute == null || string.IsNullOrWhiteSpace(xmlFileAttribute.Value) || Path.IsPathRooted(xmlFileAttribute.Value))
+                {
+                    continue;
+                }
+
+                xmlFileAttribute.Value = Path.GetFullPath(Path.Combine(configDirectory, xmlFileAttribute.Value));
+            }
+        }
+
+        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            if (string.IsNullOrWhiteSpace(AssemblySearchDirectory))
+            {
+                return null;
+            }
+
+            string assemblyName = new AssemblyName(args.Name).Name;
+            string[] candidateFiles = new[]
+            {
+                Path.Combine(AssemblySearchDirectory, assemblyName + ".dll"),
+                Path.Combine(AssemblySearchDirectory, assemblyName + ".exe")
+            };
+
+            foreach (string candidateFile in candidateFiles)
+            {
+                if (File.Exists(candidateFile))
+                {
+                    return Assembly.LoadFrom(candidateFile);
+                }
+            }
+
+            return null;
+        }
+
+        private static void TryPreloadAssembly(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(AssemblySearchDirectory))
+            {
+                return;
+            }
+
+            string assemblyPath = Path.Combine(AssemblySearchDirectory, fileName);
+            if (!File.Exists(assemblyPath))
+            {
+                return;
+            }
+
+            try
+            {
+                Assembly.LoadFrom(assemblyPath);
+            }
+            catch
+            {
+            }
         }
 
         private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)

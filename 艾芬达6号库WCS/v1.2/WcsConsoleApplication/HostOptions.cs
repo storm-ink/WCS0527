@@ -50,15 +50,16 @@ namespace WcsConsoleApplication
                     continue;
                 }
 
-                if (TryReadValue(args, ref i, arg, "--config", out arg))
+                string optionValue;
+                if (TryReadValue(args, ref i, arg, "--config", out optionValue))
                 {
-                    options.ConfigurationPath = arg;
+                    options.ConfigurationPath = optionValue;
                     continue;
                 }
 
-                if (TryReadValue(args, ref i, arg, "--base-directory", out arg))
+                if (TryReadValue(args, ref i, arg, "--base-directory", out optionValue))
                 {
-                    options.BaseDirectory = arg;
+                    options.BaseDirectory = optionValue;
                     continue;
                 }
 
