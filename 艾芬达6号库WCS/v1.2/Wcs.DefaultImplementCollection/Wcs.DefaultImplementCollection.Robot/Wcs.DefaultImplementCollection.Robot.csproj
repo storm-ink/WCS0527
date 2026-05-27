@@ -55,14 +55,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Wcs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Wcs\bin\Debug\Wcs.dll</HintPath>
-    </Reference>
-    <Reference Include="WCS.APP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WCS.DEVAPP\bin\Debug\WCS.APP.exe</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AddAutomaticTransferWithStepByStepCommand.cs" />
@@ -119,11 +111,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wcs.FrameworkExtend\Wcs.FrameworkExtend.csproj">
+    <ProjectReference Include="..\..\Wcs\Wcs.csproj">
+      <Project>{45794acc-1755-4d65-9120-73e532d27053}</Project>
+      <Name>Wcs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wcs.FrameworkExtend\Wcs.FrameworkExtend.csproj">
       <Project>{a03c1063-8918-48ff-b691-e1e40f406168}</Project>
       <Name>Wcs.FrameworkExtend</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wcs.Framework\Wcs.Framework.csproj">
+    <ProjectReference Include="..\..\Wcs.Framework\Wcs.Framework.csproj">
       <Project>{2c6225cc-6960-4964-9dcd-048b4b607bd1}</Project>
       <Name>Wcs.Framework</Name>
     </ProjectReference>
