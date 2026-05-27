@@ -192,27 +192,55 @@ namespace Wcs.Framework
             this.UnableToConnectErrorTimeout = 600;
             this.DeviceEventQueue = new DeviceEventQueue(this);
             _equipmentFailures = new List<EquipmentFailure>();
+            bool validateConfigOnly = ((AppDomain.CurrentDomain.GetData("WCS_VALIDATE_CONFIG_ONLY") as bool?) ?? false);
+            // #region agent log
+            System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"A\",\"location\":\"Device.cs:ctor-before-db\",\"message\":\"device constructor reached db-sensitive section\",\"data\":{\"deviceName\":\"" + ((this.Name ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\",\"validateOnly\":" + (validateConfigOnly ? "true" : "false") + "},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+            // #endregion
 
             this._logger.Trace1(string.Format("开始加载锁设备信息..."), this);
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            // #region agent log
+            System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"A\",\"location\":\"Device.cs:ctor-enter-lock-load\",\"message\":\"device constructor entering lock load\",\"data\":{\"deviceName\":\"" + ((this.Name ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\"},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+            // #endregion
+            if (validateConfigOnly)
             {
-                var locker = unitOfWork.session.Get<DeviceLockerInformation>(this.Name);
-                if (locker != null)
+                // #region agent log
+                System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"A\",\"location\":\"Device.cs:ctor-skip-lock-load\",\"message\":\"device constructor skipped lock load for validation\",\"data\":{\"deviceName\":\"" + ((this.Name ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\"},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+                // #endregion
+            }
+            else
+            {
+                using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
                 {
-                    this.Locker = locker.LockerInfo;
-                    this._logger.Trace1(string.Format("找到锁 {0},保持成功", locker), this);
-                }
-                else
-                {
-                    this._logger.Trace1(string.Format("未找到锁 {0}", locker), this);
-                }
+                    var locker = unitOfWork.session.Get<DeviceLockerInformation>(this.Name);
+                    if (locker != null)
+                    {
+                        this.Locker = locker.LockerInfo;
+                        this._logger.Trace1(string.Format("找到锁 {0},保持成功", locker), this);
+                    }
+                    else
+                    {
+                        this._logger.Trace1(string.Format("未找到锁 {0}", locker), this);
+                    }
 
-                unitOfWork.Commit();
+                    unitOfWork.Commit();
+                }
             }
             this._logger.Trace1(string.Format("设备信息加载结束"), this);
             this._logger.Info1(string.Format("初始化完成"), this);
 
-            this.EquipmentFailureChecker.Start();
+            // #region agent log
+            System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"B\",\"location\":\"Device.cs:ctor-start-checker\",\"message\":\"device constructor starting failure checker\",\"data\":{\"deviceName\":\"" + ((this.Name ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\",\"validateOnly\":" + (validateConfigOnly ? "true" : "false") + "},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+            // #endregion
+            if (validateConfigOnly)
+            {
+                // #region agent log
+                System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"B\",\"location\":\"Device.cs:ctor-skip-checker\",\"message\":\"device constructor skipped failure checker for validation\",\"data\":{\"deviceName\":\"" + ((this.Name ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\"},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+                // #endregion
+            }
+            else
+            {
+                this.EquipmentFailureChecker.Start();
+            }
         }
 
         #region Public Methos

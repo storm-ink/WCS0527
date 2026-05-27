@@ -126,6 +126,7 @@ namespace Wcs.Framework
             this.Device = device;
             this.DeviceName = device.Name;
             this.Init("EquipmentActionScheduler_" + this.Device.Name);
+            bool validateConfigOnly = ((AppDomain.CurrentDomain.GetData("WCS_VALIDATE_CONFIG_ONLY") as bool?) ?? false);
 
             EquipmentActionSchedulerFilter[] basicActionFilters =
                 new EquipmentActionSchedulerFilter[]{
@@ -140,45 +141,60 @@ namespace Wcs.Framework
                 this.ActionFilters = basicActionFilters.Concat(actionFilters).ToArray();
             }
 
-            EquipmentActionScheduler scheduler;
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            // #region agent log
+            System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"C\",\"location\":\"EquipmentActionScheduler.cs:ctor-before-db\",\"message\":\"scheduler constructor reached db bootstrap\",\"data\":{\"deviceName\":\"" + ((this.DeviceName ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\",\"validateOnly\":" + (validateConfigOnly ? "true" : "false") + "},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+            // #endregion
+
+            if (validateConfigOnly)
             {
-                scheduler = unitOfWork.session
-                    .Query<EquipmentActionScheduler>()
-                    .SingleOrDefault(x => x.DeviceName == device.Name);
-                if (scheduler == null)
+                this.CurrentAction = null;
+                _actions = new List<EquipmentAction>();
+                // #region agent log
+                System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"C\",\"location\":\"EquipmentActionScheduler.cs:ctor-skip-db\",\"message\":\"scheduler constructor skipped db bootstrap for validation\",\"data\":{\"deviceName\":\"" + ((this.DeviceName ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\"},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+                // #endregion
+            }
+            else
+            {
+                EquipmentActionScheduler scheduler;
+                using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
                 {
-                    scheduler = new EquipmentActionScheduler();
-                    scheduler.DeviceName = device.Name;
-                    unitOfWork.session.Save(scheduler);
+                    scheduler = unitOfWork.session
+                        .Query<EquipmentActionScheduler>()
+                        .SingleOrDefault(x => x.DeviceName == device.Name);
+                    if (scheduler == null)
+                    {
+                        scheduler = new EquipmentActionScheduler();
+                        scheduler.DeviceName = device.Name;
+                        unitOfWork.session.Save(scheduler);
+                    }
+
+                    unitOfWork.Commit();
                 }
 
-                unitOfWork.Commit();
+                this.CurrentAction = scheduler.CurrentAction;
+                this._logger.Debug1(string.Format("预操作{0}当前动作由{1}修改为{2}。", this, null, this.CurrentAction), this, this.CurrentAction);
+
+                EventBus.EventBus.Instance.Publish(new SchedulerCurrentActionChangedEvent(this, null, this.CurrentAction));
+
+                using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+                {
+                    _actions = unitOfWork
+                        .session
+                        .Query<EquipmentAction>()
+                        .Where(x => x.DeviceName == device.Name
+                            && (x.Status != EquipmentActionStatus.Completed || x.Status != EquipmentActionStatus.Cancelled)
+                            )
+                        .ToList();
+
+                    unitOfWork.Commit();
+                }
+
+                EventBus.EventBus.Instance.Subscribe<EquipmentActionStatusChangedEvent>(onEquipmentActionStatusChanged);
+                EventBus.EventBus.Instance.Subscribe<TaskArchivedEvent>(onTaskArchived);
+                EventBus.EventBus.Instance.Subscribe<TaskCurrentLocationChangedEvent>(onTaskCurrentLocationChanged);
+                Wcs.Framework.EventBus.EventBus.Instance.Subscribe<TaskPriorityChangedEvent>(onPriorityChange);
+                Wcs.Framework.EventBus.EventBus.Instance.Subscribe<TaskUpdateEvent>(onTaskUpdate);
             }
-
-            this.CurrentAction = scheduler.CurrentAction;
-            this._logger.Debug1(string.Format("预操作{0}当前动作由{1}修改为{2}。", this, null, this.CurrentAction), this, this.CurrentAction);
-
-            EventBus.EventBus.Instance.Publish(new SchedulerCurrentActionChangedEvent(this, null, this.CurrentAction));
-
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
-            {
-                _actions = unitOfWork
-                    .session
-                    .Query<EquipmentAction>()
-                    .Where(x => x.DeviceName == device.Name
-                        && (x.Status != EquipmentActionStatus.Completed || x.Status != EquipmentActionStatus.Cancelled)
-                        )
-                    .ToList();
-
-                unitOfWork.Commit();
-            }
-
-            EventBus.EventBus.Instance.Subscribe<EquipmentActionStatusChangedEvent>(onEquipmentActionStatusChanged);
-            EventBus.EventBus.Instance.Subscribe<TaskArchivedEvent>(onTaskArchived);
-            EventBus.EventBus.Instance.Subscribe<TaskCurrentLocationChangedEvent>(onTaskCurrentLocationChanged);
-            Wcs.Framework.EventBus.EventBus.Instance.Subscribe<TaskPriorityChangedEvent>(onPriorityChange);
-            Wcs.Framework.EventBus.EventBus.Instance.Subscribe<TaskUpdateEvent>(onTaskUpdate);
         }
 
         /// <summary>

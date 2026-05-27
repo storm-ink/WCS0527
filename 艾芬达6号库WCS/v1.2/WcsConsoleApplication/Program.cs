@@ -16,6 +16,7 @@ namespace WcsConsoleApplication
     {
         private static string[] AssemblySearchDirectories = new string[0];
         private static string ValidationConfigurationPath;
+        private static bool ValidationProcessMode;
         private static int _assemblyResolverRegistered;
         private static readonly ManualResetEvent ShutdownEvent = new ManualResetEvent(false);
         private static int _shutdownRequested;
@@ -25,6 +26,7 @@ namespace WcsConsoleApplication
             try
             {
                 HostOptions options = HostOptions.Parse(args);
+                ValidationProcessMode = options.ValidateConfigurationOnly;
                 if (options.ShowHelp)
                 {
                     HostOptions.WriteHelp(Console.Out);
@@ -37,6 +39,7 @@ namespace WcsConsoleApplication
                 {
                     ConfigureValidationLogging();
                     ValidateConfiguration();
+                    Environment.Exit(0);
                     return 0;
                 }
 
@@ -59,6 +62,10 @@ namespace WcsConsoleApplication
             catch (Exception ex)
             {
                 Console.Error.WriteLine("WCS host failed: " + ex);
+                if (ValidationProcessMode)
+                {
+                    Environment.Exit(1);
+                }
                 return 1;
             }
         }
@@ -92,6 +99,7 @@ namespace WcsConsoleApplication
 
             Directory.SetCurrentDirectory(baseDirectory);
             ConfigureAssemblyResolution(baseDirectory);
+            AppDomain.CurrentDomain.SetData("WCS_VALIDATE_CONFIG_ONLY", options.ValidateConfigurationOnly);
             Console.WriteLine("Working directory: " + baseDirectory);
 
             if (!string.IsNullOrWhiteSpace(configPath))
@@ -120,6 +128,9 @@ namespace WcsConsoleApplication
 
         private static void ValidateConfiguration()
         {
+            // #region agent log
+            File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"D\",\"location\":\"Program.cs:ValidateConfiguration-entry\",\"message\":\"validate configuration start\",\"data\":{\"configPath\":\"" + ((ValidationConfigurationPath ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\",\"validateOnly\":" + (((AppDomain.CurrentDomain.GetData("WCS_VALIDATE_CONFIG_ONLY") as bool?) ?? false) ? "true" : "false") + "},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+            // #endregion
             WcsConfiguration configuration = string.IsNullOrWhiteSpace(ValidationConfigurationPath)
                 ? WcsConfiguration.Instance
                 : LoadValidationConfiguration(ValidationConfigurationPath);
@@ -149,6 +160,9 @@ namespace WcsConsoleApplication
             Console.WriteLine("Devices: {0}", deviceCount);
             Console.WriteLine("Locations: {0}", locationCount);
             Console.WriteLine("Routes: {0}", routeCount);
+            // #region agent log
+            File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"C\",\"location\":\"Program.cs:ValidateConfiguration-success\",\"message\":\"validate configuration success\",\"data\":{\"startups\":" + startupCount + ",\"devices\":" + deviceCount + ",\"locations\":" + locationCount + ",\"routes\":" + routeCount + "},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
+            // #endregion
         }
 
         private static void ConfigureValidationLogging()
