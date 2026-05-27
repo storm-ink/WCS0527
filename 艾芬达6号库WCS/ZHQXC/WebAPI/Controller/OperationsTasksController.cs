@@ -2,6 +2,7 @@ using NLog;
 using System;
 using System.Net;
 using System.Web.Http;
+using Wcs;
 using ZHQXC.Client;
 using Wcs.Framework.Exceptions;
 

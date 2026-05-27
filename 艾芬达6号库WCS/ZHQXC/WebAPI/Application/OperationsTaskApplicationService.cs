@@ -5,6 +5,7 @@ using System.Linq;
 using Wcs;
 using Wcs.Framework;
 using Wcs.Framework.Exceptions;
+using ZHQXC.Client;
 
 namespace ZHQXC
 {

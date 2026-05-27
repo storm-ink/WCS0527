@@ -2,6 +2,7 @@ using NLog;
 using System;
 using System.Net;
 using System.Web.Http;
+using Wcs;
 
 namespace ZHQXC
 {
