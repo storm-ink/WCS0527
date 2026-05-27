@@ -64,7 +64,6 @@
     <Compile Include="PreBusinessAboutStartUp.cs" />
     <Compile Include="BusinessAboutStartUp.cs" />
     <Compile Include="BusinessHelper.cs" />
-    <Compile Include="CraneFilter\YCCraneUnloadEquipmentActionSchedulerFilter.cs" />
     <Compile Include="CraneFilter\CraneUnloadEquipmentActionSchedulerFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,10 +83,6 @@
     <ProjectReference Include="..\Wcs.DefaultImplementCollection.Crane\Wcs.DefaultImplementCollection.Crane.csproj">
       <Project>{c69bca4e-c889-4e68-853f-980c1d55a734}</Project>
       <Name>Wcs.DefaultImplementCollection.Crane</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Wcs.DefaultImplementCollection.Crane_yc\Wcs.DefaultImplementCollection.Crane_yc.csproj">
-      <Project>{1ed065fa-e3a2-4253-93e7-a9e83de77a68}</Project>
-      <Name>Wcs.DefaultImplementCollection.Crane_yc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

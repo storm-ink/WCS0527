@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcsConsoleApplication", "v1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZHQXC", "ZHQXC\ZHQXC.csproj", "{3D530F1E-25B2-4A08-8EE3-069500903CC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wcs.DefaultImplementCollection.AGV", "Wcs.DefaultImplementCollection.AGV\Wcs.DefaultImplementCollection.AGV.csproj", "{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wcs.DefaultImplementCollection.AGV", "v1.2\Wcs.DefaultImplementCollection\Wcs.DefaultImplementCollection.AGV\Wcs.DefaultImplementCollection.AGV.csproj", "{AF079A49-74F5-4EAA-9CCE-2C8D52C3A202}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wcs.DefaultImplementCollection.Business", "v1.2\Wcs.DefaultImplementCollection\Wcs.DefaultImplementCollection.Business\Wcs.DefaultImplementCollection.Business.csproj", "{75D8DF45-675C-46D1-867B-5BF73A8BB8C9}"
 EndProject

@@ -79,10 +79,6 @@
       <Project>{fcfc92b3-4e99-47cb-a6dd-396844e8b545}</Project>
       <Name>Wcs.DefaultImplementCollection.Conveyor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WCS.DEVAPP\WCS.APP.csproj">
-      <Project>{a56a176c-60c5-4616-9e0e-310cc58e9dcc}</Project>
-      <Name>WCS.APP</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Wcs.Framework\Wcs.Framework.csproj">
       <Project>{2c6225cc-6960-4964-9dcd-048b4b607bd1}</Project>
       <Name>Wcs.Framework</Name>
