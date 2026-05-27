@@ -68,11 +68,18 @@ Examples:
 
 The host build and CLI entry are working in the current environment.
 
-Validation against `ZHQXC/Wcs.App.exe.config` now reaches the real external site config path and deployment base directory. The remaining failure is inside site-specific startup type resolution in the current local validation environment, not in argument parsing, config switching, or `xmlFile` path expansion.
+Validation against `ZHQXC/Wcs.App.exe.config` is now successful through the `WcsConsoleApplication` host. The validate-only path can:
+
+- load the real external site config
+- resolve site assemblies from both deployment and development output directories
+- expand `xmlFile` references against the intended base directory
+- parse startups, devices, locations, and routes without starting runtime schedulers or touching DB-backed runtime bootstrap
+
+This means the minimal runtime baseline is now suitable as the execution anchor for Phase 3 API consolidation work.
 
 ## Next recommended steps
 
 1. make `WCS.MinimalRuntime.sln` the default solution for runtime-side refactors
 2. continue moving startup/runtime verification to `WcsConsoleApplication`
-3. reduce binary `HintPath` dependencies inside `ZHQXC` where project references are preferable
-4. split API-facing work from UI/plugin-facing work on top of the minimal runtime baseline
+3. inventory and consolidate the active API surface around `ZHQXC/WebAPI`
+4. reduce binary `HintPath` dependencies inside `ZHQXC` where project references are preferable
