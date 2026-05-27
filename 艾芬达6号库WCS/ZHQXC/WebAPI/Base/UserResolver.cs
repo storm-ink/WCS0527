@@ -23,8 +23,8 @@ namespace ZHQXC
 
             HashSet<string> loadedAssemblyPaths = new HashSet<string>(
                 assemblies
-                    .Where(x => !string.IsNullOrWhiteSpace(x.Location))
-                    .Select(x => x.Location),
+                    .Select(GetAssemblyIdentity)
+                    .Where(x => !string.IsNullOrWhiteSpace(x)),
                 StringComparer.OrdinalIgnoreCase);
 
             foreach (var item in _config.dlls)
@@ -36,7 +36,8 @@ namespace ZHQXC
                         string.Format("无法定位 WebAPI 控制器程序集 {0}。", item));
                 }
 
-                if (loadedAssemblyPaths.Add(controllersAssembly.Location))
+                string assemblyIdentity = GetAssemblyIdentity(controllersAssembly);
+                if (loadedAssemblyPaths.Add(assemblyIdentity))
                 {
                     assemblies.Add(controllersAssembly);
                 }
@@ -90,6 +91,27 @@ namespace ZHQXC
             return candidateDirectories
                 .Where(x => !string.IsNullOrWhiteSpace(x) && Directory.Exists(x))
                 .Distinct(StringComparer.OrdinalIgnoreCase);
+        }
+
+        static string GetAssemblyIdentity(Assembly assembly)
+        {
+            if (assembly == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(assembly.Location))
+                {
+                    return assembly.Location;
+                }
+            }
+            catch (NotSupportedException)
+            {
+            }
+
+            return assembly.FullName;
         }
     }
 }
