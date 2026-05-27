@@ -141,17 +141,10 @@ namespace Wcs.Framework
                 this.ActionFilters = basicActionFilters.Concat(actionFilters).ToArray();
             }
 
-            // #region agent log
-            System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"C\",\"location\":\"EquipmentActionScheduler.cs:ctor-before-db\",\"message\":\"scheduler constructor reached db bootstrap\",\"data\":{\"deviceName\":\"" + ((this.DeviceName ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\",\"validateOnly\":" + (validateConfigOnly ? "true" : "false") + "},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
-            // #endregion
-
             if (validateConfigOnly)
             {
                 this.CurrentAction = null;
                 _actions = new List<EquipmentAction>();
-                // #region agent log
-                System.IO.File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"C\",\"location\":\"EquipmentActionScheduler.cs:ctor-skip-db\",\"message\":\"scheduler constructor skipped db bootstrap for validation\",\"data\":{\"deviceName\":\"" + ((this.DeviceName ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\"},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
-                // #endregion
             }
             else
             {

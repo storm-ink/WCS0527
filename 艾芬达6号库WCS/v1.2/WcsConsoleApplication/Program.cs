@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -128,9 +127,6 @@ namespace WcsConsoleApplication
 
         private static void ValidateConfiguration()
         {
-            // #region agent log
-            File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"D\",\"location\":\"Program.cs:ValidateConfiguration-entry\",\"message\":\"validate configuration start\",\"data\":{\"configPath\":\"" + ((ValidationConfigurationPath ?? string.Empty).Replace("\\", "\\\\").Replace("\"", "\\\"")) + "\",\"validateOnly\":" + (((AppDomain.CurrentDomain.GetData("WCS_VALIDATE_CONFIG_ONLY") as bool?) ?? false) ? "true" : "false") + "},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
-            // #endregion
             WcsConfiguration configuration = string.IsNullOrWhiteSpace(ValidationConfigurationPath)
                 ? WcsConfiguration.Instance
                 : LoadValidationConfiguration(ValidationConfigurationPath);
@@ -160,9 +156,6 @@ namespace WcsConsoleApplication
             Console.WriteLine("Devices: {0}", deviceCount);
             Console.WriteLine("Locations: {0}", locationCount);
             Console.WriteLine("Routes: {0}", routeCount);
-            // #region agent log
-            File.AppendAllText("/opt/cursor/logs/debug.log", "{\"hypothesisId\":\"C\",\"location\":\"Program.cs:ValidateConfiguration-success\",\"message\":\"validate configuration success\",\"data\":{\"startups\":" + startupCount + ",\"devices\":" + deviceCount + ",\"locations\":" + locationCount + ",\"routes\":" + routeCount + "},\"timestamp\":" + Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds) + "}\n");
-            // #endregion
         }
 
         private static void ConfigureValidationLogging()
