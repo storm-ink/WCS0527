@@ -76,8 +76,16 @@ namespace Wcs.Framework.Cfg
                 WcsConfiguration._logger.Trace1(string.Format("{0} 节点被重定向到了 {1} 文件", node.GetXPath(), xmlFile),this);
                 if (!Path.IsPathRooted(xmlFile))
                 {
-                    var path = new Uri(typeof(Wcs.Framework.Cfg.ConfigurationElement).Assembly.CodeBase).LocalPath;
-                    xmlFile = Path.Combine(Path.GetDirectoryName(path), xmlFile);
+                    var configBaseDirectory = AppDomain.CurrentDomain.GetData("WCS_CONFIG_BASE_DIRECTORY") as string;
+                    if (!string.IsNullOrWhiteSpace(configBaseDirectory))
+                    {
+                        xmlFile = Path.Combine(configBaseDirectory, xmlFile);
+                    }
+                    else
+                    {
+                        var path = new Uri(typeof(Wcs.Framework.Cfg.ConfigurationElement).Assembly.CodeBase).LocalPath;
+                        xmlFile = Path.Combine(Path.GetDirectoryName(path), xmlFile);
+                    }
                 }
 
                 XmlDocument xml = new XmlDocument();

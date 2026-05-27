@@ -702,7 +702,7 @@
     <Folder Include="路径策略\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\v1.2\Wcs.DefaultImplementCollection.Robot\Wcs.DefaultImplementCollection.Robot.csproj">
+    <ProjectReference Include="..\v1.2\Wcs.DefaultImplementCollection\Wcs.DefaultImplementCollection.Robot\Wcs.DefaultImplementCollection.Robot.csproj">
       <Project>{695ad921-ebc8-42b1-9fd8-11475893120b}</Project>
       <Name>Wcs.DefaultImplementCollection.Robot</Name>
     </ProjectReference>
@@ -718,7 +718,7 @@
       <Project>{45794acc-1755-4d65-9120-73e532d27053}</Project>
       <Name>Wcs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wcs.DefaultImplementCollection.AGV\Wcs.DefaultImplementCollection.AGV.csproj">
+    <ProjectReference Include="..\v1.2\Wcs.DefaultImplementCollection\Wcs.DefaultImplementCollection.AGV\Wcs.DefaultImplementCollection.AGV.csproj">
       <Project>{af079a49-74f5-4eaa-9cce-2c8d52c3a202}</Project>
       <Name>Wcs.DefaultImplementCollection.AGV</Name>
     </ProjectReference>

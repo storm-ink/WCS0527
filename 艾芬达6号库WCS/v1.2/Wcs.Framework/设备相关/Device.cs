@@ -192,27 +192,34 @@ namespace Wcs.Framework
             this.UnableToConnectErrorTimeout = 600;
             this.DeviceEventQueue = new DeviceEventQueue(this);
             _equipmentFailures = new List<EquipmentFailure>();
+            bool validateConfigOnly = ((AppDomain.CurrentDomain.GetData("WCS_VALIDATE_CONFIG_ONLY") as bool?) ?? false);
 
             this._logger.Trace1(string.Format("开始加载锁设备信息..."), this);
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            if (!validateConfigOnly)
             {
-                var locker = unitOfWork.session.Get<DeviceLockerInformation>(this.Name);
-                if (locker != null)
+                using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
                 {
-                    this.Locker = locker.LockerInfo;
-                    this._logger.Trace1(string.Format("找到锁 {0},保持成功", locker), this);
-                }
-                else
-                {
-                    this._logger.Trace1(string.Format("未找到锁 {0}", locker), this);
-                }
+                    var locker = unitOfWork.session.Get<DeviceLockerInformation>(this.Name);
+                    if (locker != null)
+                    {
+                        this.Locker = locker.LockerInfo;
+                        this._logger.Trace1(string.Format("找到锁 {0},保持成功", locker), this);
+                    }
+                    else
+                    {
+                        this._logger.Trace1(string.Format("未找到锁 {0}", locker), this);
+                    }
 
-                unitOfWork.Commit();
+                    unitOfWork.Commit();
+                }
             }
             this._logger.Trace1(string.Format("设备信息加载结束"), this);
             this._logger.Info1(string.Format("初始化完成"), this);
 
-            this.EquipmentFailureChecker.Start();
+            if (!validateConfigOnly)
+            {
+                this.EquipmentFailureChecker.Start();
+            }
         }
 
         #region Public Methos

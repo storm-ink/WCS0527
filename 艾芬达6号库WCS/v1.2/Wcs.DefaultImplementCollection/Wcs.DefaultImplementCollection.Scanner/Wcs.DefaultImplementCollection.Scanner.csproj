@@ -75,19 +75,15 @@
     <Compile Include="设备运行数据\ScanerDeviceTelexTransferObjectLogData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wcs.DefaultImplementCollection\Wcs.DefaultImplementCollection.Conveyor\Wcs.DefaultImplementCollection.Conveyor.csproj">
+    <ProjectReference Include="..\Wcs.DefaultImplementCollection.Conveyor\Wcs.DefaultImplementCollection.Conveyor.csproj">
       <Project>{fcfc92b3-4e99-47cb-a6dd-396844e8b545}</Project>
       <Name>Wcs.DefaultImplementCollection.Conveyor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WCS.DEVAPP\WCS.APP.csproj">
-      <Project>{a56a176c-60c5-4616-9e0e-310cc58e9dcc}</Project>
-      <Name>WCS.APP</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Wcs.Framework\Wcs.Framework.csproj">
+    <ProjectReference Include="..\..\Wcs.Framework\Wcs.Framework.csproj">
       <Project>{2c6225cc-6960-4964-9dcd-048b4b607bd1}</Project>
       <Name>Wcs.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wcs\Wcs.csproj">
+    <ProjectReference Include="..\..\Wcs\Wcs.csproj">
       <Project>{45794acc-1755-4d65-9120-73e532d27053}</Project>
       <Name>Wcs</Name>
     </ProjectReference>

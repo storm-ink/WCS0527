@@ -24,6 +24,7 @@ namespace Wcs.Framework
         {
             this._logger = LogManager.GetCurrentClassLogger();
             this.DeviceName = "WCS系统";
+            bool validateConfigOnly = ((AppDomain.CurrentDomain.GetData("WCS_VALIDATE_CONFIG_ONLY") as bool?) ?? false);
 
             EquipmentActionSchedulerFilter[] basicActionFilters =
                 new EquipmentActionSchedulerFilter[]{
@@ -38,19 +39,22 @@ namespace Wcs.Framework
                 this.ActionFilters = basicActionFilters.Concat(actionFilters).ToArray();
             }
 
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+            if (!validateConfigOnly)
             {
-                _actions = unitOfWork
-                    .session
-                    .Query<EquipmentAction>().ToList();
+                using (NHUnitOfWork unitOfWork = new NHUnitOfWork())
+                {
+                    _actions = unitOfWork
+                        .session
+                        .Query<EquipmentAction>().ToList();
 
-                unitOfWork.Commit();
+                    unitOfWork.Commit();
+                }
+
+                EventBus.EventBus.Instance.Subscribe<EquipmentActionStatusChangedEvent>(onEquipmentActionStatusChanged);
+                EventBus.EventBus.Instance.Subscribe<TaskArchivedEvent>(onTaskArchived);
+                EventBus.EventBus.Instance.Subscribe<TaskCurrentLocationChangedEvent>(onTaskCurrentLocationChanged);
+                Wcs.Framework.EventBus.EventBus.Instance.Subscribe<TaskPriorityChangedEvent>(onPriorityChange);
             }
-
-            EventBus.EventBus.Instance.Subscribe<EquipmentActionStatusChangedEvent>(onEquipmentActionStatusChanged);
-            EventBus.EventBus.Instance.Subscribe<TaskArchivedEvent>(onTaskArchived);
-            EventBus.EventBus.Instance.Subscribe<TaskCurrentLocationChangedEvent>(onTaskCurrentLocationChanged);
-            Wcs.Framework.EventBus.EventBus.Instance.Subscribe<TaskPriorityChangedEvent>(onPriorityChange);
         }
 
         /// <summary>
