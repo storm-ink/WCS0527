@@ -156,6 +156,12 @@ namespace ZHQXC
 
         IHttpActionResult ExecuteTaskMutationById(int taskId, Func<WCSTask> operation, string errorCode, string successMessage)
         {
+            if (taskId <= 0)
+            {
+                return Content(HttpStatusCode.BadRequest,
+                    UnifiedApiResponse.Fail("common_validation_error", "taskId 必须大于 0", new UnifiedApiError("taskId", "taskId 必须大于 0")));
+            }
+
             try
             {
                 WCSTask task = operation();
