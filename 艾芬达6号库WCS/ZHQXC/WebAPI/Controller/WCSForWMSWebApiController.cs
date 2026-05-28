@@ -6,6 +6,7 @@ using Sineva.WMS.Dto.WCSDto.RequestDto;
 using System;
 using System.Web.Http;
 using Wcs;
+using Wcs.Framework;
 using ZHQXC;
 
 namespace ZHQXC.WebAPI.Controller
