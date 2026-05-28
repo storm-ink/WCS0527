@@ -532,13 +532,9 @@ namespace ZHQXC
         public IHttpActionResult CompleteMovement([FromBody] JObject msg)
         {
             var tiqc = JsonConvert.DeserializeObject<TaskInformationQueryCriteria>(msg.ToString());
-
-            string _msg = "";
-            if (!RemoteHandTaskHelper.Hold(_msg))
-                throw new Exception($"未获取更新权限，请稍后再试！");
             try
             {
-                TaskHelper.CompleteMovement(tiqc.MovementId);
+                return Json(_operationsTaskService.CompleteMovementById(tiqc.MovementId));
             }
             catch (Exception ex)
             {
@@ -551,22 +547,6 @@ namespace ZHQXC
 
                 throw new HttpResponseException(message);
             }
-            finally
-            {
-                RemoteHandTaskHelper.Holder = string.Empty;
-            }
-
-            Task task;
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
-            {
-                task = unitOfWork.session.Get<Task>(tiqc.TaskId);
-                unitOfWork.Commit();
-            }
-            WCSTask wcsTask = null;
-            if (task != null)
-                wcsTask = new WCSTask(task);
-
-            return Json(wcsTask);
         }
 
         /// <summary>
@@ -579,13 +559,9 @@ namespace ZHQXC
         public IHttpActionResult CompleteAction([FromBody] JObject msg)
         {
             var tiqc = JsonConvert.DeserializeObject<TaskInformationQueryCriteria>(msg.ToString());
-
-            string _msg = "";
-            if (!RemoteHandTaskHelper.Hold(_msg))
-                throw new Exception($"未获取更新权限，请稍后再试！");
             try
             {
-                TaskHelper.CompleteAction(tiqc.ActionId);
+                return Json(_operationsTaskService.CompleteActionById(tiqc.ActionId));
             }
             catch (Exception ex)
             {
@@ -598,22 +574,6 @@ namespace ZHQXC
 
                 throw new HttpResponseException(message);
             }
-            finally
-            {
-                RemoteHandTaskHelper.Holder = string.Empty;
-            }
-
-            Task task;
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
-            {
-                task = unitOfWork.session.Get<Task>(tiqc.TaskId);
-                unitOfWork.Commit();
-            }
-            WCSTask wcsTask = null;
-            if (task != null)
-                wcsTask = new WCSTask(task);
-
-            return Json(wcsTask);
         }
 
         /// <summary>
@@ -626,13 +586,9 @@ namespace ZHQXC
         public IHttpActionResult CancleLogicMovement([FromBody] JObject msg)
         {
             var tiqc = JsonConvert.DeserializeObject<TaskInformationQueryCriteria>(msg.ToString());
-
-            string _msg = "";
-            if (!RemoteHandTaskHelper.Hold(_msg))
-                throw new Exception($"未获取更新权限，请稍后再试！");
             try
             {
-                TaskHelper.CancleLogicMovement(tiqc.MovementId);
+                return Json(_operationsTaskService.CancelMovementById(tiqc.MovementId));
             }
             catch (Exception ex)
             {
@@ -645,22 +601,6 @@ namespace ZHQXC
 
                 throw new HttpResponseException(message);
             }
-            finally
-            {
-                RemoteHandTaskHelper.Holder = string.Empty;
-            }
-
-            Task task;
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
-            {
-                task = unitOfWork.session.Get<Task>(tiqc.TaskId);
-                unitOfWork.Commit();
-            }
-            WCSTask wcsTask = null;
-            if (task != null)
-                wcsTask = new WCSTask(task);
-
-            return Json(wcsTask);
         }
 
         /// <summary>
@@ -673,13 +613,9 @@ namespace ZHQXC
         public IHttpActionResult CancleEquipmentAction([FromBody] JObject msg)
         {
             var tiqc = JsonConvert.DeserializeObject<TaskInformationQueryCriteria>(msg.ToString());
-
-            string _msg = "";
-            if (!RemoteHandTaskHelper.Hold(_msg))
-                throw new Exception($"未获取更新权限，请稍后再试！");
             try
             {
-                TaskHelper.CancleEquipmentAction(tiqc.ActionId);
+                return Json(_operationsTaskService.CancelActionById(tiqc.ActionId));
             }
             catch (Exception ex)
             {
@@ -692,22 +628,6 @@ namespace ZHQXC
 
                 throw new HttpResponseException(message);
             }
-            finally
-            {
-                RemoteHandTaskHelper.Holder = string.Empty;
-            }
-
-            Task task;
-            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
-            {
-                task = unitOfWork.session.Get<Task>(tiqc.TaskId);
-                unitOfWork.Commit();
-            }
-            WCSTask wcsTask = null;
-            if (task != null)
-                wcsTask = new WCSTask(task);
-
-            return Json(wcsTask);
         }
 
         /// <summary>

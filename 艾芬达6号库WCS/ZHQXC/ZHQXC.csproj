@@ -266,6 +266,7 @@
     <Compile Include="WebAPI\Interfaces\ReqeustPLCHelper.cs" />
     <Compile Include="WebAPI\Interfaces\ReqeustWMSHelper.cs" />
     <Compile Include="WebAPI\Controller\StatisticsController.cs" />
+    <Compile Include="WebAPI\Controller\OperationsActionsController.cs" />
     <Compile Include="WebAPI\Controller\IntegrationsAgvController.cs" />
     <Compile Include="WebAPI\Controller\IntegrationsWmsController.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\ReplyDto\AlarmReportReply.cs" />
@@ -291,6 +292,7 @@
     <Compile Include="WebAPI\Entity\WCSDto\RequestDto\PalletSupplyRequest.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\RequestDto\RequestBase.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\RequestDto\TunnelEquipmentStatusReportRequest.cs" />
+    <Compile Include="WebAPI\Controller\OperationsMovementsController.cs" />
     <Compile Include="WebAPI\Controller\OperationsDevicesController.cs" />
     <Compile Include="WebAPI\Controller\OperationsTasksController.cs" />
     <Compile Include="启动程序\立库\AutoClearHoldSingleRequestTaskStartUp_1001.cs" />

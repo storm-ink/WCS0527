@@ -125,10 +125,41 @@ namespace ZHQXC
         [HttpPost]
         public IHttpActionResult CompleteTask(int taskId)
         {
+            return ExecuteTaskMutationById(
+                taskId,
+                delegate { return _taskService.CompleteTaskById(taskId); },
+                "ops_task_complete_failed",
+                "任务已完成");
+        }
+
+        [Route("by-id/{taskId:int}/cancel")]
+        [HttpPost]
+        public IHttpActionResult CancelTaskById(int taskId)
+        {
+            return ExecuteTaskMutationById(
+                taskId,
+                delegate { return _taskService.CancelTaskById(taskId); },
+                "ops_task_cancel_failed",
+                "任务已取消");
+        }
+
+        [Route("by-id/{taskId:int}/archive")]
+        [HttpPost]
+        public IHttpActionResult ArchiveTaskById(int taskId)
+        {
+            return ExecuteTaskMutationById(
+                taskId,
+                delegate { return _taskService.ArchiveTaskById(taskId); },
+                "ops_task_archive_failed",
+                "任务已归档");
+        }
+
+        IHttpActionResult ExecuteTaskMutationById(int taskId, Func<WCSTask> operation, string errorCode, string successMessage)
+        {
             try
             {
-                WCSTask task = _taskService.CompleteTaskById(taskId);
-                return Content(HttpStatusCode.OK, UnifiedApiResponse.Ok(task, "任务已完成"));
+                WCSTask task = operation();
+                return Content(HttpStatusCode.OK, UnifiedApiResponse.Ok(task, successMessage));
             }
             catch (Exception ex)
             {
@@ -138,7 +169,12 @@ namespace ZHQXC
                     return Content(HttpStatusCode.NotFound, UnifiedApiResponse.Fail("ops_task_not_found", ex.Message));
                 }
 
-                return Content(HttpStatusCode.InternalServerError, UnifiedApiResponse.Fail("ops_task_complete_failed", ex.Message));
+                if (ex is ArgumentException || ex is ArgumentNullException)
+                {
+                    return Content(HttpStatusCode.BadRequest, UnifiedApiResponse.Fail("common_validation_error", ex.Message));
+                }
+
+                return Content(HttpStatusCode.InternalServerError, UnifiedApiResponse.Fail(errorCode, ex.Message));
             }
         }
 

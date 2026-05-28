@@ -127,6 +127,38 @@ namespace ZHQXC
             });
         }
 
+        public WCSTask CompleteMovementById(int movementId)
+        {
+            return ExecuteMovementMutation(movementId, delegate
+            {
+                TaskHelper.CompleteMovement(movementId);
+            });
+        }
+
+        public WCSTask CancelMovementById(int movementId)
+        {
+            return ExecuteMovementMutation(movementId, delegate
+            {
+                TaskHelper.CancleLogicMovement(movementId);
+            });
+        }
+
+        public WCSTask CompleteActionById(int actionId)
+        {
+            return ExecuteActionMutation(actionId, delegate
+            {
+                TaskHelper.CompleteAction(actionId);
+            });
+        }
+
+        public WCSTask CancelActionById(int actionId)
+        {
+            return ExecuteActionMutation(actionId, delegate
+            {
+                TaskHelper.CancleEquipmentAction(actionId);
+            });
+        }
+
         public WCSTask CompleteTaskById(int taskId)
         {
             return ExecuteTaskMutation(taskId, delegate
@@ -205,6 +237,46 @@ namespace ZHQXC
             });
         }
 
+        static WCSTask ExecuteMovementMutation(int movementId, Action operation)
+        {
+            if (movementId <= 0)
+            {
+                throw new ArgumentOutOfRangeException("movementId");
+            }
+
+            return ExecuteWithTaskUpdate(delegate
+            {
+                int taskId = LoadTaskIdFromMovement(movementId);
+                if (taskId <= 0)
+                {
+                    throw new ArgumentException(string.Format("未找到逻辑动作 {0}", movementId), "movementId");
+                }
+
+                operation();
+                return ToTaskDto(LoadTaskById(taskId));
+            });
+        }
+
+        static WCSTask ExecuteActionMutation(int actionId, Action operation)
+        {
+            if (actionId <= 0)
+            {
+                throw new ArgumentOutOfRangeException("actionId");
+            }
+
+            return ExecuteWithTaskUpdate(delegate
+            {
+                int taskId = LoadTaskIdFromAction(actionId);
+                if (taskId <= 0)
+                {
+                    throw new ArgumentException(string.Format("未找到物理动作 {0}", actionId), "actionId");
+                }
+
+                operation();
+                return ToTaskDto(LoadTaskById(taskId));
+            });
+        }
+
         static T ExecuteWithTaskUpdate<T>(Func<T> operation)
         {
             string holderMessage = string.Empty;
@@ -240,6 +312,30 @@ namespace ZHQXC
                 Task task = unitOfWork.session.Query<Task>().FirstOrDefault(x => x.TaskCode == taskCode);
                 unitOfWork.Commit();
                 return task;
+            }
+        }
+
+        static int LoadTaskIdFromMovement(int movementId)
+        {
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
+            {
+                LogicMovement movement = unitOfWork.session.Get<LogicMovement>(movementId);
+                int taskId = movement == null || movement.Task == null ? 0 : movement.Task.Id;
+                unitOfWork.Commit();
+                return taskId;
+            }
+        }
+
+        static int LoadTaskIdFromAction(int actionId)
+        {
+            using (NHUnitOfWork unitOfWork = new NHUnitOfWork(System.Data.IsolationLevel.ReadUncommitted))
+            {
+                EquipmentAction action = unitOfWork.session.Get<EquipmentAction>(actionId);
+                int taskId = action == null || action.Movement == null || action.Movement.Task == null
+                    ? 0
+                    : action.Movement.Task.Id;
+                unitOfWork.Commit();
+                return taskId;
             }
         }
 
