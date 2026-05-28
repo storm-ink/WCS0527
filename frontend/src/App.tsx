@@ -79,12 +79,17 @@ function App() {
   }, [])
 
   useEffect(() => {
-    void refreshData()
+    const kickoff = window.setTimeout(() => {
+      void refreshData()
+    }, 0)
     const timer = window.setInterval(() => {
       void refreshData()
     }, gatewayConfig.pollIntervalMs)
 
-    return () => window.clearInterval(timer)
+    return () => {
+      window.clearTimeout(kickoff)
+      window.clearInterval(timer)
+    }
   }, [refreshData])
 
   const dashboard = useMemo(() => buildDashboard(tasks, devices), [tasks, devices])
@@ -320,18 +325,23 @@ function TasksPage({
     })
   }, [keyword, statusFilter, tasks])
 
-  useEffect(() => {
-    if (filteredTasks.length === 0) {
-      setSelectedTaskCode('')
-      return
-    }
+  const effectiveSelectedTaskCode =
+    filteredTasks.length > 0 && filteredTasks.some((item) => item.taskCode === selectedTaskCode)
+      ? selectedTaskCode
+      : filteredTasks[0]?.taskCode ?? ''
 
-    if (!filteredTasks.some((item) => item.taskCode === selectedTaskCode)) {
-      setSelectedTaskCode(filteredTasks[0].taskCode)
-    }
-  }, [filteredTasks, selectedTaskCode])
+  const selectedTask = filteredTasks.find((item) => item.taskCode === effectiveSelectedTaskCode)
 
-  const selectedTask = filteredTasks.find((item) => item.taskCode === selectedTaskCode)
+  const handleAction = async (
+    task: WcsTask,
+    action: 'suspend' | 'cancel' | 'resume' | 'archive' | 'complete',
+    currentUserCode?: string,
+  ) => {
+    await onTaskAction(task, action, currentUserCode)
+    if (action === 'resume') {
+      setResumeLocation('')
+    }
+  }
 
   return (
     <section className="page">
@@ -381,7 +391,7 @@ function TasksPage({
                 {filteredTasks.map((task) => (
                   <tr
                     key={task.taskCode}
-                    className={task.taskCode === selectedTaskCode ? 'is-selected' : ''}
+                    className={task.taskCode === effectiveSelectedTaskCode ? 'is-selected' : ''}
                     onClick={() => setSelectedTaskCode(task.taskCode)}
                   >
                     <td>{task.taskCode}</td>
@@ -412,6 +422,7 @@ function TasksPage({
                 <DetailItem label="任务类型" value={selectedTask.taskType || '--'} />
                 <DetailItem label="创建时间" value={formatDate(selectedTask.createdAt)} />
                 <DetailItem label="结束时间" value={formatDate(selectedTask.finishedAt)} />
+                <DetailItem label="任务状态" value={taskStatusLabel[selectedTask.status]} />
                 <DetailItem label="起点" value={selectedTask.startLocation.userCode} />
                 <DetailItem label="终点" value={selectedTask.endLocation.userCode} />
                 <DetailItem label="当前位置" value={selectedTask.currentLocation.userCode} />
@@ -419,31 +430,45 @@ function TasksPage({
               </div>
 
               <div className="task-actions">
-                <button type="button" onClick={() => void onTaskAction(selectedTask, 'suspend')} disabled={selectedTask.status !== 'New' && selectedTask.status !== 'Executing' && selectedTask.status !== 'Sent'}>
-                  暂停
-                </button>
-                <button type="button" onClick={() => void onTaskAction(selectedTask, 'cancel')} disabled={selectedTask.status !== 'Suspend' && selectedTask.status !== 'Error'}>
-                  取消
-                </button>
-                <button type="button" onClick={() => void onTaskAction(selectedTask, 'complete')} disabled={selectedTask.status !== 'Suspend' && selectedTask.status !== 'Error'}>
-                  强制完成
-                </button>
-                <button type="button" onClick={() => void onTaskAction(selectedTask, 'archive')} disabled={selectedTask.status !== 'Completed' && selectedTask.status !== 'Cancelled'}>
-                  归档
-                </button>
+                {selectedTask.status === 'New' || selectedTask.status === 'Executing' || selectedTask.status === 'Sent' ? (
+                  <button type="button" onClick={() => void handleAction(selectedTask, 'suspend')}>
+                    暂停
+                  </button>
+                ) : null}
+                {selectedTask.status === 'Suspend' || selectedTask.status === 'Error' ? (
+                  <>
+                    <button type="button" onClick={() => void handleAction(selectedTask, 'cancel')}>
+                      取消
+                    </button>
+                    <button type="button" onClick={() => void handleAction(selectedTask, 'complete')}>
+                      强制完成
+                    </button>
+                  </>
+                ) : null}
+                {selectedTask.status === 'Completed' || selectedTask.status === 'Cancelled' ? (
+                  <button type="button" onClick={() => void handleAction(selectedTask, 'archive')}>
+                    归档
+                  </button>
+                ) : null}
               </div>
 
-              <div className="resume-box">
-                <input
-                  className="search-input"
-                  placeholder="继续执行时可选填当前位置"
-                  value={resumeLocation}
-                  onChange={(event) => setResumeLocation(event.target.value)}
-                />
-                <button type="button" className="primary-button" onClick={() => void onTaskAction(selectedTask, 'resume', resumeLocation)} disabled={selectedTask.status !== 'Suspend' && selectedTask.status !== 'Error'}>
-                  继续执行
-                </button>
-              </div>
+              {selectedTask.status === 'Suspend' || selectedTask.status === 'Error' ? (
+                <div className="resume-box">
+                  <input
+                    className="search-input"
+                    placeholder="继续执行时可选填当前位置"
+                    value={resumeLocation}
+                    onChange={(event) => setResumeLocation(event.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="primary-button"
+                    onClick={() => void handleAction(selectedTask, 'resume', resumeLocation)}
+                  >
+                    继续执行
+                  </button>
+                </div>
+              ) : null}
 
               <section className="timeline">
                 <h5>Movements & Actions</h5>
