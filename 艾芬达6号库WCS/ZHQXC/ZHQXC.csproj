@@ -233,8 +233,10 @@
     <Compile Include="WebAPI\Base\UserResolver.cs" />
     <Compile Include="WebAPI\Base\WebApiRequestHelper.cs" />
     <Compile Include="WebAPI\Base\WebApiSelfHostHelper.cs" />
+    <Compile Include="WebAPI\Application\AgvIntegrationApplicationService.cs" />
     <Compile Include="WebAPI\Application\OperationsDeviceApplicationService.cs" />
     <Compile Include="WebAPI\Application\OperationsTaskApplicationService.cs" />
+    <Compile Include="WebAPI\Application\WmsIntegrationApplicationService.cs" />
     <Compile Include="WebAPI\Entity\DeviceLockerHand.cs" />
     <Compile Include="WebAPI\Entity\HistogramDto.cs" />
     <Compile Include="WebAPI\Entity\HistoryTaskQueryCriteria.cs" />
@@ -264,6 +266,8 @@
     <Compile Include="WebAPI\Interfaces\ReqeustPLCHelper.cs" />
     <Compile Include="WebAPI\Interfaces\ReqeustWMSHelper.cs" />
     <Compile Include="WebAPI\Controller\StatisticsController.cs" />
+    <Compile Include="WebAPI\Controller\IntegrationsAgvController.cs" />
+    <Compile Include="WebAPI\Controller\IntegrationsWmsController.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\ReplyDto\AlarmReportReply.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\ReplyDto\AssignEquipTaskReply.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\ReplyDto\EquipmentStatusReportReply.cs" />
