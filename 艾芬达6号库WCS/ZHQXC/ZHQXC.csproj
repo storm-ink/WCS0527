@@ -233,10 +233,15 @@
     <Compile Include="WebAPI\Base\UserResolver.cs" />
     <Compile Include="WebAPI\Base\WebApiRequestHelper.cs" />
     <Compile Include="WebAPI\Base\WebApiSelfHostHelper.cs" />
+    <Compile Include="WebAPI\Application\AgvIntegrationApplicationService.cs" />
+    <Compile Include="WebAPI\Application\OperationsDeviceApplicationService.cs" />
+    <Compile Include="WebAPI\Application\OperationsTaskApplicationService.cs" />
+    <Compile Include="WebAPI\Application\WmsIntegrationApplicationService.cs" />
     <Compile Include="WebAPI\Entity\DeviceLockerHand.cs" />
     <Compile Include="WebAPI\Entity\HistogramDto.cs" />
     <Compile Include="WebAPI\Entity\HistoryTaskQueryCriteria.cs" />
     <Compile Include="WebAPI\Entity\MessageDto.cs" />
+    <Compile Include="WebAPI\Entity\OperationsApiDtos.cs" />
     <Compile Include="WebAPI\Entity\PackingKeyFosbDataTask.cs" />
     <Compile Include="WebAPI\Entity\PackingKeyFosbDataTaskHistory.cs" />
     <Compile Include="WebAPI\Entity\PieChartDto.cs" />
@@ -248,6 +253,7 @@
     <Compile Include="WebAPI\Entity\SingleForkCraneRemoteHand.cs" />
     <Compile Include="WebAPI\Entity\StatisticsDto.cs" />
     <Compile Include="WebAPI\Entity\TableDto.cs" />
+    <Compile Include="WebAPI\Entity\UnifiedApiResponse.cs" />
     <Compile Include="WebAPI\Entity\RequestUpTask.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\RequestDto\CaptureCompleteRequest.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\RequestDto\IssueNonCompliantRequest.cs" />
@@ -260,6 +266,9 @@
     <Compile Include="WebAPI\Interfaces\ReqeustPLCHelper.cs" />
     <Compile Include="WebAPI\Interfaces\ReqeustWMSHelper.cs" />
     <Compile Include="WebAPI\Controller\StatisticsController.cs" />
+    <Compile Include="WebAPI\Controller\OperationsActionsController.cs" />
+    <Compile Include="WebAPI\Controller\IntegrationsAgvController.cs" />
+    <Compile Include="WebAPI\Controller\IntegrationsWmsController.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\ReplyDto\AlarmReportReply.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\ReplyDto\AssignEquipTaskReply.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\ReplyDto\EquipmentStatusReportReply.cs" />
@@ -283,6 +292,9 @@
     <Compile Include="WebAPI\Entity\WCSDto\RequestDto\PalletSupplyRequest.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\RequestDto\RequestBase.cs" />
     <Compile Include="WebAPI\Entity\WCSDto\RequestDto\TunnelEquipmentStatusReportRequest.cs" />
+    <Compile Include="WebAPI\Controller\OperationsMovementsController.cs" />
+    <Compile Include="WebAPI\Controller\OperationsDevicesController.cs" />
+    <Compile Include="WebAPI\Controller\OperationsTasksController.cs" />
     <Compile Include="启动程序\立库\AutoClearHoldSingleRequestTaskStartUp_1001.cs" />
     <Compile Include="启动程序\立库\AutoClearHoldSingleRequestTaskStartUp_1002.cs" />
     <Compile Include="启动程序\ConveyorTaskCompletedEventHandlerStartUp.cs" />
