@@ -3,11 +3,15 @@ import type { FormEvent } from 'react'
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import {
+  changeTaskPriority,
   createManualTask,
   getGatewayConfig,
   listDevices,
   listTasks,
+  mutateAction,
+  mutateMovement,
   mutateTask,
+  setDeviceConnection,
   setDeviceLock,
 } from './services/wcsGateway'
 import type {
@@ -54,6 +58,22 @@ function buildDashboard(tasks: WcsTask[], devices: OperationsDevice[]): Dashboar
     lockedDevices: devices.filter((item) => item.isLocked).length,
     taskableDevices: devices.filter((item) => item.isTaskable).length,
   }
+}
+
+function formatFlowStatus(status: number) {
+  if (status === 2) {
+    return '已完成'
+  }
+
+  if (status === -1) {
+    return '已取消'
+  }
+
+  if (status === 1) {
+    return '执行中'
+  }
+
+  return `状态 ${status}`
 }
 
 function App() {
@@ -115,6 +135,58 @@ function App() {
         setNotice(`${device.name} 已${lockDevice ? '锁定' : '解锁'}`)
       } catch (requestError) {
         setError(requestError instanceof Error ? requestError.message : '设备操作失败')
+      }
+    },
+    [refreshData],
+  )
+
+  const handleDeviceConnection = useCallback(
+    async (device: OperationsDevice, connectDevice: boolean) => {
+      try {
+        await setDeviceConnection(device, connectDevice)
+        await refreshData()
+        setNotice(`${device.name} 已${connectDevice ? '连接' : '断开'}`)
+      } catch (requestError) {
+        setError(requestError instanceof Error ? requestError.message : '设备连接操作失败')
+      }
+    },
+    [refreshData],
+  )
+
+  const handleTaskPriorityChange = useCallback(
+    async (task: WcsTask, priority: number) => {
+      try {
+        await changeTaskPriority(task, priority)
+        await refreshData()
+        setNotice(`任务 ${task.taskCode} 优先级已更新为 ${priority}`)
+      } catch (requestError) {
+        setError(requestError instanceof Error ? requestError.message : '任务优先级更新失败')
+      }
+    },
+    [refreshData],
+  )
+
+  const handleMovementAction = useCallback(
+    async (task: WcsTask, movementId: number, action: 'complete' | 'cancel') => {
+      try {
+        await mutateMovement(task, movementId, action)
+        await refreshData()
+        setNotice(`逻辑动作 #${movementId} 已${action === 'complete' ? '完成' : '取消'}`)
+      } catch (requestError) {
+        setError(requestError instanceof Error ? requestError.message : '逻辑动作操作失败')
+      }
+    },
+    [refreshData],
+  )
+
+  const handleEquipmentAction = useCallback(
+    async (task: WcsTask, actionId: number, action: 'complete' | 'cancel') => {
+      try {
+        await mutateAction(task, actionId, action)
+        await refreshData()
+        setNotice(`物理动作 #${actionId} 已${action === 'complete' ? '完成' : '取消'}`)
+      } catch (requestError) {
+        setError(requestError instanceof Error ? requestError.message : '物理动作操作失败')
       }
     },
     [refreshData],
@@ -190,11 +262,27 @@ function App() {
           />
           <Route
             path="/tasks"
-            element={<TasksPage tasks={tasks} loading={loading} onTaskAction={handleTaskAction} />}
+            element={
+              <TasksPage
+                tasks={tasks}
+                loading={loading}
+                onTaskAction={handleTaskAction}
+                onTaskPriorityChange={handleTaskPriorityChange}
+                onMovementAction={handleMovementAction}
+                onEquipmentAction={handleEquipmentAction}
+              />
+            }
           />
           <Route
             path="/devices"
-            element={<DevicesPage devices={devices} loading={loading} onDeviceLock={handleDeviceLock} />}
+            element={
+              <DevicesPage
+                devices={devices}
+                loading={loading}
+                onDeviceLock={handleDeviceLock}
+                onDeviceConnection={handleDeviceConnection}
+              />
+            }
           />
           <Route
             path="/manual-task"
@@ -302,15 +390,22 @@ function TasksPage({
   tasks,
   loading,
   onTaskAction,
+  onTaskPriorityChange,
+  onMovementAction,
+  onEquipmentAction,
 }: {
   tasks: WcsTask[]
   loading: boolean
   onTaskAction: (task: WcsTask, action: 'suspend' | 'cancel' | 'resume' | 'archive' | 'complete', currentUserCode?: string) => Promise<void>
+  onTaskPriorityChange: (task: WcsTask, priority: number) => Promise<void>
+  onMovementAction: (task: WcsTask, movementId: number, action: 'complete' | 'cancel') => Promise<void>
+  onEquipmentAction: (task: WcsTask, actionId: number, action: 'complete' | 'cancel') => Promise<void>
 }) {
   const [keyword, setKeyword] = useState('')
   const [statusFilter, setStatusFilter] = useState<'all' | TaskStatus>('all')
   const [selectedTaskCode, setSelectedTaskCode] = useState('')
   const [resumeLocation, setResumeLocation] = useState('')
+  const [priorityEdits, setPriorityEdits] = useState<Record<string, string>>({})
 
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
@@ -331,6 +426,7 @@ function TasksPage({
       : filteredTasks[0]?.taskCode ?? ''
 
   const selectedTask = filteredTasks.find((item) => item.taskCode === effectiveSelectedTaskCode)
+  const priorityDraft = selectedTask ? priorityEdits[selectedTask.taskCode] ?? String(selectedTask.priority) : ''
 
   const handleAction = async (
     task: WcsTask,
@@ -429,6 +525,30 @@ function TasksPage({
                 <DetailItem label="载具编码" value={selectedTask.containerCodes.join(', ') || '--'} />
               </div>
 
+              <div className="priority-box">
+                <input
+                  className="search-input"
+                  type="number"
+                  min={0}
+                  value={priorityDraft}
+                  onChange={(event) =>
+                    setPriorityEdits((current) => ({
+                      ...current,
+                      [selectedTask.taskCode]: event.target.value,
+                    }))
+                  }
+                  placeholder="任务优先级"
+                />
+                <button
+                  type="button"
+                  className="ghost-button"
+                  onClick={() => void onTaskPriorityChange(selectedTask, Number(priorityDraft))}
+                  disabled={priorityDraft.trim() === '' || Number.isNaN(Number(priorityDraft))}
+                >
+                  更新优先级
+                </button>
+              </div>
+
               <div className="task-actions">
                 {selectedTask.status === 'New' || selectedTask.status === 'Executing' || selectedTask.status === 'Sent' ? (
                   <button type="button" onClick={() => void handleAction(selectedTask, 'suspend')}>
@@ -484,13 +604,33 @@ function TasksPage({
                         </span>
                       </div>
                       <p className="timeline-meta">
-                        设备：{movement.deviceName} / Route：{movement.routeId ?? '--'} / 状态：{movement.status}
+                        设备：{movement.deviceName} / Route：{movement.routeId ?? '--'} / 状态：{formatFlowStatus(movement.status)}
                       </p>
+                      <div className="timeline-actions timeline-actions--controls">
+                        <button type="button" className="ghost-button" onClick={() => void onMovementAction(selectedTask, movement.id, 'complete')}>
+                          完成 movement
+                        </button>
+                        <button type="button" className="ghost-button" onClick={() => void onMovementAction(selectedTask, movement.id, 'cancel')}>
+                          取消 movement
+                        </button>
+                      </div>
                       <div className="timeline-actions">
                         {movement.equipmentActions.map((action) => (
                           <div key={action.id} className="timeline-chip">
                             <span>Action #{action.id}</span>
-                            <small>{action.description}</small>
+                            <small>
+                              {action.description}
+                              {' / '}
+                              {formatFlowStatus(action.status)}
+                            </small>
+                            <div className="timeline-chip__actions">
+                              <button type="button" className="ghost-button" onClick={() => void onEquipmentAction(selectedTask, action.id, 'complete')}>
+                                完成 action
+                              </button>
+                              <button type="button" className="ghost-button" onClick={() => void onEquipmentAction(selectedTask, action.id, 'cancel')}>
+                                取消 action
+                              </button>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -512,10 +652,12 @@ function DevicesPage({
   devices,
   loading,
   onDeviceLock,
+  onDeviceConnection,
 }: {
   devices: OperationsDevice[]
   loading: boolean
   onDeviceLock: (device: OperationsDevice, lockDevice: boolean) => Promise<void>
+  onDeviceConnection: (device: OperationsDevice, connectDevice: boolean) => Promise<void>
 }) {
   const [keyword, setKeyword] = useState('')
 
@@ -566,6 +708,13 @@ function DevicesPage({
             </div>
 
             <div className="device-card__actions">
+              <button
+                type="button"
+                className="ghost-button"
+                onClick={() => void onDeviceConnection(device, !device.isConnected)}
+              >
+                {device.isConnected ? '断开设备' : '连接设备'}
+              </button>
               <button
                 type="button"
                 className={device.isLocked ? 'ghost-button' : 'primary-button'}

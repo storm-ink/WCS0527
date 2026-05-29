@@ -5,6 +5,11 @@ namespace ZHQXC
         public string CurrentUserCode { get; set; }
     }
 
+    public class ChangeTaskPriorityRequest
+    {
+        public int Priority { get; set; }
+    }
+
     public class OperationsDeviceDto
     {
         public string Name { get; set; }
@@ -20,5 +25,12 @@ namespace ZHQXC
         public string LockerIp { get; set; }
 
         public bool IsTaskable { get; set; }
+    }
+
+    internal class OperationsDeviceCommandResult
+    {
+        public bool Result { get; set; }
+
+        public string Message { get; set; }
     }
 }

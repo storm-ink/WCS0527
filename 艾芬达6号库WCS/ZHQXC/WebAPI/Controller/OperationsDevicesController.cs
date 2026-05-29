@@ -52,6 +52,20 @@ namespace ZHQXC
             return ExecuteDeviceLock(deviceName, false, "ops_device_unlock_failed");
         }
 
+        [Route("{deviceName}/connect")]
+        [HttpPost]
+        public IHttpActionResult ConnectDevice(string deviceName)
+        {
+            return ExecuteDeviceConnection(deviceName, true, "ops_device_connect_failed");
+        }
+
+        [Route("{deviceName}/disconnect")]
+        [HttpPost]
+        public IHttpActionResult DisconnectDevice(string deviceName)
+        {
+            return ExecuteDeviceConnection(deviceName, false, "ops_device_disconnect_failed");
+        }
+
         IHttpActionResult ExecuteDeviceLock(string deviceName, bool lockDevice, string errorCode)
         {
             if (string.IsNullOrWhiteSpace(deviceName))
@@ -63,6 +77,31 @@ namespace ZHQXC
             try
             {
                 DeviceLockerHand result = _deviceService.SetDeviceLock(deviceName, lockDevice);
+                if (!result.Result)
+                {
+                    return Content(HttpStatusCode.Conflict, UnifiedApiResponse.Fail(errorCode, result.Message));
+                }
+
+                return Content(HttpStatusCode.OK, UnifiedApiResponse.Ok(_deviceService.GetDevice(deviceName), result.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.Error1(ex, this);
+                return Content(HttpStatusCode.InternalServerError, UnifiedApiResponse.Fail(errorCode, ex.Message));
+            }
+        }
+
+        IHttpActionResult ExecuteDeviceConnection(string deviceName, bool connectDevice, string errorCode)
+        {
+            if (string.IsNullOrWhiteSpace(deviceName))
+            {
+                return Content(HttpStatusCode.BadRequest,
+                    UnifiedApiResponse.Fail("common_validation_error", "deviceName 不可为空", new UnifiedApiError("deviceName", "deviceName 不可为空")));
+            }
+
+            try
+            {
+                OperationsDeviceCommandResult result = _deviceService.SetDeviceConnection(deviceName, connectDevice);
                 if (!result.Result)
                 {
                     return Content(HttpStatusCode.Conflict, UnifiedApiResponse.Fail(errorCode, result.Message));

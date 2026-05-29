@@ -183,6 +183,22 @@ namespace ZHQXC
             });
         }
 
+        public WCSTask ChangePriorityById(int taskId, int priority)
+        {
+            return ExecuteTaskMutation(taskId, delegate
+            {
+                ChangeTaskPriority(taskId, priority);
+            });
+        }
+
+        public WCSTask ChangePriorityByCode(string taskCode, int priority)
+        {
+            return ExecuteTaskMutationByCode(taskCode, delegate(int taskId)
+            {
+                ChangeTaskPriority(taskId, priority);
+            });
+        }
+
         public WCSTask ArchiveTaskById(int taskId)
         {
             return ExecuteTaskMutation(taskId, delegate
@@ -207,6 +223,27 @@ namespace ZHQXC
             }
 
             return LocationConverter.UserCodeToLcation(currentUserCode);
+        }
+
+        static void ChangeTaskPriority(int taskId, int priority)
+        {
+            if (priority < 0)
+            {
+                throw new ArgumentOutOfRangeException("priority", "priority 必须大于或等于 0");
+            }
+
+            Task task = LoadTaskById(taskId);
+            if (task == null)
+            {
+                throw new TaskNotFoundException(taskId);
+            }
+
+            if (task.Status == TaskStatus.Cancelled || task.Status == TaskStatus.Completed || task.Status == TaskStatus.Executing)
+            {
+                throw new InvalidOperationException(string.Format("任务 {0} 当前状态不可修改优先级", task.TaskCode));
+            }
+
+            TaskHelper.ChangePriority(priority, task.Id);
         }
 
         static WCSTask ExecuteTaskMutationByCode(string taskCode, Action<int> operation)

@@ -74,6 +74,44 @@ namespace ZHQXC
             return result;
         }
 
+        public OperationsDeviceCommandResult SetDeviceConnection(string deviceName, bool connectDevice)
+        {
+            OperationsDeviceCommandResult result = new OperationsDeviceCommandResult();
+            Device device = FindDevice(deviceName);
+            if (device == null)
+            {
+                result.Result = false;
+                result.Message = "未找到对应设备，请确认后重试";
+                return result;
+            }
+
+            if (connectDevice)
+            {
+                if (device.IsConnected)
+                {
+                    result.Result = true;
+                    result.Message = "设备已连接";
+                    return result;
+                }
+
+                result.Result = device.Connect();
+                result.Message = result.Result ? "连接成功" : "连接失败";
+                return result;
+            }
+
+            if (!device.IsConnected)
+            {
+                result.Result = true;
+                result.Message = "设备已断开";
+                return result;
+            }
+
+            device.Disconnect();
+            result.Result = true;
+            result.Message = "断开成功";
+            return result;
+        }
+
         static IEnumerable<Device> GetConfiguredDevices()
         {
             return Wcs.Framework.Cfg.WcsConfiguration.Instance.DeviceCollection.ParticularDeviceCollection

@@ -72,6 +72,7 @@
 .panel-head,
 .meta-strip,
 .toolbar,
+.priority-box,
 .task-actions,
 .resume-box,
 .device-card__head,
@@ -444,6 +445,10 @@
   flex-wrap: wrap;
 }
 
+.priority-box .search-input {
+  min-width: 160px;
+}
+
 .resume-box .search-input {
   min-width: 260px;
 }
@@ -465,6 +470,10 @@
   gap: 10px;
 }
 
+.timeline-actions--controls {
+  margin-bottom: 10px;
+}
+
 .timeline-chip {
   min-width: 180px;
   padding: 12px 14px;
@@ -481,6 +490,19 @@
 
 .timeline-chip small {
   color: #475569;
+}
+
+.timeline-chip__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.timeline-chip__actions .ghost-button,
+.timeline-actions--controls .ghost-button {
+  padding: 8px 12px;
+  font-size: 13px;
 }
 
 .device-grid {

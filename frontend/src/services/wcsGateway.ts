@@ -288,6 +288,77 @@ function updateTaskStatus(taskCode: string, nextStatus: TaskStatus, currentUserC
   })
 }
 
+function updateTaskPriority(taskCode: string, priority: number) {
+  mockTasks = mockTasks.map((task) => {
+    if (task.taskCode !== taskCode) {
+      return task
+    }
+
+    return {
+      ...task,
+      priority,
+    }
+  })
+}
+
+function updateMovementStatus(taskCode: string, movementId: number, status: number) {
+  mockTasks = mockTasks.map((task) => {
+    if (task.taskCode !== taskCode) {
+      return task
+    }
+
+    return {
+      ...task,
+      movements: task.movements.map((movement) =>
+        movement.id !== movementId
+          ? movement
+          : {
+              ...movement,
+              status,
+              finishedAt: status === 2 || status === -1 ? new Date().toISOString() : movement.finishedAt,
+            },
+      ),
+    }
+  })
+}
+
+function updateActionStatus(taskCode: string, actionId: number, status: number) {
+  mockTasks = mockTasks.map((task) => {
+    if (task.taskCode !== taskCode) {
+      return task
+    }
+
+    return {
+      ...task,
+      movements: task.movements.map((movement) => ({
+        ...movement,
+        equipmentActions: movement.equipmentActions.map((action) =>
+          action.id !== actionId
+            ? action
+            : {
+                ...action,
+                status,
+                finishedAt: status === 2 || status === -1 ? new Date().toISOString() : action.finishedAt,
+              },
+        ),
+      })),
+    }
+  })
+}
+
+function updateDeviceConnection(deviceName: string, connectDevice: boolean) {
+  mockDevices = mockDevices.map((device) => {
+    if (device.name !== deviceName) {
+      return device
+    }
+
+    return {
+      ...device,
+      isConnected: connectDevice,
+    }
+  })
+}
+
 function parseAdditionalInfo(text: string) {
   return text
     .split('\n')
@@ -417,6 +488,46 @@ export async function mutateTask(task: WcsTask, action: 'suspend' | 'cancel' | '
   return cloneTasks().find((item) => item.taskCode === task.taskCode) ?? task
 }
 
+export async function changeTaskPriority(task: WcsTask, priority: number) {
+  if (runtimeMode === 'live') {
+    const data = await request<Record<string, unknown>>(`/api/v1/operations/tasks/by-id/${task.id}/priority`, {
+      method: 'POST',
+      body: JSON.stringify({ priority }),
+    })
+    return fromApiTask(data)
+  }
+
+  await delay(180)
+  updateTaskPriority(task.taskCode, priority)
+  return cloneTasks().find((item) => item.taskCode === task.taskCode) ?? task
+}
+
+export async function mutateMovement(task: WcsTask, movementId: number, action: 'complete' | 'cancel') {
+  if (runtimeMode === 'live') {
+    const data = await request<Record<string, unknown>>(`/api/v1/operations/movements/${movementId}/${action}`, {
+      method: 'POST',
+    })
+    return fromApiTask(data)
+  }
+
+  await delay(180)
+  updateMovementStatus(task.taskCode, movementId, action === 'complete' ? 2 : -1)
+  return cloneTasks().find((item) => item.taskCode === task.taskCode) ?? task
+}
+
+export async function mutateAction(task: WcsTask, actionId: number, action: 'complete' | 'cancel') {
+  if (runtimeMode === 'live') {
+    const data = await request<Record<string, unknown>>(`/api/v1/operations/actions/${actionId}/${action}`, {
+      method: 'POST',
+    })
+    return fromApiTask(data)
+  }
+
+  await delay(180)
+  updateActionStatus(task.taskCode, actionId, action === 'complete' ? 2 : -1)
+  return cloneTasks().find((item) => item.taskCode === task.taskCode) ?? task
+}
+
 export async function setDeviceLock(device: OperationsDevice, lockDevice: boolean) {
   if (runtimeMode === 'live') {
     const suffix = lockDevice ? 'lock' : 'unlock'
@@ -440,5 +551,19 @@ export async function setDeviceLock(device: OperationsDevice, lockDevice: boolea
     }
   })
 
+  return cloneDevices().find((item) => item.name === device.name) ?? device
+}
+
+export async function setDeviceConnection(device: OperationsDevice, connectDevice: boolean) {
+  if (runtimeMode === 'live') {
+    const suffix = connectDevice ? 'connect' : 'disconnect'
+    const data = await request<Record<string, unknown>>(`/api/v1/operations/devices/${encodeURIComponent(device.name)}/${suffix}`, {
+      method: 'POST',
+    })
+    return fromApiDevice(data)
+  }
+
+  await delay(180)
+  updateDeviceConnection(device.name, connectDevice)
   return cloneDevices().find((item) => item.name === device.name) ?? device
 }

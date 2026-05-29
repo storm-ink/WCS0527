@@ -121,6 +121,23 @@ namespace ZHQXC
                 "任务已归档");
         }
 
+        [Route("by-id/{taskId:int}/priority")]
+        [HttpPost]
+        public IHttpActionResult ChangeTaskPriority(int taskId, [FromBody] ChangeTaskPriorityRequest request)
+        {
+            if (request == null)
+            {
+                return Content(HttpStatusCode.BadRequest,
+                    UnifiedApiResponse.Fail("common_validation_error", "请求体不可为空", new UnifiedApiError("body", "请求体不可为空")));
+            }
+
+            return ExecuteTaskMutationById(
+                taskId,
+                delegate { return _taskService.ChangePriorityById(taskId, request.Priority); },
+                "ops_task_priority_change_failed",
+                "任务优先级已更新");
+        }
+
         [Route("by-id/{taskId:int}/complete")]
         [HttpPost]
         public IHttpActionResult CompleteTask(int taskId)
@@ -175,6 +192,11 @@ namespace ZHQXC
                     return Content(HttpStatusCode.NotFound, UnifiedApiResponse.Fail("ops_task_not_found", ex.Message));
                 }
 
+                if (ex is InvalidOperationException)
+                {
+                    return Content(HttpStatusCode.Conflict, UnifiedApiResponse.Fail(errorCode, ex.Message));
+                }
+
                 if (ex is ArgumentException || ex is ArgumentNullException)
                 {
                     return Content(HttpStatusCode.BadRequest, UnifiedApiResponse.Fail("common_validation_error", ex.Message));
@@ -208,6 +230,11 @@ namespace ZHQXC
                 if (ex is TaskNotFoundException)
                 {
                     return Content(HttpStatusCode.NotFound, UnifiedApiResponse.Fail("ops_task_not_found", ex.Message));
+                }
+
+                if (ex is InvalidOperationException)
+                {
+                    return Content(HttpStatusCode.Conflict, UnifiedApiResponse.Fail(errorCode, ex.Message));
                 }
 
                 if (ex is ArgumentException || ex is ArgumentNullException)
